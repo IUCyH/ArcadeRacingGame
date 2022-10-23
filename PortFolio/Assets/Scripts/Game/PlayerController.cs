@@ -79,21 +79,9 @@ public class PlayerController : MonoBehaviour
     bool m_isStart; //시작했는지 알려주는 boolean 변수
     [Header("UI")]
     [SerializeField]
-    AnimationCurve m_scaleCurve = AnimationCurve.Linear(0f, 0f, 1f, 1f);
-    [SerializeField]
-    AnimationCurve m_alphaCurve = AnimationCurve.Linear(0f, 0f, 1f, 1f);
-    [SerializeField]
-    Canvas m_countCanvas;
-    [SerializeField]
-    Text m_countText;
-    [SerializeField]
     Text m_speedText;
     [SerializeField]
-    Text m_timerText;
-    [SerializeField]
     Slider m_boosterBar;
-    [SerializeField]
-    Canvas m_dashBoardCanvas;
     [SerializeField]
     Image[] m_boosterIcons = new Image[2];
     bool m_isBooster;
@@ -106,64 +94,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float m_boosterTime = 2f;
     [SerializeField]
-    float m_duration = 0.5f;
-    [SerializeField]
-    float m_timer = 0f;
-    [SerializeField]
     int m_boosterMaxCnt = 2;
     [SerializeField]
     int m_boosterCnt = 0;
-    float m_maxScale = 1f;
-    float m_minScale = 0.5f;
-    float m_alphaFrom = 1f;
-    float m_alphaTo = 0f;
 
-    IEnumerator Coroutine_CountDown()
-    {
-        float time = 0f;
-        int cnt = 3;
-        while(true)
-        {
-            var scaleValue = m_scaleCurve.Evaluate(time);
-            var scale = m_minScale * (1f - scaleValue) + m_maxScale * scaleValue;
-            m_countText.text = cnt.ToString();
-            m_countText.transform.localScale = new Vector3(scale, scale, scale);
-            time += Time.deltaTime;
-
-            if(time > 1f)
-            {
-                cnt--;
-                time = 0f;
-            }
-            if(cnt < 1)
-            {
-                m_timer -= 3f;
-                m_isStart = true;
-                m_dashBoardCanvas.enabled = true;
-                StartCoroutine(Coroutine_StartBoost());
-                StartCoroutine(Coroutine_Fadeout());
-                yield break;
-            }
-            yield return null;
-        }
-    }
-    IEnumerator Coroutine_Fadeout()
-    {
-        float time = 0f;
-        while (true)
-        {
-            var alphaValue = m_alphaCurve.Evaluate(time);
-            var alpha = m_alphaFrom * (1f - alphaValue) + m_alphaTo * alphaValue;
-            m_countText.color = new Color(1f, 1f, 1f, alpha);
-            time += Time.deltaTime / m_duration;
-            if (time > 1f)
-            {
-                m_countCanvas.enabled = false;
-                yield break;
-            }
-            yield return null;
-        }
-    }
+    public bool IsStart { get { return m_isStart; } set { m_isStart = value; } }
     IEnumerator Coroutine_StartBoost()
     {
         float time = 0f;
@@ -180,6 +115,10 @@ public class PlayerController : MonoBehaviour
                 yield break;
             yield return null;
         }
+    }
+    public void CorutineStart(string name)
+    {
+        StartCoroutine(name);
     }
     void SetState(State state)
     {
@@ -292,16 +231,6 @@ public class PlayerController : MonoBehaviour
             m_playerRb.AddForceAtPosition(m_wheelCollider[3].transform.up * force, m_wheelCollider[3].transform.position);
         }
     }
-    void Timer()
-    {
-        m_sb.Clear();
-        m_timer += Time.deltaTime;
-        int minute = Mathf.FloorToInt(m_timer / 60f);
-        int second = (int)m_timer % 60;
-        int millisecond = (int)(m_timer * 100) % 100;
-        m_sb.AppendFormat("<b>TIME</b>  /  {0:00}:{1:00}:{2:00}", minute, second, millisecond);
-        m_timerText.text = m_sb.ToString();
-    }
     void Start()
     {
         m_playerRb.centerOfMass = m_center.localPosition;
@@ -312,16 +241,13 @@ public class PlayerController : MonoBehaviour
         m_sFricBackLeftWheel = m_wheelColliderCtr[2].SideWayFriction;
         m_fFricBackRightWheel = m_wheelColliderCtr[3].ForwardFriction;
         m_sFricBackRightWheel = m_wheelColliderCtr[3].SideWayFriction;
-        m_dashBoardCanvas.enabled = false;
         m_boosterIcons[0].enabled = m_boosterIcons[1].enabled = false;
         m_state = State.Defult;
-        StartCoroutine(Coroutine_CountDown());
         InitWheelPos();
     }
 
     void Update()
     {
-        Timer();
         Debug.Log("State : " + m_state);
         var speed = m_playerRb.velocity.magnitude * 3.6f;
         m_sb.Clear();
