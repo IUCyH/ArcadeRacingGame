@@ -248,7 +248,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("State : " + m_state);
+        //Debug.Log("State : " + m_state);
         var speed = m_playerRb.velocity.magnitude * 3.6f;
         m_sb.Clear();
         m_sb.AppendFormat("{0:0.0} km / h", speed);

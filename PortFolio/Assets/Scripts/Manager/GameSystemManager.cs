@@ -8,6 +8,23 @@ public class GameSystemManager : Singleton<GameSystemManager>
 {
     [SerializeField]
     StringBuilder m_sb = new StringBuilder();
+    [Tooltip("Check Points List")]
+    [SerializeField]
+    CheckpointController[] m_checkPoints;
+    [SerializeField]
+    GameObject m_checkPointObj;
+    [SerializeField]
+    MapController m_map;
+    [SerializeField]
+    int m_checkPointsLength;
+    [SerializeField]
+    int m_lapTime = 0;
+    [SerializeField]
+    int m_mapLapTime;
+    [SerializeField]
+    int m_currCheckPoint;
+    [SerializeField]
+    int m_nextCheckPoint;
     [Header("Player")]
     [SerializeField]
     PlayerController m_player;
@@ -36,8 +53,8 @@ public class GameSystemManager : Singleton<GameSystemManager>
     float m_minScale = 0.5f; //start scale value
     float m_alphaFrom = 1f; //start alpha value
     float m_alphaTo = 0f; //target alpha value
-    bool m_isStart;
 
+    public bool IsEnd { get { return m_lapTime == m_mapLapTime && m_currCheckPoint == m_checkPointsLength - 1; } }
     IEnumerator Coroutine_CountDown()
     {
         float time = 0f;
@@ -57,7 +74,6 @@ public class GameSystemManager : Singleton<GameSystemManager>
             }
             if (cnt < 1)
             {
-                m_isStart = true;
                 m_dashBoardCanvas.enabled = true;
                 m_player.IsStart = true;
                 m_timer = 0f;
@@ -95,10 +111,27 @@ public class GameSystemManager : Singleton<GameSystemManager>
         m_sb.AppendFormat("<b>TIME</b>  /  {0:00}:{1:00}:{2:00}", minute, second, millisecond);
         m_timerText.text = m_sb.ToString();
     }
+    public void OnTroughCheckPoint(int checkNum)
+    {
+        if(checkNum == m_nextCheckPoint)
+        {
+            m_nextCheckPoint = (m_nextCheckPoint + 1) % m_checkPointsLength;
+            if(!IsEnd)
+                m_currCheckPoint = checkNum;
+        }
+    }
     protected override void OnAwake()
     {
         m_dashBoardCanvas.enabled = false;
         StartCoroutine(Coroutine_CountDown());
+    }
+    protected override void OnStart()
+    {
+        m_checkPoints = m_checkPointObj.GetComponentsInChildren<CheckpointController>();
+        m_checkPointsLength = m_checkPoints.Length;
+        m_mapLapTime = m_map.LapTime;
+        m_currCheckPoint = 0;
+        m_nextCheckPoint = 0;
     }
     // Update is called once per frame
     void Update()
