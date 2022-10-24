@@ -25,6 +25,10 @@ public class GameSystemManager : Singleton<GameSystemManager>
     int m_mapLapTime;
     [SerializeField]
     int m_nextCheckPoint;
+    [SerializeField]
+    float m_prevDist;
+    [SerializeField]
+    float m_currDist;
     [Header("Player")]
     [SerializeField]
     PlayerController m_player;
@@ -123,13 +127,35 @@ public class GameSystemManager : Singleton<GameSystemManager>
             m_checkPointList[checkNum] = true;
         }
     }
+    void CheckReverse()
+    {
+        m_currDist = GetDistance(m_player.gameObject.transform, m_checkPoints[m_nextCheckPoint].transform);
+        //Debug.Log("curr : " + m_currDist);
+        //Debug.Log("prev : " + m_prevDist);
+        if (m_prevDist < m_currDist)
+        {
+            //Debug.Log("Reverse!");
+        }
+        else
+            //Debug.Log("Correct!");
+        m_prevDist = m_currDist;
+    }
+    float GetDistance(Transform player, Transform target)
+    {
+        return (target.position - player.position).sqrMagnitude;
+    }
     public void IncreaseLapTime()
     {
         m_lapTime++;
+        UpdateLapTime();
     }
     public void SetLastCheckPointValue(bool value)
     {
         m_checkPointList[m_checkPointsLength - 1] = value;
+    }
+    void UpdateLapTime()
+    {
+        m_lapTimeText.text = string.Format("<color=yellow><size=150>{0}</size></color> /{1}", m_lapTime, m_mapLapTime);
     }
     protected override void OnAwake()
     {
@@ -148,11 +174,13 @@ public class GameSystemManager : Singleton<GameSystemManager>
         Debug.Log(m_checkPointList.Count);
         m_mapLapTime = m_map.LapTime;
         m_nextCheckPoint = 0;
+        m_prevDist = GetDistance(m_player.transform, m_checkPoints[m_nextCheckPoint].transform);
+        UpdateLapTime();
     }
     // Update is called once per frame
     void Update()
     {
         Timer();
-        m_lapTimeText.text = string.Format("<color=yellow><size=150>{0}</size></color> /{1}", m_lapTime, m_mapLapTime);
+        CheckReverse();
     }
 }
