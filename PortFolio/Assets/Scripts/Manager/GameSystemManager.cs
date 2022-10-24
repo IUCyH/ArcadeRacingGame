@@ -16,13 +16,13 @@ public class GameSystemManager : Singleton<GameSystemManager>
     [SerializeField]
     MapController m_map;
     [SerializeField]
+    List<bool> m_checkPointList;
+    [SerializeField]
     int m_checkPointsLength;
     [SerializeField]
     int m_lapTime = 0;
     [SerializeField]
     int m_mapLapTime;
-    [SerializeField]
-    int m_currCheckPoint;
     [SerializeField]
     int m_nextCheckPoint;
     [Header("Player")]
@@ -43,6 +43,9 @@ public class GameSystemManager : Singleton<GameSystemManager>
     [Tooltip("UGUI Text for displaying timer")]
     [SerializeField]
     Text m_timerText;
+    [Tooltip("UGUI Text for displaying lap time")]
+    [SerializeField]
+    Text m_lapTimeText;
     [Tooltip("float type variable for count text's fade out duration")]
     [SerializeField]
     float m_duration = 0.5f;
@@ -54,7 +57,8 @@ public class GameSystemManager : Singleton<GameSystemManager>
     float m_alphaFrom = 1f; //start alpha value
     float m_alphaTo = 0f; //target alpha value
 
-    public bool IsEnd { get { return m_lapTime == m_mapLapTime && m_currCheckPoint == m_checkPointsLength - 1; } }
+    public bool IsEnd { get { return m_lapTime == m_mapLapTime && IsCompleteLap; } }
+    public bool IsCompleteLap { get { return m_checkPointList[m_checkPointsLength - 1] == true; } }
     IEnumerator Coroutine_CountDown()
     {
         float time = 0f;
@@ -116,9 +120,16 @@ public class GameSystemManager : Singleton<GameSystemManager>
         if(checkNum == m_nextCheckPoint)
         {
             m_nextCheckPoint = (m_nextCheckPoint + 1) % m_checkPointsLength;
-            if(!IsEnd)
-                m_currCheckPoint = checkNum;
+            m_checkPointList[checkNum] = true;
         }
+    }
+    public void IncreaseLapTime()
+    {
+        m_lapTime++;
+    }
+    public void SetLastCheckPointValue(bool value)
+    {
+        m_checkPointList[m_checkPointsLength - 1] = value;
     }
     protected override void OnAwake()
     {
@@ -129,13 +140,19 @@ public class GameSystemManager : Singleton<GameSystemManager>
     {
         m_checkPoints = m_checkPointObj.GetComponentsInChildren<CheckpointController>();
         m_checkPointsLength = m_checkPoints.Length;
+        for(int i = 0; i < m_checkPointsLength; i++)
+        {
+            bool check = false;
+            m_checkPointList.Add(check);
+        }
+        Debug.Log(m_checkPointList.Count);
         m_mapLapTime = m_map.LapTime;
-        m_currCheckPoint = 0;
         m_nextCheckPoint = 0;
     }
     // Update is called once per frame
     void Update()
     {
         Timer();
+        m_lapTimeText.text = string.Format("<color=yellow><size=150>{0}</size></color> /{1}", m_lapTime, m_mapLapTime);
     }
 }

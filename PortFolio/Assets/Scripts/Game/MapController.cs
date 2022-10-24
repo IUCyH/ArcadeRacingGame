@@ -6,18 +6,21 @@ public class MapController : MonoBehaviour
 {
     [Tooltip("Lap Time on this map")]
     [SerializeField]
-    int m_lapTime = 1;
+    int m_lapTime;
 
     public int LapTime { get { return m_lapTime; } }
-    void Start()
-    {
-        m_lapTime = 1;
-    }
     void OnTriggerEnter(Collider other)
     {
-        if(GameSystemManager.Instance.IsEnd && other.CompareTag("Player"))
+        if (!other.CompareTag("Player")) return;
+
+        if(GameSystemManager.Instance.IsEnd)
         {
             Debug.Log("End!");
+        }
+        else if(GameSystemManager.Instance.IsCompleteLap)
+        {
+            GameSystemManager.Instance.IncreaseLapTime();
+            GameSystemManager.Instance.SetLastCheckPointValue(false);
         }
     }
 }
