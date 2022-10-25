@@ -7,7 +7,7 @@ public class GameSettings : Singleton_DontDestroy<GameSettings>
     // Start is called before the first frame update
     protected override void OnAwake()
     {
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 500;
 #if UNITY_EDITOR
         Debug.unityLogger.logEnabled = true;
 #else

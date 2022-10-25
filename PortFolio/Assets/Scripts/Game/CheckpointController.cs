@@ -17,7 +17,7 @@ public class CheckpointController : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             GameSystemManager.Instance.OnTroughCheckPoint(m_checkNumber);
-            Debug.Log(GameSystemManager.Instance.IsEnd);
+            //Debug.Log(GameSystemManager.Instance.IsEnd);
         }
     }
 }

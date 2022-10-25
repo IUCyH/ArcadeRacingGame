@@ -8,6 +8,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
 {
     [SerializeField]
     StringBuilder m_sb = new StringBuilder();
+    Coroutine m_coroutine;
     [Tooltip("Check Points List")]
     [SerializeField]
     CheckpointController[] m_checkPoints;
@@ -40,7 +41,9 @@ public class GameSystemManager : Singleton<GameSystemManager>
     [SerializeField]
     Canvas m_countCanvas;
     [SerializeField]
-    Canvas m_dashBoardCanvas;
+    Canvas m_dynamicCanvas;
+    [SerializeField]
+    Canvas m_staticCanvas;
     [Tooltip("UGUI Text for displaying count value")]
     [SerializeField]
     Text m_countText;
@@ -50,6 +53,9 @@ public class GameSystemManager : Singleton<GameSystemManager>
     [Tooltip("UGUI Text for displaying lap time")]
     [SerializeField]
     Text m_lapTimeText;
+    [Tooltip("UGUI Image for displaying warning icon")]
+    [SerializeField]
+    Image m_warningImage;
     [Tooltip("float type variable for count text's fade out duration")]
     [SerializeField]
     float m_duration = 0.5f;
@@ -82,7 +88,9 @@ public class GameSystemManager : Singleton<GameSystemManager>
             }
             if (cnt < 1)
             {
-                m_dashBoardCanvas.enabled = true;
+                m_dynamicCanvas.enabled = true;
+                m_staticCanvas.enabled = true;
+                m_warningImage.enabled = false;
                 m_player.IsStart = true;
                 m_timer = 0f;
                 m_player.CorutineStart("Coroutine_StartBoost");
@@ -109,6 +117,33 @@ public class GameSystemManager : Singleton<GameSystemManager>
             yield return null;
         }
     }
+    IEnumerator Coroutine_CheckReverse(int frame)
+    {
+        for(int i = 0; i < frame; i++)
+        {
+            yield return null;
+        }
+        m_currDist = GetDistance(m_player.gameObject.transform, m_checkPoints[m_nextCheckPoint].transform);
+        //Debug.Log("curr : " + m_currDist);
+        //Debug.Log("prev : " + m_prevDist);
+        if (m_prevDist < m_currDist)
+        {
+            OnReverse();
+            //Debug.Log("Reverse!");
+        }
+        else
+        {
+            m_warningImage.enabled = false;
+            //Debug.Log("Correct!");
+        }
+        m_prevDist = m_currDist;
+        m_coroutine = null;
+        //Debug.Log(Time.deltaTime);
+    }
+    void OnReverse()
+    {
+        m_warningImage.enabled = true;
+    }
     void Timer()
     {
         m_sb.Clear();
@@ -127,19 +162,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
             m_checkPointList[checkNum] = true;
         }
     }
-    void CheckReverse()
-    {
-        m_currDist = GetDistance(m_player.gameObject.transform, m_checkPoints[m_nextCheckPoint].transform);
-        //Debug.Log("curr : " + m_currDist);
-        //Debug.Log("prev : " + m_prevDist);
-        if (m_prevDist < m_currDist)
-        {
-            //Debug.Log("Reverse!");
-        }
-        else
-            //Debug.Log("Correct!");
-        m_prevDist = m_currDist;
-    }
+    
     float GetDistance(Transform player, Transform target)
     {
         return (target.position - player.position).sqrMagnitude;
@@ -159,7 +182,8 @@ public class GameSystemManager : Singleton<GameSystemManager>
     }
     protected override void OnAwake()
     {
-        m_dashBoardCanvas.enabled = false;
+        m_dynamicCanvas.enabled = false;
+        m_staticCanvas.enabled = false;
         StartCoroutine(Coroutine_CountDown());
     }
     protected override void OnStart()
@@ -171,7 +195,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
             bool check = false;
             m_checkPointList.Add(check);
         }
-        Debug.Log(m_checkPointList.Count);
+        //Debug.Log(m_checkPointList.Count);
         m_mapLapTime = m_map.LapTime;
         m_nextCheckPoint = 0;
         m_prevDist = GetDistance(m_player.transform, m_checkPoints[m_nextCheckPoint].transform);
@@ -181,6 +205,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
     void Update()
     {
         Timer();
-        CheckReverse();
+        if(m_coroutine == null)
+            m_coroutine = StartCoroutine(Coroutine_CheckReverse(30));
     }
 }
