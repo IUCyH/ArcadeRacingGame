@@ -8,7 +8,6 @@ public class GameSystemManager : Singleton<GameSystemManager>
 {
     [SerializeField]
     StringBuilder m_sb = new StringBuilder();
-    Coroutine m_coroutine;
     [Tooltip("Check Points List")]
     [SerializeField]
     CheckpointController[] m_checkPoints;
@@ -17,7 +16,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
     [SerializeField]
     MapController m_map;
     [SerializeField]
-    List<bool> m_checkPointList;
+    int m_finishLapCnt = 0;
     [SerializeField]
     int m_checkPointsLength;
     [SerializeField]
@@ -27,9 +26,15 @@ public class GameSystemManager : Singleton<GameSystemManager>
     [SerializeField]
     int m_nextCheckPoint;
     [SerializeField]
-    float m_prevDist;
+    int m_currCheckPoint;
     [SerializeField]
-    float m_currDist;
+    float m_NextCpDist;
+    [SerializeField]
+    float m_currCpDist;
+    [SerializeField]
+    float m_nextPrevCpDist;
+    [SerializeField]
+    float m_currPrevCpDist;
     [Header("Player")]
     [SerializeField]
     PlayerController m_player;
@@ -67,8 +72,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
     float m_alphaFrom = 1f; //start alpha value
     float m_alphaTo = 0f; //target alpha value
 
-    public bool IsEnd { get { return m_lapTime == m_mapLapTime && IsCompleteLap; } }
-    public bool IsCompleteLap { get { return m_checkPointList[m_checkPointsLength - 1] == true; } }
+    public bool IsEnd { get { return m_finishLapCnt == m_mapLapTime; } }
     IEnumerator Coroutine_CountDown()
     {
         float time = 0f;
@@ -90,7 +94,6 @@ public class GameSystemManager : Singleton<GameSystemManager>
             {
                 m_dynamicCanvas.enabled = true;
                 m_staticCanvas.enabled = true;
-                m_warningImage.enabled = false;
                 m_player.IsStart = true;
                 m_timer = 0f;
                 m_player.CorutineStart("Coroutine_StartBoost");
@@ -117,28 +120,18 @@ public class GameSystemManager : Singleton<GameSystemManager>
             yield return null;
         }
     }
-    IEnumerator Coroutine_CheckReverse(int frame)
+    void CheckReverse()
     {
-        for(int i = 0; i < frame; i++)
-        {
-            yield return null;
-        }
-        m_currDist = GetDistance(m_player.gameObject.transform, m_checkPoints[m_nextCheckPoint].transform);
-        //Debug.Log("curr : " + m_currDist);
-        //Debug.Log("prev : " + m_prevDist);
-        if (m_prevDist < m_currDist)
+        m_NextCpDist = GetDistance(m_player.gameObject.transform, m_checkPoints[m_nextCheckPoint].transform);
+        m_currCpDist = GetDistance(m_player.gameObject.transform, m_checkPoints[m_currCheckPoint == 0 ? m_checkPointsLength - 1 : m_currCheckPoint - 1].transform);
+        if (m_NextCpDist > m_currCpDist)
         {
             OnReverse();
-            //Debug.Log("Reverse!");
         }
         else
         {
             m_warningImage.enabled = false;
-            //Debug.Log("Correct!");
         }
-        m_prevDist = m_currDist;
-        m_coroutine = null;
-        //Debug.Log(Time.deltaTime);
     }
     void OnReverse()
     {
@@ -158,8 +151,14 @@ public class GameSystemManager : Singleton<GameSystemManager>
     {
         if(checkNum == m_nextCheckPoint)
         {
-            m_nextCheckPoint = (m_nextCheckPoint + 1) % m_checkPointsLength;
-            m_checkPointList[checkNum] = true;
+            m_nextCheckPoint++;
+            if (m_nextCheckPoint > m_checkPointsLength - 1)
+            {
+                m_nextCheckPoint = 0;
+                m_finishLapCnt++;
+            }
+            Debug.Log(m_nextCheckPoint);
+            m_currCheckPoint = checkNum;
         }
     }
     
@@ -169,12 +168,11 @@ public class GameSystemManager : Singleton<GameSystemManager>
     }
     public void IncreaseLapTime()
     {
-        m_lapTime++;
-        UpdateLapTime();
-    }
-    public void SetLastCheckPointValue(bool value)
-    {
-        m_checkPointList[m_checkPointsLength - 1] = value;
+        if (m_finishLapCnt > 0)
+        {
+            m_lapTime++;
+            UpdateLapTime();
+        }
     }
     void UpdateLapTime()
     {
@@ -184,28 +182,24 @@ public class GameSystemManager : Singleton<GameSystemManager>
     {
         m_dynamicCanvas.enabled = false;
         m_staticCanvas.enabled = false;
+        m_warningImage.enabled = false;
         StartCoroutine(Coroutine_CountDown());
     }
     protected override void OnStart()
     {
         m_checkPoints = m_checkPointObj.GetComponentsInChildren<CheckpointController>();
         m_checkPointsLength = m_checkPoints.Length;
-        for(int i = 0; i < m_checkPointsLength; i++)
-        {
-            bool check = false;
-            m_checkPointList.Add(check);
-        }
         //Debug.Log(m_checkPointList.Count);
         m_mapLapTime = m_map.LapTime;
         m_nextCheckPoint = 0;
-        m_prevDist = GetDistance(m_player.transform, m_checkPoints[m_nextCheckPoint].transform);
+        m_nextPrevCpDist = GetDistance(m_player.transform, m_checkPoints[m_nextCheckPoint].transform);
+        m_currPrevCpDist = GetDistance(m_player.transform, m_checkPoints[m_currCheckPoint].transform);
         UpdateLapTime();
     }
     // Update is called once per frame
     void Update()
     {
         Timer();
-        if(m_coroutine == null)
-            m_coroutine = StartCoroutine(Coroutine_CheckReverse(30));
+        CheckReverse();
     }
 }

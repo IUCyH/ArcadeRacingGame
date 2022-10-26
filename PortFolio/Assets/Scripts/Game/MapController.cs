@@ -13,14 +13,13 @@ public class MapController : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        if(GameSystemManager.Instance.IsEnd)
+        if (GameSystemManager.Instance.IsEnd)
         {
             Debug.Log("End!");
         }
-        else if(GameSystemManager.Instance.IsCompleteLap)
+        else
         {
             GameSystemManager.Instance.IncreaseLapTime();
-            GameSystemManager.Instance.SetLastCheckPointValue(false);
         }
     }
 }
