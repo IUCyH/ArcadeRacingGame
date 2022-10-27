@@ -25,16 +25,6 @@ public class GameSystemManager : Singleton<GameSystemManager>
     int m_mapLapTime;
     [SerializeField]
     int m_nextCheckPoint;
-    [SerializeField]
-    int m_currCheckPoint;
-    [SerializeField]
-    float m_NextCpDist;
-    [SerializeField]
-    float m_currCpDist;
-    [SerializeField]
-    float m_nextPrevCpDist;
-    [SerializeField]
-    float m_currPrevCpDist;
     [Header("Player")]
     [SerializeField]
     PlayerController m_player;
@@ -120,22 +110,9 @@ public class GameSystemManager : Singleton<GameSystemManager>
             yield return null;
         }
     }
-    void CheckReverse()
+    public void OnReverse(bool value)
     {
-        m_NextCpDist = GetDistance(m_player.gameObject.transform, m_checkPoints[m_nextCheckPoint].transform);
-        m_currCpDist = GetDistance(m_player.gameObject.transform, m_checkPoints[m_currCheckPoint == 0 ? m_checkPointsLength - 1 : m_currCheckPoint - 1].transform);
-        if (m_NextCpDist > m_currCpDist)
-        {
-            OnReverse();
-        }
-        else
-        {
-            m_warningImage.enabled = false;
-        }
-    }
-    void OnReverse()
-    {
-        m_warningImage.enabled = true;
+        m_warningImage.enabled = value;
     }
     void Timer()
     {
@@ -149,7 +126,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
     }
     public void OnTroughCheckPoint(int checkNum)
     {
-        if(checkNum == m_nextCheckPoint)
+        if (checkNum == m_nextCheckPoint)
         {
             m_nextCheckPoint++;
             if (m_nextCheckPoint > m_checkPointsLength - 1)
@@ -157,14 +134,8 @@ public class GameSystemManager : Singleton<GameSystemManager>
                 m_nextCheckPoint = 0;
                 m_finishLapCnt++;
             }
-            Debug.Log(m_nextCheckPoint);
-            m_currCheckPoint = checkNum;
+            //Debug.Log(m_nextCheckPoint);
         }
-    }
-    
-    float GetDistance(Transform player, Transform target)
-    {
-        return (target.position - player.position).sqrMagnitude;
     }
     public void IncreaseLapTime()
     {
@@ -192,14 +163,12 @@ public class GameSystemManager : Singleton<GameSystemManager>
         //Debug.Log(m_checkPointList.Count);
         m_mapLapTime = m_map.LapTime;
         m_nextCheckPoint = 0;
-        m_nextPrevCpDist = GetDistance(m_player.transform, m_checkPoints[m_nextCheckPoint].transform);
-        m_currPrevCpDist = GetDistance(m_player.transform, m_checkPoints[m_currCheckPoint].transform);
         UpdateLapTime();
     }
     // Update is called once per frame
     void Update()
     {
         Timer();
-        CheckReverse();
+        //CheckReverse();
     }
 }

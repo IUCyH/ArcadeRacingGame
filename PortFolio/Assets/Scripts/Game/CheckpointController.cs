@@ -14,7 +14,7 @@ public class CheckpointController : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             GameSystemManager.Instance.OnTroughCheckPoint(m_checkNumber);
             //Debug.Log(GameSystemManager.Instance.IsEnd);

@@ -278,6 +278,7 @@ public class PlayerController : MonoBehaviour
         {
             m_isDrift = false;
         }
+        //Debug.Log(transform.forward);
     }
     void FixedUpdate()
     {
