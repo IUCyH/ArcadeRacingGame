@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapController : MonoBehaviour
+public class MapManager : SingleTon<MapManager>
 {
     [Tooltip("Lap Time on this map")]
     [SerializeField]
