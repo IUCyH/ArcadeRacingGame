@@ -8,6 +8,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
 {
     public enum ReverseCheckPos
     {
+        None,
         X,
         Z,
         NegativeX,

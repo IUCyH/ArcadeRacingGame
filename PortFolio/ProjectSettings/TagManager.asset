@@ -12,6 +12,7 @@ TagManager:
   - Reverse_X
   - Reverse_NegativeZ
   - Reverse_NegativeX
+  - Map
   layers:
   - Default
   - TransparentFX

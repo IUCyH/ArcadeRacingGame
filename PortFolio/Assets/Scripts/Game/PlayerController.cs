@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -12,6 +13,7 @@ public class PlayerController : MonoBehaviour
         Booster,
         Max
     }
+    Dictionary<string, GameSystemManager.ReverseCheckPos> m_reversePosDic = new Dictionary<string, GameSystemManager.ReverseCheckPos>();
     StringBuilder m_sb = new StringBuilder();
     State m_state;
     [SerializeField]
@@ -233,22 +235,15 @@ public class PlayerController : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Reverse_X"))
-        {
-            GameSystemManager.Instance.SetReversePos(GameSystemManager.ReverseCheckPos.X);
-        }
-        if(other.CompareTag("Reverse_Z"))
-        {
-            GameSystemManager.Instance.SetReversePos(GameSystemManager.ReverseCheckPos.Z);
-        }
-        if(other.CompareTag("Reverse_NegativeX"))
-        {
-            GameSystemManager.Instance.SetReversePos(GameSystemManager.ReverseCheckPos.NegativeX);
-        }
-        if(other.CompareTag("Reverse_NegativeZ"))
-        {
-            GameSystemManager.Instance.SetReversePos(GameSystemManager.ReverseCheckPos.NegativeZ);
-        }
+        if (other.CompareTag("Map")) return;
+        GameSystemManager.Instance.SetReversePos(m_reversePosDic[other.tag]);
+    }
+    void Awake()
+    {
+        m_reversePosDic.Add("Reverse_X", GameSystemManager.ReverseCheckPos.X);
+        m_reversePosDic.Add("Reverse_Z", GameSystemManager.ReverseCheckPos.Z);
+        m_reversePosDic.Add("Reverse_NegativeX", GameSystemManager.ReverseCheckPos.NegativeX);
+        m_reversePosDic.Add("Reverse_NegativeZ", GameSystemManager.ReverseCheckPos.NegativeZ);
     }
     void Start()
     {
