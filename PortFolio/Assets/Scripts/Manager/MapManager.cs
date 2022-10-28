@@ -13,13 +13,6 @@ public class MapManager : Singleton<MapManager>
     {
         if (!other.CompareTag("Player")) return;
 
-        if (GameSystemManager.Instance.IsEnd)
-        {
-            Debug.Log("End!");
-        }
-        else
-        {
-            GameSystemManager.Instance.IncreaseLapTime();
-        }
+        GameSystemManager.Instance.OnTroughGate();
     }
 }

@@ -58,6 +58,9 @@ public class GameSystemManager : Singleton<GameSystemManager>
     [Tooltip("UGUI Text for displaying timer")]
     [SerializeField]
     Text m_timerText;
+    [Tooltip("UGUI Text for displaying best time")]
+    [SerializeField]
+    Text m_bestTimeText;
     [Tooltip("UGUI Text for displaying lap time")]
     [SerializeField]
     Text m_lapTimeText;
@@ -70,6 +73,10 @@ public class GameSystemManager : Singleton<GameSystemManager>
     [Tooltip("float type variable for calculate the time")]
     [SerializeField]
     float m_timer;
+    [SerializeField]
+    float m_prevTime;
+    [SerializeField]
+    float m_bestTime;
     float m_maxScale = 1f; //target scale value
     float m_minScale = 0.5f; //start scale value
     float m_alphaFrom = 1f; //start alpha value
@@ -127,15 +134,9 @@ public class GameSystemManager : Singleton<GameSystemManager>
     {
         m_warningImage.enabled = value;
     }
-    void Timer()
+    public void SetReversePos(ReverseCheckPos pos)
     {
-        m_sb.Clear();
-        m_timer += Time.deltaTime;
-        int minute = Mathf.FloorToInt(m_timer / 60f);
-        int second = (int)m_timer % 60;
-        int millisecond = (int)(m_timer * 100) % 100;
-        m_sb.AppendFormat("<b>TIME</b>  /  {0:00}:{1:00}:{2:00}", minute, second, millisecond);
-        m_timerText.text = m_sb.ToString();
+        m_reverseCheckPos = pos;
     }
     public void OnTroughCheckPoint(int checkNum)
     {
@@ -150,13 +151,36 @@ public class GameSystemManager : Singleton<GameSystemManager>
             //Debug.Log(m_nextCheckPoint);
         }
     }
-    public void IncreaseLapTime()
+    public void OnTroughGate()
     {
         if (m_finishLapCnt > 0)
         {
+            if (IsEnd)
+            {
+                Debug.Log("End!");
+            }
             m_lapTime++;
+            UpdateBestTime();
             UpdateLapTime();
         }
+    }
+    void Timer()
+    {
+        m_sb.Clear();
+        m_timer += Time.deltaTime;
+        ConvetTime(m_timer, out int minute, out int second, out int millisecond);
+        m_sb.AppendFormat("<b>TIME</b>  /  {0:00}:{1:00}:{2:00}", minute, second, millisecond);
+        m_timerText.text = m_sb.ToString();
+    }
+    void UpdateBestTime()
+    {
+        if (m_bestTime > m_timer - m_prevTime)
+        {
+            m_bestTime = m_timer - m_prevTime;
+            ConvetTime(m_bestTime, out int minute, out int second, out int millisecond);
+            m_bestTimeText.text = string.Format("<b>BEST</b>  /  {0:00}:{1:00}:{2:00}", minute, second, millisecond);
+        }
+        m_prevTime = m_timer;
     }
     void UpdateLapTime()
     {
@@ -217,9 +241,12 @@ public class GameSystemManager : Singleton<GameSystemManager>
         }
         m_prevPos = m_currPos;
     }
-    public void SetReversePos(ReverseCheckPos pos)
+    
+    void ConvetTime(float time, out int minute, out int second, out int millisecond)
     {
-        m_reverseCheckPos = pos;
+        minute = Mathf.FloorToInt(time / 60f);
+        second = (int)time % 60;
+        millisecond = (int)(time * 100) % 100;
     }
     protected override void OnAwake()
     {
