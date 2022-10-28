@@ -6,6 +6,14 @@ using UnityEngine.UI;
 
 public class GameSystemManager : Singleton<GameSystemManager>
 {
+    public enum ReverseCheckPos
+    {
+        X,
+        Z,
+        NegativeX,
+        NegativeZ,
+        Max
+    }
     [SerializeField]
     StringBuilder m_sb = new StringBuilder();
     [Tooltip("Check Points List")]
@@ -14,7 +22,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
     [SerializeField]
     GameObject m_checkPointObj;
     [SerializeField]
-    MapController m_map;
+    ReverseCheckPos m_reverseCheckPos;
     [SerializeField]
     int m_finishLapCnt = 0;
     [SerializeField]
@@ -25,6 +33,10 @@ public class GameSystemManager : Singleton<GameSystemManager>
     int m_mapLapTime;
     [SerializeField]
     int m_nextCheckPoint;
+    [SerializeField]
+    float m_currPos;
+    [SerializeField]
+    float m_prevPos;
     [Header("Player")]
     [SerializeField]
     PlayerController m_player;
@@ -149,6 +161,65 @@ public class GameSystemManager : Singleton<GameSystemManager>
     {
         m_lapTimeText.text = string.Format("<color=yellow><size=150>{0}</size></color> /{1}", m_lapTime, m_mapLapTime);
     }
+    void CheckReverse()
+    {
+        if (m_reverseCheckPos == ReverseCheckPos.Z || m_reverseCheckPos == ReverseCheckPos.NegativeZ)
+        {
+            m_currPos = m_player.transform.position.z;
+        }
+        if(m_reverseCheckPos == ReverseCheckPos.X || m_reverseCheckPos == ReverseCheckPos.NegativeX)
+        {
+            m_currPos = m_player.transform.position.x;
+        }
+        switch (m_reverseCheckPos)
+        {
+            case ReverseCheckPos.Z:
+                if (m_currPos < m_prevPos)
+                {
+                    OnReverse(true);
+                }
+                else
+                {
+                    OnReverse(false);
+                }
+                break;
+            case ReverseCheckPos.X:
+                if (m_currPos > m_prevPos)
+                {
+                    OnReverse(true);
+                }
+                else
+                {
+                    OnReverse(false);
+                }
+                break;
+            case ReverseCheckPos.NegativeZ:
+                if (m_currPos > m_prevPos)
+                {
+                    OnReverse(true);
+                }
+                else
+                {
+                    OnReverse(false);
+                }
+                break;
+            case ReverseCheckPos.NegativeX:
+                if (m_currPos < m_prevPos)
+                {
+                    OnReverse(true);
+                }
+                else
+                {
+                    OnReverse(false);
+                }
+                break;
+        }
+        m_prevPos = m_currPos;
+    }
+    public void SetReversePos(ReverseCheckPos pos)
+    {
+        m_reverseCheckPos = pos;
+    }
     protected override void OnAwake()
     {
         m_dynamicCanvas.enabled = false;
@@ -161,14 +232,15 @@ public class GameSystemManager : Singleton<GameSystemManager>
         m_checkPoints = m_checkPointObj.GetComponentsInChildren<CheckpointController>();
         m_checkPointsLength = m_checkPoints.Length;
         //Debug.Log(m_checkPointList.Count);
-        m_mapLapTime = m_map.LapTime;
+        m_mapLapTime = MapManager.Instance.LapTime;
         m_nextCheckPoint = 0;
+        SetReversePos(ReverseCheckPos.Z);
         UpdateLapTime();
     }
     // Update is called once per frame
     void Update()
     {
         Timer();
-        //CheckReverse();
+        CheckReverse();
     }
 }

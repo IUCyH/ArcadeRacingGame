@@ -231,6 +231,25 @@ public class PlayerController : MonoBehaviour
             m_playerRb.AddForceAtPosition(m_wheelCollider[3].transform.up * force, m_wheelCollider[3].transform.position);
         }
     }
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Reverse_X"))
+        {
+            GameSystemManager.Instance.SetReversePos(GameSystemManager.ReverseCheckPos.X);
+        }
+        if(other.CompareTag("Reverse_Z"))
+        {
+            GameSystemManager.Instance.SetReversePos(GameSystemManager.ReverseCheckPos.Z);
+        }
+        if(other.CompareTag("Reverse_NegativeX"))
+        {
+            GameSystemManager.Instance.SetReversePos(GameSystemManager.ReverseCheckPos.NegativeX);
+        }
+        if(other.CompareTag("Reverse_NegativeZ"))
+        {
+            GameSystemManager.Instance.SetReversePos(GameSystemManager.ReverseCheckPos.NegativeZ);
+        }
+    }
     void Start()
     {
         m_playerRb.centerOfMass = m_center.localPosition;
@@ -243,13 +262,14 @@ public class PlayerController : MonoBehaviour
         m_sFricBackRightWheel = m_wheelColliderCtr[3].SideWayFriction;
         m_boosterIcons[0].enabled = m_boosterIcons[1].enabled = false;
         m_state = State.Defult;
+        m_wheelCollider[2].brakeTorque = m_wheelCollider[3].brakeTorque = 0f;
         InitWheelPos();
     }
 
     void Update()
     {
         //Debug.Log("State : " + m_state);
-        var speed = m_playerRb.velocity.magnitude * 3.6f;
+        var speed = (m_playerRb.velocity.magnitude * 3.6f) * 5.5f;
         m_sb.Clear();
         m_sb.AppendFormat("{0:0.0} km / h", speed);
         m_speedText.text = m_sb.ToString();

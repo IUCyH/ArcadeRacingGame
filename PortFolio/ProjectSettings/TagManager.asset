@@ -8,6 +8,10 @@ TagManager:
   - Wall
   - Background
   - ReverseCheck
+  - Reverse_Z
+  - Reverse_X
+  - Reverse_NegativeZ
+  - Reverse_NegativeX
   layers:
   - Default
   - TransparentFX
