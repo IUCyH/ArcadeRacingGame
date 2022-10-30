@@ -35,9 +35,13 @@ public class GameSystemManager : Singleton<GameSystemManager>
     [SerializeField]
     int m_nextCheckPoint;
     [SerializeField]
+    int m_currMapIndex;
+    [SerializeField]
     float m_currPos;
     [SerializeField]
     float m_prevPos;
+    [SerializeField]
+    bool m_isStart;
     [Header("Player")]
     [SerializeField]
     PlayerController m_player;
@@ -46,6 +50,8 @@ public class GameSystemManager : Singleton<GameSystemManager>
     AnimationCurve m_scaleCurve = AnimationCurve.Linear(0f, 0f, 1f, 1f);
     [SerializeField]
     AnimationCurve m_alphaCurve = AnimationCurve.Linear(0f, 0f, 1f, 1f);
+    [SerializeField]
+    GameObject m_panel_finish;
     [SerializeField]
     Canvas m_countCanvas;
     [SerializeField]
@@ -64,6 +70,21 @@ public class GameSystemManager : Singleton<GameSystemManager>
     [Tooltip("UGUI Text for displaying lap time")]
     [SerializeField]
     Text m_lapTimeText;
+    [Tooltip("UGUI Text for displaying text '완주 기록' or '신기록'")]
+    [SerializeField]
+    Text m_completeText;
+    [Tooltip("UGUI Text for displaying current playing time")]
+    [SerializeField]
+    Text m_currTimeText;
+    [Tooltip("UGUI Text for displaying player's booster count")]
+    [SerializeField]
+    Text m_boosterCntText;
+    [Tooltip("UGUI Text for displaying player's best time")]
+    [SerializeField]
+    Text m_playerBestTimeText;
+    [Tooltip("UGUI Text for displaying current map name")]
+    [SerializeField]
+    Text m_mapNameText;
     [Tooltip("UGUI Image for displaying warning icon")]
     [SerializeField]
     Image m_warningImage;
@@ -91,8 +112,8 @@ public class GameSystemManager : Singleton<GameSystemManager>
         {
             var scaleValue = m_scaleCurve.Evaluate(time);
             var scale = m_minScale * (1f - scaleValue) + m_maxScale * scaleValue;
-            m_countText.text = cnt.ToString();
-            m_countText.transform.localScale = new Vector3(scale, scale, scale);
+            UiManager.Instance.SetUIText(m_countText, cnt.ToString());
+            UiManager.Instance.SetUITextScale(m_countText, scale, scale, scale);
             time += Time.deltaTime;
 
             if (time > 1f)
@@ -102,10 +123,10 @@ public class GameSystemManager : Singleton<GameSystemManager>
             }
             if (cnt < 1)
             {
-                m_dynamicCanvas.enabled = true;
-                m_staticCanvas.enabled = true;
+                UiManager.Instance.SetCanvasEnabled(m_dynamicCanvas, true);
+                UiManager.Instance.SetCanvasEnabled(m_staticCanvas, true);
                 m_player.IsStart = true;
-                m_timer = 0f;
+                m_isStart = true;
                 m_player.CorutineStart("Coroutine_StartBoost");
                 StartCoroutine(Coroutine_Fadeout());
                 yield break;
@@ -120,11 +141,11 @@ public class GameSystemManager : Singleton<GameSystemManager>
         {
             var alphaValue = m_alphaCurve.Evaluate(time);
             var alpha = m_alphaFrom * (1f - alphaValue) + m_alphaTo * alphaValue;
-            m_countText.color = new Color(1f, 1f, 1f, alpha);
+            UiManager.Instance.SetUITextColor(m_countText, 1f, 1f, 1f, alpha);
             time += Time.deltaTime / m_duration;
             if (time > 1f)
             {
-                m_countCanvas.enabled = false;
+                UiManager.Instance.SetCanvasEnabled(m_countCanvas, false);
                 yield break;
             }
             yield return null;
@@ -155,14 +176,43 @@ public class GameSystemManager : Singleton<GameSystemManager>
     {
         if (m_finishLapCnt > 0)
         {
-            if (IsEnd)
-            {
-                Debug.Log("End!");
-            }
             m_lapTime++;
             UpdateBestTime();
             UpdateLapTime();
+            if (IsEnd)
+            {
+                OnFinish();
+            }
         }
+    }
+    void OnFinish()
+    {
+        int minute;
+        int second;
+        int millisecond;
+        string completeText = "완주 기록";
+        string mapName = DataManager.Instance.GetMapName(m_currMapIndex);
+        float mapTime = DataManager.Instance.GetMapBestTime(m_currMapIndex);
+        if(mapTime > m_timer)
+        {
+            mapTime = m_timer;
+            completeText = "신기록";
+            DataManager.Instance.UpdateMapBestTime(mapTime, m_currMapIndex);
+        }
+        UiManager.Instance.SetCanvasEnabled(m_dynamicCanvas, false);
+        m_player.IsStart = false;
+        m_isStart = false;
+        m_player.Break();
+        m_panel_finish.SetActive(true);
+
+        UiManager.Instance.SetUIText(m_completeText, completeText);
+        ConvetTime(m_timer, out minute, out second, out millisecond);
+        UiManager.Instance.SetUIText(m_currTimeText, string.Format("{0:00}:{1:00}:{2:00}", minute, second, millisecond));
+        UiManager.Instance.SetUIText(m_boosterCntText, string.Format("부스터 <color=yellow><b>{0}</b></color> 회", m_player.BoosterCnt));
+        ConvetTime(mapTime, out minute, out second, out millisecond);
+        UiManager.Instance.SetUIText(m_playerBestTimeText, string.Format("주간 최고 기록  <color=yellow><b>{0:00}:{1:00}:{2:00}</b></color>", minute, second, millisecond));
+        UiManager.Instance.SetUIText(m_mapNameText, mapName);
+        DataManager.Instance.Save();
     }
     void Timer()
     {
@@ -170,21 +220,23 @@ public class GameSystemManager : Singleton<GameSystemManager>
         m_timer += Time.deltaTime;
         ConvetTime(m_timer, out int minute, out int second, out int millisecond);
         m_sb.AppendFormat("<b>TIME</b>  /  {0:00}:{1:00}:{2:00}", minute, second, millisecond);
-        m_timerText.text = m_sb.ToString();
+        UiManager.Instance.SetUIText(m_timerText, m_sb.ToString());
     }
     void UpdateBestTime()
     {
         if (m_bestTime > m_timer - m_prevTime)
         {
+            m_sb.Clear();
             m_bestTime = m_timer - m_prevTime;
             ConvetTime(m_bestTime, out int minute, out int second, out int millisecond);
-            m_bestTimeText.text = string.Format("<b>BEST</b>  /  {0:00}:{1:00}:{2:00}", minute, second, millisecond);
+            m_sb.AppendFormat("<b>BEST</b>  /  {0:00}:{1:00}:{2:00}", minute, second, millisecond);
+            UiManager.Instance.SetUIText(m_bestTimeText, m_sb.ToString());
         }
         m_prevTime = m_timer;
     }
     void UpdateLapTime()
     {
-        m_lapTimeText.text = string.Format("<color=yellow><size=150>{0}</size></color> /{1}", m_lapTime, m_mapLapTime);
+        UiManager.Instance.SetUIText(m_lapTimeText, string.Format("<color=yellow><size=150>{0}</size></color> /{1}", m_lapTime, m_mapLapTime));
     }
     void CheckReverse()
     {
@@ -199,6 +251,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
         switch (m_reverseCheckPos)
         {
             case ReverseCheckPos.Z:
+            case ReverseCheckPos.NegativeX:
                 if (m_currPos < m_prevPos)
                 {
                     OnReverse(true);
@@ -209,27 +262,8 @@ public class GameSystemManager : Singleton<GameSystemManager>
                 }
                 break;
             case ReverseCheckPos.X:
-                if (m_currPos > m_prevPos)
-                {
-                    OnReverse(true);
-                }
-                else
-                {
-                    OnReverse(false);
-                }
-                break;
             case ReverseCheckPos.NegativeZ:
                 if (m_currPos > m_prevPos)
-                {
-                    OnReverse(true);
-                }
-                else
-                {
-                    OnReverse(false);
-                }
-                break;
-            case ReverseCheckPos.NegativeX:
-                if (m_currPos < m_prevPos)
                 {
                     OnReverse(true);
                 }
@@ -250,8 +284,8 @@ public class GameSystemManager : Singleton<GameSystemManager>
     }
     protected override void OnAwake()
     {
-        m_dynamicCanvas.enabled = false;
-        m_staticCanvas.enabled = false;
+        UiManager.Instance.SetCanvasEnabled(m_dynamicCanvas, false);
+        UiManager.Instance.SetCanvasEnabled(m_staticCanvas, false);
         m_warningImage.enabled = false;
         StartCoroutine(Coroutine_CountDown());
     }
@@ -262,13 +296,17 @@ public class GameSystemManager : Singleton<GameSystemManager>
         //Debug.Log(m_checkPointList.Count);
         m_mapLapTime = MapManager.Instance.LapTime;
         m_nextCheckPoint = 0;
+        m_panel_finish.SetActive(false);
         SetReversePos(ReverseCheckPos.Z);
         UpdateLapTime();
     }
     // Update is called once per frame
     void Update()
     {
-        Timer();
-        CheckReverse();
+        if (m_isStart)
+        {
+            Timer();
+            CheckReverse();
+        }
     }
 }

@@ -88,6 +88,8 @@ public class PlayerController : MonoBehaviour
     Image[] m_boosterIcons = new Image[2];
     bool m_isBooster;
     [SerializeField]
+    int m_boosterUseCnt;
+    [SerializeField]
     float m_defultChargingValue = 0.0001f;
     [SerializeField]
     float m_boostChargingValue = 0.005f;
@@ -101,6 +103,7 @@ public class PlayerController : MonoBehaviour
     int m_boosterCnt = 0;
 
     public bool IsStart { get { return m_isStart; } set { m_isStart = value; } }
+    public int BoosterCnt { get { return m_boosterUseCnt; } }
     IEnumerator Coroutine_StartBoost()
     {
         float time = 0f;
@@ -121,6 +124,13 @@ public class PlayerController : MonoBehaviour
     public void CorutineStart(string name)
     {
         StartCoroutine(name);
+    }
+    public void Break()
+    {
+        foreach(WheelCollider w in m_wheelCollider)
+        {
+            w.brakeTorque = 1000f;
+        }
     }
     void SetState(State state)
     {
@@ -193,7 +203,11 @@ public class PlayerController : MonoBehaviour
         {
             m_wheelColliderCtr[i].Turn(currTurnPower, Input.GetAxis("Horizontal"));  
         }
-        if(m_isDrift)
+        OnDrift(m_isDrift);
+    }
+    void OnDrift(bool state)
+    {
+        if (state)
         {
             m_fFricBackLeftWheel.stiffness = m_driftSlipRate;
             m_sFricBackLeftWheel.stiffness = m_driftSlipRate;
@@ -279,6 +293,7 @@ public class PlayerController : MonoBehaviour
                 if(m_time > m_boosterTime)
                 {
                     SetState(State.Defult);
+                    m_boosterUseCnt++;
                     m_isBooster = false;
                     m_time = 0f;
                 }
