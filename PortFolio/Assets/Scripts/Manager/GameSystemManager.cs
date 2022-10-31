@@ -17,11 +17,13 @@ public class GameSystemManager : Singleton<GameSystemManager>
     }
     [SerializeField]
     StringBuilder m_sb = new StringBuilder();
-    [Tooltip("Check Points List")]
+    [Tooltip("Check Points array")]
     [SerializeField]
     CheckpointController[] m_checkPoints;
     [SerializeField]
     GameObject m_checkPointObj;
+    [SerializeField]
+    float m_checkPointsDist;
     [SerializeField]
     ReverseCheckPos m_reverseCheckPos;
     [SerializeField]
@@ -90,6 +92,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
 
     public bool IsEnd { get { return m_finishLapCnt == m_mapLapTime; } }
     public int CurrMapIndex { get { return m_currMapIndex; } }
+    public float AverageSpeed { get { return (m_checkPointsDist / m_timer) * 3.6f; } }
     IEnumerator Coroutine_CountDown()
     {
         float time = 0f;
@@ -267,6 +270,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
         m_checkPoints = m_checkPointObj.GetComponentsInChildren<CheckpointController>();
         m_checkPointsLength = m_checkPoints.Length;
         //Debug.Log(m_checkPointList.Count);
+        m_checkPointsDist = (m_checkPoints[m_checkPointsLength - 1].transform.position - m_checkPoints[0].transform.position).sqrMagnitude;
         m_mapLapTime = MapManager.Instance.LapTime;
         m_nextCheckPoint = 0;
         m_resultPanel.SetActive(false);

@@ -38,9 +38,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     WheelFrictionCurve m_sFricBackRightWheel; //뒷바퀴중 오른쪽 바퀴의 sideways friction의 값을 바꾸기 위한 변수
     [SerializeField]
-    Vector3 m_startDriftPos;
+    Vector3 m_startDriftPosSum;
     [SerializeField]
-    Vector3 m_endDriftPos;
+    Vector3 m_endDriftPosSum;
     Vector3 m_wheelColliderPos; //휠 콜라이더의 위치를 받아올 변수
     Quaternion m_wheelColliderRotation; //휠 콜라이더의 회전값을 받아올 변수
     [Header("Move Values")]
@@ -83,8 +83,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float m_speed;
     [SerializeField]
-    float m_driftDistSum;
-    [SerializeField]
     bool m_isDrift; //드리프트를 하고있는지를 나타내는 boolean 변수
     bool m_isStart; //시작했는지 알려주는 boolean 변수
     [Header("UI")]
@@ -113,7 +111,7 @@ public class PlayerController : MonoBehaviour
     public bool IsStart { get { return m_isStart; } set { m_isStart = value; } }
     public int BoosterCnt { get { return m_boosterUseCnt; } }
     public int CrashCnt { get; set; }
-    public float TotalDriftDist { get { return m_driftDistSum; } }
+    public float TotalDriftDist { get { return (m_startDriftPosSum - m_endDriftPosSum).sqrMagnitude; } }
     IEnumerator Coroutine_StartBoost()
     {
         float time = 0f;
@@ -317,13 +315,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
         {
             m_isDrift = true;
-            m_startDriftPos = transform.position;
+            m_startDriftPosSum += transform.position;
         }
         if(Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift))
         {
             m_isDrift = false;
-            m_endDriftPos = transform.position;
-            m_driftDistSum += (m_startDriftPos - m_endDriftPos).sqrMagnitude;
+            m_endDriftPosSum += transform.position;
         }
         //Debug.Log(transform.forward);
     }

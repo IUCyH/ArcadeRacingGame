@@ -12488,6 +12488,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_checkPoints: []
   m_checkPointObj: {fileID: 781652865}
+  m_checkPointsDist: 0
   m_reverseCheckPos: 0
   m_finishLapCnt: 0
   m_checkPointsLength: 0
@@ -13818,8 +13819,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  m_startDriftPos: {x: 0, y: 0, z: 0}
-  m_endDriftPos: {x: 0, y: 0, z: 0}
+  m_startDriftPosSum: {x: 0, y: 0, z: 0}
+  m_endDriftPosSum: {x: 0, y: 0, z: 0}
   m_antiRollVal: 4500
   m_travelL: 1
   m_travelR: 1
@@ -13839,7 +13840,6 @@ MonoBehaviour:
   m_speedUpVal: 15
   m_speedDownVal: 10
   m_speed: 0
-  m_driftDistSum: 0
   m_isDrift: 0
   m_speedText: {fileID: 1361306942}
   m_boosterBar: {fileID: 1685670814}
@@ -16475,6 +16475,7 @@ MonoBehaviour:
   m_mapNameText: {fileID: 1850314573}
   m_crashCntText: {fileID: 2146403349}
   m_driftDistText: {fileID: 563943993}
+  m_averageSpeedText: {fileID: 866638564}
   m_timerText: {fileID: 1491899330}
 --- !u!4 &1713134821
 Transform:

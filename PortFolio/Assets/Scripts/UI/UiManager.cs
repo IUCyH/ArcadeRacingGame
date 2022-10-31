@@ -35,6 +35,9 @@ public class UiManager : Singleton_DontDestroy<UiManager>
     [Tooltip("UGUI Text for displaying total drift distance")]
     [SerializeField]
     Text m_driftDistText;
+    [Tooltip("UGUI Text for displaying average speed")]
+    [SerializeField]
+    Text m_averageSpeedText;
     [Tooltip("UGUI Text for displaying timer")]
     [SerializeField]
     Text m_timerText;
@@ -61,6 +64,7 @@ public class UiManager : Singleton_DontDestroy<UiManager>
     public void SetFinishUI(string completeText, float mapBestTime, float currTime)
     {
         int minute, second, millisecond;
+        float averageSpeed = GameSystemManager.Instance.AverageSpeed;
         string mapName = DataManager.Instance.GetMapName(GameSystemManager.Instance.CurrMapIndex);
         m_dynamicCanvas.enabled = false;
         m_resultPanel.SetActive(true);
@@ -74,5 +78,6 @@ public class UiManager : Singleton_DontDestroy<UiManager>
         m_driftDistText.text = string.Format("드리프트 <color=yellow><b>{0}</b></color> m", Mathf.Round(m_player.TotalDriftDist) * 10);
         m_boosterCntText.text = string.Format("부스터 <color=yellow><b>{0}</b></color> 회", m_player.BoosterCnt);
         m_crashCntText.text = string.Format("충돌 횟수 <color=yellow><b>{0}</b></color> 회", m_player.CrashCnt);
+        m_averageSpeedText.text = string.Format("평균 속도 <color=yellow><b>{0}</b></color> km/h", Mathf.Round(averageSpeed));
     }
 }
