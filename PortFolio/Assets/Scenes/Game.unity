@@ -235,7 +235,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1491899329}
-  - {fileID: 1368270740}
   m_Father: {fileID: 280356373}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6583,7 +6582,7 @@ RectTransform:
   - {fileID: 969985917}
   - {fileID: 2146403348}
   m_Father: {fileID: 795884223}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -6978,6 +6977,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 294090182}
+  - {fileID: 1368270740}
   - {fileID: 709227627}
   m_Father: {fileID: 0}
   m_RootOrder: 8
@@ -12488,7 +12488,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_checkPoints: []
   m_checkPointObj: {fileID: 781652865}
-  m_checkPointsDist: 0
+  m_twoCpsDist: 0
   m_reverseCheckPos: 0
   m_finishLapCnt: 0
   m_checkPointsLength: 0
@@ -13284,7 +13284,7 @@ GameObject:
   - component: {fileID: 1368270742}
   - component: {fileID: 1368270741}
   m_Layer: 5
-  m_Name: Best Time
+  m_Name: Text_Best Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13297,16 +13297,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1368270739}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 8480362}
+  m_Father: {fileID: 795884223}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -11.58, y: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -131.57996, y: -222.00003}
   m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1368270741
@@ -13831,7 +13831,7 @@ MonoBehaviour:
   m_forceValue: 100
   m_maxSpeed: 0
   m_normalMaxSpeed: 4500
-  m_normalMaxReSpeed: 3000
+  m_maxReSpeed: 15
   m_boosterMaxSpeed: 6500
   m_currSpeed: 0
   m_turnPower: 25
@@ -14132,7 +14132,7 @@ GameObject:
   - component: {fileID: 1491899331}
   - component: {fileID: 1491899330}
   m_Layer: 5
-  m_Name: Timer
+  m_Name: Text_Timer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

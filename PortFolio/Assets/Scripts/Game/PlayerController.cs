@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float m_normalMaxSpeed = 150f; //자동차의 전진 최대속도
     [SerializeField]
-    float m_normalMaxReSpeed = 15f; //자동차의 후진 최고속도
+    float m_maxReSpeed = 15f; //자동차의 후진 최고속도
     [SerializeField]
     float m_boosterMaxSpeed;
     [SerializeField]
@@ -180,36 +180,40 @@ public class PlayerController : MonoBehaviour
     //이동 함수
     void Move()
     {
-        var dir = Input.GetAxis("Vertical");
+        var dirZ = Input.GetAxis("Vertical");
+        var dirX = Input.GetAxis("Horizontal");
         var currTurnPower = Mathf.Abs(m_turnPower - m_playerRb.velocity.magnitude);
         //Debug.Log("Turn Power : " + currTurnPower);
-        if (dir >= 0)
+        if (dirZ >= 0)
         {
-            dir = 1;
+            dirZ = 1;
             foreach (WheelController w in m_wheelColliderCtr)
             {
-                w.Move(m_currSpeed, dir);
+                w.Move(m_currSpeed, dirZ);
             }
             if(m_currSpeed < m_maxSpeed)
                 m_currSpeed += m_speedUpVal;
             if (m_currSpeed > m_maxSpeed)
                 m_currSpeed -= m_speedDownVal;
         }
-        else if(dir < 0)
+        else if(dirZ < 0)
         {
             foreach(WheelController w in m_wheelColliderCtr)
             {
-                w.Move(m_currSpeed, dir);
+                w.Move(m_currSpeed, dirZ);
             }
-            if (m_currSpeed < m_normalMaxReSpeed)
+            if (m_currSpeed < m_maxReSpeed)
                 m_currSpeed += m_speedUpVal;
-            if (m_currSpeed > m_normalMaxReSpeed)
+            if (m_currSpeed > m_maxReSpeed)
                 m_currSpeed -= m_speedDownVal;
         }
         
-        for (int i = 0; i < 2; i++)
+        if (dirX != 0)
         {
-            m_wheelColliderCtr[i].Turn(currTurnPower, Input.GetAxis("Horizontal"));  
+            for (int i = 0; i < 2; i++)
+            {
+                m_wheelColliderCtr[i].Turn(currTurnPower, dirX);
+            }
         }
         OnDrift(m_isDrift);
     }

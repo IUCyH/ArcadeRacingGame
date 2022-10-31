@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameSystemManager : Singleton<GameSystemManager>
 {
-    public enum ReverseCheckPos
+    public enum ReverseCheckPos //역주행 인식의 기준이 되는 좌표
     {
         None,
         X,
@@ -23,7 +23,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
     [SerializeField]
     GameObject m_checkPointObj;
     [SerializeField]
-    float m_checkPointsDist;
+    float m_twoCpsDist;
     [SerializeField]
     ReverseCheckPos m_reverseCheckPos;
     [SerializeField]
@@ -92,7 +92,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
 
     public bool IsEnd { get { return m_finishLapCnt == m_mapLapTime; } }
     public int CurrMapIndex { get { return m_currMapIndex; } }
-    public float AverageSpeed { get { return (m_checkPointsDist / m_timer) * 3.6f; } }
+    public float AverageSpeed { get { return (m_twoCpsDist / m_timer) * 3.6f; } }
     IEnumerator Coroutine_CountDown()
     {
         float time = 0f;
@@ -270,7 +270,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
         m_checkPoints = m_checkPointObj.GetComponentsInChildren<CheckpointController>();
         m_checkPointsLength = m_checkPoints.Length;
         //Debug.Log(m_checkPointList.Count);
-        m_checkPointsDist = (m_checkPoints[m_checkPointsLength - 1].transform.position - m_checkPoints[0].transform.position).sqrMagnitude;
+        m_twoCpsDist = (m_checkPoints[m_checkPointsLength - 1].transform.position - m_checkPoints[0].transform.position).sqrMagnitude;
         m_mapLapTime = MapManager.Instance.LapTime;
         m_nextCheckPoint = 0;
         m_resultPanel.SetActive(false);
