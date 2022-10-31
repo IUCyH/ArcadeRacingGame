@@ -37,6 +37,10 @@ public class PlayerController : MonoBehaviour
     WheelFrictionCurve m_fFricBackRightWheel; //뒷바퀴중 오른쪽 바퀴의 forward friction의 값을 바꾸기 위한 변수
     [SerializeField]
     WheelFrictionCurve m_sFricBackRightWheel; //뒷바퀴중 오른쪽 바퀴의 sideways friction의 값을 바꾸기 위한 변수
+    [SerializeField]
+    Vector3 m_startDriftPos;
+    [SerializeField]
+    Vector3 m_endDriftPos;
     Vector3 m_wheelColliderPos; //휠 콜라이더의 위치를 받아올 변수
     Quaternion m_wheelColliderRotation; //휠 콜라이더의 회전값을 받아올 변수
     [Header("Move Values")]
@@ -77,6 +81,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float m_speedDownVal = 1f;
     [SerializeField]
+    float m_speed;
+    [SerializeField]
+    float m_driftDistSum;
+    [SerializeField]
     bool m_isDrift; //드리프트를 하고있는지를 나타내는 boolean 변수
     bool m_isStart; //시작했는지 알려주는 boolean 변수
     [Header("UI")]
@@ -104,6 +112,8 @@ public class PlayerController : MonoBehaviour
 
     public bool IsStart { get { return m_isStart; } set { m_isStart = value; } }
     public int BoosterCnt { get { return m_boosterUseCnt; } }
+    public int CrashCnt { get; set; }
+    public float TotalDriftDist { get { return m_driftDistSum; } }
     IEnumerator Coroutine_StartBoost()
     {
         float time = 0f;
@@ -224,7 +234,7 @@ public class PlayerController : MonoBehaviour
         m_wheelColliderCtr[2].Drift(m_fFricBackLeftWheel, m_sFricBackLeftWheel);
         m_wheelColliderCtr[3].Drift(m_fFricBackRightWheel, m_sFricBackRightWheel);
     }
-    void StabilizerBar()
+    void WheelStabilizerBar()
     {
         WheelHit hit;
         m_isGroundL = m_wheelCollider[2].GetGroundHit(out hit);
@@ -246,6 +256,10 @@ public class PlayerController : MonoBehaviour
         {
             m_playerRb.AddForceAtPosition(m_wheelCollider[3].transform.up * force, m_wheelCollider[3].transform.position);
         }
+    }
+    void OnCollisionEnter(Collision collision)
+    {
+        CrashCnt++;
     }
     void OnTriggerEnter(Collider other)
     {
@@ -278,11 +292,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //Debug.Log("State : " + m_state);
-        var speed = (m_playerRb.velocity.magnitude * 3.6f) * 5.5f;
+        m_speed = (m_playerRb.velocity.magnitude * 3.6f) * 5.5f;
         m_sb.Clear();
-        m_sb.AppendFormat("{0:0.0} km / h", speed);
+        m_sb.AppendFormat("{0:0.0} km / h", m_speed);
         m_speedText.text = m_sb.ToString();
-        switch(m_state)
+        switch (m_state)
         {
             case State.Defult:
                 m_maxSpeed = m_normalMaxSpeed;
@@ -303,10 +317,13 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
         {
             m_isDrift = true;
+            m_startDriftPos = transform.position;
         }
         if(Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift))
         {
             m_isDrift = false;
+            m_endDriftPos = transform.position;
+            m_driftDistSum += (m_startDriftPos - m_endDriftPos).sqrMagnitude;
         }
         //Debug.Log(transform.forward);
     }
@@ -318,7 +335,7 @@ public class PlayerController : MonoBehaviour
             Move();
             Booster();
             InitWheelPos();
-            StabilizerBar();
+            WheelStabilizerBar();
         }
     }
 }

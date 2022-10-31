@@ -12547,19 +12547,13 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_panel_finish: {fileID: 709227626}
+  m_resultPanel: {fileID: 709227626}
   m_countCanvas: {fileID: 2012878876}
   m_dynamicCanvas: {fileID: 280356372}
   m_staticCanvas: {fileID: 795884222}
   m_countText: {fileID: 840429487}
-  m_timerText: {fileID: 1491899330}
   m_bestTimeText: {fileID: 1368270741}
   m_lapTimeText: {fileID: 294090183}
-  m_completeText: {fileID: 268355175}
-  m_currTimeText: {fileID: 1774346933}
-  m_boosterCntText: {fileID: 969985918}
-  m_playerBestTimeText: {fileID: 99844129}
-  m_mapNameText: {fileID: 1850314573}
   m_warningImage: {fileID: 1517593235}
   m_duration: 0.4
   m_timer: 0
@@ -13824,6 +13818,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  m_startDriftPos: {x: 0, y: 0, z: 0}
+  m_endDriftPos: {x: 0, y: 0, z: 0}
   m_antiRollVal: 4500
   m_travelL: 1
   m_travelR: 1
@@ -13842,6 +13838,8 @@ MonoBehaviour:
   m_driftSlipRate: 0.05
   m_speedUpVal: 15
   m_speedDownVal: 10
+  m_speed: 0
+  m_driftDistSum: 0
   m_isDrift: 0
   m_speedText: {fileID: 1361306942}
   m_boosterBar: {fileID: 1685670814}
@@ -16467,6 +16465,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b889d0e5ccc17824c9d2c3361129993a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_player: {fileID: 1444569348}
+  m_dynamicCanvas: {fileID: 280356372}
+  m_resultPanel: {fileID: 709227626}
+  m_completeText: {fileID: 268355175}
+  m_currTimeText: {fileID: 1774346933}
+  m_boosterCntText: {fileID: 969985918}
+  m_playerBestTimeText: {fileID: 99844129}
+  m_mapNameText: {fileID: 1850314573}
+  m_crashCntText: {fileID: 2146403349}
+  m_driftDistText: {fileID: 563943993}
+  m_timerText: {fileID: 1491899330}
 --- !u!4 &1713134821
 Transform:
   m_ObjectHideFlags: 0

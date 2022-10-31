@@ -51,7 +51,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
     [SerializeField]
     AnimationCurve m_alphaCurve = AnimationCurve.Linear(0f, 0f, 1f, 1f);
     [SerializeField]
-    GameObject m_panel_finish;
+    GameObject m_resultPanel;
     [SerializeField]
     Canvas m_countCanvas;
     [SerializeField]
@@ -61,30 +61,12 @@ public class GameSystemManager : Singleton<GameSystemManager>
     [Tooltip("UGUI Text for displaying count value")]
     [SerializeField]
     Text m_countText;
-    [Tooltip("UGUI Text for displaying timer")]
-    [SerializeField]
-    Text m_timerText;
     [Tooltip("UGUI Text for displaying best time")]
     [SerializeField]
     Text m_bestTimeText;
     [Tooltip("UGUI Text for displaying lap time")]
     [SerializeField]
     Text m_lapTimeText;
-    [Tooltip("UGUI Text for displaying text '완주 기록' or '신기록'")]
-    [SerializeField]
-    Text m_completeText;
-    [Tooltip("UGUI Text for displaying current playing time")]
-    [SerializeField]
-    Text m_currTimeText;
-    [Tooltip("UGUI Text for displaying player's booster count")]
-    [SerializeField]
-    Text m_boosterCntText;
-    [Tooltip("UGUI Text for displaying player's best time")]
-    [SerializeField]
-    Text m_playerBestTimeText;
-    [Tooltip("UGUI Text for displaying current map name")]
-    [SerializeField]
-    Text m_mapNameText;
     [Tooltip("UGUI Image for displaying warning icon")]
     [SerializeField]
     Image m_warningImage;
@@ -102,8 +84,12 @@ public class GameSystemManager : Singleton<GameSystemManager>
     float m_minScale = 0.5f; //start scale value
     float m_alphaFrom = 1f; //start alpha value
     float m_alphaTo = 0f; //target alpha value
+    int m_minute;
+    int m_second;
+    int m_millisecond;
 
     public bool IsEnd { get { return m_finishLapCnt == m_mapLapTime; } }
+    public int CurrMapIndex { get { return m_currMapIndex; } }
     IEnumerator Coroutine_CountDown()
     {
         float time = 0f;
@@ -187,11 +173,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
     }
     void OnFinish()
     {
-        int minute;
-        int second;
-        int millisecond;
         string completeText = "완주 기록";
-        string mapName = DataManager.Instance.GetMapName(m_currMapIndex);
         float mapTime = DataManager.Instance.GetMapBestTime(m_currMapIndex);
         if(mapTime > m_timer)
         {
@@ -199,28 +181,19 @@ public class GameSystemManager : Singleton<GameSystemManager>
             completeText = "신기록";
             DataManager.Instance.UpdateMapBestTime(mapTime, m_currMapIndex);
         }
-        UiManager.Instance.SetCanvasEnabled(m_dynamicCanvas, false);
         m_player.IsStart = false;
         m_isStart = false;
         m_player.Break();
-        m_panel_finish.SetActive(true);
-
-        UiManager.Instance.SetUIText(m_completeText, completeText);
-        ConvetTime(m_timer, out minute, out second, out millisecond);
-        UiManager.Instance.SetUIText(m_currTimeText, string.Format("{0:00}:{1:00}:{2:00}", minute, second, millisecond));
-        UiManager.Instance.SetUIText(m_boosterCntText, string.Format("부스터 <color=yellow><b>{0}</b></color> 회", m_player.BoosterCnt));
-        ConvetTime(mapTime, out minute, out second, out millisecond);
-        UiManager.Instance.SetUIText(m_playerBestTimeText, string.Format("주간 최고 기록  <color=yellow><b>{0:00}:{1:00}:{2:00}</b></color>", minute, second, millisecond));
-        UiManager.Instance.SetUIText(m_mapNameText, mapName);
+        UiManager.Instance.SetFinishUI(completeText, mapTime, m_timer); //변동 가능한 정보들만 매개변수로 넘겨줌, 변동 가능성이 없는 정보들은 UI Manager에서 처리
         DataManager.Instance.Save();
     }
     void Timer()
     {
         m_sb.Clear();
         m_timer += Time.deltaTime;
-        ConvetTime(m_timer, out int minute, out int second, out int millisecond);
-        m_sb.AppendFormat("<b>TIME</b>  /  {0:00}:{1:00}:{2:00}", minute, second, millisecond);
-        UiManager.Instance.SetUIText(m_timerText, m_sb.ToString());
+        ConvetTime(m_timer, out m_minute, out m_second, out m_millisecond);
+        m_sb.AppendFormat("<b>TIME</b>  /  {0:00}:{1:00}:{2:00}", m_minute, m_second, m_millisecond);
+        UiManager.Instance.UpdateTimerUI(m_sb);
     }
     void UpdateBestTime()
     {
@@ -276,7 +249,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
         m_prevPos = m_currPos;
     }
     
-    void ConvetTime(float time, out int minute, out int second, out int millisecond)
+    public void ConvetTime(float time, out int minute, out int second, out int millisecond)
     {
         minute = Mathf.FloorToInt(time / 60f);
         second = (int)time % 60;
@@ -296,7 +269,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
         //Debug.Log(m_checkPointList.Count);
         m_mapLapTime = MapManager.Instance.LapTime;
         m_nextCheckPoint = 0;
-        m_panel_finish.SetActive(false);
+        m_resultPanel.SetActive(false);
         SetReversePos(ReverseCheckPos.Z);
         UpdateLapTime();
     }
