@@ -13,8 +13,6 @@ public class PlayerController : MonoBehaviour
         Booster,
         Max
     }
-    Dictionary<string, GameSystemManager.ReverseCheckPos> m_reversePosDic = new Dictionary<string, GameSystemManager.ReverseCheckPos>();
-    StringBuilder m_sb = new StringBuilder();
     State m_state;
     [SerializeField]
     Transform m_center;
@@ -87,8 +85,6 @@ public class PlayerController : MonoBehaviour
     bool m_isStart; //시작했는지 알려주는 boolean 변수
     [Header("UI")]
     [SerializeField]
-    Text m_speedText;
-    [SerializeField]
     Slider m_boosterBar;
     [SerializeField]
     Image[] m_boosterIcons = new Image[2];
@@ -112,7 +108,8 @@ public class PlayerController : MonoBehaviour
     public int BoosterCnt { get { return m_boosterUseCnt; } }
     public int CrashCnt { get; set; }
     public float TotalDriftDist { get { return (m_startDriftPosSum - m_endDriftPosSum).sqrMagnitude; } }
-    IEnumerator Coroutine_StartBoost()
+    public float CurrentSpeed { get { return m_speed; } }
+    public IEnumerator Coroutine_StartBoost()
     {
         float time = 0f;
         WaitForFixedUpdate waitForFixedUpdate = new WaitForFixedUpdate();
@@ -128,10 +125,6 @@ public class PlayerController : MonoBehaviour
                 yield break;
             yield return null;
         }
-    }
-    public void CorutineStart(string name)
-    {
-        StartCoroutine(name);
     }
     public void Break()
     {
@@ -154,9 +147,28 @@ public class PlayerController : MonoBehaviour
             m_wheelColliderCtr[i].UpdatePos(m_wheels[i].transform, m_wheelColliderPos, m_wheelColliderRotation);
         }
     }
-    void Booster()
+    void OnBooster()
     {
-        if (!m_isDrift && m_boosterBar.value == 1f)
+        SetState(State.Booster);
+        m_boosterIcons[m_boosterCnt].enabled = false;
+        m_boosterCnt--;
+        m_isBooster = true;
+    }
+    void BoosterControl()
+    {
+        if (!m_isBooster)
+        {
+            if(Input.GetKeyDown(KeyCode.LeftControl) && m_boosterCnt >= 0)
+            {
+                OnBooster();
+            }
+            m_boosterBar.value += m_defultChargingValue;
+        }
+        if (m_isDrift && Input.GetAxis("Horizontal") != 0)
+        {
+            m_boosterBar.value += m_boostChargingValue;
+        }
+        else if (!m_isDrift && m_boosterBar.value == 1f)
         {
             m_boosterBar.value = 0f;
             if (m_boosterCnt < m_boosterMaxCnt - 1)
@@ -164,18 +176,7 @@ public class PlayerController : MonoBehaviour
                 m_boosterCnt++;
             }
             m_boosterIcons[m_boosterCnt].enabled = true;
-        }
-        if(Input.GetKeyDown(KeyCode.LeftControl) && !m_isBooster && m_boosterCnt >= 0)
-        {
-            SetState(State.Booster);
-            m_boosterIcons[m_boosterCnt].enabled = false;
-            m_boosterCnt--;
-            m_isBooster = true;
-        }
-        if (m_isDrift && Input.GetAxis("Horizontal") != 0)
-            m_boosterBar.value += m_boostChargingValue;
-        if(!m_isBooster)
-            m_boosterBar.value += m_defultChargingValue;
+        }       
     }
     //이동 함수
     void Move()
@@ -215,9 +216,9 @@ public class PlayerController : MonoBehaviour
                 m_wheelColliderCtr[i].Turn(currTurnPower, dirX);
             }
         }
-        OnDrift(m_isDrift);
+        CarDriftControl(m_isDrift);
     }
-    void OnDrift(bool state)
+    void CarDriftControl(bool state)
     {
         if (state)
         {
@@ -236,7 +237,7 @@ public class PlayerController : MonoBehaviour
         m_wheelColliderCtr[2].Drift(m_fFricBackLeftWheel, m_sFricBackLeftWheel);
         m_wheelColliderCtr[3].Drift(m_fFricBackRightWheel, m_sFricBackRightWheel);
     }
-    void WheelStabilizerBar()
+    void WheelStabilizerBar() //두개의 앞바퀴에 동일한 힘을 주기 위한 함수
     {
         WheelHit hit;
         m_isGroundL = m_wheelCollider[2].GetGroundHit(out hit);
@@ -263,18 +264,6 @@ public class PlayerController : MonoBehaviour
     {
         CrashCnt++;
     }
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Map")) return;
-        GameSystemManager.Instance.SetReversePos(m_reversePosDic[other.tag]);
-    }
-    void Awake()
-    {
-        m_reversePosDic.Add("Reverse_X", GameSystemManager.ReverseCheckPos.X);
-        m_reversePosDic.Add("Reverse_Z", GameSystemManager.ReverseCheckPos.Z);
-        m_reversePosDic.Add("Reverse_NegativeX", GameSystemManager.ReverseCheckPos.NegativeX);
-        m_reversePosDic.Add("Reverse_NegativeZ", GameSystemManager.ReverseCheckPos.NegativeZ);
-    }
     void Start()
     {
         m_playerRb.centerOfMass = m_center.localPosition;
@@ -295,9 +284,6 @@ public class PlayerController : MonoBehaviour
     {
         //Debug.Log("State : " + m_state);
         m_speed = (m_playerRb.velocity.magnitude * 3.6f) * 5.5f;
-        m_sb.Clear();
-        m_sb.AppendFormat("{0:0.0} km / h", m_speed);
-        m_speedText.text = m_sb.ToString();
         switch (m_state)
         {
             case State.Defult:
@@ -334,7 +320,7 @@ public class PlayerController : MonoBehaviour
         if (m_isStart)
         {
             Move();
-            Booster();
+            BoosterControl();
             InitWheelPos();
             WheelStabilizerBar();
         }

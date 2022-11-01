@@ -6,12 +6,16 @@ using UnityEngine.UI;
 
 public class UiManager : Singleton_DontDestroy<UiManager>
 {
+    StringBuilder m_dynamicSb = new StringBuilder();
+    StringBuilder m_staticSb = new StringBuilder();
     [Header("Player")]
     [SerializeField]
     PlayerController m_player;
     [Header("")]
     [SerializeField]
     Canvas m_dynamicCanvas;
+    [SerializeField]
+    Canvas m_staticCanvas;
     [SerializeField]
     GameObject m_resultPanel;
     [Tooltip("UGUI Text for displaying text '완주 기록' or '신기록'")]
@@ -38,9 +42,18 @@ public class UiManager : Singleton_DontDestroy<UiManager>
     [Tooltip("UGUI Text for displaying average speed")]
     [SerializeField]
     Text m_averageSpeedText;
+    [Tooltip("UGUI Text for displaying current speed")]
+    [SerializeField]
+    Text m_speedText;
     [Tooltip("UGUI Text for displaying timer")]
     [SerializeField]
     Text m_timerText;
+    [Tooltip("UGUI Text for displaying lap time")]
+    [SerializeField]
+    Text m_lapTimeText;
+    [Tooltip("UGUI Text for displaying current best time")]
+    [SerializeField]
+    Text m_bestTimeText;
     public void SetUIText(Text textUi, string text)
     {
         textUi.text = text;
@@ -57,9 +70,35 @@ public class UiManager : Singleton_DontDestroy<UiManager>
     {
         canvas.enabled = value;
     }
-    public void UpdateTimerUI(StringBuilder time)
+    public void InitAllCanvas(bool value)
     {
-        m_timerText.text = time.ToString();
+        m_dynamicCanvas.enabled = value;
+        m_staticCanvas.enabled = value;
+    }
+    public void UpdateLapTimeText(int mapLapTime, int currLapTime)
+    {
+        m_staticSb.Clear();
+        m_staticSb.AppendFormat("<color=yellow><size=150>{0}</size></color> /{1}", currLapTime, mapLapTime);
+        m_lapTimeText.text = m_staticSb.ToString();
+    }
+    public void UpdateStaticCanvas(int mapLapTime, int currLapTime, float bestTime)
+    {
+        UpdateLapTimeText(mapLapTime, currLapTime);
+        m_staticSb.Clear();
+        GameSystemManager.Instance.ConvetTime(bestTime, out int minute, out int second, out int millisecond);
+        m_staticSb.AppendFormat("<b>BEST</b>  /  {0:00}:{1:00}:{2:00}", minute, second, millisecond);
+        m_bestTimeText.text = m_staticSb.ToString();
+    }
+    public void UpdateDynamicCanvas()
+    {
+        m_dynamicSb.Clear();
+        float time = GameSystemManager.Instance.CurrentTime;
+        GameSystemManager.Instance.ConvetTime(time, out int minute, out int second, out int millisecond);
+        m_dynamicSb.AppendFormat("<b>TIME</b>  /  {0:00}:{1:00}:{2:00}", minute, second, millisecond);
+        m_timerText.text = m_dynamicSb.ToString();
+        m_dynamicSb.Clear();
+        m_dynamicSb.AppendFormat("{0:0.0} km / h", m_player.CurrentSpeed);
+        m_speedText.text = m_dynamicSb.ToString();
     }
     public void SetFinishUI(string completeText, float mapBestTime, float currTime)
     {
