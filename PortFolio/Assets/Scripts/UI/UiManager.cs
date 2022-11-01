@@ -119,4 +119,8 @@ public class UiManager : Singleton_DontDestroy<UiManager>
         m_crashCntText.text = string.Format("Ãæµ¹ È½¼ö <color=yellow><b>{0}</b></color> È¸", m_player.CrashCnt);
         m_averageSpeedText.text = string.Format("Æò±Õ ¼Óµµ <color=yellow><b>{0}</b></color> km/h", Mathf.Round(averageSpeed));
     }
+    protected override void OnStart()
+    {
+        m_resultPanel.SetActive(false);
+    }
 }

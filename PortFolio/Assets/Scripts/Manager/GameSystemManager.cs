@@ -52,8 +52,6 @@ public class GameSystemManager : Singleton<GameSystemManager>
     [SerializeField]
     AnimationCurve m_alphaCurve = AnimationCurve.Linear(0f, 0f, 1f, 1f);
     [SerializeField]
-    GameObject m_resultPanel;
-    [SerializeField]
     Canvas m_countCanvas;
     [Tooltip("UGUI Text for displaying count value")]
     [SerializeField]
@@ -248,7 +246,6 @@ public class GameSystemManager : Singleton<GameSystemManager>
         m_twoCpsDist = (m_checkPoints[m_checkPointsLength - 1].transform.position - m_checkPoints[0].transform.position).sqrMagnitude;
         m_mapLapTime = MapManager.Instance.LapTime;
         m_nextCheckPoint = 0;
-        m_resultPanel.SetActive(false);
         SetReversePos(ReverseCheckPos.Z);
         UiManager.Instance.UpdateLapTimeText(m_mapLapTime, m_lapTime);
     }
