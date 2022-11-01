@@ -98,7 +98,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
             }
             if (cnt < 1)
             {
-                UiManager.Instance.InitAllCanvas(true);
+                UiManager.Instance.SetActiveAllCanvas(true);
                 m_player.IsStart = true;
                 m_isStart = true;
                 m_player.StartCoroutine(m_player.Coroutine_StartBoost());
@@ -230,7 +230,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
     }
     protected override void OnAwake()
     {
-        UiManager.Instance.InitAllCanvas(false);
+        UiManager.Instance.SetActiveAllCanvas(false);
         m_warningImage.enabled = false;
         m_reverseCheckPosDic.Add("Reverse_X", ReverseCheckPos.X);
         m_reverseCheckPosDic.Add("Reverse_Z", ReverseCheckPos.Z);

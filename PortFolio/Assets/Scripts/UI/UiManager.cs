@@ -70,7 +70,7 @@ public class UiManager : Singleton_DontDestroy<UiManager>
     {
         canvas.enabled = value;
     }
-    public void InitAllCanvas(bool value)
+    public void SetActiveAllCanvas(bool value)
     {
         m_dynamicCanvas.enabled = value;
         m_staticCanvas.enabled = value;
