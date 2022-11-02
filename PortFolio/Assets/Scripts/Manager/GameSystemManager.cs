@@ -15,6 +15,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
         NegativeZ,
         Max
     }
+    StringBuilder m_sb = new StringBuilder();
     Dictionary<string, ReverseCheckPos> m_reverseCheckPosDic = new Dictionary<string, ReverseCheckPos>();
     [Tooltip("Check Points array")]
     [SerializeField]
@@ -83,12 +84,12 @@ public class GameSystemManager : Singleton<GameSystemManager>
     {
         float time = 0f;
         int cnt = 3;
+        UiManager.Instance.StartCoroutine(UiManager.Instance.Coroutine_TextScaleFadeIn(m_countText, m_scaleCurve, m_minScale, m_maxScale, 3));
         while (true)
         {
-            var scaleValue = m_scaleCurve.Evaluate(time);
-            var scale = m_minScale * (1f - scaleValue) + m_maxScale * scaleValue;
-            UiManager.Instance.SetUIText(m_countText, cnt.ToString());
-            UiManager.Instance.SetUITextScale(m_countText, scale, scale, scale);
+            m_sb.Clear();
+            m_sb.Append(cnt);
+            UiManager.Instance.SetUIText(m_countText, m_sb.ToString());
             time += Time.deltaTime;
 
             if (time > 1f)
@@ -99,27 +100,10 @@ public class GameSystemManager : Singleton<GameSystemManager>
             if (cnt < 1)
             {
                 UiManager.Instance.SetActiveAllCanvas(true);
+                m_player.StartCoroutine(m_player.Coroutine_StartBoost());
+                UiManager.Instance.StartCoroutine(UiManager.Instance.Coroutine_TextAlphaFadeout(m_countText, m_alphaCurve, m_alphaFrom, m_alphaTo, m_duration, () => m_countCanvas.enabled = false));
                 m_player.IsStart = true;
                 m_isStart = true;
-                m_player.StartCoroutine(m_player.Coroutine_StartBoost());
-                StartCoroutine(Coroutine_Fadeout());
-                yield break;
-            }
-            yield return null;
-        }
-    }
-    IEnumerator Coroutine_Fadeout()
-    {
-        float time = 0f;
-        while (true)
-        {
-            var alphaValue = m_alphaCurve.Evaluate(time);
-            var alpha = m_alphaFrom * (1f - alphaValue) + m_alphaTo * alphaValue;
-            UiManager.Instance.SetUITextColor(m_countText, 1f, 1f, 1f, alpha);
-            time += Time.deltaTime / m_duration;
-            if (time > 1f)
-            {
-                UiManager.Instance.SetCanvasEnabled(m_countCanvas, false);
                 yield break;
             }
             yield return null;

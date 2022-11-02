@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class UiManager : Singleton_DontDestroy<UiManager>
 {
+    public delegate void FuncDel();
     StringBuilder m_dynamicSb = new StringBuilder();
     StringBuilder m_staticSb = new StringBuilder();
     [Header("Player")]
@@ -54,6 +55,45 @@ public class UiManager : Singleton_DontDestroy<UiManager>
     [Tooltip("UGUI Text for displaying current best time")]
     [SerializeField]
     Text m_bestTimeText;
+
+    public IEnumerator Coroutine_TextAlphaFadeout(Text text, AnimationCurve curve, float from, float to, float duration, FuncDel funcDel = null)
+    {
+        float time = 0f;
+        while (true)
+        {
+            var alphaValue = curve.Evaluate(time);
+            var alpha = from * (1f - alphaValue) + to * alphaValue;
+            text.color = new Color(1f, 1f, 1f, alpha);
+            time += Time.deltaTime / duration;
+            if (time > 1f)
+            {
+                if (funcDel != null)
+                    funcDel();
+                yield break;
+            }
+            yield return null;
+        }
+    }
+    public IEnumerator Coroutine_TextScaleFadeIn(Text text, AnimationCurve curve, float from, float to, int repeatCnt)
+    {
+        float time = 0f;
+        int cnt = 0;
+        while (true)
+        {
+            var scaleValue = curve.Evaluate(time);
+            var scale = from * (1f - scaleValue) + to * scaleValue;
+            text.transform.localScale = new Vector3(scale, scale, scale);
+            time += Time.deltaTime;
+            if(time > 1f)
+            {
+                time = 0f;
+                cnt++;
+                if (cnt > repeatCnt)
+                    yield break;
+            }
+            yield return null;
+        }
+    }
     public void SetUIText(Text textUi, string text)
     {
         textUi.text = text;
