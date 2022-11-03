@@ -20,8 +20,8 @@ public class ResetPointManager : Singleton<ResetPointManager>
             m_resetPoints[i].ResetPointNumber = i;
         }
     }
-    public void ChangeCurrReversePoint(int reversePointNum)
+    public void ChangeCurrReversePoint(int resetPointNum)
     {
-        m_currResetPosIndex = reversePointNum;
+        m_currResetPosIndex = resetPointNum;
     }
 }
