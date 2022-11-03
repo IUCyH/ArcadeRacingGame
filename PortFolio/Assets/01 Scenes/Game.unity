@@ -24394,6 +24394,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 184186907, guid: f426153667be92c4c8c16d0f5b675ce1, type: 3}
+      propertyPath: m_Name
+      value: reset_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 215123767, guid: f426153667be92c4c8c16d0f5b675ce1, type: 3}
+      propertyPath: m_Name
+      value: reset_00
+      objectReference: {fileID: 0}
+    - target: {fileID: 295950445, guid: f426153667be92c4c8c16d0f5b675ce1, type: 3}
+      propertyPath: m_Name
+      value: reset_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 580963779, guid: f426153667be92c4c8c16d0f5b675ce1, type: 3}
+      propertyPath: m_Name
+      value: reset_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 759226557, guid: f426153667be92c4c8c16d0f5b675ce1, type: 3}
+      propertyPath: m_Name
+      value: reset_05
+      objectReference: {fileID: 0}
+    - target: {fileID: 1520455693, guid: f426153667be92c4c8c16d0f5b675ce1, type: 3}
+      propertyPath: m_Name
+      value: reset_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1774356739129800437, guid: f426153667be92c4c8c16d0f5b675ce1, type: 3}
+      propertyPath: m_Name
+      value: ResetPoint
+      objectReference: {fileID: 0}
     - target: {fileID: 5116107184694222552, guid: f426153667be92c4c8c16d0f5b675ce1, type: 3}
       propertyPath: m_RootOrder
       value: 3

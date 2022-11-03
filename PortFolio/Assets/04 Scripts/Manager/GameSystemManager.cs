@@ -164,8 +164,8 @@ public class GameSystemManager : Singleton<GameSystemManager>
     }
     public void ResetPlayerPosition()
     {
-        var currReversePos = ReversePointManager.Instance.CurrentReversePos;
-        m_player.transform.position = currReversePos.transform.position;
+        var currResetPos = ResetPointManager.Instance.CurrentResetPos;
+        m_player.transform.position = currResetPos.transform.position;
     }
     void CalculateBestTime()
     {
