@@ -7,16 +7,14 @@ public class CheckpointController : MonoBehaviour
     [Tooltip("order of this checkpoint")]
     [SerializeField]
     int m_checkNumber;
-    void Start()
-    {
-        var name = transform.name.Split('_');
-        m_checkNumber = int.Parse(name[1]);
-    }
+
+    public int CheckNumber { set { m_checkNumber = value; } }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            GameSystemManager.Instance.OnTroughCheckPoint(m_checkNumber, this);
+            GameSystemManager.Instance.OnThroughCheckPoint(m_checkNumber, this);
             //Debug.Log(GameSystemManager.Instance.IsEnd);
         }
     }

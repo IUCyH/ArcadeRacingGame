@@ -17,11 +17,6 @@ public class GameSystemManager : Singleton<GameSystemManager>
     }
     StringBuilder m_sb = new StringBuilder();
     Dictionary<string, ReverseCheckPos> m_reverseCheckPosDic = new Dictionary<string, ReverseCheckPos>();
-    [Tooltip("Check Points array")]
-    [SerializeField]
-    CheckpointController[] m_checkPoints;
-    [SerializeField]
-    GameObject m_checkPointObj;
     [SerializeField]
     float m_twoCpsDist;
     [SerializeField]
@@ -43,10 +38,16 @@ public class GameSystemManager : Singleton<GameSystemManager>
     [SerializeField]
     float m_prevPos;
     [SerializeField]
+    float m_maxReverseTime;
+    [SerializeField]
     bool m_isStart;
+    [SerializeField]
+    bool m_isReverse;
+
     [Header("Player")]
     [SerializeField]
     PlayerController m_player;
+
     [Header("UI")]
     [SerializeField]
     AnimationCurve m_scaleCurve = AnimationCurve.Linear(0f, 0f, 1f, 1f);
@@ -109,17 +110,18 @@ public class GameSystemManager : Singleton<GameSystemManager>
             yield return null;
         }
     }
-    public void OnReverse(bool value)
+    public void SetReverse(bool value)
     {
         m_warningImage.enabled = value;
+        m_isReverse = value;
     }
-    public void SetReversePos(ReverseCheckPos pos)
+    public void SetReverseCheckPos(ReverseCheckPos pos)
     {
         m_reverseCheckPos = pos;
     }
-    public void OnTroughCheckPoint(int checkNum, CheckpointController cpObj)
+    public void OnThroughCheckPoint(int checkNum, CheckpointController cpObj)
     {
-        SetReversePos(m_reverseCheckPosDic[cpObj.tag]);
+        SetReverseCheckPos(m_reverseCheckPosDic[cpObj.tag]);
         if (checkNum == m_nextCheckPoint)
         {
             m_nextCheckPoint++;
@@ -131,7 +133,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
             //Debug.Log(m_nextCheckPoint);
         }
     }
-    public void OnTroughGate()
+    public void OnThroughGate()
     {
         if (m_finishLapCnt > 0)
         {
@@ -160,6 +162,11 @@ public class GameSystemManager : Singleton<GameSystemManager>
         UiManager.Instance.SetFinishUI(completeText, mapTime, m_timer); //변동 가능한 정보들만 매개변수로 넘겨줌, 변동 가능성이 없는 정보들은 UI Manager에서 처리
         DataManager.Instance.Save();
     }
+    public void ResetPlayerPosition()
+    {
+        var currReversePos = ReversePointManager.Instance.CurrentReversePos;
+        m_player.transform.position = currReversePos.transform.position;
+    }
     void CalculateBestTime()
     {
         if (m_bestTime > m_timer - m_prevTime)
@@ -184,22 +191,22 @@ public class GameSystemManager : Singleton<GameSystemManager>
             case ReverseCheckPos.NegativeX:
                 if (m_currPos < m_prevPos)
                 {
-                    OnReverse(true);
+                    SetReverse(true);
                 }
                 else
                 {
-                    OnReverse(false);
+                    SetReverse(false);
                 }
                 break;
             case ReverseCheckPos.X:
             case ReverseCheckPos.NegativeZ:
                 if (m_currPos > m_prevPos)
                 {
-                    OnReverse(true);
+                    SetReverse(true);
                 }
                 else
                 {
-                    OnReverse(false);
+                    SetReverse(false);
                 }
                 break;
         }
@@ -224,13 +231,12 @@ public class GameSystemManager : Singleton<GameSystemManager>
     }
     protected override void OnStart()
     {
-        m_checkPoints = m_checkPointObj.GetComponentsInChildren<CheckpointController>();
-        m_checkPointsLength = m_checkPoints.Length;
-        //Debug.Log(m_checkPointList.Count);
-        m_twoCpsDist = (m_checkPoints[m_checkPointsLength - 1].transform.position - m_checkPoints[0].transform.position).sqrMagnitude;
+        var checkPoints = CheckPointManager.Instance.CheckPoints;
+        m_checkPointsLength = checkPoints.Length;
+        m_twoCpsDist = (checkPoints[m_checkPointsLength - 1].transform.position - checkPoints[0].transform.position).sqrMagnitude;
         m_mapLapTime = MapManager.Instance.LapTime;
         m_nextCheckPoint = 0;
-        SetReversePos(ReverseCheckPos.Z);
+        SetReverseCheckPos(ReverseCheckPos.Z);
         UiManager.Instance.UpdateLapTimeText(m_mapLapTime, m_lapTime);
     }
     // Update is called once per frame

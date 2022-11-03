@@ -301,7 +301,6 @@ public class PlayerController : MonoBehaviour
                 }
                 break;
         }
-        //Debug.Log("State : " + m_state);
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
         {
             m_isDrift = true;
@@ -311,6 +310,10 @@ public class PlayerController : MonoBehaviour
         {
             m_isDrift = false;
             m_endDriftPosSum += transform.position;
+        }
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            GameSystemManager.Instance.ResetPlayerPosition();
         }
         //Debug.Log(transform.forward);
     }

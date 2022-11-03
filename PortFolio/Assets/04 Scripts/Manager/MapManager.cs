@@ -13,6 +13,6 @@ public class MapManager : Singleton<MapManager>
     {
         if (!other.CompareTag("Player")) return;
 
-        GameSystemManager.Instance.OnTroughGate();
+        GameSystemManager.Instance.OnThroughGate();
     }
 }
