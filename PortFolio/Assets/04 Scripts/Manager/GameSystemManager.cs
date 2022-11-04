@@ -38,11 +38,17 @@ public class GameSystemManager : Singleton<GameSystemManager>
     [SerializeField]
     float m_prevPos;
     [SerializeField]
-    float m_maxReverseTime;
+    float m_resetCooldown;
+    [SerializeField]
+    float m_resetTimer; //리셋 버튼을 누른 후 다시 누를 수 있는 시간을 재는 변수
     [SerializeField]
     bool m_isStart;
     [SerializeField]
     bool m_isReverse;
+    [SerializeField]
+    bool m_isReset;
+    [SerializeField]
+    bool m_isCanReset;
 
     [Header("Player")]
     [SerializeField]
@@ -78,14 +84,16 @@ public class GameSystemManager : Singleton<GameSystemManager>
    
 
     public bool IsEnd { get { return m_finishLapCnt == m_mapLapTime; } }
+    public bool IsReverse { get { return m_isReverse; } }
     public int CurrMapIndex { get { return m_currMapIndex; } }
     public float AverageSpeed { get { return (m_twoCpsDist / m_timer) * 3.6f; } }
     public float CurrentTime { get { return m_timer; } }
+    public float ResetCoolDown { get { return m_resetCooldown; } }
     IEnumerator Coroutine_CountDown()
     {
         float time = 0f;
         int cnt = 3;
-        UiManager.Instance.StartCoroutine(UiManager.Instance.Coroutine_TextScaleFadeIn(m_countText, m_scaleCurve, m_minScale, m_maxScale, 3));
+        UiManager.Instance.StartCoroutine(UiManager.Instance.Coroutine_TextScaleFadeIn(m_countText, m_scaleCurve, m_minScale, m_maxScale, 4));
         while (true)
         {
             m_sb.Clear();
@@ -100,11 +108,14 @@ public class GameSystemManager : Singleton<GameSystemManager>
             }
             if (cnt < 1)
             {
+                float[] colors = new float[3] { 1f, 1f, 1f };
+                UiManager.Instance.SetUIText(m_countText, "시작");
                 UiManager.Instance.SetActiveAllCanvas(true);
                 m_player.StartCoroutine(m_player.Coroutine_StartBoost());
-                UiManager.Instance.StartCoroutine(UiManager.Instance.Coroutine_TextAlphaFadeout(m_countText, m_alphaCurve, m_alphaFrom, m_alphaTo, m_duration, () => m_countCanvas.enabled = false));
+                UiManager.Instance.StartCoroutine(UiManager.Instance.Coroutine_TextAlphaFadeout(m_countText, m_alphaCurve, m_alphaFrom, m_alphaTo, m_duration, colors, () => m_countCanvas.enabled = false));
                 m_player.IsStart = true;
                 m_isStart = true;
+                m_isCanReset = true;
                 yield break;
             }
             yield return null;
@@ -130,7 +141,6 @@ public class GameSystemManager : Singleton<GameSystemManager>
                 m_nextCheckPoint = 0;
                 m_finishLapCnt++;
             }
-            //Debug.Log(m_nextCheckPoint);
         }
     }
     public void OnThroughGate()
@@ -139,7 +149,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
         {
             m_lapTime++;
             CalculateBestTime();
-            UiManager.Instance.UpdateStaticCanvas(m_mapLapTime, m_lapTime, m_bestTime);
+            UiManager.Instance.UpdateStaticCanvas(m_mapLapTime, m_lapTime, m_bestTime, m_lapTime == m_mapLapTime);
             if (IsEnd)
             {
                 OnFinish();
@@ -158,14 +168,20 @@ public class GameSystemManager : Singleton<GameSystemManager>
         }
         m_player.IsStart = false;
         m_isStart = false;
-        m_player.Break();
+        m_player.Break(1000f);
         UiManager.Instance.SetFinishUI(completeText, mapTime, m_timer); //변동 가능한 정보들만 매개변수로 넘겨줌, 변동 가능성이 없는 정보들은 UI Manager에서 처리
         DataManager.Instance.Save();
     }
     public void ResetPlayerPosition()
     {
-        var currResetPos = ResetPointManager.Instance.CurrentResetPos;
-        m_player.transform.position = currResetPos.transform.position;
+        if (m_isCanReset)
+        {
+            var resetPos = ResetPointManager.Instance.ResetPoint;
+            m_player.transform.position = resetPos;
+            m_player.SetState(PlayerController.State.Reset);
+            m_isReset = true;
+            m_isCanReset = false;
+        }
     }
     void CalculateBestTime()
     {
@@ -193,8 +209,8 @@ public class GameSystemManager : Singleton<GameSystemManager>
                 {
                     SetReverse(true);
                 }
-                else
-                {
+                else 
+                { 
                     SetReverse(false);
                 }
                 break;
@@ -247,6 +263,16 @@ public class GameSystemManager : Singleton<GameSystemManager>
             m_timer += Time.deltaTime;
             UiManager.Instance.UpdateDynamicCanvas();
             CheckReverse();
+        }
+        if (m_isReset)
+        {
+            m_resetTimer += Time.deltaTime;
+            if (m_resetTimer > m_resetCooldown)
+            {
+                m_isCanReset = true;
+                m_isReset = false;
+                m_resetTimer = 0f;
+            }
         }
     }
 }

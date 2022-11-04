@@ -7,21 +7,25 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    enum State
+    public enum State
     {
         Defult,
         Booster,
+        Reset,
         Max
     }
     State m_state;
     [SerializeField]
     Transform m_center;
+
     [Header("Player")]
     [SerializeField]
     Rigidbody m_playerRb; //플레이어 리지드바디
+
     [Header("Wheel Mesh")]
     [SerializeField]
     GameObject[] m_wheels = new GameObject[4]; //바퀴매쉬 배열
+
     [Header("Wheel Collider")]
     [SerializeField]
     WheelCollider[] m_wheelCollider = new WheelCollider[4];
@@ -41,6 +45,7 @@ public class PlayerController : MonoBehaviour
     Vector3 m_endDriftPosSum;
     Vector3 m_wheelColliderPos; //휠 콜라이더의 위치를 받아올 변수
     Quaternion m_wheelColliderRotation; //휠 콜라이더의 회전값을 받아올 변수
+
     [Header("Move Values")]
     [SerializeField]
     float m_antiRollVal = 5000f;
@@ -83,6 +88,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     bool m_isDrift; //드리프트를 하고있는지를 나타내는 boolean 변수
     bool m_isStart; //시작했는지 알려주는 boolean 변수
+
     [Header("UI")]
     [SerializeField]
     Slider m_boosterBar;
@@ -104,6 +110,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     int m_boosterCnt = 0;
 
+    [Header("Sounds")]
+    [SerializeField]
+    AudioClip m_defaultSoundClip;
+    [SerializeField]
+    AudioClip m_boosterSoundClip;
+
     public bool IsStart { get { return m_isStart; } set { m_isStart = value; } }
     public int BoosterCnt { get { return m_boosterUseCnt; } }
     public int CrashCnt { get; set; }
@@ -121,21 +133,23 @@ public class PlayerController : MonoBehaviour
                 m_playerRb.AddForce(transform.forward * m_startBoostSpeed, ForceMode.VelocityChange);
                 yield break;
             }
+            time += Time.deltaTime;
             if (time > m_startBoostTime)
                 yield break;
             yield return null;
         }
     }
-    public void Break()
+    public void Break(float breakForce)
     {
         foreach(WheelCollider w in m_wheelCollider)
         {
-            w.brakeTorque = 1000f;
+            w.brakeTorque = breakForce;
         }
     }
-    void SetState(State state)
+    public void SetState(State state)
     {
         m_state = state;
+        m_time = 0f;
     }
     //휠 매쉬와 휠 콜라이더 동기화
     void InitWheelPos()
@@ -184,22 +198,20 @@ public class PlayerController : MonoBehaviour
         var dirZ = Input.GetAxis("Vertical");
         var dirX = Input.GetAxis("Horizontal");
         var currTurnPower = Mathf.Abs(m_turnPower - m_playerRb.velocity.magnitude);
-        //Debug.Log("Turn Power : " + currTurnPower);
-        if (dirZ >= 0)
+        if (dirZ > 0)
         {
-            dirZ = 1;
             foreach (WheelController w in m_wheelColliderCtr)
             {
                 w.Move(m_currSpeed, dirZ);
             }
-            if(m_currSpeed < m_maxSpeed)
+            if (m_currSpeed < m_maxSpeed)
                 m_currSpeed += m_speedUpVal;
             if (m_currSpeed > m_maxSpeed)
                 m_currSpeed -= m_speedDownVal;
         }
-        else if(dirZ < 0)
+        else if (dirZ < 0)
         {
-            foreach(WheelController w in m_wheelColliderCtr)
+            foreach (WheelController w in m_wheelColliderCtr)
             {
                 w.Move(m_currSpeed, dirZ);
             }
@@ -208,19 +220,19 @@ public class PlayerController : MonoBehaviour
             if (m_currSpeed > m_maxReSpeed)
                 m_currSpeed -= m_speedDownVal;
         }
-        
-        if (dirX != 0)
+
+        if (Mathf.Abs(dirZ) > 0)
         {
             for (int i = 0; i < 2; i++)
             {
                 m_wheelColliderCtr[i].Turn(currTurnPower, dirX);
             }
         }
-        CarDriftControl(m_isDrift);
+        CarDriftControl();
     }
-    void CarDriftControl(bool state)
+    void CarDriftControl()
     {
-        if (state)
+        if (m_isDrift)
         {
             m_fFricBackLeftWheel.stiffness = m_driftSlipRate;
             m_sFricBackLeftWheel.stiffness = m_driftSlipRate;
@@ -259,6 +271,10 @@ public class PlayerController : MonoBehaviour
         {
             m_playerRb.AddForceAtPosition(m_wheelCollider[3].transform.up * force, m_wheelCollider[3].transform.position);
         }
+    }
+    void PlayEngineSound()
+    {
+
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -299,6 +315,12 @@ public class PlayerController : MonoBehaviour
                     m_isBooster = false;
                     m_time = 0f;
                 }
+                break;
+            case State.Reset:
+                m_maxSpeed = 0f;
+                m_time += Time.deltaTime;
+                if (m_time > GameSystemManager.Instance.ResetCoolDown)
+                    SetState(State.Defult);
                 break;
         }
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))

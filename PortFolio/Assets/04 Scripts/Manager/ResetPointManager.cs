@@ -5,23 +5,25 @@ using UnityEngine;
 public class ResetPointManager : Singleton<ResetPointManager>
 {
     [SerializeField]
-    ResetPointController[] m_resetPoints;
+    List<Vector3> m_resetPosList = new List<Vector3>();
     [SerializeField]
-    int m_currResetPosIndex = 0;
+    GameObject m_resetPoint;
+    [SerializeField]
+    int currResetPointIndex = 0;
 
-    public ResetPointController CurrentResetPos { get { return m_resetPoints[m_currResetPosIndex]; } }
+    public Vector3 ResetPoint { get { return m_resetPoint.transform.position; } }
 
-    protected override void OnStart()
+    void OnTriggerExit(Collider other)
     {
-        m_resetPoints = GetComponentsInChildren<ResetPointController>();
-        var length = m_resetPoints.Length;
-        for(int i = 0; i < length; i++)
+        Debug.Log("Exit");
+        if (!other.CompareTag("Player")) return;
+
+        if (!GameSystemManager.Instance.IsReverse)
         {
-            m_resetPoints[i].ResetPointNumber = i;
+            currResetPointIndex++;
+            if (currResetPointIndex > m_resetPosList.Count - 1)
+                currResetPointIndex = 0;
+            m_resetPoint.transform.localPosition = m_resetPosList[currResetPointIndex];
         }
-    }
-    public void ChangeCurrReversePoint(int resetPointNum)
-    {
-        m_currResetPosIndex = resetPointNum;
     }
 }

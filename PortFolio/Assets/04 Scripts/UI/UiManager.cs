@@ -9,6 +9,8 @@ public class UiManager : Singleton_DontDestroy<UiManager>
     public delegate void FuncDel();
     StringBuilder m_dynamicSb = new StringBuilder();
     StringBuilder m_staticSb = new StringBuilder();
+    [SerializeField]
+    AnimationCurve m_alphaCurve = AnimationCurve.Linear(0f, 0f, 1f, 1f);
     [Header("Player")]
     [SerializeField]
     PlayerController m_player;
@@ -55,15 +57,26 @@ public class UiManager : Singleton_DontDestroy<UiManager>
     [Tooltip("UGUI Text for displaying current best time")]
     [SerializeField]
     Text m_bestTimeText;
+    [Tooltip("UGUI Text for inform that it's last lap")]
+    [SerializeField]
+    Text m_lastLapText;
+    [SerializeField]
+    Outline m_lastLapTextOutLine;
+    [SerializeField]
+    float m_lastLapEnableTime; //마지막 랩을 알려주는 택스트의 표시시간
+    [SerializeField]
+    float m_alphaFrom = 1f;
+    [SerializeField]
+    float m_alphaTo = 0f;
 
-    public IEnumerator Coroutine_TextAlphaFadeout(Text text, AnimationCurve curve, float from, float to, float duration, FuncDel funcDel = null)
+    public IEnumerator Coroutine_TextAlphaFadeout(Text text, AnimationCurve curve, float from, float to, float duration, float[] rgbColors, FuncDel funcDel = null)
     {
         float time = 0f;
         while (true)
         {
             var alphaValue = curve.Evaluate(time);
             var alpha = from * (1f - alphaValue) + to * alphaValue;
-            text.color = new Color(1f, 1f, 1f, alpha);
+            text.color = new Color(rgbColors[0], rgbColors[1], rgbColors[2], alpha);
             time += Time.deltaTime / duration;
             if (time > 1f)
             {
@@ -121,13 +134,20 @@ public class UiManager : Singleton_DontDestroy<UiManager>
         m_staticSb.AppendFormat("<color=yellow><size=150>{0}</size></color> /{1}", currLapTime, mapLapTime);
         m_lapTimeText.text = m_staticSb.ToString();
     }
-    public void UpdateStaticCanvas(int mapLapTime, int currLapTime, float bestTime)
+    public void UpdateStaticCanvas(int mapLapTime, int currLapTime, float bestTime, bool isLastLap)
     {
         UpdateLapTimeText(mapLapTime, currLapTime);
         m_staticSb.Clear();
         GameSystemManager.Instance.ConvetTime(bestTime, out int minute, out int second, out int millisecond);
         m_staticSb.AppendFormat("<b>BEST</b>  /  {0:00}:{1:00}:{2:00}", minute, second, millisecond);
         m_bestTimeText.text = m_staticSb.ToString();
+        if(isLastLap)
+        {
+            m_lastLapText.enabled = true;
+            float[] colors = new float[3] { 255f, 183f, 0f };
+            m_lastLapTextOutLine.effectColor = new Color(0f, 0f, 0f, m_lastLapText.color.a);
+            StartCoroutine(Coroutine_TextAlphaFadeout(m_lastLapText, m_alphaCurve, m_alphaFrom, m_alphaTo, m_lastLapEnableTime, colors, () => m_lastLapText.gameObject.SetActive(false)));
+        }
     }
     public void UpdateDynamicCanvas()
     {
@@ -162,5 +182,6 @@ public class UiManager : Singleton_DontDestroy<UiManager>
     protected override void OnStart()
     {
         m_resultPanel.SetActive(false);
+        m_lastLapText.enabled = false;
     }
 }
