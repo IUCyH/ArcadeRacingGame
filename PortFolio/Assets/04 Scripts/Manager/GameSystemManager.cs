@@ -4,7 +4,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameSystemManager : Singleton<GameSystemManager>
+public class GameSystemManager : Singleton_DontDestroy<GameSystemManager>
 {
     public enum ReverseCheckPos //역주행 인식의 기준이 되는 좌표
     {
@@ -53,6 +53,8 @@ public class GameSystemManager : Singleton<GameSystemManager>
     [Header("Player")]
     [SerializeField]
     PlayerController m_player;
+    [SerializeField]
+    int m_currKartIndex;
 
     [Header("UI")]
     [SerializeField]
@@ -156,6 +158,12 @@ public class GameSystemManager : Singleton<GameSystemManager>
             }
         }
     }
+    public void ConvetTime(float time, out int minute, out int second, out int millisecond)
+    {
+        minute = Mathf.FloorToInt(time / 60f);
+        second = (int)time % 60;
+        millisecond = (int)(time * 100) % 100;
+    }
     void OnFinish()
     {
         string completeText = "완주 기록";
@@ -176,8 +184,26 @@ public class GameSystemManager : Singleton<GameSystemManager>
     {
         if (m_isCanReset)
         {
-            var resetPos = ResetPointManager.Instance.ResetPoint;
-            m_player.transform.position = resetPos;
+            var length = ResetPointManager.Instance.ResetPoints.Length;
+            Vector3 nearesetPos = Vector3.zero;
+            float nearestDist = 9999f;
+            float dist = 0f;
+
+            for(int i = 1; i < length; i++)
+            {
+                var pos = ResetPointManager.Instance.ResetPoints[i].position;
+                var dot = Vector3.Dot(m_player.transform.forward, pos.normalized);
+                Debug.Log("index : " + i + " " + dot);
+                if (Mathf.Approximately(dot, 0) || dot > 0) continue;
+                dist = (pos - m_player.transform.position).sqrMagnitude;
+                if (dist < nearestDist)
+                {
+                    nearesetPos = pos;
+                    nearestDist = dist;
+                }
+            }
+            Debug.Log(nearesetPos);
+            m_player.transform.position = nearesetPos;
             m_player.SetState(PlayerController.State.Reset);
             m_isReset = true;
             m_isCanReset = false;
@@ -228,15 +254,14 @@ public class GameSystemManager : Singleton<GameSystemManager>
         }
         m_prevPos = m_currPos;
     }
-    
-    public void ConvetTime(float time, out int minute, out int second, out int millisecond)
+    void LoadPlayerData()
     {
-        minute = Mathf.FloorToInt(time / 60f);
-        second = (int)time % 60;
-        millisecond = (int)(time * 100) % 100;
+        var carInfo = DataManager.Instance.PlayerData.carsList[m_currKartIndex];
+        m_player.InitKartStats(carInfo);
     }
     protected override void OnAwake()
     {
+        LoadPlayerData();
         UiManager.Instance.SetActiveAllCanvas(false);
         m_warningImage.enabled = false;
         m_reverseCheckPosDic.Add("Reverse_X", ReverseCheckPos.X);

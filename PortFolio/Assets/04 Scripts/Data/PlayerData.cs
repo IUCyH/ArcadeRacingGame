@@ -21,12 +21,6 @@ public class CarInfo
     public bool isPlayable;
 }
 [Serializable]
-public class PlayerData
-{
-    public List<CarInfo> carsList = new List<CarInfo>();
-    public List<MapInfo> mapList = new List<MapInfo>();
-}
-[Serializable]
 public class MapData
 {
     public string name;
@@ -37,4 +31,10 @@ public class MapInfo
     public MapData data;
     public float bestTime;
     public int recentPlaydate;
+}
+[Serializable]
+public class PlayerData
+{
+    public List<CarInfo> carsList = new List<CarInfo>();
+    public List<MapInfo> mapList = new List<MapInfo>();
 }

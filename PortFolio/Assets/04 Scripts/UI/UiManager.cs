@@ -87,6 +87,25 @@ public class UiManager : Singleton_DontDestroy<UiManager>
             yield return null;
         }
     }
+    public IEnumerator Coroutine_OutlineTextAlphaFadeout(Text text, Outline outline, AnimationCurve curve, float from, float to, float duration, float[] rgbColors, FuncDel funcDel = null)
+    {
+        float time = 0f;
+        while (true)
+        {
+            var alphaValue = curve.Evaluate(time);
+            var alpha = from * (1f - alphaValue) + to * alphaValue;
+            text.color = new Color(rgbColors[0], rgbColors[1], rgbColors[2], alpha);
+            outline.effectColor = new Color(outline.effectColor.r, outline.effectColor.g, outline.effectColor.b, alpha);
+            time += Time.deltaTime / duration;
+            if (time > 1f)
+            {
+                if (funcDel != null)
+                    funcDel();
+                yield break;
+            }
+            yield return null;
+        }
+    }
     public IEnumerator Coroutine_TextScaleFadeIn(Text text, AnimationCurve curve, float from, float to, int repeatCnt)
     {
         float time = 0f;
@@ -145,8 +164,8 @@ public class UiManager : Singleton_DontDestroy<UiManager>
         {
             m_lastLapText.enabled = true;
             float[] colors = new float[3] { 255f, 183f, 0f };
-            m_lastLapTextOutLine.effectColor = new Color(0f, 0f, 0f, m_lastLapText.color.a);
-            StartCoroutine(Coroutine_TextAlphaFadeout(m_lastLapText, m_alphaCurve, m_alphaFrom, m_alphaTo, m_lastLapEnableTime, colors, () => m_lastLapText.gameObject.SetActive(false)));
+            m_lastLapTextOutLine.
+            StartCoroutine(Coroutine_OutlineTextAlphaFadeout(m_lastLapText, m_lastLapTextOutLine, m_alphaCurve, m_alphaFrom, m_alphaTo, m_lastLapEnableTime, colors, () => m_lastLapText.gameObject.SetActive(false)));
         }
     }
     public void UpdateDynamicCanvas()

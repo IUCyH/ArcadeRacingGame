@@ -22,6 +22,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     Rigidbody m_playerRb; //플레이어 리지드바디
 
+    [Header("Kart Datas")]
+    [SerializeField]
+    string m_kartName;
+
     [Header("Wheel Mesh")]
     [SerializeField]
     GameObject[] m_wheels = new GameObject[4]; //바퀴매쉬 배열
@@ -139,6 +143,15 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
     }
+    public void InitKartStats(CarInfo carInfo)
+    {
+        m_kartName = carInfo.data.name;
+        transform.position = carInfo.data.pos;
+        m_startBoostSpeed = carInfo.data.startSpeed;
+        m_normalMaxSpeed = carInfo.data.maxSpeed;
+        m_boosterMaxSpeed = carInfo.data.maxBoosterSpeed;
+        m_turnPower = carInfo.data.maxTurnPower;
+    }
     public void Break(float breakForce)
     {
         foreach(WheelCollider w in m_wheelCollider)
@@ -198,12 +211,12 @@ public class PlayerController : MonoBehaviour
         var dirZ = Input.GetAxis("Vertical");
         var dirX = Input.GetAxis("Horizontal");
         var currTurnPower = Mathf.Abs(m_turnPower - m_playerRb.velocity.magnitude);
+        foreach (WheelController w in m_wheelColliderCtr)
+        {
+            w.Move(m_currSpeed, dirZ);
+        }
         if (dirZ > 0)
         {
-            foreach (WheelController w in m_wheelColliderCtr)
-            {
-                w.Move(m_currSpeed, dirZ);
-            }
             if (m_currSpeed < m_maxSpeed)
                 m_currSpeed += m_speedUpVal;
             if (m_currSpeed > m_maxSpeed)
@@ -211,10 +224,6 @@ public class PlayerController : MonoBehaviour
         }
         else if (dirZ < 0)
         {
-            foreach (WheelController w in m_wheelColliderCtr)
-            {
-                w.Move(m_currSpeed, dirZ);
-            }
             if (m_currSpeed < m_maxReSpeed)
                 m_currSpeed += m_speedUpVal;
             if (m_currSpeed > m_maxReSpeed)
@@ -317,7 +326,7 @@ public class PlayerController : MonoBehaviour
                 }
                 break;
             case State.Reset:
-                m_maxSpeed = 0f;
+                m_currSpeed = 0f;
                 m_time += Time.deltaTime;
                 if (m_time > GameSystemManager.Instance.ResetCoolDown)
                     SetState(State.Defult);

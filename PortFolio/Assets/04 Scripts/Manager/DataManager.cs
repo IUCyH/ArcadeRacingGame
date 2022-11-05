@@ -27,6 +27,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
         if (string.IsNullOrEmpty(jsonData))
             return null;
         return JsonUtility.FromJson<PlayerData>(jsonData);
+
     }
     public void Save()
     {
@@ -35,7 +36,15 @@ public class DataManager : Singleton_DontDestroy<DataManager>
         PlayerPrefs.SetString("PLAYER_DATA", playerJsonData);
         PlayerPrefs.Save();
     }
-    protected override void OnStart()
+    void UpdateCarDatas(CarInfo carInfo, int index)
+    {
+        carInfo.data = CarDataTable.Instance.m_carDatas[index];
+    }
+    void UpdateMapDatas(MapInfo mapInfo, int index)
+    {
+        mapInfo.data = MapDataTable.Instance.m_mapDataTable[index];
+    }
+    protected override void OnAwake()
     {
         m_playerData = Load();
         if (m_playerData == null)
@@ -45,7 +54,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
             for (int i = 0; i < dataLength; i++)
             {
                 CarInfo carInfo = new CarInfo();
-                carInfo.data = CarDataTable.Instance.m_carDatas[i];
+                UpdateCarDatas(carInfo, i);
                 carInfo.isPlayable = false;
                 m_playerData.carsList.Add(carInfo);
             }
@@ -53,7 +62,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
             for (int i = 0; i < mapDatalength; i++)
             {
                 MapInfo mapInfo = new MapInfo();
-                mapInfo.data = MapDataTable.Instance.m_mapDataTable[i];
+                UpdateMapDatas(mapInfo, i);
                 mapInfo.bestTime = 9999f;
                 mapInfo.recentPlaydate = 0;
                 m_playerData.mapList.Add(mapInfo);
