@@ -326,10 +326,14 @@ public class PlayerController : MonoBehaviour
                 }
                 break;
             case State.Reset:
+                Break(100f);
                 m_currSpeed = 0f;
                 m_time += Time.deltaTime;
                 if (m_time > GameSystemManager.Instance.ResetCoolDown)
+                {
+                    Break(0f);
                     SetState(State.Defult);
+                }
                 break;
         }
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))

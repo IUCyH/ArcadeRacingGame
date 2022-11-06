@@ -186,16 +186,22 @@ public class GameSystemManager : Singleton_DontDestroy<GameSystemManager>
         {
             var length = ResetPointManager.Instance.ResetPoints.Length;
             Vector3 nearesetPos = Vector3.zero;
+            Quaternion resetPointRotation = Quaternion.identity;
             float nearestDist = 9999f;
             float dist = 0f;
 
             for(int i = 1; i < length; i++)
             {
                 var pos = ResetPointManager.Instance.ResetPoints[i].position;
-                var dot = Vector3.Dot(m_player.transform.forward, pos.normalized);
-                Debug.Log("index : " + i + " " + dot);
-                if (Mathf.Approximately(dot, 0) || dot > 0) continue;
-                dist = (pos - m_player.transform.position).sqrMagnitude;
+                resetPointRotation = ResetPointManager.Instance.ResetPoints[i].localRotation;
+                var dir = (pos - m_player.transform.position);
+                var dot = Vector3.Dot(m_player.transform.forward, dir.normalized);
+                Debug.Log("Forward : " + resetPointRotation);
+                Debug.Log("resetPoint position : " + pos.normalized);
+                Debug.Log("Player Forward : " + m_player.transform.forward);
+                Debug.Log("index : " + i + " : " + dot);
+                if (dot > 0) continue;
+                dist = dir.sqrMagnitude;
                 if (dist < nearestDist)
                 {
                     nearesetPos = pos;
@@ -204,6 +210,7 @@ public class GameSystemManager : Singleton_DontDestroy<GameSystemManager>
             }
             Debug.Log(nearesetPos);
             m_player.transform.position = nearesetPos;
+            m_player.transform.rotation = resetPointRotation;
             m_player.SetState(PlayerController.State.Reset);
             m_isReset = true;
             m_isCanReset = false;
