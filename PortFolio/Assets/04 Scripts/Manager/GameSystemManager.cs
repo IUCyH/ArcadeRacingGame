@@ -88,6 +88,7 @@ public class GameSystemManager : Singleton_DontDestroy<GameSystemManager>
     public bool IsEnd { get { return m_finishLapCnt == m_mapLapTime; } }
     public bool IsReverse { get { return m_isReverse; } }
     public int CurrMapIndex { get { return m_currMapIndex; } }
+    public int CurrKartIndex { get { return m_currKartIndex; } }
     public float AverageSpeed { get { return (m_twoCpsDist / m_timer) * 3.6f; } }
     public float CurrentTime { get { return m_timer; } }
     public float ResetCoolDown { get { return m_resetCooldown; } }
@@ -187,20 +188,20 @@ public class GameSystemManager : Singleton_DontDestroy<GameSystemManager>
             var length = ResetPointManager.Instance.ResetPoints.Length;
             Vector3 nearesetPos = Vector3.zero;
             Quaternion resetPointRotation = Quaternion.identity;
-            float nearestDist = 9999f;
+            float nearestDist = float.PositiveInfinity;
             float dist = 0f;
 
             for(int i = 1; i < length; i++)
             {
                 var pos = ResetPointManager.Instance.ResetPoints[i].position;
-                resetPointRotation = ResetPointManager.Instance.ResetPoints[i].localRotation;
                 var dir = (pos - m_player.transform.position);
                 var dot = Vector3.Dot(m_player.transform.forward, dir.normalized);
+                if (dot > 0) continue;
+                resetPointRotation = ResetPointManager.Instance.ResetPoints[i].localRotation;
                 Debug.Log("Forward : " + resetPointRotation);
                 Debug.Log("resetPoint position : " + pos.normalized);
                 Debug.Log("Player Forward : " + m_player.transform.forward);
                 Debug.Log("index : " + i + " : " + dot);
-                if (dot > 0) continue;
                 dist = dir.sqrMagnitude;
                 if (dist < nearestDist)
                 {
@@ -209,8 +210,7 @@ public class GameSystemManager : Singleton_DontDestroy<GameSystemManager>
                 }
             }
             Debug.Log(nearesetPos);
-            m_player.transform.position = nearesetPos;
-            m_player.transform.rotation = resetPointRotation;
+            m_player.transform.SetPositionAndRotation(nearesetPos, resetPointRotation);
             m_player.SetState(PlayerController.State.Reset);
             m_isReset = true;
             m_isCanReset = false;
@@ -261,14 +261,16 @@ public class GameSystemManager : Singleton_DontDestroy<GameSystemManager>
         }
         m_prevPos = m_currPos;
     }
-    void LoadPlayerData()
+    void LoadData()
     {
-        var carInfo = DataManager.Instance.PlayerData.carsList[m_currKartIndex];
-        m_player.InitKartStats(carInfo);
+        var playerData = DataManager.Instance.PlayerData;
+        var mapInfo = DataManager.Instance.PlayerData.mapList[m_currMapIndex];
+        m_player.InitPlayer(playerData);
+        MapManager.Instance.InitMap(mapInfo);
     }
     protected override void OnAwake()
     {
-        LoadPlayerData();
+        LoadData();
         UiManager.Instance.SetActiveAllCanvas(false);
         m_warningImage.enabled = false;
         m_reverseCheckPosDic.Add("Reverse_X", ReverseCheckPos.X);
@@ -286,6 +288,7 @@ public class GameSystemManager : Singleton_DontDestroy<GameSystemManager>
         m_nextCheckPoint = 0;
         SetReverseCheckPos(ReverseCheckPos.Z);
         UiManager.Instance.UpdateLapTimeText(m_mapLapTime, m_lapTime);
+        UiManager.Instance.SetUserProfile();
     }
     // Update is called once per frame
     void Update()

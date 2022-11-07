@@ -12,6 +12,7 @@ public class CarData
     public float maxTurnPower;
     public float startSpeed;
     public int price;
+    public Color kartColor;
     public Vector3 pos;
 }
 [Serializable]
@@ -24,6 +25,7 @@ public class CarInfo
 public class MapData
 {
     public string name;
+    public int lapTime;
 }
 [Serializable]
 public class MapInfo
@@ -37,4 +39,5 @@ public class PlayerData
 {
     public List<CarInfo> carsList = new List<CarInfo>();
     public List<MapInfo> mapList = new List<MapInfo>();
+    public string userName;
 }

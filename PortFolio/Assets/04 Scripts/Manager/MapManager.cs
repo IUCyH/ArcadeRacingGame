@@ -15,4 +15,8 @@ public class MapManager : Singleton<MapManager>
 
         GameSystemManager.Instance.OnThroughGate();
     }
+    public void InitMap(MapInfo mapinfo)
+    {
+        m_lapTime = mapinfo.data.lapTime;
+    }
 }

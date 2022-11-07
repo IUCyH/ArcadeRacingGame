@@ -50,6 +50,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
         if (m_playerData == null)
         {
             m_playerData = new PlayerData();
+            m_playerData.userName = "Lucy";
             var dataLength = CarDataTable.Instance.m_carDatas.Length;
             for (int i = 0; i < dataLength; i++)
             {
@@ -63,7 +64,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
             {
                 MapInfo mapInfo = new MapInfo();
                 UpdateMapDatas(mapInfo, i);
-                mapInfo.bestTime = 9999f;
+                mapInfo.bestTime = float.PositiveInfinity;
                 mapInfo.recentPlaydate = 0;
                 m_playerData.mapList.Add(mapInfo);
             }

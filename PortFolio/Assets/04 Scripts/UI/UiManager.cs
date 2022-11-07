@@ -60,6 +60,11 @@ public class UiManager : Singleton_DontDestroy<UiManager>
     [Tooltip("UGUI Text for inform that it's last lap")]
     [SerializeField]
     Text m_lastLapText;
+    [Tooltip("UGUI Text for displaying user's name")]
+    [SerializeField]
+    Text m_userNameText;
+    [SerializeField]
+    Image m_userMarkImage;
     [SerializeField]
     Outline m_lastLapTextOutLine;
     [SerializeField]
@@ -130,18 +135,6 @@ public class UiManager : Singleton_DontDestroy<UiManager>
     {
         textUi.text = text;
     }
-    public void SetUITextScale(Text text, float Xvalue, float Yvalue, float Zvalue)
-    {
-        text.transform.localScale = new Vector3(Xvalue, Yvalue, Zvalue);
-    }
-    public void SetUITextColor(Text text, float r, float g, float b, float alpha)
-    {
-        text.color = new Color(r, g, b, alpha);
-    }
-    public void SetCanvasEnabled(Canvas canvas, bool value)
-    {
-        canvas.enabled = value;
-    }
     public void SetActiveAllCanvas(bool value)
     {
         m_dynamicCanvas.enabled = value;
@@ -152,6 +145,11 @@ public class UiManager : Singleton_DontDestroy<UiManager>
         m_staticSb.Clear();
         m_staticSb.AppendFormat("<color=yellow><size=150>{0}</size></color> /{1}", currLapTime, mapLapTime);
         m_lapTimeText.text = m_staticSb.ToString();
+    }
+    public void SetUserProfile()
+    {
+        m_userNameText.text = m_player.UserName;
+        m_userMarkImage.color = m_player.KartColor;
     }
     public void UpdateStaticCanvas(int mapLapTime, int currLapTime, float bestTime, bool isLastLap)
     {

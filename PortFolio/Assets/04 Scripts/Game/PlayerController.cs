@@ -21,10 +21,14 @@ public class PlayerController : MonoBehaviour
     [Header("Player")]
     [SerializeField]
     Rigidbody m_playerRb; //플레이어 리지드바디
+    [SerializeField]
+    string m_playerName;
 
     [Header("Kart Datas")]
     [SerializeField]
     string m_kartName;
+    [SerializeField]
+    Color m_kartColor;
 
     [Header("Wheel Mesh")]
     [SerializeField]
@@ -120,18 +124,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     AudioClip m_boosterSoundClip;
 
+    public Color KartColor { get { return m_kartColor; } }
     public bool IsStart { get { return m_isStart; } set { m_isStart = value; } }
     public int BoosterCnt { get { return m_boosterUseCnt; } }
     public int CrashCnt { get; set; }
     public float TotalDriftDist { get { return (m_startDriftPosSum - m_endDriftPosSum).sqrMagnitude; } }
     public float CurrentSpeed { get { return m_speed; } }
+    public string UserName { get { return m_playerName; } }
     public IEnumerator Coroutine_StartBoost()
     {
         float time = 0f;
         WaitForFixedUpdate waitForFixedUpdate = new WaitForFixedUpdate();
         while(true)
         {
-            if(Input.GetAxis("Vertical") > 0)
+            if(InputManager.Instance.Vertical > 0)
             {
                 yield return waitForFixedUpdate;
                 m_playerRb.AddForce(transform.forward * m_startBoostSpeed, ForceMode.VelocityChange);
@@ -143,14 +149,17 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
     }
-    public void InitKartStats(CarInfo carInfo)
+    public void InitPlayer(PlayerData playerData)
     {
+        var carInfo = playerData.carsList[GameSystemManager.Instance.CurrKartIndex];
         m_kartName = carInfo.data.name;
+        m_kartColor = carInfo.data.kartColor;
         transform.position = carInfo.data.pos;
         m_startBoostSpeed = carInfo.data.startSpeed;
         m_normalMaxSpeed = carInfo.data.maxSpeed;
         m_boosterMaxSpeed = carInfo.data.maxBoosterSpeed;
         m_turnPower = carInfo.data.maxTurnPower;
+        m_playerName = playerData.userName;
     }
     public void Break(float breakForce)
     {
@@ -162,7 +171,6 @@ public class PlayerController : MonoBehaviour
     public void SetState(State state)
     {
         m_state = state;
-        m_time = 0f;
     }
     //휠 매쉬와 휠 콜라이더 동기화
     void InitWheelPos()
@@ -185,13 +193,13 @@ public class PlayerController : MonoBehaviour
     {
         if (!m_isBooster)
         {
-            if(Input.GetKeyDown(KeyCode.LeftControl) && m_boosterCnt >= 0)
+            if(InputManager.Instance.BoosterKeyDown && m_boosterCnt >= 0)
             {
                 OnBooster();
             }
             m_boosterBar.value += m_defultChargingValue;
         }
-        if (m_isDrift && Input.GetAxis("Horizontal") != 0)
+        if (m_isDrift && InputManager.Instance.Horizontal != 0)
         {
             m_boosterBar.value += m_boostChargingValue;
         }
@@ -208,8 +216,8 @@ public class PlayerController : MonoBehaviour
     //이동 함수
     void Move()
     {
-        var dirZ = Input.GetAxis("Vertical");
-        var dirX = Input.GetAxis("Horizontal");
+        var dirZ = InputManager.Instance.Vertical;
+        var dirX = InputManager.Instance.Horizontal;
         var currTurnPower = Mathf.Abs(m_turnPower - m_playerRb.velocity.magnitude);
         foreach (WheelController w in m_wheelColliderCtr)
         {
@@ -326,27 +334,28 @@ public class PlayerController : MonoBehaviour
                 }
                 break;
             case State.Reset:
-                Break(100f);
+                Break(10000f);
                 m_currSpeed = 0f;
                 m_time += Time.deltaTime;
                 if (m_time > GameSystemManager.Instance.ResetCoolDown)
                 {
                     Break(0f);
                     SetState(State.Defult);
+                    m_time = 0f;
                 }
                 break;
         }
-        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
+        if (InputManager.Instance.HandBreakKeyDown)
         {
             m_isDrift = true;
             m_startDriftPosSum += transform.position;
         }
-        if(Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift))
+        if(InputManager.Instance.HandBreakKeyUp)
         {
             m_isDrift = false;
             m_endDriftPosSum += transform.position;
         }
-        if(Input.GetKeyDown(KeyCode.R))
+        if(InputManager.Instance.ResetKeyDown)
         {
             GameSystemManager.Instance.ResetPlayerPosition();
         }
