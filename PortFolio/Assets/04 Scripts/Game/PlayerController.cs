@@ -40,13 +40,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     WheelController[] m_wheelColliderCtr = new WheelController[4]; //휠 콜라이더 배열
     [SerializeField]
-    WheelFrictionCurve m_fFricBackLeftWheel; //뒷바퀴중 왼쪽 바퀴의 forward friction의 값을 바꾸기 위한 변수
+    WheelFrictionCurve m_fowardFricBackWheel; //뒷바퀴중 왼쪽 바퀴의 forward friction의 값을 바꾸기 위한 변수
     [SerializeField]
-    WheelFrictionCurve m_sFricBackLeftWheel; //뒷바퀴중 왼쪽 바퀴의 sideways friction의 값을 바꾸기 위한 변수
-    [SerializeField]
-    WheelFrictionCurve m_fFricBackRightWheel; //뒷바퀴중 오른쪽 바퀴의 forward friction의 값을 바꾸기 위한 변수
-    [SerializeField]
-    WheelFrictionCurve m_sFricBackRightWheel; //뒷바퀴중 오른쪽 바퀴의 sideways friction의 값을 바꾸기 위한 변수
+    WheelFrictionCurve m_sidewayFricBackWheel; //뒷바퀴중 왼쪽 바퀴의 sideways friction의 값을 바꾸기 위한 변수
     [SerializeField]
     Vector3 m_startDriftPosSum;
     [SerializeField]
@@ -86,7 +82,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float m_slipRate = 1.0f; //평상시 마찰계수
     [SerializeField]
-    float m_driftSlipRate = 0.3f; //드리프트 시 마찰계수
+    float m_slipRateDownForce;
+    [SerializeField]
+    float m_slipRateUpForce;
     [SerializeField]
     float m_speedUpVal = 3f;
     [SerializeField]
@@ -251,20 +249,23 @@ public class PlayerController : MonoBehaviour
     {
         if (m_isDrift)
         {
-            m_fFricBackLeftWheel.stiffness = m_driftSlipRate;
-            m_sFricBackLeftWheel.stiffness = m_driftSlipRate;
-            m_fFricBackRightWheel.stiffness = m_driftSlipRate;
-            m_sFricBackRightWheel.stiffness = m_driftSlipRate;
+            m_slipRate -= m_slipRateDownForce;
+            if (m_slipRate < 0.1f) m_slipRate = 0.1f;
         }
         else
         {
-            m_fFricBackLeftWheel.stiffness = m_slipRate;
-            m_sFricBackLeftWheel.stiffness = m_slipRate;
-            m_fFricBackRightWheel.stiffness = m_slipRate;
-            m_sFricBackRightWheel.stiffness = m_slipRate;
+            m_slipRate += m_slipRateUpForce;
+            if (m_slipRate > 1f) m_slipRate = 1f;
         }
-        m_wheelColliderCtr[2].Drift(m_fFricBackLeftWheel, m_sFricBackLeftWheel);
-        m_wheelColliderCtr[3].Drift(m_fFricBackRightWheel, m_sFricBackRightWheel);
+        for (int i = 2; i < 4; i++)
+        {
+            m_fowardFricBackWheel = m_wheelCollider[i].forwardFriction;
+            m_sidewayFricBackWheel = m_wheelCollider[i].sidewaysFriction;
+            m_fowardFricBackWheel.stiffness = m_slipRate;
+            m_sidewayFricBackWheel.stiffness = m_slipRate;
+
+            m_wheelColliderCtr[i].Drift(m_fowardFricBackWheel, m_sidewayFricBackWheel);
+        }
     }
     void WheelStabilizerBar() //두개의 앞바퀴에 동일한 힘을 주기 위한 함수
     {
@@ -303,10 +304,6 @@ public class PlayerController : MonoBehaviour
         m_wheelColliderCtr = GetComponentsInChildren<WheelController>();
         for (int i = 0; i < m_wheelColliderCtr.Length; i++)
             m_wheelCollider[i] = m_wheelColliderCtr[i].gameObject.GetComponent<WheelCollider>();
-        m_fFricBackLeftWheel = m_wheelColliderCtr[2].ForwardFriction;
-        m_sFricBackLeftWheel = m_wheelColliderCtr[2].SideWayFriction;
-        m_fFricBackRightWheel = m_wheelColliderCtr[3].ForwardFriction;
-        m_sFricBackRightWheel = m_wheelColliderCtr[3].SideWayFriction;
         m_boosterIcons[0].enabled = m_boosterIcons[1].enabled = false;
         m_state = State.Defult;
         m_wheelCollider[2].brakeTorque = m_wheelCollider[3].brakeTorque = 0f;
