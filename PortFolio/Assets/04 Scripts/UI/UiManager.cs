@@ -64,7 +64,7 @@ public class UiManager : Singleton_DontDestroy<UiManager>
     [SerializeField]
     Text m_userNameText;
     [SerializeField]
-    Image m_userMarkImage;
+    Image m_userIconImage;
     [SerializeField]
     Outline m_lastLapTextOutLine;
     [SerializeField]
@@ -149,7 +149,7 @@ public class UiManager : Singleton_DontDestroy<UiManager>
     public void SetUserProfile()
     {
         m_userNameText.text = m_player.UserName;
-        m_userMarkImage.color = m_player.KartColor;
+        m_userIconImage.color = m_player.KartColor;
     }
     public void UpdateStaticCanvas(int mapLapTime, int currLapTime, float bestTime, bool isLastLap)
     {

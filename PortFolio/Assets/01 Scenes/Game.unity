@@ -304,49 +304,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &229245399
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 229245401}
-  - component: {fileID: 229245400}
-  m_Layer: 0
-  m_Name: GameSetting
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &229245400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 229245399}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edc0560d98bbda44c9f085bfa46deae3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &229245401
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 229245399}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -43.598377, y: -4.2826214, z: 241.59705}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 16
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &268355173
 GameObject:
   m_ObjectHideFlags: 0
@@ -1327,7 +1284,7 @@ GameObject:
   - component: {fileID: 679236700}
   - component: {fileID: 679236699}
   m_Layer: 5
-  m_Name: Image_Mark
+  m_Name: Image_Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3129,121 +3086,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1616191102}
   m_CullTransparentMesh: 1
---- !u!1 &1653333714
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1653333715}
-  - component: {fileID: 1653333716}
-  m_Layer: 0
-  m_Name: PlayerDataManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1653333715
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1653333714}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 696.2703, y: 22.330025, z: 17.810394}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1653333716
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1653333714}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15ee69b4ebfbfd64298dfb4f8905acd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_playerData:
-    carsList: []
-    mapList: []
-    userName: Lucy
---- !u!1 &1663043482
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1663043484}
-  - component: {fileID: 1663043483}
-  m_Layer: 0
-  m_Name: CarDataTable
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1663043483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1663043482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a6acd64d94b7324a9c38d779d632eac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_carDatas:
-  - name: SportKart
-    maxSpeed: 4500
-    maxBoosterSpeed: 6500
-    maxTurnPower: 25
-    startSpeed: 5
-    price: 0
-    kartColor: {r: 0, g: 0, b: 0, a: 1}
-    pos: {x: -43.6, y: -4.61, z: 246.59}
-  - name: SprotKart2
-    maxSpeed: 4800
-    maxBoosterSpeed: 6800
-    maxTurnPower: 25
-    startSpeed: 7
-    price: 0
-    kartColor: {r: 1, g: 0, b: 0, a: 1}
-    pos: {x: -43.6, y: -4.61, z: 246.59}
-  - name: BoxKart
-    maxSpeed: 3500
-    maxBoosterSpeed: 5000
-    maxTurnPower: 25
-    startSpeed: 8
-    price: 0
-    kartColor: {r: 0.6959525, g: 0, b: 0.8962264, a: 1}
-    pos: {x: -43.6, y: -4.61, z: 246.59}
---- !u!4 &1663043484
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1663043482}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 696.2703, y: 22.330025, z: 17.810394}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 13
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1679252274
 GameObject:
   m_ObjectHideFlags: 0
@@ -3372,96 +3214,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!1 &1713134819
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1713134821}
-  - component: {fileID: 1713134820}
-  m_Layer: 0
-  m_Name: UIManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1713134820
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1713134819}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b889d0e5ccc17824c9d2c3361129993a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_alphaCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  m_player: {fileID: 1444569348}
-  m_dynamicCanvas: {fileID: 280356372}
-  m_staticCanvas: {fileID: 795884222}
-  m_resultPanel: {fileID: 709227626}
-  m_completeText: {fileID: 268355175}
-  m_currTimeText: {fileID: 1774346933}
-  m_boosterCntText: {fileID: 969985918}
-  m_playerBestTimeText: {fileID: 99844129}
-  m_mapNameText: {fileID: 1850314573}
-  m_crashCntText: {fileID: 2146403349}
-  m_driftDistText: {fileID: 563943993}
-  m_averageSpeedText: {fileID: 866638564}
-  m_speedText: {fileID: 1361306942}
-  m_timerText: {fileID: 1491899330}
-  m_lapTimeText: {fileID: 294090183}
-  m_bestTimeText: {fileID: 1368270741}
-  m_lastLapText: {fileID: 403304581}
-  m_userNameText: {fileID: 1958490480}
-  m_userMarkImage: {fileID: 679236699}
-  m_lastLapTextOutLine: {fileID: 403304583}
-  m_lastLapEnableTime: 1.3
-  m_alphaFrom: 1
-  m_alphaTo: 0
---- !u!4 &1713134821
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1713134819}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 820.11206, y: 309.47076, z: 25.564331}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1774346931
 GameObject:
   m_ObjectHideFlags: 0
@@ -4069,56 +3821,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!1 &2033945112
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2033945114}
-  - component: {fileID: 2033945113}
-  m_Layer: 0
-  m_Name: MapDataTable
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2033945113
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2033945112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48e0274e0476d8046aa599604c08e33e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_mapDataTable:
-  - name: Village Circuit
-    lapTime: 2
-  - name: Circuit
-    lapTime: 1
-  - name: Long Circuit
-    lapTime: 2
---- !u!4 &2033945114
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2033945112}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 696.2703, y: 22.330025, z: 17.810394}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 14
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2064438030
 GameObject:
   m_ObjectHideFlags: 0
@@ -4235,7 +3937,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2146403347
 GameObject:
@@ -51096,6 +50798,10 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8778900816446462558, guid: cf5c0dee7bbd83944ad85429fb5b4096, type: 3}
+      propertyPath: m_ForwardFriction.m_ExtremumSlip
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8778900816446462558, guid: cf5c0dee7bbd83944ad85429fb5b4096, type: 3}
       propertyPath: m_SidewaysFriction.m_ExtremumSlip
       value: 0.4
       objectReference: {fileID: 0}
@@ -51109,7 +50815,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8778900816446462558, guid: cf5c0dee7bbd83944ad85429fb5b4096, type: 3}
       propertyPath: m_SidewaysFriction.m_AsymptoteValue
-      value: 0.5
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 8778900816760688271, guid: cf5c0dee7bbd83944ad85429fb5b4096, type: 3}
       propertyPath: m_SidewaysFriction.m_ExtremumSlip
@@ -51128,6 +50834,10 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8778900817272124238, guid: cf5c0dee7bbd83944ad85429fb5b4096, type: 3}
+      propertyPath: m_ForwardFriction.m_ExtremumSlip
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8778900817272124238, guid: cf5c0dee7bbd83944ad85429fb5b4096, type: 3}
       propertyPath: m_SidewaysFriction.m_ExtremumSlip
       value: 0.4
       objectReference: {fileID: 0}
@@ -51141,7 +50851,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8778900817272124238, guid: cf5c0dee7bbd83944ad85429fb5b4096, type: 3}
       propertyPath: m_SidewaysFriction.m_AsymptoteValue
-      value: 0.5
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 8778900817718357841, guid: cf5c0dee7bbd83944ad85429fb5b4096, type: 3}
       propertyPath: m_turnPower

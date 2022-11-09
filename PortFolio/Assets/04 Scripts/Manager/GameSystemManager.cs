@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameSystemManager : Singleton_DontDestroy<GameSystemManager>
 {
@@ -123,6 +124,10 @@ public class GameSystemManager : Singleton_DontDestroy<GameSystemManager>
             }
             yield return null;
         }
+    }
+    public void SceneLoadAsync(string sceneName)
+    {
+        SceneManager.LoadSceneAsync(sceneName);
     }
     public void SetReverse(bool value)
     {

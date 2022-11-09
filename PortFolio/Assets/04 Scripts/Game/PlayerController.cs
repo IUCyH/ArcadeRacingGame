@@ -26,9 +26,11 @@ public class PlayerController : MonoBehaviour
 
     [Header("Kart Datas")]
     [SerializeField]
+    Color m_kartColor;
+    [SerializeField]
     string m_kartName;
     [SerializeField]
-    Color m_kartColor;
+    MaterialPropertyBlock m_materialPB;
 
     [Header("Wheel Mesh")]
     [SerializeField]

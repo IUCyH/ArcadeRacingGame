@@ -6,14 +6,15 @@ using UnityEngine;
 [Serializable]
 public class CarData
 {
+    public Material kartPaintMat;
+    public Color kartColor;
+    public Vector3 pos;
     public string name;
     public float maxSpeed;
     public float maxBoosterSpeed;
     public float maxTurnPower;
     public float startSpeed;
     public int price;
-    public Color kartColor;
-    public Vector3 pos;
 }
 [Serializable]
 public class CarInfo

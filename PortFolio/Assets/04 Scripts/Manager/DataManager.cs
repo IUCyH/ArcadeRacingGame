@@ -6,7 +6,6 @@ public class DataManager : Singleton_DontDestroy<DataManager>
 {
     [SerializeField]
     PlayerData m_playerData;
-
     public PlayerData PlayerData { get { return m_playerData; } }
 
     public void UpdateMapBestTime(float time, int mapIndex)
@@ -56,6 +55,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
             {
                 CarInfo carInfo = new CarInfo();
                 UpdateCarDatas(carInfo, i);
+                carInfo.data.kartPaintMat.color = carInfo.data.kartColor;
                 carInfo.isPlayable = false;
                 m_playerData.carsList.Add(carInfo);
             }
