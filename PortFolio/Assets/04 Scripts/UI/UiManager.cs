@@ -131,10 +131,6 @@ public class UiManager : Singleton_DontDestroy<UiManager>
             yield return null;
         }
     }
-    public void SetUIText(Text textUi, string text)
-    {
-        textUi.text = text;
-    }
     public void SetActiveAllCanvas(bool value)
     {
         m_dynamicCanvas.enabled = value;

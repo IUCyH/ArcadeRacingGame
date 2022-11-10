@@ -461,7 +461,7 @@ GameObject:
   - component: {fileID: 186323246701735030}
   - component: {fileID: 711046120641246927}
   m_Layer: 0
-  m_Name: SportKart
+  m_Name: 00_Kart_Black
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2200,13 +2200,13 @@ WheelCollider:
     m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
-    m_AsymptoteValue: 0.5
+    m_AsymptoteValue: 1
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
+    m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
+    m_AsymptoteSlip: 0.8
+    m_AsymptoteValue: 0.5
     m_Stiffness: 1
   m_Enabled: 1
 --- !u!114 &8778900816138219945
@@ -2275,13 +2275,13 @@ WheelCollider:
     m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
-    m_AsymptoteValue: 0.5
+    m_AsymptoteValue: 1
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
+    m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
+    m_AsymptoteSlip: 0.8
+    m_AsymptoteValue: 0.7
     m_Stiffness: 1
   m_Enabled: 1
 --- !u!114 &8778900816446462559
@@ -2350,13 +2350,13 @@ WheelCollider:
     m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
-    m_AsymptoteValue: 0.5
+    m_AsymptoteValue: 1
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
+    m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
+    m_AsymptoteSlip: 0.8
+    m_AsymptoteValue: 0.5
     m_Stiffness: 1
   m_Enabled: 1
 --- !u!114 &8778900816760688268
@@ -2425,13 +2425,13 @@ WheelCollider:
     m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
-    m_AsymptoteValue: 0.5
+    m_AsymptoteValue: 1
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
+    m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
+    m_AsymptoteSlip: 0.8
+    m_AsymptoteValue: 0.7
     m_Stiffness: 1
   m_Enabled: 1
 --- !u!114 &8778900817272124239
@@ -2498,7 +2498,7 @@ MonoBehaviour:
   m_center: {fileID: 8778900817852611394}
   m_playerRb: {fileID: 8778900817718357840}
   m_playerName: 
-  m_kartColor: {r: 0, g: 0, b: 0, a: 0}
+  m_kartColor: {r: 1, g: 1, b: 1, a: 0}
   m_kartName: 
   m_wheels:
   - {fileID: 7627526947094423644}
@@ -2530,10 +2530,10 @@ MonoBehaviour:
   m_maxReSpeed: 3000
   m_boosterMaxSpeed: 6500
   m_currSpeed: 0
-  m_turnPower: 25
+  m_turnPower: 35
   m_slipRate: 1
-  m_slipRateDownForce: 0
-  m_slipRateUpForce: 0
+  m_slipRateDownForce: 0.08
+  m_slipRateUpForce: 0.03
   m_speedUpVal: 15
   m_speedDownVal: 10
   m_speed: 0

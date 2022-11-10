@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour
     Color m_kartColor;
     [SerializeField]
     string m_kartName;
-    [SerializeField]
     MaterialPropertyBlock m_materialPB;
 
     [Header("Wheel Mesh")]
@@ -99,7 +98,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("UI")]
     [SerializeField]
-    Slider m_boosterBar;
+    Image m_boosterBar;
     [SerializeField]
     Image[] m_boosterIcons = new Image[2];
     bool m_isBooster;
@@ -197,15 +196,15 @@ public class PlayerController : MonoBehaviour
             {
                 OnBooster();
             }
-            m_boosterBar.value += m_defultChargingValue;
+            m_boosterBar.fillAmount += m_defultChargingValue;
         }
         if (m_isDrift && InputManager.Instance.Horizontal != 0)
         {
-            m_boosterBar.value += m_boostChargingValue;
+            m_boosterBar.fillAmount += m_boostChargingValue;
         }
-        else if (!m_isDrift && m_boosterBar.value == 1f)
+        else if (!m_isDrift && m_boosterBar.fillAmount >= 1f)
         {
-            m_boosterBar.value = 0f;
+            m_boosterBar.fillAmount = 0f;
             if (m_boosterCnt < m_boosterMaxCnt - 1)
             {
                 m_boosterCnt++;
@@ -309,6 +308,7 @@ public class PlayerController : MonoBehaviour
         m_boosterIcons[0].enabled = m_boosterIcons[1].enabled = false;
         m_state = State.Defult;
         m_wheelCollider[2].brakeTorque = m_wheelCollider[3].brakeTorque = 0f;
+        m_boosterBar.fillAmount = 0f;
         InitWheelPos();
     }
 

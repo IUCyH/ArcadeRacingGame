@@ -102,7 +102,7 @@ public class GameSystemManager : Singleton_DontDestroy<GameSystemManager>
         {
             m_sb.Clear();
             m_sb.Append(cnt);
-            UiManager.Instance.SetUIText(m_countText, m_sb.ToString());
+            m_countText.text = m_sb.ToString();
             time += Time.deltaTime;
 
             if (time > 1f)
@@ -113,7 +113,7 @@ public class GameSystemManager : Singleton_DontDestroy<GameSystemManager>
             if (cnt < 1)
             {
                 float[] colors = new float[3] { 1f, 1f, 1f };
-                UiManager.Instance.SetUIText(m_countText, "시작");
+                m_countText.text = "시작";
                 UiManager.Instance.SetActiveAllCanvas(true);
                 m_player.StartCoroutine(m_player.Coroutine_StartBoost());
                 UiManager.Instance.StartCoroutine(UiManager.Instance.Coroutine_TextAlphaFadeout(m_countText, m_alphaCurve, m_alphaFrom, m_alphaTo, m_duration, colors, () => m_countCanvas.enabled = false));
@@ -124,10 +124,6 @@ public class GameSystemManager : Singleton_DontDestroy<GameSystemManager>
             }
             yield return null;
         }
-    }
-    public void SceneLoadAsync(string sceneName)
-    {
-        SceneManager.LoadSceneAsync(sceneName);
     }
     public void SetReverse(bool value)
     {
@@ -282,7 +278,6 @@ public class GameSystemManager : Singleton_DontDestroy<GameSystemManager>
         m_reverseCheckPosDic.Add("Reverse_Z", ReverseCheckPos.Z);
         m_reverseCheckPosDic.Add("Reverse_NegativeX", ReverseCheckPos.NegativeX);
         m_reverseCheckPosDic.Add("Reverse_NegativeZ", ReverseCheckPos.NegativeZ);
-        StartCoroutine(Coroutine_CountDown());
     }
     protected override void OnStart()
     {
