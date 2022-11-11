@@ -1,0 +1,30 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class Lobby_GameStart : MonoBehaviour, ILobbyMenu
+{
+    [SerializeField]
+    Button[] m_buttons;
+
+    void OnPressTimeAttackButton(bool isShadow)
+    {
+        LoadSceneManager.Instance.LoadSceneAsync(SceneState.Game);
+    }
+    public void Show()
+    {
+        gameObject.SetActive(true);
+    }
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
+    void Start()
+    {
+        m_buttons = GetComponentsInChildren<Button>();
+        m_buttons[0].onClick.AddListener(() => OnPressTimeAttackButton(false));
+        m_buttons[1].onClick.AddListener(() => OnPressTimeAttackButton(true));
+        Hide();
+    }
+}

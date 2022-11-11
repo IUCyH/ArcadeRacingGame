@@ -18,7 +18,7 @@ public class LoadSceneManager : Singleton_DontDestroy<LoadSceneManager>
 {    
     StringBuilder m_sb = new StringBuilder();
     AsyncOperation m_loadingInfo;
-    SceneState m_sceneState;
+    SceneState m_loadState;
 
     [Header("Loading Window's UIs")]
     [SerializeField]
@@ -30,12 +30,16 @@ public class LoadSceneManager : Singleton_DontDestroy<LoadSceneManager>
     [SerializeField]
     Image m_loadingProgressBar;
 
+    public void SetLoadState(SceneState state)
+    {
+        m_loadState = state;
+    }
     public void LoadSceneAsync(SceneState sceneState)
     {
-        if (m_sceneState != SceneState.None) return;
-        m_loadingInfo = SceneManager.LoadSceneAsync((int)sceneState);
-        m_sceneState = sceneState;
+        if (m_loadState != SceneState.None) return;
+        SetLoadState(sceneState);
         ShowLoadingPanel();
+        m_loadingInfo = SceneManager.LoadSceneAsync((int)sceneState);
     }
     void ShowLoadingPanel()
     {
@@ -48,23 +52,27 @@ public class LoadSceneManager : Singleton_DontDestroy<LoadSceneManager>
     protected override void OnStart()
     {
         HideLoadingPanel();
+        SetLoadState(SceneState.None);
     }
     void Update()
     {
-        if(m_loadingInfo != null && m_sceneState != SceneState.None)
+        if(m_loadingInfo != null && m_loadState != SceneState.None)
         {
-            m_sb.AppendFormat("{0}%", Mathf.CeilToInt(m_loadingInfo.progress * 100));
-            m_loadingValueText.text = m_sb.ToString();
-            m_loadingProgressBar.fillAmount = m_loadingInfo.progress;
-        }
-        else
-        {
-            m_sb.Append("100%");
-            m_loadingValueText.text = m_sb.ToString();
-            m_loadingProgressBar.fillAmount = 1f;
-            m_loadingInfo = null;
-            m_sceneState = SceneState.None;
-            Invoke("HideLoadingPanel", 2f);
+            if (!m_loadingInfo.isDone)
+            {
+                m_sb.AppendFormat("{0}%", Mathf.CeilToInt(m_loadingInfo.progress * 100));
+                m_loadingValueText.text = m_sb.ToString();
+                m_loadingProgressBar.fillAmount = m_loadingInfo.progress;
+            }
+            else
+            {
+                m_loadingInfo = null;
+                m_sb.Append("100%");
+                m_loadingValueText.text = m_sb.ToString();
+                m_loadingProgressBar.fillAmount = 1f;
+                SetLoadState(SceneState.None);
+                HideLoadingPanel();
+            }
         }
         m_sb.Clear();
     }

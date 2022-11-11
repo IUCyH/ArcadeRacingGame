@@ -6,6 +6,6 @@ public class TitleController : MonoBehaviour
 {
     public void OnStartButtonPress()
     {
-        LoadSceneManager.Instance.LoadSceneAsync(SceneState.Game);
+        LoadSceneManager.Instance.LoadSceneAsync(SceneState.Lobby);
     }
 }

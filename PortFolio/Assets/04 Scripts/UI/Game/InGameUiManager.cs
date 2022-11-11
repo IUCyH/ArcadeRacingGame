@@ -4,7 +4,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UiManager : Singleton_DontDestroy<UiManager>
+public class InGameUiManager : Singleton<InGameUiManager>
 {
     public delegate void FuncDel();
     StringBuilder m_dynamicSb = new StringBuilder();

@@ -97,7 +97,7 @@ public class GameSystemManager : Singleton_DontDestroy<GameSystemManager>
     {
         float time = 0f;
         int cnt = 3;
-        UiManager.Instance.StartCoroutine(UiManager.Instance.Coroutine_TextScaleFadeIn(m_countText, m_scaleCurve, m_minScale, m_maxScale, 4));
+        InGameUiManager.Instance.StartCoroutine(InGameUiManager.Instance.Coroutine_TextScaleFadeIn(m_countText, m_scaleCurve, m_minScale, m_maxScale, 4));
         while (true)
         {
             m_sb.Clear();
@@ -114,9 +114,9 @@ public class GameSystemManager : Singleton_DontDestroy<GameSystemManager>
             {
                 float[] colors = new float[3] { 1f, 1f, 1f };
                 m_countText.text = "시작";
-                UiManager.Instance.SetActiveAllCanvas(true);
+                InGameUiManager.Instance.SetActiveAllCanvas(true);
                 m_player.StartCoroutine(m_player.Coroutine_StartBoost());
-                UiManager.Instance.StartCoroutine(UiManager.Instance.Coroutine_TextAlphaFadeout(m_countText, m_alphaCurve, m_alphaFrom, m_alphaTo, m_duration, colors, () => m_countCanvas.enabled = false));
+                InGameUiManager.Instance.StartCoroutine(InGameUiManager.Instance.Coroutine_TextAlphaFadeout(m_countText, m_alphaCurve, m_alphaFrom, m_alphaTo, m_duration, colors, () => m_countCanvas.enabled = false));
                 m_player.IsStart = true;
                 m_isStart = true;
                 m_isCanReset = true;
@@ -153,7 +153,7 @@ public class GameSystemManager : Singleton_DontDestroy<GameSystemManager>
         {
             m_lapTime++;
             CalculateBestTime();
-            UiManager.Instance.UpdateStaticCanvas(m_mapLapTime, m_lapTime, m_bestTime, m_lapTime == m_mapLapTime);
+            InGameUiManager.Instance.UpdateStaticCanvas(m_mapLapTime, m_lapTime, m_bestTime, m_lapTime == m_mapLapTime);
             if (IsEnd)
             {
                 OnFinish();
@@ -179,7 +179,7 @@ public class GameSystemManager : Singleton_DontDestroy<GameSystemManager>
         m_player.IsStart = false;
         m_isStart = false;
         m_player.Break(1000f);
-        UiManager.Instance.SetFinishUI(completeText, mapTime, m_timer); //변동 가능한 정보들만 매개변수로 넘겨줌, 변동 가능성이 없는 정보들은 UI Manager에서 처리
+        InGameUiManager.Instance.SetFinishUI(completeText, mapTime, m_timer); //변동 가능한 정보들만 매개변수로 넘겨줌, 변동 가능성이 없는 정보들은 UI Manager에서 처리
         DataManager.Instance.Save();
     }
     public void ResetPlayerPosition()
@@ -272,12 +272,13 @@ public class GameSystemManager : Singleton_DontDestroy<GameSystemManager>
     protected override void OnAwake()
     {
         LoadData();
-        UiManager.Instance.SetActiveAllCanvas(false);
+        InGameUiManager.Instance.SetActiveAllCanvas(false);
         m_warningImage.enabled = false;
         m_reverseCheckPosDic.Add("Reverse_X", ReverseCheckPos.X);
         m_reverseCheckPosDic.Add("Reverse_Z", ReverseCheckPos.Z);
         m_reverseCheckPosDic.Add("Reverse_NegativeX", ReverseCheckPos.NegativeX);
         m_reverseCheckPosDic.Add("Reverse_NegativeZ", ReverseCheckPos.NegativeZ);
+        StartCoroutine(Coroutine_CountDown());
     }
     protected override void OnStart()
     {
@@ -287,8 +288,8 @@ public class GameSystemManager : Singleton_DontDestroy<GameSystemManager>
         m_mapLapTime = MapManager.Instance.LapTime;
         m_nextCheckPoint = 0;
         SetReverseCheckPos(ReverseCheckPos.Z);
-        UiManager.Instance.UpdateLapTimeText(m_mapLapTime, m_lapTime);
-        UiManager.Instance.SetUserProfile();
+        InGameUiManager.Instance.UpdateLapTimeText(m_mapLapTime, m_lapTime);
+        InGameUiManager.Instance.SetUserProfile();
     }
     // Update is called once per frame
     void Update()
@@ -296,7 +297,7 @@ public class GameSystemManager : Singleton_DontDestroy<GameSystemManager>
         if (m_isStart)
         {
             m_timer += Time.deltaTime;
-            UiManager.Instance.UpdateDynamicCanvas();
+            InGameUiManager.Instance.UpdateDynamicCanvas();
             CheckReverse();
         }
         if (m_isReset)

@@ -2041,15 +2041,6 @@ struct MulticastDelegate_t_marshaled_com : public Delegate_t_marshaled_com
 	Delegate_t_marshaled_com** ___delegates_11;
 };
 
-// UnityEngine.SpeedTreeWindAsset
-struct SpeedTreeWindAsset_tABB07A774836A88A0F5A727B5F589B3DD8E0C156  : public Object_tF2F3778131EFF286AF62B7B013A170F95A91571A
-{
-public:
-
-public:
-};
-
-
 // UnityEngine.TerrainData
 struct TerrainData_tAD3780D3C4DE5B9BE122BECE6D08C4AE169ED2A4  : public Object_tF2F3778131EFF286AF62B7B013A170F95A91571A
 {
@@ -2155,23 +2146,6 @@ public:
 };
 
 
-// UnityEngine.TerrainLayer
-struct TerrainLayer_t8DDE2984BBC3E36CF0EBC3F0DD1862106248D38E  : public Object_tF2F3778131EFF286AF62B7B013A170F95A91571A
-{
-public:
-
-public:
-};
-
-// Native definition for P/Invoke marshalling of UnityEngine.TerrainLayer
-struct TerrainLayer_t8DDE2984BBC3E36CF0EBC3F0DD1862106248D38E_marshaled_pinvoke : public Object_tF2F3778131EFF286AF62B7B013A170F95A91571A_marshaled_pinvoke
-{
-};
-// Native definition for COM marshalling of UnityEngine.TerrainLayer
-struct TerrainLayer_t8DDE2984BBC3E36CF0EBC3F0DD1862106248D38E_marshaled_com : public Object_tF2F3778131EFF286AF62B7B013A170F95A91571A_marshaled_com
-{
-};
-
 // UnityEngine.Experimental.TerrainAPI.TerrainUtility/TerrainMap
 struct TerrainMap_tDD61065279F906812F404E67C65CB7F40CA49453  : public RuntimeObject
 {
@@ -2231,15 +2205,6 @@ public:
 
 // UnityEngine.Transform
 struct Transform_tA8193BB29D4D2C7EC04918F3ED1816345186C3F1  : public Component_t62FBC8D2420DA4BE9037AFE430740F6B3EECA684
-{
-public:
-
-public:
-};
-
-
-// UnityEngine.Tree
-struct Tree_t117E17CFD7C96AC169FE6CB4FD28526E677104EF  : public Component_t62FBC8D2420DA4BE9037AFE430740F6B3EECA684
 {
 public:
 
@@ -2620,14 +2585,6 @@ inline void Enumerator_Dispose_mAC047D3AE663114F2D8DFDA994E2C9D78A3E9EB0 (Enumer
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-#ifdef __clang__
-#pragma clang diagnostic pop
-#endif
-#ifdef __clang__
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Winvalid-offsetof"
-#pragma clang diagnostic ignored "-Wunused-variable"
-#endif
 // UnityEngine.TerrainData UnityEngine.Terrain::get_terrainData()
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR TerrainData_tAD3780D3C4DE5B9BE122BECE6D08C4AE169ED2A4 * Terrain_get_terrainData_mDB60C324B3424339C3C9FA6CDF6DC1C9B47D6E41 (Terrain_t2C0E3B3A2895E81446EFF4F5AFD601CF977D1836 * __this, const RuntimeMethod* method)
 {
@@ -2954,46 +2911,6 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TerrainData_get_size_Injected_m181495692
 	if (!_il2cpp_icall_func)
 	_il2cpp_icall_func = (TerrainData_get_size_Injected_m181495692C7B755ACD1D7F7F115A2CE8DC6A9E64_ftn)il2cpp_codegen_resolve_icall ("UnityEngine.TerrainData::get_size_Injected(UnityEngine.Vector3&)");
 	_il2cpp_icall_func(__this, ___ret0);
-}
-#ifdef __clang__
-#pragma clang diagnostic pop
-#endif
-#ifdef __clang__
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Winvalid-offsetof"
-#pragma clang diagnostic ignored "-Wunused-variable"
-#endif
-// Conversion methods for marshalling of: UnityEngine.TerrainLayer
-IL2CPP_EXTERN_C void TerrainLayer_t8DDE2984BBC3E36CF0EBC3F0DD1862106248D38E_marshal_pinvoke(const TerrainLayer_t8DDE2984BBC3E36CF0EBC3F0DD1862106248D38E& unmarshaled, TerrainLayer_t8DDE2984BBC3E36CF0EBC3F0DD1862106248D38E_marshaled_pinvoke& marshaled)
-{
-	marshaled.___m_CachedPtr_0 = unmarshaled.get_m_CachedPtr_0();
-}
-IL2CPP_EXTERN_C void TerrainLayer_t8DDE2984BBC3E36CF0EBC3F0DD1862106248D38E_marshal_pinvoke_back(const TerrainLayer_t8DDE2984BBC3E36CF0EBC3F0DD1862106248D38E_marshaled_pinvoke& marshaled, TerrainLayer_t8DDE2984BBC3E36CF0EBC3F0DD1862106248D38E& unmarshaled)
-{
-	intptr_t unmarshaled_m_CachedPtr_temp_0;
-	memset((&unmarshaled_m_CachedPtr_temp_0), 0, sizeof(unmarshaled_m_CachedPtr_temp_0));
-	unmarshaled_m_CachedPtr_temp_0 = marshaled.___m_CachedPtr_0;
-	unmarshaled.set_m_CachedPtr_0(unmarshaled_m_CachedPtr_temp_0);
-}
-// Conversion method for clean up from marshalling of: UnityEngine.TerrainLayer
-IL2CPP_EXTERN_C void TerrainLayer_t8DDE2984BBC3E36CF0EBC3F0DD1862106248D38E_marshal_pinvoke_cleanup(TerrainLayer_t8DDE2984BBC3E36CF0EBC3F0DD1862106248D38E_marshaled_pinvoke& marshaled)
-{
-}
-// Conversion methods for marshalling of: UnityEngine.TerrainLayer
-IL2CPP_EXTERN_C void TerrainLayer_t8DDE2984BBC3E36CF0EBC3F0DD1862106248D38E_marshal_com(const TerrainLayer_t8DDE2984BBC3E36CF0EBC3F0DD1862106248D38E& unmarshaled, TerrainLayer_t8DDE2984BBC3E36CF0EBC3F0DD1862106248D38E_marshaled_com& marshaled)
-{
-	marshaled.___m_CachedPtr_0 = unmarshaled.get_m_CachedPtr_0();
-}
-IL2CPP_EXTERN_C void TerrainLayer_t8DDE2984BBC3E36CF0EBC3F0DD1862106248D38E_marshal_com_back(const TerrainLayer_t8DDE2984BBC3E36CF0EBC3F0DD1862106248D38E_marshaled_com& marshaled, TerrainLayer_t8DDE2984BBC3E36CF0EBC3F0DD1862106248D38E& unmarshaled)
-{
-	intptr_t unmarshaled_m_CachedPtr_temp_0;
-	memset((&unmarshaled_m_CachedPtr_temp_0), 0, sizeof(unmarshaled_m_CachedPtr_temp_0));
-	unmarshaled_m_CachedPtr_temp_0 = marshaled.___m_CachedPtr_0;
-	unmarshaled.set_m_CachedPtr_0(unmarshaled_m_CachedPtr_temp_0);
-}
-// Conversion method for clean up from marshalling of: UnityEngine.TerrainLayer
-IL2CPP_EXTERN_C void TerrainLayer_t8DDE2984BBC3E36CF0EBC3F0DD1862106248D38E_marshal_com_cleanup(TerrainLayer_t8DDE2984BBC3E36CF0EBC3F0DD1862106248D38E_marshaled_com& marshaled)
-{
 }
 #ifdef __clang__
 #pragma clang diagnostic pop
@@ -3573,14 +3490,6 @@ IL_013a:
 		return;
 	}
 }
-#ifdef __clang__
-#pragma clang diagnostic pop
-#endif
-#ifdef __clang__
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Winvalid-offsetof"
-#pragma clang diagnostic ignored "-Wunused-variable"
-#endif
 #ifdef __clang__
 #pragma clang diagnostic pop
 #endif
