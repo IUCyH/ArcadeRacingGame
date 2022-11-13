@@ -6,6 +6,8 @@ public class InputManager : Singleton<InputManager>
 {
     public float Horizontal { get; set; }
     public float Vertical { get; set; }
+    public float MouseX { get; set; }
+    public float MouseY { get; set; }
     public bool HandBreakKeyDown { get; set; }
     public bool HandBreakKeyUp { get; set; }
     public bool ResetKeyDown { get; set; }
@@ -19,5 +21,8 @@ public class InputManager : Singleton<InputManager>
         HandBreakKeyUp = Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift);
         ResetKeyDown = Input.GetKeyDown(KeyCode.R);
         BoosterKeyDown = Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl);
+        MouseX = Input.GetAxis("Mouse X");
+        MouseY = Input.GetAxis("Mouse Y");
+        Debug.Log(MouseX);
     }
 }
