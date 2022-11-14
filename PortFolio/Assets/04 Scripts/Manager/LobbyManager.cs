@@ -7,6 +7,10 @@ public class LobbyManager : Singleton<LobbyManager>
     [SerializeField]
     GameObject m_targetPlayer;
     [SerializeField]
+    GameObject m_wayPointObj;
+    [SerializeField]
+    Transform[] m_wayPoints;
+    [SerializeField]
     Camera m_camera;
     Vector3 m_point;
     Vector3 m_originCamPos;
@@ -43,6 +47,10 @@ public class LobbyManager : Singleton<LobbyManager>
     [SerializeField]
     float m_speed;
     [SerializeField]
+    int m_wayPointCnt;
+    [SerializeField]
+    int m_currWayPoint = 0;
+    [SerializeField]
     bool m_isMouseDown;
 
     public void ResetCamPos()
@@ -72,8 +80,10 @@ public class LobbyManager : Singleton<LobbyManager>
     protected override void OnStart()
     {
         m_camera = Camera.main;
+        m_wayPoints = m_wayPointObj.GetComponentsInChildren<Transform>();
+        m_wayPointCnt = m_wayPoints.Length - 1;
         m_point = m_targetPlayer.transform.position;
-        RotateCamera();
+        //RotateCamera();
         m_originCamPos = m_camera.transform.position;
         m_originCamRot = m_camera.transform.rotation;
     }
@@ -83,6 +93,16 @@ public class LobbyManager : Singleton<LobbyManager>
         if (Input.GetMouseButtonDown(0))
         {
             m_isMouseDown = true;
+            var mouseX = InputManager.Instance.MouseX;
+            if (mouseX > 0)
+            {
+                m_currWayPoint++;
+            }
+            else if (mouseX < 0)
+            {
+                m_currWayPoint--;
+            }
+            m_currWayPoint = Mathf.Clamp(m_currWayPoint, 0, m_wayPointCnt);
         }
         else if(Input.GetMouseButtonUp(0))
         {
@@ -90,7 +110,10 @@ public class LobbyManager : Singleton<LobbyManager>
         }
         if(m_isMouseDown)
         {
-            RotateCamera();
+            var pos = Vector3.Lerp(m_camera.transform.position, m_wayPoints[m_currWayPoint].position, m_speed * Time.deltaTime);
+            m_camera.transform.position = pos;
+            m_camera.transform.LookAt(m_targetPlayer.transform);
+            Debug.Log(m_currWayPoint);
         }
     }
 }
