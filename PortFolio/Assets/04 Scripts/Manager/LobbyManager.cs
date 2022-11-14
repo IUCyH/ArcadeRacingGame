@@ -37,14 +37,6 @@ public class LobbyManager : Singleton<LobbyManager>
     float m_minCamPosZ;
 
     [SerializeField]
-    float m_maxCamRotX;
-    [SerializeField]
-    float m_minCamRotX;
-    [SerializeField]
-    float m_maxCamRotY;
-    [SerializeField]
-    float m_minCamRotY;
-    [SerializeField]
     float m_rotationX;
     [SerializeField]
     float m_rotationY;
