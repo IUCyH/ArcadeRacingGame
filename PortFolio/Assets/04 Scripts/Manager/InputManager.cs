@@ -23,6 +23,5 @@ public class InputManager : Singleton<InputManager>
         BoosterKeyDown = Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl);
         MouseX = Input.GetAxis("Mouse X");
         MouseY = Input.GetAxis("Mouse Y");
-        Debug.Log(MouseX);
     }
 }

@@ -13,12 +13,27 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
     GameObject m_mainLobby;
     [SerializeField]
     ILobbyMenu[] m_lobbyMenus;
+    [SerializeField]
+    int m_menuIndex;
     void OnPressButton(Button button)
     {
-        m_mainLobby.SetActive(false);
+        SetGameObjectActive(m_mainLobby, false);
+        SetGameObjectActive(m_lobbyMenu, true);
         var name = button.gameObject.name.Split('_');
-        var index = int.Parse(name[0]);
-        m_lobbyMenus[index].Show();
+        m_menuIndex = int.Parse(name[0]);
+        m_lobbyMenus[m_menuIndex].Show();
+    }
+    public void OnPressExitButton()
+    {
+        m_lobbyMenus[m_menuIndex].Hide();
+        LobbyManager.Instance.ResetCamPos();
+        LobbyManager.Instance.ResetCamRotation();
+        SetGameObjectActive(m_lobbyMenu, false);
+        SetGameObjectActive(m_mainLobby, true);
+    }
+    void SetGameObjectActive(GameObject obj, bool value)
+    {
+        obj.SetActive(value);
     }
     protected override void OnStart()
     {
@@ -30,5 +45,6 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
             var button = m_lobbyButtons[i];
             m_lobbyButtons[i].onClick.AddListener(() => OnPressButton(button));
         }
+        SetGameObjectActive(m_lobbyMenu, false);
     }
 }
