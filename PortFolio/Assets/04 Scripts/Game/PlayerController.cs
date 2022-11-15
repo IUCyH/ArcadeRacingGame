@@ -29,7 +29,8 @@ public class PlayerController : MonoBehaviour
     Color m_kartColor;
     [SerializeField]
     string m_kartName;
-    MaterialPropertyBlock m_materialPB;
+    [SerializeField]
+    Material m_backLightMat;
 
     [Header("Wheel Mesh")]
     [SerializeField]
@@ -212,6 +213,10 @@ public class PlayerController : MonoBehaviour
             m_boosterIcons[m_boosterCnt].enabled = true;
         }       
     }
+    void SetBackLightColor(Color color)
+    {
+        m_backLightMat.color = color;
+    }
     //이동 함수
     void Move()
     {
@@ -228,6 +233,7 @@ public class PlayerController : MonoBehaviour
                 m_currSpeed += m_speedUpVal;
             if (m_currSpeed > m_maxSpeed)
                 m_currSpeed -= m_speedDownVal;
+            SetBackLightColor(Color.white);
         }
         else if (dirZ < 0)
         {
@@ -235,6 +241,7 @@ public class PlayerController : MonoBehaviour
                 m_currSpeed += m_speedUpVal;
             if (m_currSpeed > m_maxReSpeed)
                 m_currSpeed -= m_speedDownVal;
+            SetBackLightColor(Color.red);
         }
 
         if (Mathf.Abs(dirZ) > 0)
@@ -309,6 +316,7 @@ public class PlayerController : MonoBehaviour
         m_state = State.Defult;
         m_wheelCollider[2].brakeTorque = m_wheelCollider[3].brakeTorque = 0f;
         m_boosterBar.fillAmount = 0f;
+        m_backLightMat.color = Color.white;
         InitWheelPos();
     }
 

@@ -20,13 +20,16 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     {
         return m_playerData.mapList[mapIndex].data.name;
     }
-    public PlayerData Load()
+    public void Load()
     {
         var jsonData = PlayerPrefs.GetString("PLAYER_DATA", string.Empty);
         if (string.IsNullOrEmpty(jsonData))
-            return null;
-        return JsonUtility.FromJson<PlayerData>(jsonData);
-
+        {
+            CreateNewData("Lucy");
+            return;
+        }
+        m_playerData = JsonUtility.FromJson<PlayerData>(jsonData);
+        Save();
     }
     public void Save()
     {
@@ -35,6 +38,30 @@ public class DataManager : Singleton_DontDestroy<DataManager>
         PlayerPrefs.SetString("PLAYER_DATA", playerJsonData);
         PlayerPrefs.Save();
     }
+    void CreateNewData(string name)
+    {
+        m_playerData = new PlayerData();
+        m_playerData.userName = name;
+        var dataLength = CarDataTable.Instance.m_carDatas.Length;
+        for (int i = 0; i < dataLength; i++)
+        {
+            CarInfo carInfo = new CarInfo();
+            UpdateCarDatas(carInfo, i);
+            carInfo.data.kartPaintMat.color = carInfo.data.kartColor;
+            carInfo.isPlayable = false;
+            m_playerData.carsList.Add(carInfo);
+        }
+        var mapDatalength = MapDataTable.Instance.m_mapDataTable.Length;
+        for (int i = 0; i < mapDatalength; i++)
+        {
+            MapInfo mapInfo = new MapInfo();
+            UpdateMapDatas(mapInfo, i);
+            mapInfo.bestTime = float.PositiveInfinity;
+            mapInfo.recentPlaydate = 0;
+            m_playerData.mapList.Add(mapInfo);
+        }
+        m_playerData.carsList[0].isPlayable = true;
+    }
     void UpdateCarDatas(CarInfo carInfo, int index)
     {
         carInfo.data = CarDataTable.Instance.m_carDatas[index];
@@ -42,34 +69,5 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     void UpdateMapDatas(MapInfo mapInfo, int index)
     {
         mapInfo.data = MapDataTable.Instance.m_mapDataTable[index];
-    }
-    protected override void OnAwake()
-    {
-        m_playerData = Load();
-        if (m_playerData == null)
-        {
-            m_playerData = new PlayerData();
-            m_playerData.userName = "Lucy";
-            var dataLength = CarDataTable.Instance.m_carDatas.Length;
-            for (int i = 0; i < dataLength; i++)
-            {
-                CarInfo carInfo = new CarInfo();
-                UpdateCarDatas(carInfo, i);
-                carInfo.data.kartPaintMat.color = carInfo.data.kartColor;
-                carInfo.isPlayable = false;
-                m_playerData.carsList.Add(carInfo);
-            }
-            var mapDatalength = MapDataTable.Instance.m_mapDataTable.Length;
-            for (int i = 0; i < mapDatalength; i++)
-            {
-                MapInfo mapInfo = new MapInfo();
-                UpdateMapDatas(mapInfo, i);
-                mapInfo.bestTime = float.PositiveInfinity;
-                mapInfo.recentPlaydate = 0;
-                m_playerData.mapList.Add(mapInfo);
-            }
-            m_playerData.carsList[0].isPlayable = true;
-        }
-        Save();
     }
 }

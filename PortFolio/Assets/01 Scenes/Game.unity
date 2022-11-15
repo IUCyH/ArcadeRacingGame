@@ -48598,6 +48598,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 870781435}
     - target: {fileID: 8778900817718357841, guid: cf5c0dee7bbd83944ad85429fb5b4096, type: 3}
+      propertyPath: m_backLightMat
+      value: 
+      objectReference: {fileID: 2100000, guid: e46552fedf5b10e4e8f0621262a9554b, type: 2}
+    - target: {fileID: 8778900817718357841, guid: cf5c0dee7bbd83944ad85429fb5b4096, type: 3}
       propertyPath: m_boosterIcons.Array.data[0]
       value: 
       objectReference: {fileID: 2064438032}
