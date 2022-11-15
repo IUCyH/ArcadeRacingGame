@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputManager : Singleton<InputManager>
+public class InputManager : Singleton_DontDestroy<InputManager>
 {
     public float Horizontal { get; set; }
     public float Vertical { get; set; }
