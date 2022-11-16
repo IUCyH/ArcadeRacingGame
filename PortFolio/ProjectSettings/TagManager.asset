@@ -13,6 +13,8 @@ TagManager:
   - Reverse_NegativeZ
   - Reverse_NegativeX
   - Map
+  - Wheel
+  - Kart
   layers:
   - Default
   - TransparentFX

@@ -382,11 +382,11 @@ GameObject:
   - component: {fileID: 1893615856778166403}
   m_Layer: 0
   m_Name: WHEEL_RL
-  m_TagString: Untagged
+  m_TagString: Wheel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8246070337767535434
 Transform:
   m_ObjectHideFlags: 0
@@ -461,7 +461,7 @@ GameObject:
   - component: {fileID: 186323246701735030}
   - component: {fileID: 711046120641246927}
   m_Layer: 0
-  m_Name: 00_Kart_Black
+  m_Name: SportsKart
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -505,13 +505,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 543450652162216259}
+  - component: {fileID: 411248807336574501}
   m_Layer: 0
   m_Name: BoxKart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &543450652162216259
 Transform:
   m_ObjectHideFlags: 0
@@ -520,7 +521,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132148443974649}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.15599966, z: 0}
+  m_LocalPosition: {x: 0, y: -0.161, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 9179547596234094843}
@@ -528,6 +529,19 @@ Transform:
   m_Father: {fileID: 8778900817718357846}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &411248807336574501
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148443974649}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.6, y: 0.15, z: 1.35}
+  m_Center: {x: 0, y: 0.18, z: 0}
 --- !u!1 &1302586322649616997
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,11 +630,11 @@ GameObject:
   - component: {fileID: 7053334987232056853}
   m_Layer: 0
   m_Name: WHEEL_RR
-  m_TagString: Untagged
+  m_TagString: Wheel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2948404531865382056
 Transform:
   m_ObjectHideFlags: 0
@@ -697,11 +711,11 @@ GameObject:
   - component: {fileID: 1096873858811479735}
   m_Layer: 0
   m_Name: WHEEL_FL
-  m_TagString: Untagged
+  m_TagString: Wheel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1652594489590599838
 Transform:
   m_ObjectHideFlags: 0
@@ -864,7 +878,7 @@ GameObject:
   - component: {fileID: 5240629055657299726}
   m_Layer: 0
   m_Name: WHEEL_FR
-  m_TagString: Untagged
+  m_TagString: Wheel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -949,7 +963,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8825648560990733774
 Transform:
   m_ObjectHideFlags: 0
@@ -1031,11 +1045,11 @@ GameObject:
   - component: {fileID: 5594940923694019131}
   m_Layer: 0
   m_Name: WHEEL_FR
-  m_TagString: Untagged
+  m_TagString: Wheel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8356078787724772643
 Transform:
   m_ObjectHideFlags: 0
@@ -1262,11 +1276,11 @@ GameObject:
   - component: {fileID: 4074107822217926452}
   m_Layer: 0
   m_Name: WHEEL_RR
-  m_TagString: Untagged
+  m_TagString: Wheel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8179258179641765257
 Transform:
   m_ObjectHideFlags: 0
@@ -1343,7 +1357,7 @@ GameObject:
   - component: {fileID: 4437573983548221953}
   m_Layer: 0
   m_Name: WHEEL_RR
-  m_TagString: Untagged
+  m_TagString: Wheel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1420,13 +1434,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6628645228069809495}
+  - component: {fileID: 2571146568774299233}
   m_Layer: 0
-  m_Name: SprotKart2
+  m_Name: SportsKart2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6628645228069809495
 Transform:
   m_ObjectHideFlags: 0
@@ -1435,7 +1450,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5815973526322034669}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.15599966, z: 0}
+  m_LocalPosition: {x: 0, y: -0.161, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2527461867479614703}
@@ -1443,6 +1458,19 @@ Transform:
   m_Father: {fileID: 8778900817718357846}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2571146568774299233
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5815973526322034669}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.6, y: 0.15, z: 1.4}
+  m_Center: {x: 0, y: 0.18, z: 0}
 --- !u!1 &6137845540049161328
 GameObject:
   m_ObjectHideFlags: 0
@@ -1458,7 +1486,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4417549202613561775
 Transform:
   m_ObjectHideFlags: 0
@@ -1565,11 +1593,11 @@ GameObject:
   - component: {fileID: 4841123449217925538}
   m_Layer: 0
   m_Name: WHEEL_RL
-  m_TagString: Untagged
+  m_TagString: Wheel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3100645872283251307
 Transform:
   m_ObjectHideFlags: 0
@@ -1646,7 +1674,7 @@ GameObject:
   - component: {fileID: 5057662627307224215}
   m_Layer: 0
   m_Name: WHEEL_RL
-  m_TagString: Untagged
+  m_TagString: Wheel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1762,11 +1790,11 @@ GameObject:
   - component: {fileID: 6219674774120122262}
   m_Layer: 0
   m_Name: WHEEL_FL
-  m_TagString: Untagged
+  m_TagString: Wheel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5730663781272211903
 Transform:
   m_ObjectHideFlags: 0
@@ -1843,7 +1871,7 @@ GameObject:
   - component: {fileID: 6003285369795902115}
   m_Layer: 0
   m_Name: WHEEL_FL
-  m_TagString: Untagged
+  m_TagString: Wheel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2010,11 +2038,11 @@ GameObject:
   - component: {fileID: 1498960448549974810}
   m_Layer: 0
   m_Name: WHEEL_FR
-  m_TagString: Untagged
+  m_TagString: Wheel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3071060036068213762
 Transform:
   m_ObjectHideFlags: 0
@@ -2093,7 +2121,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8778900815783531295
 Transform:
   m_ObjectHideFlags: 0
@@ -2127,7 +2155,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8778900815794652189
 Transform:
   m_ObjectHideFlags: 0
@@ -2206,7 +2234,7 @@ WheelCollider:
     m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
-    m_AsymptoteValue: 0.5
+    m_AsymptoteValue: 0.58
     m_Stiffness: 1
   m_Enabled: 1
 --- !u!114 &8778900816138219945
@@ -2281,7 +2309,7 @@ WheelCollider:
     m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
-    m_AsymptoteValue: 0.7
+    m_AsymptoteValue: 0.6
     m_Stiffness: 1
   m_Enabled: 1
 --- !u!114 &8778900816446462559
@@ -2356,7 +2384,7 @@ WheelCollider:
     m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
-    m_AsymptoteValue: 0.5
+    m_AsymptoteValue: 0.58
     m_Stiffness: 1
   m_Enabled: 1
 --- !u!114 &8778900816760688268
@@ -2431,7 +2459,7 @@ WheelCollider:
     m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
-    m_AsymptoteValue: 0.7
+    m_AsymptoteValue: 0.6
     m_Stiffness: 1
   m_Enabled: 1
 --- !u!114 &8778900817272124239
@@ -2500,6 +2528,8 @@ MonoBehaviour:
   m_playerName: 
   m_kartColor: {r: 1, g: 1, b: 1, a: 0}
   m_kartName: 
+  m_backLightMat: {fileID: 2100000, guid: e46552fedf5b10e4e8f0621262a9554b, type: 2}
+  m_karts: []
   m_wheels:
   - {fileID: 7627526947094423644}
   - {fileID: 4021151816265492390}

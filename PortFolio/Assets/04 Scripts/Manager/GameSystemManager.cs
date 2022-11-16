@@ -89,7 +89,6 @@ public class GameSystemManager : Singleton_DontDestroy<GameSystemManager>
     public bool IsEnd { get { return m_finishLapCnt == m_mapLapTime; } }
     public bool IsReverse { get { return m_isReverse; } }
     public int CurrMapIndex { get { return m_currMapIndex; } }
-    public int CurrKartIndex { get { return m_currKartIndex; } }
     public float AverageSpeed { get { return (m_twoCpsDist / m_timer) * 3.6f; } }
     public float CurrentTime { get { return m_timer; } }
     public float ResetCoolDown { get { return m_resetCooldown; } }

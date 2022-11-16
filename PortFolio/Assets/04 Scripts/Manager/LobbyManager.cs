@@ -5,12 +5,15 @@ using UnityEngine;
 public class LobbyManager : Singleton<LobbyManager>
 {
     [SerializeField]
+    GameObject[] m_karts;
+    [SerializeField]
     GameObject m_cameraArm;
     [SerializeField]
     Rigidbody m_cameraRb;
     Vector3 m_originCamPos;
     Quaternion m_originCamRot;
 
+    int m_currKartIndex;
     float m_yAngle;
     float m_xAngle;
     [SerializeField]
@@ -25,6 +28,13 @@ public class LobbyManager : Singleton<LobbyManager>
     public void ResetCamRotation()
     {
         m_cameraArm.transform.rotation = m_originCamRot;
+    }
+    public void SetMainLobbyKart()
+    {
+        m_karts[m_currKartIndex].SetActive(false);
+        var index = DataManager.Instance.PlayerData.currKart;
+        m_karts[index].SetActive(true);
+        m_currKartIndex = index;
     }
     void RotateCamera()
     {
@@ -51,6 +61,13 @@ public class LobbyManager : Singleton<LobbyManager>
     {
         m_originCamPos = m_cameraArm.transform.position;
         m_originCamRot = m_cameraArm.transform.rotation;
+        m_karts = GameObject.FindGameObjectsWithTag("Kart");
+        var length = m_karts.Length;
+        for(int i = 0; i < length; i++)
+        {
+            m_karts[i].SetActive(false);
+        }
+        SetMainLobbyKart();
     }
     // Update is called once per frame
     void Update()

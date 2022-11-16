@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
     string m_kartName;
     [SerializeField]
     Material m_backLightMat;
+    [SerializeField]
+    BoxCollider[] m_karts;
 
     [Header("Wheel Mesh")]
     [SerializeField]
@@ -151,7 +153,10 @@ public class PlayerController : MonoBehaviour
     }
     public void InitPlayer(PlayerData playerData)
     {
-        var carInfo = playerData.carsList[GameSystemManager.Instance.CurrKartIndex];
+        m_karts = GetComponentsInChildren<BoxCollider>(true);
+        var currKartIndex = playerData.currKart;
+        var carInfo = playerData.carsList[currKartIndex];
+        m_karts[currKartIndex].gameObject.SetActive(true);
         m_kartName = carInfo.data.name;
         m_kartColor = carInfo.data.kartColor;
         transform.position = carInfo.data.pos;
@@ -309,6 +314,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         m_playerRb.centerOfMass = m_center.localPosition;
+        m_wheels = GameObject.FindGameObjectsWithTag("Wheel");
         m_wheelColliderCtr = GetComponentsInChildren<WheelController>();
         for (int i = 0; i < m_wheelColliderCtr.Length; i++)
             m_wheelCollider[i] = m_wheelColliderCtr[i].gameObject.GetComponent<WheelCollider>();

@@ -156,7 +156,7 @@ MonoBehaviour:
   - kartPaintMat: {fileID: 2100000, guid: fbcf907b99a4e0d4d97a8f258faa1352, type: 2}
     kartColor: {r: 0, g: 0, b: 0, a: 1}
     pos: {x: -43.6, y: -4.61, z: 246.59}
-    name: SportKart
+    name: SportsKart
     maxSpeed: 4500
     maxBoosterSpeed: 6500
     maxTurnPower: 25
@@ -165,7 +165,7 @@ MonoBehaviour:
   - kartPaintMat: {fileID: 2100000, guid: dc395673a5e21f746991af8076b211c3, type: 2}
     kartColor: {r: 0.18356177, g: 0.18356177, b: 0.5188679, a: 1}
     pos: {x: -43.6, y: -4.61, z: 246.59}
-    name: SprotKart2
+    name: SportsKart2
     maxSpeed: 4800
     maxBoosterSpeed: 6800
     maxTurnPower: 25
@@ -1965,6 +1965,7 @@ MonoBehaviour:
     carsList: []
     mapList: []
     userName: Lucy
+    currKart: 0
 --- !u!4 &2087185318
 Transform:
   m_ObjectHideFlags: 0

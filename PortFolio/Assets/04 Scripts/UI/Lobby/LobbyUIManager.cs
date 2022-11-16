@@ -28,6 +28,7 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
         m_lobbyMenus[m_menuIndex].Hide();
         LobbyManager.Instance.ResetCamPos();
         LobbyManager.Instance.ResetCamRotation();
+        LobbyManager.Instance.SetMainLobbyKart();
         SetGameObjectActive(m_lobbyMenu, false);
         SetGameObjectActive(m_mainLobby, true);
     }
