@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Lobby_GameStart : MonoBehaviour, ILobbyMenu
+public class Lobby_GameModeSelect : MonoBehaviour, ILobbyMenu
 {
     [SerializeField]
     Button[] m_buttons;
+    [SerializeField]
+    GameObject m_mapSelectPanel;
 
     void OnPressTimeAttackButton(bool isShadow)
     {
-        LoadSceneManager.Instance.LoadSceneAsync(SceneState.Game);
+        m_mapSelectPanel.SetActive(true);
     }
     public void Show()
     {

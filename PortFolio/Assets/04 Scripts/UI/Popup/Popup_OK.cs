@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Popup_InputField : MonoBehaviour
+public class Popup_OK : MonoBehaviour
 {
-    [SerializeField]
-    InputField m_inputField;
     [SerializeField]
     Text m_titleText;
     [SerializeField]
@@ -29,6 +27,8 @@ public class Popup_InputField : MonoBehaviour
             m_funcDel();
         }
         else
-            PopupManager.Instance.ClosePopupInputField();
+        {
+            PopupManager.Instance.ClosePopupOk();
+        }
     }
 }

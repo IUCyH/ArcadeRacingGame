@@ -25,10 +25,22 @@ public class DataManager : Singleton_DontDestroy<DataManager>
         var jsonData = PlayerPrefs.GetString("PLAYER_DATA", string.Empty);
         if (string.IsNullOrEmpty(jsonData))
         {
-            CreateNewData("Lucy");
+            PopupManager.Instance.CreatePopupInputField("알림", "회원정보가 없습니다. 닉네임을 입력해주세요.", () =>
+            {
+                FuncDel okFuncDel = () =>
+                {
+                    var name = PopupManager.Instance.GetInputFieldText;
+                    CreateNewData(name);
+                    PopupManager.Instance.ClosePopupOkCancel();
+                    PopupManager.Instance.ClosePopupInputField();
+                    TitleManager.Instance.GoNextScene();
+                };
+                PopupManager.Instance.CreatePopupOkCancel("알림", "이 닉네임으로 하시겠습니까?", okFuncDel, null, "예", "아니요");
+            });
             return;
         }
         m_playerData = JsonUtility.FromJson<PlayerData>(jsonData);
+        TitleManager.Instance.GoNextScene();
         Save();
     }
     public void Save()
@@ -61,6 +73,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
             m_playerData.mapList.Add(mapInfo);
         }
         m_playerData.carsList[0].isPlayable = true;
+        Save();
     }
     void UpdateCarDatas(CarInfo carInfo, int index)
     {
