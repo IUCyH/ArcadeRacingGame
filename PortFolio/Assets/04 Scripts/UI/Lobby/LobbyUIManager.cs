@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum Menu
+{
+    ModeSelect,
+    Garage
+}
 public class LobbyUIManager : Singleton<LobbyUIManager>
 {
     [SerializeField]

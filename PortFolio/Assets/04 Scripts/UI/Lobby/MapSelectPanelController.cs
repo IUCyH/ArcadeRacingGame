@@ -8,15 +8,13 @@ public class MapSelectPanelController : MonoBehaviour
     [SerializeField]
     Image m_mapImage;
     [SerializeField]
-    Image m_kartImage;
-    [SerializeField]
     Text m_mapNameText;
     [SerializeField]
     Text m_kartNameText;
     [SerializeField]
     Text m_mapBestRecordText;
     [SerializeField]
-    Sprite[] m_kartSprites;
+    GameObject[] m_karts;
     Sprite[] m_mapSprties;
     byte m_currKartIndex;
 
@@ -30,11 +28,12 @@ public class MapSelectPanelController : MonoBehaviour
     }
     public void OnPressKartNextButton()
     {
-        var maxIndex = m_kartSprites.Length - 1;
+        var maxIndex = m_karts.Length - 1;
         if(m_currKartIndex < maxIndex)
         {
+            ChangeKartActive(m_currKartIndex, false);
             m_currKartIndex++;
-            m_kartImage.sprite = m_kartSprites[m_currKartIndex];
+            ChangeKartActive(m_currKartIndex, true);
         }
         m_kartNameText.text = DataManager.Instance.PlayerData.carsList[m_currKartIndex].data.name;
     }
@@ -42,8 +41,9 @@ public class MapSelectPanelController : MonoBehaviour
     {
         if(m_currKartIndex > 0)
         {
+            ChangeKartActive(m_currKartIndex, false);
             m_currKartIndex--;
-            m_kartImage.sprite = m_kartSprites[m_currKartIndex];
+            ChangeKartActive(m_currKartIndex, true);
         }
         m_kartNameText.text = DataManager.Instance.PlayerData.carsList[m_currKartIndex].data.name;
     }
@@ -57,19 +57,25 @@ public class MapSelectPanelController : MonoBehaviour
     {
         UpdateKartIndex();
         DataManager.Instance.Save();
-        gameObject.SetActive(false);
+        LoadSceneManager.Instance.LoadSceneAsync(SceneState.Lobby, false);
     }
     void UpdateKartIndex()
     {
         DataManager.Instance.PlayerData.currKart = m_currKartIndex;
     }
+    void ChangeKartActive(int index, bool value)
+    {
+        m_karts[index].SetActive(value);
+    }
     // Start is called before the first frame update
     void Start()
     {
-        m_kartSprites = Resources.LoadAll<Sprite>("KartSprites");
+        m_karts = GameObject.FindGameObjectsWithTag("Kart");
+        var length = m_karts.Length;
+        for (int i = 0; i < length; i++)
+            m_karts[i].SetActive(false);
         m_currKartIndex = DataManager.Instance.PlayerData.currKart;
-        m_kartImage.sprite = m_kartSprites[m_currKartIndex];
         m_kartNameText.text = DataManager.Instance.PlayerData.carsList[m_currKartIndex].data.name;
-        gameObject.SetActive(false);
+        ChangeKartActive(m_currKartIndex, true);
     }
 }

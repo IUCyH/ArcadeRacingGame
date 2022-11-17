@@ -78,7 +78,7 @@ public class LobbyManager : Singleton<LobbyManager>
         }
         else if(Input.GetMouseButtonUp(0))
         {
-            m_cameraRb.AddTorque(Vector3.up * InputManager.Instance.MouseX * m_yAngle * Time.deltaTime * 30f);
+            m_cameraRb.AddTorque(30f * InputManager.Instance.MouseX * m_yAngle * Time.deltaTime * Vector3.up);
             m_isMouseDown = false;
         }
         if(m_isMouseDown)

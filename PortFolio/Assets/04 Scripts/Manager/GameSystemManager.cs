@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class GameSystemManager : Singleton_DontDestroy<GameSystemManager>
+public class GameSystemManager : Singleton<GameSystemManager>
 {
     public enum ReverseCheckPos //역주행 인식의 기준이 되는 좌표
     {
