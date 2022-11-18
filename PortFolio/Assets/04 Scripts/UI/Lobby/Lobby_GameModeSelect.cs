@@ -12,6 +12,7 @@ public class Lobby_GameModeSelect : MonoBehaviour, ILobbyMenu
 
     void OnPressTimeAttackButton(bool isShadow)
     {
+        LobbyManager.Instance.SetKartModelCamActive(true);
         m_mapSelectPanel.SetActive(true);
     }
     public void Show()

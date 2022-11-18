@@ -4305,6 +4305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67aff6ebaddc3384e88c75625aa8f802, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_kartModelCam: {fileID: 919112684}
   m_karts: []
   m_cameraArm: {fileID: 1050510962}
   m_cameraRb: {fileID: 1050510964}
@@ -5010,7 +5011,7 @@ GameObject:
   - component: {fileID: 919112685}
   - component: {fileID: 919112684}
   m_Layer: 0
-  m_Name: Camera_KartSelect
+  m_Name: Camera_KartModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

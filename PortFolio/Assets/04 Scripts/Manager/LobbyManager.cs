@@ -5,6 +5,8 @@ using UnityEngine;
 public class LobbyManager : Singleton<LobbyManager>
 {
     [SerializeField]
+    Camera m_kartModelCam;
+    [SerializeField]
     GameObject[] m_karts;
     [SerializeField]
     GameObject m_cameraArm;
@@ -23,6 +25,10 @@ public class LobbyManager : Singleton<LobbyManager>
     
     public GameObject[] Karts { get { return m_karts; } }
 
+    public void SetKartModelCamActive(bool value)
+    {
+        m_kartModelCam.gameObject.SetActive(value);
+    }
     public void ResetCamPos()
     {
         m_cameraArm.transform.position = m_originCamPos;
@@ -61,6 +67,7 @@ public class LobbyManager : Singleton<LobbyManager>
     }
     protected override void OnStart()
     {
+        SetKartModelCamActive(false);
         m_originCamPos = m_cameraArm.transform.position;
         m_originCamRot = m_cameraArm.transform.rotation;
         m_karts = GameObject.FindGameObjectsWithTag("Kart");

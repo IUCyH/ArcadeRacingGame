@@ -55,6 +55,7 @@ public class MapSelectPanelController : MonoBehaviour
     }
     public void OnPressExit()
     {
+        LobbyManager.Instance.SetKartModelCamActive(false);
         UpdateKartIndex();
         DataManager.Instance.Save();
         gameObject.SetActive(false);
