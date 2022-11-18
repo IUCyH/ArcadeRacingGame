@@ -20,6 +20,7 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
     ILobbyMenu[] m_lobbyMenus;
     [SerializeField]
     int m_menuIndex;
+
     void OnPressButton(Button button)
     {
         SetGameObjectActive(m_mainLobby, false);

@@ -10,7 +10,6 @@ public enum SceneState
     None = -1,
     Title,
     Lobby,
-    MapSelect,
     Game,
     Max
 }
@@ -30,19 +29,16 @@ public class LoadSceneManager : Singleton_DontDestroy<LoadSceneManager>
     Text m_loadingText; //"로딩중...."을 표시해주는 UI
     [SerializeField]
     Image m_loadingProgressBar;
-    bool m_showLoadingPanel;
 
     public void SetLoadState(SceneState state)
     {
         m_loadState = state;
     }
-    public void LoadSceneAsync(SceneState sceneState, bool showLoadingPanel = true)
+    public void LoadSceneAsync(SceneState sceneState)
     {
         if (m_loadState != SceneState.None) return;
-        m_showLoadingPanel = showLoadingPanel;
         SetLoadState(sceneState);
-        if(m_showLoadingPanel)
-            ShowLoadingPanel();
+        ShowLoadingPanel();
         m_loadingInfo = SceneManager.LoadSceneAsync((int)sceneState);
     }
     void ShowLoadingPanel()
@@ -60,7 +56,7 @@ public class LoadSceneManager : Singleton_DontDestroy<LoadSceneManager>
     }
     void Update()
     {
-        if(m_showLoadingPanel && m_loadingInfo != null && m_loadState != SceneState.None)
+        if(m_loadingInfo != null && m_loadState != SceneState.None)
         {
             if (!m_loadingInfo.isDone)
             {
@@ -77,10 +73,6 @@ public class LoadSceneManager : Singleton_DontDestroy<LoadSceneManager>
                 SetLoadState(SceneState.None);
                 HideLoadingPanel();
             }
-        }
-        else if(m_loadingInfo != null && m_loadingInfo.isDone)
-        {
-            SetLoadState(SceneState.None);
         }
         m_sb.Clear();
     }

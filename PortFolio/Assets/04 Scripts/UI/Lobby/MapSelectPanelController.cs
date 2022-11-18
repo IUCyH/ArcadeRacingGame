@@ -57,7 +57,7 @@ public class MapSelectPanelController : MonoBehaviour
     {
         UpdateKartIndex();
         DataManager.Instance.Save();
-        LoadSceneManager.Instance.LoadSceneAsync(SceneState.Lobby, false);
+        gameObject.SetActive(false);
     }
     void UpdateKartIndex()
     {
@@ -70,12 +70,9 @@ public class MapSelectPanelController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_karts = GameObject.FindGameObjectsWithTag("Kart");
-        var length = m_karts.Length;
-        for (int i = 0; i < length; i++)
-            m_karts[i].SetActive(false);
+        m_karts = (GameObject[])LobbyManager.Instance.Karts.Clone();
         m_currKartIndex = DataManager.Instance.PlayerData.currKart;
         m_kartNameText.text = DataManager.Instance.PlayerData.carsList[m_currKartIndex].data.name;
-        ChangeKartActive(m_currKartIndex, true);
+        gameObject.SetActive(false);
     }
 }

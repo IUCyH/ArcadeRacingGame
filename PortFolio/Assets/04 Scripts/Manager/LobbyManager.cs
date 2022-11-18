@@ -20,6 +20,8 @@ public class LobbyManager : Singleton<LobbyManager>
     float m_maxAngleX = 359.2498f;
     [SerializeField]
     bool m_isMouseDown;
+    
+    public GameObject[] Karts { get { return m_karts; } }
 
     public void ResetCamPos()
     {

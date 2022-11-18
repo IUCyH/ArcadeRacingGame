@@ -7,10 +7,12 @@ public class Lobby_GameModeSelect : MonoBehaviour, ILobbyMenu
 {
     [SerializeField]
     Button[] m_buttons;
+    [SerializeField]
+    GameObject m_mapSelectPanel;
 
     void OnPressTimeAttackButton(bool isShadow)
     {
-        LoadSceneManager.Instance.LoadSceneAsync(SceneState.MapSelect, false);
+        m_mapSelectPanel.SetActive(true);
     }
     public void Show()
     {
