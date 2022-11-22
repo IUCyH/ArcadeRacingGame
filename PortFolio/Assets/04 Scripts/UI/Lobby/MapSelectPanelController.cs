@@ -15,16 +15,29 @@ public class MapSelectPanelController : MonoBehaviour
     Text m_mapBestRecordText;
     [SerializeField]
     GameObject[] m_karts;
-    Sprite[] m_mapSprties;
+    [SerializeField]
+    Sprite[] m_mapSprites;
     byte m_currKartIndex;
+    byte m_currMapIndex;
 
     public void OnPressMapNextButton()
     {
-
+        var maxIndex = m_mapSprites.Length - 1;
+        if(m_currMapIndex < maxIndex)
+        {
+            m_currMapIndex++;
+            ChangeMapImage();
+            SetMapName();
+        }
     }
     public void OnPressMapPrevButton()
     {
-
+        if(m_currMapIndex > 0)
+        {
+            m_currMapIndex--;
+            ChangeMapImage();
+            SetMapName();
+        }
     }
     public void OnPressKartNextButton()
     {
@@ -34,8 +47,8 @@ public class MapSelectPanelController : MonoBehaviour
             ChangeKartActive(m_currKartIndex, false);
             m_currKartIndex++;
             ChangeKartActive(m_currKartIndex, true);
+            SetKartName();
         }
-        m_kartNameText.text = DataManager.Instance.PlayerData.carsList[m_currKartIndex].data.name;
     }
     public void OnPressKartPrevButton()
     {
@@ -44,12 +57,13 @@ public class MapSelectPanelController : MonoBehaviour
             ChangeKartActive(m_currKartIndex, false);
             m_currKartIndex--;
             ChangeKartActive(m_currKartIndex, true);
+            SetKartName();
         }
-        m_kartNameText.text = DataManager.Instance.PlayerData.carsList[m_currKartIndex].data.name;
     }
     public void OnPressStart()
     {
         UpdateKartIndex();
+        UpdateMapIndex();
         DataManager.Instance.Save();
         LoadSceneManager.Instance.LoadSceneAsync(SceneState.Game);
     }
@@ -57,12 +71,29 @@ public class MapSelectPanelController : MonoBehaviour
     {
         LobbyManager.Instance.SetKartModelCamActive(false);
         UpdateKartIndex();
+        UpdateMapIndex();
         DataManager.Instance.Save();
         gameObject.SetActive(false);
+    }
+    void ChangeMapImage()
+    {
+        m_mapImage.sprite = m_mapSprites[m_currMapIndex];
+    }
+    void SetMapName()
+    {
+        m_mapNameText.text = DataManager.Instance.PlayerData.mapList[m_currMapIndex].data.name;
+    }
+    void SetKartName()
+    {
+        m_kartNameText.text = DataManager.Instance.PlayerData.carsList[m_currKartIndex].data.name;
     }
     void UpdateKartIndex()
     {
         DataManager.Instance.PlayerData.currKart = m_currKartIndex;
+    }
+    void UpdateMapIndex()
+    {
+        DataManager.Instance.PlayerData.currMap = m_currMapIndex;
     }
     void ChangeKartActive(int index, bool value)
     {
@@ -72,8 +103,12 @@ public class MapSelectPanelController : MonoBehaviour
     void Start()
     {
         m_karts = (GameObject[])LobbyManager.Instance.Karts.Clone();
+        m_mapSprites = Resources.LoadAll<Sprite>("MapImages");
         m_currKartIndex = DataManager.Instance.PlayerData.currKart;
-        m_kartNameText.text = DataManager.Instance.PlayerData.carsList[m_currKartIndex].data.name;
+        m_currMapIndex = DataManager.Instance.PlayerData.currMap;
+        ChangeMapImage();
+        SetKartName();
+        SetMapName();
         gameObject.SetActive(false);
     }
 }

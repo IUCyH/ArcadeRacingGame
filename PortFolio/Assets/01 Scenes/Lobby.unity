@@ -223,8 +223,8 @@ RectTransform:
   - {fileID: 596417672}
   - {fileID: 1474142680}
   - {fileID: 680187302}
-  - {fileID: 1874340115}
   - {fileID: 1715837846}
+  - {fileID: 1874340115}
   - {fileID: 629790759}
   - {fileID: 630330045}
   - {fileID: 1359170334}
@@ -256,6 +256,7 @@ MonoBehaviour:
   m_kartNameText: {fileID: 577998416}
   m_mapBestRecordText: {fileID: 629790757}
   m_karts: []
+  m_mapSprites: []
 --- !u!222 &23910668
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -934,6 +935,7 @@ MonoBehaviour:
     mapList: []
     userName: 
     currKart: 0
+    currMap: 0
 --- !u!4 &197978070
 Transform:
   m_ObjectHideFlags: 0
@@ -3710,13 +3712,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 5
     m_MaxSize: 65
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBE4C\uB9AC\uC9C0 \uC11C\uD0B7"
+  m_Text: Village Circuit
 --- !u!222 &680187301
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3741,8 +3743,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 300, y: 151}
-  m_SizeDelta: {x: 350, y: 250}
+  m_AnchoredPosition: {x: 281, y: 151}
+  m_SizeDelta: {x: 390, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &700173677
 GameObject:
@@ -8451,7 +8453,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4b76d496e9c750b4c970dde88d353b0c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 00ca649175d352b458d261b26d8ca6f4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10829,13 +10831,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1715837845}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 23910666}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 521, y: 249}
@@ -10884,7 +10886,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1715837848}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 23910667}
+        m_TargetAssemblyTypeName: MapSelectPanelController, Assembly-CSharp
+        m_MethodName: OnPressMapNextButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1715837848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11875,7 +11889,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 23910666}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -11925,7 +11939,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1874340117}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 23910667}
+        m_TargetAssemblyTypeName: MapSelectPanelController, Assembly-CSharp
+        m_MethodName: OnPressMapPrevButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1874340117
 MonoBehaviour:
   m_ObjectHideFlags: 0

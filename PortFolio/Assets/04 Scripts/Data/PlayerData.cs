@@ -42,4 +42,5 @@ public class PlayerData
     public List<MapInfo> mapList = new List<MapInfo>();
     public string userName;
     public byte currKart;
+    public byte currMap;
 }

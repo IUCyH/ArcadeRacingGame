@@ -54,8 +54,6 @@ public class GameSystemManager : Singleton<GameSystemManager>
     [Header("Player")]
     [SerializeField]
     PlayerController m_player;
-    [SerializeField]
-    int m_currKartIndex;
 
     [Header("UI")]
     [SerializeField]
@@ -270,6 +268,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
     }
     protected override void OnAwake()
     {
+        m_currMapIndex = DataManager.Instance.PlayerData.currMap;
         LoadData();
         InGameUiManager.Instance.SetActiveAllCanvas(false);
         m_warningImage.enabled = false;

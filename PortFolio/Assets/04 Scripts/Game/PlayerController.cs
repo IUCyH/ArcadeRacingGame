@@ -32,7 +32,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     Material m_backLightMat;
     [SerializeField]
-    BoxCollider[] m_karts;
+    GameObject[] m_karts;
+    float m_kartPosY = -0.161f;
 
     [Header("Wheel Mesh")]
     [SerializeField]
@@ -153,10 +154,9 @@ public class PlayerController : MonoBehaviour
     }
     public void InitPlayer(PlayerData playerData)
     {
-        m_karts = GetComponentsInChildren<BoxCollider>(true);
+        m_karts = Resources.LoadAll<GameObject>("Prefab/Karts");
         var currKartIndex = playerData.currKart;
         var carInfo = playerData.carsList[currKartIndex];
-        m_karts[currKartIndex].gameObject.SetActive(true);
         m_kartName = carInfo.data.name;
         m_kartColor = carInfo.data.kartColor;
         transform.position = carInfo.data.pos;
@@ -165,6 +165,7 @@ public class PlayerController : MonoBehaviour
         m_boosterMaxSpeed = carInfo.data.maxBoosterSpeed;
         m_turnPower = carInfo.data.maxTurnPower;
         m_playerName = playerData.userName;
+        InstantiateKart(currKartIndex);
     }
     public void Break(float breakForce)
     {
@@ -176,6 +177,12 @@ public class PlayerController : MonoBehaviour
     public void SetState(State state)
     {
         m_state = state;
+    }
+    void InstantiateKart(int kartIndex)
+    {
+        var obj = Instantiate(m_karts[kartIndex]);
+        obj.transform.SetParent(this.transform);
+        obj.transform.localPosition = new Vector3(0f, m_kartPosY, 0f);
     }
     //휠 매쉬와 휠 콜라이더 동기화
     void InitWheelPos()

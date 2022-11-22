@@ -378,10 +378,8 @@ MonoBehaviour:
   m_mapDataTable:
   - name: Village Circuit
     lapTime: 2
-  - name: Circuit
+  - name: City
     lapTime: 1
-  - name: Long Circuit
-    lapTime: 2
 --- !u!4 &337313752
 Transform:
   m_ObjectHideFlags: 0
@@ -522,7 +520,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 479958665}
-  m_LocalRotation: {x: 0.016203867, y: 0.9104398, z: -0.035827518, w: 0.41176853}
+  m_LocalRotation: {x: 0.016203867, y: 0.9104398, z: -0.03582752, w: 0.41176853}
   m_LocalPosition: {x: -46.27767, y: -4.404, z: 244.87978}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1748,7 +1746,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1967068146}
-  m_LocalRotation: {x: 0.016203867, y: 0.9104398, z: -0.035827518, w: 0.41176853}
+  m_LocalRotation: {x: 0.016203867, y: 0.9104398, z: -0.03582752, w: 0.41176853}
   m_LocalPosition: {x: -46.27767, y: -4.404, z: 244.87978}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2006,6 +2004,7 @@ MonoBehaviour:
     mapList: []
     userName: Lucy
     currKart: 0
+    currMap: 0
 --- !u!4 &2087185318
 Transform:
   m_ObjectHideFlags: 0
