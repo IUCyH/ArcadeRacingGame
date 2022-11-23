@@ -28,11 +28,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     Color m_kartColor;
     [SerializeField]
-    string m_kartName;
-    [SerializeField]
     Material m_backLightMat;
     [SerializeField]
-    GameObject[] m_karts;
+    GameObject m_kartPrefab;
     float m_kartPosY = -0.161f;
 
     [Header("Wheel Mesh")]
@@ -154,10 +152,8 @@ public class PlayerController : MonoBehaviour
     }
     public void InitPlayer(PlayerData playerData)
     {
-        m_karts = Resources.LoadAll<GameObject>("Prefab/Karts");
         var currKartIndex = playerData.currKart;
         var carInfo = playerData.carsList[currKartIndex];
-        m_kartName = carInfo.data.name;
         m_kartColor = carInfo.data.kartColor;
         transform.position = carInfo.data.pos;
         m_startBoostSpeed = carInfo.data.startSpeed;
@@ -165,7 +161,8 @@ public class PlayerController : MonoBehaviour
         m_boosterMaxSpeed = carInfo.data.maxBoosterSpeed;
         m_turnPower = carInfo.data.maxTurnPower;
         m_playerName = playerData.userName;
-        InstantiateKart(currKartIndex);
+        InstantiateKart();
+        InitWheelObjAndWheelCollider(currKartIndex);
     }
     public void Break(float breakForce)
     {
@@ -178,11 +175,25 @@ public class PlayerController : MonoBehaviour
     {
         m_state = state;
     }
-    void InstantiateKart(int kartIndex)
+    void InstantiateKart()
     {
-        var obj = Instantiate(m_karts[kartIndex]);
+        var obj = Instantiate(m_kartPrefab);
         obj.transform.SetParent(this.transform);
         obj.transform.localPosition = new Vector3(0f, m_kartPosY, 0f);
+    }
+    void InitWheelObjAndWheelCollider(int index)
+    {
+        var numberOfWheels = DataManager.Instance.PlayerData.carsList[index].data.numberOfWheels;
+        var wheelParent = GameObject.FindGameObjectWithTag("Wheel");
+        for (int i = 0; i < numberOfWheels; i++)
+        {
+            m_wheels[i] = wheelParent.transform.GetChild(i + 1).gameObject;
+        }
+        m_wheelColliderCtr = GetComponentsInChildren<WheelController>();
+        for (int i = 0; i < m_wheelColliderCtr.Length; i++)
+        {
+            m_wheelCollider[i] = m_wheelColliderCtr[i].gameObject.GetComponent<WheelCollider>();
+        }
     }
     //휠 매쉬와 휠 콜라이더 동기화
     void InitWheelPos()
@@ -318,13 +329,16 @@ public class PlayerController : MonoBehaviour
     {
         CrashCnt++;
     }
+    void Awake()
+    {
+        byte index = DataManager.Instance.PlayerData.currKart;
+        string kartName = DataManager.Instance.PlayerData.carsList[index].data.name;
+        string path = string.Format("Prefab/Karts/{0}", kartName);
+        m_kartPrefab = Resources.Load<GameObject>(path);
+    }
     void Start()
     {
         m_playerRb.centerOfMass = m_center.localPosition;
-        m_wheels = GameObject.FindGameObjectsWithTag("Wheel");
-        m_wheelColliderCtr = GetComponentsInChildren<WheelController>();
-        for (int i = 0; i < m_wheelColliderCtr.Length; i++)
-            m_wheelCollider[i] = m_wheelColliderCtr[i].gameObject.GetComponent<WheelCollider>();
         m_boosterIcons[0].enabled = m_boosterIcons[1].enabled = false;
         m_state = State.Defult;
         m_wheelCollider[2].brakeTorque = m_wheelCollider[3].brakeTorque = 0f;

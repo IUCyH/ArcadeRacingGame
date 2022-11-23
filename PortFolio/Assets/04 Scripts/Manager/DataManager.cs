@@ -22,7 +22,6 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     }
     public void Load()
     {
-        PlayerPrefs.DeleteAll();
         var jsonData = PlayerPrefs.GetString("PLAYER_DATA", string.Empty);
         if (string.IsNullOrEmpty(jsonData))
         {

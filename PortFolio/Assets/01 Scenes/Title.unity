@@ -162,6 +162,7 @@ MonoBehaviour:
     maxTurnPower: 25
     startSpeed: 5
     price: 0
+    numberOfWheels: 4
   - kartPaintMat: {fileID: 2100000, guid: dc395673a5e21f746991af8076b211c3, type: 2}
     kartColor: {r: 0.18356177, g: 0.18356177, b: 0.5188679, a: 1}
     pos: {x: -43.6, y: -4.61, z: 246.59}
@@ -171,6 +172,7 @@ MonoBehaviour:
     maxTurnPower: 25
     startSpeed: 7
     price: 0
+    numberOfWheels: 4
   - kartPaintMat: {fileID: 2100000, guid: 6fe679ee68c274d43a68470cd4fbc6a5, type: 2}
     kartColor: {r: 0.5256063, g: 0.034754362, b: 0.6698113, a: 1}
     pos: {x: -43.6, y: -4.61, z: 246.59}
@@ -180,6 +182,7 @@ MonoBehaviour:
     maxTurnPower: 25
     startSpeed: 8
     price: 0
+    numberOfWheels: 4
 --- !u!4 &64335152
 Transform:
   m_ObjectHideFlags: 0
@@ -520,7 +523,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 479958665}
-  m_LocalRotation: {x: 0.016203867, y: 0.9104398, z: -0.03582752, w: 0.41176853}
+  m_LocalRotation: {x: 0.016203862, y: 0.9104398, z: -0.035827514, w: 0.41176853}
   m_LocalPosition: {x: -46.27767, y: -4.404, z: 244.87978}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1746,7 +1749,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1967068146}
-  m_LocalRotation: {x: 0.016203867, y: 0.9104398, z: -0.03582752, w: 0.41176853}
+  m_LocalRotation: {x: 0.016203862, y: 0.9104398, z: -0.035827514, w: 0.41176853}
   m_LocalPosition: {x: -46.27767, y: -4.404, z: 244.87978}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

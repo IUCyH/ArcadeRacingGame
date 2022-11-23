@@ -151,7 +151,7 @@ public class InGameUiManager : Singleton<InGameUiManager>
     {
         UpdateLapTimeText(mapLapTime, currLapTime);
         m_staticSb.Clear();
-        GameSystemManager.Instance.ConvetTime(bestTime, out int minute, out int second, out int millisecond);
+        Utill.ConvetTime(bestTime, out int minute, out int second, out int millisecond);
         m_staticSb.AppendFormat("<b>BEST</b>  /  {0:00}:{1:00}:{2:00}", minute, second, millisecond);
         m_bestTimeText.text = m_staticSb.ToString();
         if(isLastLap)
@@ -166,7 +166,7 @@ public class InGameUiManager : Singleton<InGameUiManager>
     {
         m_dynamicSb.Clear();
         float time = GameSystemManager.Instance.CurrentTime;
-        GameSystemManager.Instance.ConvetTime(time, out int minute, out int second, out int millisecond);
+        Utill.ConvetTime(time, out int minute, out int second, out int millisecond);
         m_dynamicSb.AppendFormat("<b>TIME</b>  /  {0:00}:{1:00}:{2:00}", minute, second, millisecond);
         m_timerText.text = m_dynamicSb.ToString();
         m_dynamicSb.Clear();
@@ -183,9 +183,9 @@ public class InGameUiManager : Singleton<InGameUiManager>
 
         m_completeText.text = completeText;
         m_mapNameText.text = mapName;
-        GameSystemManager.Instance.ConvetTime(currTime, out minute, out second, out millisecond);
+        Utill.ConvetTime(currTime, out minute, out second, out millisecond);
         m_currTimeText.text = string.Format("{0:00}:{1:00}:{2:00}", minute, second, millisecond);
-        GameSystemManager.Instance.ConvetTime(mapBestTime, out minute, out second, out millisecond);
+        Utill.ConvetTime(mapBestTime, out minute, out second, out millisecond);
         m_playerBestTimeText.text = string.Format("주간 최고 기록  <color=yellow><b>{0:00}:{1:00}:{2:00}</b></color>", minute, second, millisecond);
         m_driftDistText.text = string.Format("드리프트 <color=yellow><b>{0}</b></color> m", Mathf.Round(m_player.TotalDriftDist) * 10);
         m_boosterCntText.text = string.Format("부스터 <color=yellow><b>{0}</b></color> 회", m_player.BoosterCnt);

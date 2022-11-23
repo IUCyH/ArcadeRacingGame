@@ -12,6 +12,8 @@ public class InputManager : Singleton_DontDestroy<InputManager>
     public bool HandBreakKeyUp { get; set; }
     public bool ResetKeyDown { get; set; }
     public bool BoosterKeyDown { get; set; }
+    public bool MouseDown { get; set; }
+    public bool MouseUp { get; set; }
     // Update is called once per frame
     void Update()
     {
@@ -23,5 +25,7 @@ public class InputManager : Singleton_DontDestroy<InputManager>
         BoosterKeyDown = Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl);
         MouseX = Input.GetAxis("Mouse X");
         MouseY = Input.GetAxis("Mouse Y");
+        MouseDown = Input.GetMouseButtonDown(0);
+        MouseUp = Input.GetMouseButtonUp(0);
     }
 }

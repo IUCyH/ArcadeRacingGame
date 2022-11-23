@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8906115976060998336}
   m_Layer: 0
   m_Name: WHEEL_RR
-  m_TagString: Wheel
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 17418536591705174}
   m_Layer: 0
   m_Name: WHEEL_RL
-  m_TagString: Wheel
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 1531922550125216354}
   m_Layer: 0
   m_Name: WHEEL_FL
-  m_TagString: Wheel
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -438,7 +438,7 @@ GameObject:
   - component: {fileID: 4235118636759466473}
   m_Layer: 0
   m_Name: Wheels
-  m_TagString: Player
+  m_TagString: Wheel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -623,7 +623,7 @@ GameObject:
   - component: {fileID: 4721802317655009666}
   - component: {fileID: 5389936412982326075}
   m_Layer: 0
-  m_Name: 02_SportsKart2
+  m_Name: SportsKart2
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -636,7 +636,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5389936412982326072}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.161, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -671,7 +671,7 @@ GameObject:
   - component: {fileID: 1060592291433904079}
   m_Layer: 0
   m_Name: WHEEL_FR
-  m_TagString: Wheel
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

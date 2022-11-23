@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 513038270567954115}
   m_Layer: 0
   m_Name: Wheels
-  m_TagString: Untagged
+  m_TagString: Wheel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 7344588375694307619}
   m_Layer: 0
   m_Name: WHEEL_FR
-  m_TagString: Wheel
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 3088894402599776110}
   - component: {fileID: 5948925865895603288}
   m_Layer: 0
-  m_Name: 03_BoxKart
+  m_Name: BoxKart
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -445,7 +445,7 @@ GameObject:
   - component: {fileID: 9086214929392354446}
   m_Layer: 0
   m_Name: WHEEL_FL
-  m_TagString: Wheel
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -601,7 +601,7 @@ GameObject:
   - component: {fileID: 1207565497698849836}
   m_Layer: 0
   m_Name: WHEEL_RR
-  m_TagString: Wheel
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -757,7 +757,7 @@ GameObject:
   - component: {fileID: 7739191001190351546}
   m_Layer: 0
   m_Name: WHEEL_RL
-  m_TagString: Wheel
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

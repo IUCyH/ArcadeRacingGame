@@ -15,6 +15,7 @@ public class CarData
     public float maxTurnPower;
     public float startSpeed;
     public int price;
+    public int numberOfWheels;
 }
 [Serializable]
 public class CarInfo

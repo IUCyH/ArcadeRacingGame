@@ -16,6 +16,8 @@ public class LobbyManager : Singleton<LobbyManager>
     Quaternion m_originCamRot;
 
     int m_currKartIndex;
+    [SerializeField]
+    float m_speed = 30f;
     float m_yAngle;
     float m_xAngle;
     [SerializeField]
@@ -81,13 +83,13 @@ public class LobbyManager : Singleton<LobbyManager>
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (InputManager.Instance.MouseDown)
         {
             m_isMouseDown = true;
         }
-        else if(Input.GetMouseButtonUp(0))
+        if(InputManager.Instance.MouseUp)
         {
-            m_cameraRb.AddTorque(30f * InputManager.Instance.MouseX * m_yAngle * Time.deltaTime * Vector3.up);
+            m_cameraRb.AddTorque(m_speed * InputManager.Instance.MouseX * m_yAngle * Time.deltaTime * Vector3.up);
             m_isMouseDown = false;
         }
         if(m_isMouseDown)

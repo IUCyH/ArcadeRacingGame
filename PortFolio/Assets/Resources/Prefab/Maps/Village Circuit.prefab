@@ -28069,7 +28069,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9065003694647477109}
   m_Layer: 0
-  m_Name: Track
+  m_Name: Village Circuit
   m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

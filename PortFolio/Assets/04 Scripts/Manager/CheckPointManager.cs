@@ -8,7 +8,7 @@ public class CheckPointManager : Singleton<CheckPointManager>
     CheckpointController[] m_checkPoints;
 
     public CheckpointController[] CheckPoints { get { return m_checkPoints; } }
-    protected override void OnStart()
+    protected override void OnAwake()
     {
         m_checkPoints = GetComponentsInChildren<CheckpointController>();
         var length = m_checkPoints.Length;

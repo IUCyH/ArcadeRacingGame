@@ -8,7 +8,7 @@ public class MapManager : Singleton<MapManager>
     [SerializeField]
     int m_lapTime;
     [SerializeField]
-    GameObject[] m_maps;
+    GameObject m_mapPrefab;
     [SerializeField]
     Vector3 m_mapPosition;
 
@@ -21,16 +21,21 @@ public class MapManager : Singleton<MapManager>
     }
     public void InitMap(MapInfo mapinfo)
     {
-        var currMapIndex = DataManager.Instance.PlayerData.currMap;
-        m_maps = Resources.LoadAll<GameObject>("Prefab/Maps");
-        m_mapPosition = m_maps[currMapIndex].transform.position;
         m_lapTime = mapinfo.data.lapTime;
-        InstantiateMap(currMapIndex);
+        InstantiateMap();
     }
-    void InstantiateMap(int mapIndex)
+    void InstantiateMap()
     {
-        var obj = Instantiate(m_maps[mapIndex]);
+        var obj = Instantiate(m_mapPrefab);
         obj.transform.SetParent(this.transform);
         obj.transform.localPosition = m_mapPosition;
+    }
+    protected override void OnAwake()
+    {
+        byte index = DataManager.Instance.PlayerData.currMap;
+        string mapName = DataManager.Instance.PlayerData.mapList[index].data.name;
+        string path = string.Format("Prefab/Maps/{0}", mapName);
+        m_mapPrefab = Resources.Load<GameObject>(path);
+        m_mapPosition = m_mapPrefab.transform.position;
     }
 }

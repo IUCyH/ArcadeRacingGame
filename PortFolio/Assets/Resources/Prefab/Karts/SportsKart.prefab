@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2012906566784557719}
   - component: {fileID: 1860252977826270705}
   m_Layer: 0
-  m_Name: 01_SportsKart
+  m_Name: SportsKart
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 2046321597379723902}
   m_Layer: 0
   m_Name: Wheels
-  m_TagString: Untagged
+  m_TagString: Wheel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -514,7 +514,7 @@ GameObject:
   - component: {fileID: 6115759627522063578}
   m_Layer: 0
   m_Name: WHEEL_FR
-  m_TagString: Wheel
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -595,7 +595,7 @@ GameObject:
   - component: {fileID: 6509271539630837571}
   m_Layer: 0
   m_Name: WHEEL_RL
-  m_TagString: Wheel
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -676,7 +676,7 @@ GameObject:
   - component: {fileID: 2445613616507115989}
   m_Layer: 0
   m_Name: WHEEL_RR
-  m_TagString: Wheel
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -757,7 +757,7 @@ GameObject:
   - component: {fileID: 5704383534623361399}
   m_Layer: 0
   m_Name: WHEEL_FL
-  m_TagString: Wheel
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

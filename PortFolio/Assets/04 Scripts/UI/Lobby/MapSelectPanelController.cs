@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MapSelectPanelController : MonoBehaviour
 {
+    StringBuilder m_sb = new StringBuilder();
     [SerializeField]
     Image m_mapImage;
     [SerializeField]
@@ -28,6 +30,7 @@ public class MapSelectPanelController : MonoBehaviour
             m_currMapIndex++;
             ChangeMapImage();
             SetMapName();
+            SetMapBestTime();
         }
     }
     public void OnPressMapPrevButton()
@@ -37,6 +40,7 @@ public class MapSelectPanelController : MonoBehaviour
             m_currMapIndex--;
             ChangeMapImage();
             SetMapName();
+            SetMapBestTime();
         }
     }
     public void OnPressKartNextButton()
@@ -79,6 +83,13 @@ public class MapSelectPanelController : MonoBehaviour
     {
         m_mapImage.sprite = m_mapSprites[m_currMapIndex];
     }
+    void SetMapBestTime()
+    {
+        Utill.ConvetTime(DataManager.Instance.PlayerData.mapList[m_currMapIndex].bestTime, out int minute, out int second, out int millisecond);
+        m_sb.Clear();
+        m_sb.AppendFormat("최고기록 : {0:00}:{1:00}:{2:00}", minute, second, millisecond); ;
+        m_mapBestRecordText.text = m_sb.ToString();
+    }
     void SetMapName()
     {
         m_mapNameText.text = DataManager.Instance.PlayerData.mapList[m_currMapIndex].data.name;
@@ -109,6 +120,7 @@ public class MapSelectPanelController : MonoBehaviour
         ChangeMapImage();
         SetKartName();
         SetMapName();
+        SetMapBestTime();
         gameObject.SetActive(false);
     }
 }
