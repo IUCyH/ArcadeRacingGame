@@ -44,9 +44,9 @@ public class Lobby_Garage : MonoBehaviour, ILobbyMenu
     public void OnPressDriveBtn()
     {
         m_kartIndex = m_kartSelectPanel.CurrKartIndex;
+        SetDriveBtnTextToUse();
         DataManager.Instance.PlayerData.currKart = (byte)m_kartIndex;
         DataManager.Instance.ChangeUsingKart(m_kartIndex);
-        SetDriveBtnTextToUse();
         LobbyManager.Instance.SetMainLobbyKart();
     }
     public void OnPressKartInvenBtn()

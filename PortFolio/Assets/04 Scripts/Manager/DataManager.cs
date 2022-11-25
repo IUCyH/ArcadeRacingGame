@@ -11,6 +11,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
 
     public void ChangeUsingKart(int index)
     {
+        Debug.Log(m_usingKart);
         m_playerData.carsList[m_usingKart].isUsing = false;
         m_playerData.carsList[index].isUsing = true;
         m_usingKart = index;
@@ -47,6 +48,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
             return;
         }
         m_playerData = JsonUtility.FromJson<PlayerData>(jsonData);
+        m_usingKart = m_playerData.currKart;
         TitleManager.Instance.GoNextScene();
         Save();
     }

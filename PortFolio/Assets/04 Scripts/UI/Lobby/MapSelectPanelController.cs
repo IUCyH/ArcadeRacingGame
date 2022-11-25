@@ -16,9 +16,8 @@ public class MapSelectPanelController : MonoBehaviour
     [SerializeField]
     Text m_mapBestRecordText;
     [SerializeField]
-    GameObject[] m_karts;
-    [SerializeField]
     Sprite[] m_mapSprites;
+    int m_maxIndex;
     byte m_currKartIndex;
     byte m_currMapIndex;
 
@@ -45,12 +44,10 @@ public class MapSelectPanelController : MonoBehaviour
     }
     public void OnPressKartNextButton()
     {
-        var maxIndex = m_karts.Length - 1;
-        if(m_currKartIndex < maxIndex)
+        if(m_currKartIndex < m_maxIndex)
         {
-            ChangeKartActive(m_currKartIndex, false);
             m_currKartIndex++;
-            ChangeKartActive(m_currKartIndex, true);
+            LobbyManager.Instance.SetMainLobbyKart(m_currKartIndex);
             SetKartName();
         }
     }
@@ -58,14 +55,14 @@ public class MapSelectPanelController : MonoBehaviour
     {
         if(m_currKartIndex > 0)
         {
-            ChangeKartActive(m_currKartIndex, false);
             m_currKartIndex--;
-            ChangeKartActive(m_currKartIndex, true);
+            LobbyManager.Instance.SetMainLobbyKart(m_currKartIndex);
             SetKartName();
         }
     }
     public void OnPressStart()
     {
+        DataManager.Instance.ChangeUsingKart(m_currKartIndex);
         UpdatePlayerDataKartIndex();
         UpdateMapIndex();
         DataManager.Instance.Save();
@@ -113,10 +110,6 @@ public class MapSelectPanelController : MonoBehaviour
     {
         DataManager.Instance.PlayerData.currMap = m_currMapIndex;
     }
-    void ChangeKartActive(int index, bool value)
-    {
-        m_karts[index].SetActive(value);
-    }
     void UpdateKartIndex()
     {
         m_currKartIndex = DataManager.Instance.PlayerData.currKart;
@@ -129,7 +122,7 @@ public class MapSelectPanelController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_karts = (GameObject[])LobbyManager.Instance.Karts.Clone();
+        m_maxIndex = LobbyManager.Instance.Karts.Length - 1;
         m_mapSprites = Resources.LoadAll<Sprite>("MapImages");
         m_currKartIndex = DataManager.Instance.PlayerData.currKart;
         m_currMapIndex = DataManager.Instance.PlayerData.currMap;
