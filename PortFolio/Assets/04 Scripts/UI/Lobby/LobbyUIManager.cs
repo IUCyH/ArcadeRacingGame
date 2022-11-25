@@ -41,6 +41,7 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
         LobbyManager.Instance.ResetCamRotation();
         SetGameObjectActive(m_lobbyMenu, false);
         SetGameObjectActive(m_mainLobby, true);
+        DataManager.Instance.Save();
     }
     void SetGameObjectActive(GameObject obj, bool value)
     {

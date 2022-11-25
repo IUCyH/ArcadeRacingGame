@@ -11,7 +11,7 @@ public class Lobby_Garage : MonoBehaviour, ILobbyMenu
     [SerializeField]
     Text m_driveText;
     [SerializeField]
-    GameObject m_kartSelectPanel;
+    KartSelectPanelController m_kartSelectPanel;
     [SerializeField]
     GameObject m_kartParentObj;
     [SerializeField]
@@ -19,7 +19,7 @@ public class Lobby_Garage : MonoBehaviour, ILobbyMenu
     [SerializeField]
     float m_speed = 25f;
     bool m_isMouseDown;
-    byte m_kartIndex;
+    int m_kartIndex;
 
     public void SetDriveBtnText(int index)
     {
@@ -35,40 +35,36 @@ public class Lobby_Garage : MonoBehaviour, ILobbyMenu
         }
         m_driveText.text = m_sb.ToString();
     }
-    void SetDriveBtnText()
+    void SetDriveBtnTextToUse()
     {
         m_sb.Clear();
-        bool isUsing = DataManager.Instance.PlayerData.carsList[m_kartIndex].isUsing;
-        if (isUsing)
-        {
-            m_sb.Append("사용중");
-        }
-        else
-        {
-            m_sb.Append("드라이빙");
-        }
+        m_sb.Append("사용중");
         m_driveText.text = m_sb.ToString();
     }
     public void OnPressDriveBtn()
     {
-        LobbyManager.Instance.SetMainLobbyKart();
-        m_kartIndex = DataManager.Instance.PlayerData.currKart;
+        m_kartIndex = m_kartSelectPanel.CurrKartIndex;
+        DataManager.Instance.PlayerData.currKart = (byte)m_kartIndex;
         DataManager.Instance.ChangeUsingKart(m_kartIndex);
-        SetDriveBtnText();
+        SetDriveBtnTextToUse();
+        LobbyManager.Instance.SetMainLobbyKart();
     }
     public void OnPressKartInvenBtn()
     {
-        m_kartSelectPanel.SetActive(true);
+        m_kartSelectPanel.gameObject.SetActive(true);
     }
     public void Show()
     {
+        SetDriveBtnTextToUse();
+        m_kartSelectPanel.CurrKartIndex = DataManager.Instance.PlayerData.currKart;
         m_camera.gameObject.SetActive(true);
         gameObject.SetActive(true);
     }
     public void Hide()
     {
         ResetKartRotation();
-        m_kartSelectPanel.SetActive(false);
+        m_kartSelectPanel.CurrKartIndex = DataManager.Instance.PlayerData.currKart;
+        m_kartSelectPanel.gameObject.SetActive(false);
         m_camera.gameObject.SetActive(false);
         m_isMouseDown = false;
         gameObject.SetActive(false);
@@ -85,13 +81,14 @@ public class Lobby_Garage : MonoBehaviour, ILobbyMenu
     }
     void Start()
     {
-        m_kartSelectPanel.SetActive(false);
+        m_kartIndex = DataManager.Instance.PlayerData.currKart;
+        m_kartSelectPanel.gameObject.SetActive(false);
         Hide();
     }
     // Update is called once per frame
     void Update()
     {
-        if (!m_kartSelectPanel.activeSelf)
+        if (!m_kartSelectPanel.gameObject.activeSelf)
         {
             if (InputManager.Instance.MouseDown)
             {

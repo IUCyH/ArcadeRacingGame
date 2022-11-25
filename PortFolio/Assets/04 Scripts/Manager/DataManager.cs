@@ -6,7 +6,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
 {
     [SerializeField]
     PlayerData m_playerData;
-    int m_usingKart = 0;
+    int m_usingKart;
     public PlayerData PlayerData { get { return m_playerData; } }
 
     public void ChangeUsingKart(int index)
@@ -29,7 +29,6 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     }
     public void Load()
     {
-        PlayerPrefs.DeleteAll();
         var jsonData = PlayerPrefs.GetString("PLAYER_DATA", string.Empty);
         if (string.IsNullOrEmpty(jsonData))
         {

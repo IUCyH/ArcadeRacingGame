@@ -12,6 +12,7 @@ public class KartSelectPanelController : MonoBehaviour
     [SerializeField]
     Text[] m_kartNames;
 
+    public int CurrKartIndex { get; set; }
     public void OnPressExit()
     {
         gameObject.SetActive(false);
@@ -19,6 +20,7 @@ public class KartSelectPanelController : MonoBehaviour
     public void OnPressKartButton(int index)
     {
         LobbyManager.Instance.SetMainLobbyKart(index);
+        CurrKartIndex = index;
         m_garageMenu.SetDriveBtnText(index);
     }
     // Start is called before the first frame update

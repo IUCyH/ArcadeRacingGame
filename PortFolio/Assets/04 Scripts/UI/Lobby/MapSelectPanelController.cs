@@ -66,7 +66,7 @@ public class MapSelectPanelController : MonoBehaviour
     }
     public void OnPressStart()
     {
-        UpdateKartIndex();
+        UpdatePlayerDataKartIndex();
         UpdateMapIndex();
         DataManager.Instance.Save();
         LoadSceneManager.Instance.LoadSceneAsync(SceneState.Game);
@@ -74,10 +74,14 @@ public class MapSelectPanelController : MonoBehaviour
     public void OnPressExit()
     {
         LobbyManager.Instance.SetKartModelCamActive(false);
-        UpdateKartIndex();
+        DataManager.Instance.ChangeUsingKart(m_currKartIndex);
+        UpdatePlayerDataKartIndex();
         UpdateMapIndex();
-        DataManager.Instance.Save();
         gameObject.SetActive(false);
+    }
+    void UpdatePlayerDataKartIndex()
+    {
+        DataManager.Instance.PlayerData.currKart = m_currKartIndex;
     }
     void ChangeMapImage()
     {
@@ -85,9 +89,16 @@ public class MapSelectPanelController : MonoBehaviour
     }
     void SetMapBestTime()
     {
-        Utill.ConvetTime(DataManager.Instance.PlayerData.mapList[m_currMapIndex].bestTime, out int minute, out int second, out int millisecond);
         m_sb.Clear();
-        m_sb.AppendFormat("최고기록 : {0:00}:{1:00}:{2:00}", minute, second, millisecond); ;
+        var time = DataManager.Instance.PlayerData.mapList[m_currMapIndex].bestTime;
+        if (time == float.PositiveInfinity)
+        {
+            m_sb.Append("최고기록 : --:--:--");
+            m_mapBestRecordText.text = m_sb.ToString();
+            return;
+        }    
+        Utill.ConvetTime(time, out int minute, out int second, out int millisecond);
+        m_sb.AppendFormat("최고기록 : {0:00}:{1:00}:{2:00}", minute, second, millisecond);
         m_mapBestRecordText.text = m_sb.ToString();
     }
     void SetMapName()
@@ -98,10 +109,6 @@ public class MapSelectPanelController : MonoBehaviour
     {
         m_kartNameText.text = DataManager.Instance.PlayerData.carsList[m_currKartIndex].data.name;
     }
-    void UpdateKartIndex()
-    {
-        DataManager.Instance.PlayerData.currKart = m_currKartIndex;
-    }
     void UpdateMapIndex()
     {
         DataManager.Instance.PlayerData.currMap = m_currMapIndex;
@@ -109,6 +116,15 @@ public class MapSelectPanelController : MonoBehaviour
     void ChangeKartActive(int index, bool value)
     {
         m_karts[index].SetActive(value);
+    }
+    void UpdateKartIndex()
+    {
+        m_currKartIndex = DataManager.Instance.PlayerData.currKart;
+    }
+    void OnEnable()
+    {
+        UpdateKartIndex();
+        SetKartName();
     }
     // Start is called before the first frame update
     void Start()
