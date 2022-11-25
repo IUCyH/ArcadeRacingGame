@@ -21,6 +21,8 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
     [SerializeField]
     int m_menuIndex;
 
+    public bool IsMenuOpen { get; set; }
+
     void OnPressButton(Button button)
     {
         SetGameObjectActive(m_mainLobby, false);
@@ -28,10 +30,13 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
         var name = button.gameObject.name.Split('_');
         m_menuIndex = int.Parse(name[0]);
         m_lobbyMenus[m_menuIndex].Show();
+        IsMenuOpen = true;
     }
     public void OnPressExitButton()
     {
         m_lobbyMenus[m_menuIndex].Hide();
+        IsMenuOpen = false;
+        LobbyManager.Instance.SetMainLobbyKart();
         LobbyManager.Instance.ResetCamPos();
         LobbyManager.Instance.ResetCamRotation();
         SetGameObjectActive(m_lobbyMenu, false);

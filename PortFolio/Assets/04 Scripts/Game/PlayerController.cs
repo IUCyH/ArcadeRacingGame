@@ -162,7 +162,7 @@ public class PlayerController : MonoBehaviour
         m_turnPower = carInfo.data.maxTurnPower;
         m_playerName = playerData.userName;
         InstantiateKart();
-        InitWheelObjAndWheelCollider(currKartIndex);
+        InitWheelObjsAndWheelColliders(currKartIndex);
     }
     public void Break(float breakForce)
     {
@@ -181,7 +181,7 @@ public class PlayerController : MonoBehaviour
         obj.transform.SetParent(this.transform);
         obj.transform.localPosition = new Vector3(0f, m_kartPosY, 0f);
     }
-    void InitWheelObjAndWheelCollider(int index)
+    void InitWheelObjsAndWheelColliders(int index)
     {
         var numberOfWheels = DataManager.Instance.PlayerData.carsList[index].data.numberOfWheels;
         var wheelParent = GameObject.FindGameObjectWithTag("Wheel");

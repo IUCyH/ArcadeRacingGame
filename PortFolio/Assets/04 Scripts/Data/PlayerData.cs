@@ -21,6 +21,7 @@ public class CarData
 public class CarInfo
 {
     public CarData data;
+    public bool isUsing;
     public bool isPlayable;
 }
 [Serializable]

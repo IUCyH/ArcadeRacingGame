@@ -6,8 +6,15 @@ public class DataManager : Singleton_DontDestroy<DataManager>
 {
     [SerializeField]
     PlayerData m_playerData;
+    int m_usingKart = 0;
     public PlayerData PlayerData { get { return m_playerData; } }
 
+    public void ChangeUsingKart(int index)
+    {
+        m_playerData.carsList[m_usingKart].isUsing = false;
+        m_playerData.carsList[index].isUsing = true;
+        m_usingKart = index;
+    }
     public void UpdateMapBestTime(float time, int mapIndex)
     {
         m_playerData.mapList[mapIndex].bestTime = time;
@@ -22,6 +29,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     }
     public void Load()
     {
+        PlayerPrefs.DeleteAll();
         var jsonData = PlayerPrefs.GetString("PLAYER_DATA", string.Empty);
         if (string.IsNullOrEmpty(jsonData))
         {
@@ -73,6 +81,8 @@ public class DataManager : Singleton_DontDestroy<DataManager>
             m_playerData.mapList.Add(mapInfo);
         }
         m_playerData.carsList[0].isPlayable = true;
+        m_playerData.carsList[0].isUsing = true;
+        m_usingKart = 0;
         Save();
     }
     void UpdateCarDatas(CarInfo carInfo, int index)

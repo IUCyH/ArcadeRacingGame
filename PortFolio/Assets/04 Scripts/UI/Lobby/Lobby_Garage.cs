@@ -1,79 +1,110 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Text;
 
 public class Lobby_Garage : MonoBehaviour, ILobbyMenu
 {
     [SerializeField]
-    GameObject m_cameraArm;
+    StringBuilder m_sb = new StringBuilder();
     [SerializeField]
-    Rigidbody m_cameraRb;
-    Vector3 m_originCamPos;
-    Quaternion m_originCamRot;
+    Text m_driveText;
     [SerializeField]
-    float m_speed = 30f;
-    float m_yAngle;
-    float m_xAngle;
+    GameObject m_kartSelectPanel;
     [SerializeField]
-    float m_maxAngleX = 359.2498f;
+    GameObject m_kartParentObj;
     [SerializeField]
+    Camera m_camera;
+    [SerializeField]
+    float m_speed = 25f;
     bool m_isMouseDown;
+    byte m_kartIndex;
 
+    public void SetDriveBtnText(int index)
+    {
+        m_sb.Clear();
+        bool isUsing = DataManager.Instance.PlayerData.carsList[index].isUsing;
+        if (isUsing)
+        {
+            m_sb.Append("사용중");
+        }
+        else
+        {
+            m_sb.Append("드라이빙");
+        }
+        m_driveText.text = m_sb.ToString();
+    }
+    void SetDriveBtnText()
+    {
+        m_sb.Clear();
+        bool isUsing = DataManager.Instance.PlayerData.carsList[m_kartIndex].isUsing;
+        if (isUsing)
+        {
+            m_sb.Append("사용중");
+        }
+        else
+        {
+            m_sb.Append("드라이빙");
+        }
+        m_driveText.text = m_sb.ToString();
+    }
+    public void OnPressDriveBtn()
+    {
+        LobbyManager.Instance.SetMainLobbyKart();
+        m_kartIndex = DataManager.Instance.PlayerData.currKart;
+        DataManager.Instance.ChangeUsingKart(m_kartIndex);
+        SetDriveBtnText();
+    }
+    public void OnPressKartInvenBtn()
+    {
+        m_kartSelectPanel.SetActive(true);
+    }
     public void Show()
     {
+        m_camera.gameObject.SetActive(true);
         gameObject.SetActive(true);
     }
     public void Hide()
     {
-        ResetCamPosAndRotation();
+        ResetKartRotation();
+        m_kartSelectPanel.SetActive(false);
+        m_camera.gameObject.SetActive(false);
+        m_isMouseDown = false;
         gameObject.SetActive(false);
     }
-    void ResetCamPosAndRotation()
+    void RotateKart()
     {
-        m_cameraArm.transform.position = m_originCamPos;
-        m_cameraArm.transform.rotation = m_originCamRot;
+        float yAngle = m_kartParentObj.transform.eulerAngles.y - InputManager.Instance.MouseX * Time.deltaTime * m_speed;
+        Vector3 rotation = new Vector3(0f, yAngle, 0f);
+        m_kartParentObj.transform.rotation = Quaternion.Euler(rotation);
     }
-    void RotateCamera()
+    void ResetKartRotation()
     {
-        var mouseDelta = new Vector2(InputManager.Instance.MouseX, InputManager.Instance.MouseY);
-        var camAngle = m_cameraArm.transform.eulerAngles;
-        m_xAngle = camAngle.x - mouseDelta.y;
-        m_yAngle = camAngle.y + mouseDelta.x;
-
-        m_xAngle = AngleClamp(m_xAngle, m_maxAngleX);
-        m_cameraArm.transform.rotation = Quaternion.Euler(m_xAngle, m_yAngle, camAngle.z);
-    }
-    float AngleClamp(float angle, float maxAngle)
-    {
-        if (angle < maxAngle)
-        {
-            return Mathf.Clamp(angle, 0f, 25f);
-        }
-        else
-        {
-            return Mathf.Clamp(angle, 355f, 359f);
-        }
+        m_kartParentObj.transform.localRotation = Quaternion.identity;
     }
     void Start()
     {
-        m_originCamPos = m_cameraArm.transform.position;
-        m_originCamRot = m_cameraArm.transform.rotation;
+        m_kartSelectPanel.SetActive(false);
+        Hide();
     }
     // Update is called once per frame
     void Update()
     {
-        if (InputManager.Instance.MouseDown)
+        if (!m_kartSelectPanel.activeSelf)
         {
-            m_isMouseDown = true;
-        }
-        if (InputManager.Instance.MouseUp)
-        {
-            m_cameraRb.AddTorque(m_speed * InputManager.Instance.MouseX * m_yAngle * Time.deltaTime * Vector3.up);
-            m_isMouseDown = false;
-        }
-        if (m_isMouseDown)
-        {
-            RotateCamera();
+            if (InputManager.Instance.MouseDown)
+            {
+                m_isMouseDown = true;
+            }
+            if (InputManager.Instance.MouseUp)
+            {
+                m_isMouseDown = false;
+            }
+            if (m_isMouseDown)
+            {
+                RotateKart();
+            }
         }
     }
 }
