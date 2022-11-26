@@ -14,6 +14,9 @@ public class CarData
     public float maxBoosterSpeed;
     public float maxTurnPower;
     public float startSpeed;
+    public float defultBoosterChargingValue;
+    public float driftBoosterChargingValue;
+    public float boosterTime;
     public int price;
     public int numberOfWheels;
 }

@@ -59,6 +59,7 @@ public class Lobby_Garage : MonoBehaviour, ILobbyMenu
         m_kartSelectPanel.CurrKartIndex = DataManager.Instance.PlayerData.currKart;
         m_camera.gameObject.SetActive(true);
         gameObject.SetActive(true);
+        LobbyUIManager.Instance.SetStatBarsFillAmount(m_kartIndex);
     }
     public void Hide()
     {
@@ -69,15 +70,15 @@ public class Lobby_Garage : MonoBehaviour, ILobbyMenu
         m_isMouseDown = false;
         gameObject.SetActive(false);
     }
+    public void ResetKartRotation()
+    {
+        m_kartParentObj.transform.localRotation = Quaternion.identity;
+    }
     void RotateKart()
     {
         float yAngle = m_kartParentObj.transform.eulerAngles.y - InputManager.Instance.MouseX * Time.deltaTime * m_speed;
         Vector3 rotation = new Vector3(0f, yAngle, 0f);
         m_kartParentObj.transform.rotation = Quaternion.Euler(rotation);
-    }
-    void ResetKartRotation()
-    {
-        m_kartParentObj.transform.localRotation = Quaternion.identity;
     }
     void Start()
     {

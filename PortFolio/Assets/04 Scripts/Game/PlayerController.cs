@@ -157,9 +157,12 @@ public class PlayerController : MonoBehaviour
         m_kartColor = carInfo.data.kartColor;
         transform.position = carInfo.data.pos;
         m_startBoostSpeed = carInfo.data.startSpeed;
-        m_normalMaxSpeed = carInfo.data.maxSpeed;
-        m_boosterMaxSpeed = carInfo.data.maxBoosterSpeed;
-        m_turnPower = carInfo.data.maxTurnPower;
+        m_normalMaxSpeed = carInfo.data.maxSpeed * 10000f;
+        m_boosterMaxSpeed = carInfo.data.maxBoosterSpeed * 10000f;
+        m_turnPower = carInfo.data.maxTurnPower * 100f;
+        m_defultChargingValue = carInfo.data.defultBoosterChargingValue;
+        m_boostChargingValue = carInfo.data.driftBoosterChargingValue * 0.1f;
+        m_boosterTime = carInfo.data.boosterTime * 10f;
         m_playerName = playerData.userName;
         InstantiateKart();
         InitWheelObjsAndWheelColliders(currKartIndex);

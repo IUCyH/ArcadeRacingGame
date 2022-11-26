@@ -19,8 +19,13 @@ public class KartSelectPanelController : MonoBehaviour
     }
     public void OnPressKartButton(int index)
     {
-        LobbyManager.Instance.SetMainLobbyKart(index);
+        if(CurrKartIndex != index)
+        {
+            LobbyUIManager.Instance.SetStatBarsFillAmount(index);
+        }
         CurrKartIndex = index;
+        LobbyManager.Instance.SetMainLobbyKart(CurrKartIndex);
+        m_garageMenu.ResetKartRotation();
         m_garageMenu.SetDriveBtnText(index);
     }
     // Start is called before the first frame update
@@ -39,11 +44,5 @@ public class KartSelectPanelController : MonoBehaviour
         {
             m_kartNames[i].text = DataManager.Instance.PlayerData.carsList[i].data.name;
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
