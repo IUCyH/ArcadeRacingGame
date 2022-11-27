@@ -80,12 +80,12 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
     }
     void OnPressButton(Button button)
     {
-        SetGameObjectActive(m_mainLobby, false);
-        SetGameObjectActive(m_lobbyMenu, true);
         var name = button.gameObject.name.Split('_');
         m_menuIndex = int.Parse(name[0]);
         m_lobbyMenus[m_menuIndex].Show();
         IsMenuOpen = true;
+        SetGameObjectActive(m_mainLobby, false);
+        SetGameObjectActive(m_lobbyMenu, true);
     }
     public void OnPressExitButton()
     {
@@ -104,13 +104,14 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
     }
     protected override void OnStart()
     {
-        var length = m_lobbyButtons.Length;
         m_lobbyButtons = m_mainLobby.GetComponentsInChildren<Button>();
         m_lobbyMenus = m_lobbyMenu.GetComponentsInChildren<ILobbyMenu>(true);
-        for(int i = 0; i < length; i++)
+        var length = m_lobbyButtons.Length;
+        for (int i = 0; i < length; i++)
         {
             var button = m_lobbyButtons[i];
             m_lobbyButtons[i].onClick.AddListener(() => OnPressButton(button));
+            m_lobbyMenus[i].Hide();
         }
         SetGameObjectActive(m_lobbyMenu, false);
     }

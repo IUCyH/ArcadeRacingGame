@@ -28,6 +28,6 @@ public class Lobby_GameModeSelect : MonoBehaviour, ILobbyMenu
         m_buttons = GetComponentsInChildren<Button>();
         m_buttons[0].onClick.AddListener(() => OnPressTimeAttackButton(false));
         m_buttons[1].onClick.AddListener(() => OnPressTimeAttackButton(true));
-        Hide();
+        //Hide();
     }
 }

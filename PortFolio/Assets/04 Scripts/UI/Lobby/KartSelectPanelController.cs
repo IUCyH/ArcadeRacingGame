@@ -19,12 +19,13 @@ public class KartSelectPanelController : MonoBehaviour
     }
     public void OnPressKartButton(int index)
     {
-        if(CurrKartIndex != index)
+        if(CurrKartIndex == index)
         {
-            LobbyUIManager.Instance.SetStatBarsFillAmount(index);
+            return;
         }
         CurrKartIndex = index;
         LobbyManager.Instance.SetMainLobbyKart(CurrKartIndex);
+        LobbyUIManager.Instance.SetStatBarsFillAmount(index);
         m_garageMenu.ResetKartRotation();
         m_garageMenu.SetDriveBtnText(index);
     }

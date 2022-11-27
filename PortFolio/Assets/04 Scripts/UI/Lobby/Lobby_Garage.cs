@@ -84,7 +84,7 @@ public class Lobby_Garage : MonoBehaviour, ILobbyMenu
     {
         m_kartIndex = DataManager.Instance.PlayerData.currKart;
         m_kartSelectPanel.gameObject.SetActive(false);
-        Hide();
+        //Hide();
     }
     // Update is called once per frame
     void Update()
