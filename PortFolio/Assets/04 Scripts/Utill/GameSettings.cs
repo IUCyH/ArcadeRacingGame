@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class GameSettings : Singleton_DontDestroy<GameSettings>
 {
+    void OnApplicationQuit()
+    {
+        DataManager.Instance.Save();    
+    }
     // Start is called before the first frame update
     protected override void OnAwake()
     {

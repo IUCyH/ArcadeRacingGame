@@ -14,6 +14,7 @@ public class InputManager : Singleton_DontDestroy<InputManager>
     public bool BoosterKeyDown { get; set; }
     public bool MouseDown { get; set; }
     public bool MouseUp { get; set; }
+
     // Update is called once per frame
     void Update()
     {

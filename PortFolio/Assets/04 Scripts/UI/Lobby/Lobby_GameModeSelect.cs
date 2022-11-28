@@ -23,7 +23,7 @@ public class Lobby_GameModeSelect : MonoBehaviour, ILobbyMenu
     {
         gameObject.SetActive(false);
     }
-    void Start()
+    void Awake()
     {
         m_buttons = GetComponentsInChildren<Button>();
         m_buttons[0].onClick.AddListener(() => OnPressTimeAttackButton(false));

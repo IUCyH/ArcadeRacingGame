@@ -13,11 +13,7 @@ public class Lobby_Garage : MonoBehaviour, ILobbyMenu
     [SerializeField]
     KartSelectPanelController m_kartSelectPanel;
     [SerializeField]
-    GameObject m_kartParentObj;
-    [SerializeField]
-    Camera m_camera;
-    [SerializeField]
-    float m_speed = 25f;
+    KartViewStageController m_kartViewStage;
     bool m_isMouseDown;
     int m_kartIndex;
 
@@ -57,7 +53,9 @@ public class Lobby_Garage : MonoBehaviour, ILobbyMenu
     {
         SetDriveBtnTextToUse();
         m_kartSelectPanel.CurrKartIndex = DataManager.Instance.PlayerData.currKart;
-        m_camera.gameObject.SetActive(true);
+        m_kartIndex = DataManager.Instance.PlayerData.currKart;
+        m_kartViewStage.SetKartViewCameraActive(true);
+        SetKartViewStageActive(true);
         gameObject.SetActive(true);
         LobbyUIManager.Instance.SetStatBarsFillAmount(m_kartIndex);
     }
@@ -66,21 +64,20 @@ public class Lobby_Garage : MonoBehaviour, ILobbyMenu
         ResetKartRotation();
         m_kartSelectPanel.CurrKartIndex = DataManager.Instance.PlayerData.currKart;
         m_kartSelectPanel.gameObject.SetActive(false);
-        m_camera.gameObject.SetActive(false);
+        SetKartViewStageActive(false);
+        m_kartViewStage.SetKartViewCameraActive(false);
         m_isMouseDown = false;
         gameObject.SetActive(false);
     }
     public void ResetKartRotation()
     {
-        m_kartParentObj.transform.localRotation = Quaternion.identity;
+        m_kartViewStage.ResetKartRotation();
     }
-    void RotateKart()
+    void SetKartViewStageActive(bool value)
     {
-        float yAngle = m_kartParentObj.transform.eulerAngles.y - InputManager.Instance.MouseX * Time.deltaTime * m_speed;
-        Vector3 rotation = new Vector3(0f, yAngle, 0f);
-        m_kartParentObj.transform.rotation = Quaternion.Euler(rotation);
+        m_kartViewStage.gameObject.SetActive(value);
     }
-    void Start()
+    void Awake()
     {
         m_kartIndex = DataManager.Instance.PlayerData.currKart;
         m_kartSelectPanel.gameObject.SetActive(false);
@@ -91,18 +88,7 @@ public class Lobby_Garage : MonoBehaviour, ILobbyMenu
     {
         if (!m_kartSelectPanel.gameObject.activeSelf)
         {
-            if (InputManager.Instance.MouseDown)
-            {
-                m_isMouseDown = true;
-            }
-            if (InputManager.Instance.MouseUp)
-            {
-                m_isMouseDown = false;
-            }
-            if (m_isMouseDown)
-            {
-                RotateKart();
-            }
+            m_kartViewStage.RotateKartIfMouseDown();
         }
     }
 }

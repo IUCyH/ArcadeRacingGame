@@ -2,11 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public enum Menu
 {
     ModeSelect,
-    Garage
+    Garage,
+    Shop,
+    Max
+}
+public enum ExitBtnOnClickEvent
+{
+    MenuObjActiveFalse,
+    KartViewObjActiveFalse,
+    Max
 }
 public class LobbyUIManager : Singleton<LobbyUIManager>
 {
@@ -18,6 +27,8 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
         ChargingSpeed,
         Max
     }
+    [SerializeField]
+    Button m_exitButton;
     [SerializeField]
     Button[] m_lobbyButtons;
     [SerializeField]
@@ -45,6 +56,14 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
 
     public bool IsMenuOpen { get; set; }
 
+    public void SetExitButtonOnClickEventActiveTrue(int index)
+    {
+        m_exitButton.onClick.SetPersistentListenerState(index, UnityEventCallState.RuntimeOnly);
+    }
+    public void SetExitButtonOnClickEventActiveFalse(int index)
+    {
+        m_exitButton.onClick.SetPersistentListenerState(index, UnityEventCallState.Off);
+    }
     public void SetStatBarsFillAmount(int kartIndex)
     {
         m_kartIndex = kartIndex;
@@ -104,6 +123,8 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
     }
     protected override void OnStart()
     {
+        SetExitButtonOnClickEventActiveTrue((int)ExitBtnOnClickEvent.MenuObjActiveFalse);
+        SetExitButtonOnClickEventActiveFalse((int)ExitBtnOnClickEvent.KartViewObjActiveFalse);
         m_lobbyButtons = m_mainLobby.GetComponentsInChildren<Button>();
         m_lobbyMenus = m_lobbyMenu.GetComponentsInChildren<ILobbyMenu>(true);
         var length = m_lobbyButtons.Length;
