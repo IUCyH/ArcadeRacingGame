@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public enum Menu
 {
@@ -27,6 +28,7 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
         ChargingSpeed,
         Max
     }
+
     [SerializeField]
     Button m_exitButton;
     [SerializeField]
@@ -85,6 +87,7 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
         m_Garage_statBars[(int)KartStat.TurnPower].fillAmount = GetFillAmountValue(0f, m_turnPowerFillAmount);
         m_Garage_statBars[(int)KartStat.BoosterTime].fillAmount = GetFillAmountValue(0f, m_boosterTimeFillAmount);
         m_Garage_statBars[(int)KartStat.ChargingSpeed].fillAmount = GetFillAmountValue(0f, m_chargingSpeedFillAmount);
+        
         m_time += Time.deltaTime / m_speed;
         if (m_time > 1f)
         {

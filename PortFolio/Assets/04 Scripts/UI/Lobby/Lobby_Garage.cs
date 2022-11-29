@@ -9,23 +9,36 @@ public class Lobby_Garage : MonoBehaviour, ILobbyMenu
     [SerializeField]
     StringBuilder m_sb = new StringBuilder();
     [SerializeField]
+    Text m_canBuyInShopText;
+    [SerializeField]
     Text m_driveText;
+    [SerializeField]
+    Button m_selectButton;
     [SerializeField]
     KartSelectPanelController m_kartSelectPanel;
     [SerializeField]
     KartViewStageController m_kartViewStage;
-    bool m_isMouseDown;
     int m_kartIndex;
 
     public void SetDriveBtnText(int index)
     {
         m_sb.Clear();
         bool isUsing = DataManager.Instance.PlayerData.carsList[index].isUsing;
+        bool isPlayable = DataManager.Instance.PlayerData.carsList[index].isPlayable;
+        if(!isPlayable)
+        {
+            SetCannotUseTextActive(true);
+            SetSelectBtnActive(false);
+            return;
+        }
+
+        SetCannotUseTextActive(false);
+        SetSelectBtnActive(true);
         if (isUsing)
         {
             m_sb.Append("사용중");
         }
-        else
+        else if(!isUsing)
         {
             m_sb.Append("드라이빙");
         }
@@ -40,6 +53,13 @@ public class Lobby_Garage : MonoBehaviour, ILobbyMenu
     public void OnPressDriveBtn()
     {
         m_kartIndex = m_kartSelectPanel.CurrKartIndex;
+        
+        bool isPlayable = DataManager.Instance.PlayerData.carsList[m_kartIndex].isPlayable;
+        if(!isPlayable)
+        {
+            return;
+        }
+
         SetDriveBtnTextToUse();
         DataManager.Instance.PlayerData.currKart = (byte)m_kartIndex;
         DataManager.Instance.ChangeUsingKart(m_kartIndex);
@@ -52,21 +72,26 @@ public class Lobby_Garage : MonoBehaviour, ILobbyMenu
     public void Show()
     {
         SetDriveBtnTextToUse();
+
         m_kartSelectPanel.CurrKartIndex = DataManager.Instance.PlayerData.currKart;
         m_kartIndex = DataManager.Instance.PlayerData.currKart;
+
         m_kartViewStage.SetKartViewCameraActive(true);
         SetKartViewStageActive(true);
+
         gameObject.SetActive(true);
         LobbyUIManager.Instance.SetStatBarsFillAmount(m_kartIndex);
     }
     public void Hide()
     {
         ResetKartRotation();
+
         m_kartSelectPanel.CurrKartIndex = DataManager.Instance.PlayerData.currKart;
         m_kartSelectPanel.gameObject.SetActive(false);
+
         SetKartViewStageActive(false);
         m_kartViewStage.SetKartViewCameraActive(false);
-        m_isMouseDown = false;
+
         gameObject.SetActive(false);
     }
     public void ResetKartRotation()
@@ -77,8 +102,17 @@ public class Lobby_Garage : MonoBehaviour, ILobbyMenu
     {
         m_kartViewStage.gameObject.SetActive(value);
     }
+    void SetCannotUseTextActive(bool value)
+    {
+        m_canBuyInShopText.gameObject.SetActive(value);
+    }
+    void SetSelectBtnActive(bool value)
+    {
+        m_selectButton.gameObject.SetActive(value);
+    }
     void Awake()
     {
+        SetCannotUseTextActive(false);
         m_kartIndex = DataManager.Instance.PlayerData.currKart;
         m_kartSelectPanel.gameObject.SetActive(false);
         //Hide();
