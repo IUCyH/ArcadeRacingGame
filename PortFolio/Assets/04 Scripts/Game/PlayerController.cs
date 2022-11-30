@@ -334,7 +334,7 @@ public class PlayerController : MonoBehaviour
     }
     void Awake()
     {
-        byte index = DataManager.Instance.PlayerData.currKart;
+        int index = DataManager.Instance.PlayerData.currKart;
         string kartName = DataManager.Instance.PlayerData.carsList[index].data.name;
         string path = string.Format("Prefab/Karts/{0}", kartName);
         m_kartPrefab = Resources.Load<GameObject>(path);

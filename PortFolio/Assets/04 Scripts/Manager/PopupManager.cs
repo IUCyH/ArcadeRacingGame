@@ -27,6 +27,7 @@ public class PopupManager : Singleton_DontDestroy<PopupManager>
     InputField m_currInputField;
 
     public string GetInputFieldText { get { return m_currInputField.text; } }
+    public bool IsPopupOpen { get; set; }
 
     public void CreatePopupInputField(string titleText, string contentsText, FuncDel funcDel = null, string okText = "확인")
     {
@@ -36,6 +37,8 @@ public class PopupManager : Singleton_DontDestroy<PopupManager>
         popupInputField.SetPopup(titleText, contentsText, funcDel, okText);
         obj.SetActive(true);
         m_popupInputFieldStack.Push(obj);
+
+        IsPopupOpen = true;
     }
     public void CreatePopupOK(string titleText, string contentsText, FuncDel funcDel = null, string okText = "확인")
     {
@@ -44,6 +47,8 @@ public class PopupManager : Singleton_DontDestroy<PopupManager>
         popupOk.SetPopup(titleText, contentsText, funcDel, okText);
         obj.SetActive(true);
         m_popupOkStack.Push(obj);
+
+        IsPopupOpen = true;
     }
     public void CreatePopupOkCancel(string titleText, string contentsText, FuncDel okFuncDel = null, FuncDel cancelFuncDel = null, string okText = "확인", string cancelText = "취소")
     {
@@ -52,6 +57,8 @@ public class PopupManager : Singleton_DontDestroy<PopupManager>
         popupOkCancel.SetPopup(titleText, contentsText, okFuncDel, cancelFuncDel, okText, cancelText);
         obj.SetActive(true);
         m_popupOkCancelStack.Push(obj);
+
+        IsPopupOpen = true;
     }
     public void ClosePopupOk()
     {
@@ -60,6 +67,10 @@ public class PopupManager : Singleton_DontDestroy<PopupManager>
             var obj = m_popupOkStack.Pop();
             m_popupPoolList[(int)PopupName.Ok].Set(obj);
             obj.SetActive(false);
+        }
+        if (m_popupOkStack.Count <= 0)
+        {
+            IsPopupOpen = false;
         }
     }
     public void ClosePopupOkCancel()
@@ -70,6 +81,10 @@ public class PopupManager : Singleton_DontDestroy<PopupManager>
             m_popupPoolList[(int)PopupName.OkCancel].Set(obj);
             obj.SetActive(false);
         }
+        if (m_popupOkCancelStack.Count <= 0)
+        {
+            IsPopupOpen = false;
+        }
     }
     public void ClosePopupInputField()
     {
@@ -78,6 +93,10 @@ public class PopupManager : Singleton_DontDestroy<PopupManager>
             var obj = m_popupInputFieldStack.Pop();
             m_popupPoolList[(int)PopupName.InputField].Set(obj);
             obj.SetActive(false);
+        }
+        if (m_popupInputFieldStack.Count <= 0)
+        {
+            IsPopupOpen = false;
         }
     }
     // Start is called before the first frame update

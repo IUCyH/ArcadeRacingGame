@@ -9,6 +9,22 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     int m_usingKart;
     public PlayerData PlayerData { get { return m_playerData; } }
 
+    public void IncreaseGold(uint gold)
+    {
+        m_playerData.golds += gold;
+    }    
+    public void DecreaseGold(uint gold)
+    {
+        m_playerData.golds -= gold;
+    }
+    public uint GetPlayerGold()
+    {
+        return m_playerData.golds;
+    }
+    public void UpdateKartToPlayable(int index)
+    {
+        m_playerData.carsList[index].isPlayable = true;
+    }
     public void ChangeUsingKart(int index)
     {
         Debug.Log(m_usingKart);
@@ -30,6 +46,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     }
     public void Load()
     {
+        PlayerPrefs.DeleteAll();
         var jsonData = PlayerPrefs.GetString("PLAYER_DATA", string.Empty);
         if (string.IsNullOrEmpty(jsonData))
         {
@@ -65,13 +82,18 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     }
     void CreateNewData(string name)
     {
-        m_playerData = new PlayerData();
-        m_playerData.userName = name;
+        m_playerData = new PlayerData()
+        {
+            userName = name,
+            golds = PlayerData.BasicGold,
+            currKart = 0,
+            currMap = 0
+        };
         var dataLength = CarDataTable.Instance.m_carDatas.Length;
         for (int i = 0; i < dataLength; i++)
         {
             CarInfo carInfo = new CarInfo();
-            UpdateCarDatas(carInfo, i);
+            InitCarInfo(carInfo, i);
             carInfo.data.kartPaintMat.color = carInfo.data.kartColor;
             carInfo.isPlayable = false;
             m_playerData.carsList.Add(carInfo);
@@ -80,7 +102,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
         for (int i = 0; i < mapDatalength; i++)
         {
             MapInfo mapInfo = new MapInfo();
-            UpdateMapDatas(mapInfo, i);
+            InitMapInfo(mapInfo, i);
             mapInfo.bestTime = float.PositiveInfinity;
             mapInfo.recentPlaydate = 0;
             m_playerData.mapList.Add(mapInfo);
@@ -90,11 +112,11 @@ public class DataManager : Singleton_DontDestroy<DataManager>
         m_usingKart = 0;
         Save();
     }
-    void UpdateCarDatas(CarInfo carInfo, int index)
+    void InitCarInfo(CarInfo carInfo, int index)
     {
         carInfo.data = CarDataTable.Instance.m_carDatas[index];
     }
-    void UpdateMapDatas(MapInfo mapInfo, int index)
+    void InitMapInfo(MapInfo mapInfo, int index)
     {
         mapInfo.data = MapDataTable.Instance.m_mapDataTable[index];
     }

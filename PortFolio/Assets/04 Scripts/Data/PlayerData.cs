@@ -45,7 +45,9 @@ public class PlayerData
 {
     public List<CarInfo> carsList = new List<CarInfo>();
     public List<MapInfo> mapList = new List<MapInfo>();
+    public readonly static uint BasicGold = 500;
     public string userName;
-    public byte currKart;
-    public byte currMap;
+    public uint golds;
+    public int currKart;
+    public int currMap;
 }

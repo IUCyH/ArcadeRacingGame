@@ -17,48 +17,82 @@ public class MapSelectPanelController : MonoBehaviour
     Text m_mapBestRecordText;
     [SerializeField]
     Sprite[] m_mapSprites;
-    int m_maxIndex;
-    byte m_currKartIndex;
-    byte m_currMapIndex;
+    int m_maxKartIndex;
+    int m_maxMapIndex;
+    int m_currKartIndex;
+    int m_currMapIndex;
 
     public void OnPressMapNextButton()
     {
-        var maxIndex = m_mapSprites.Length - 1;
-        if(m_currMapIndex < maxIndex)
+        m_currMapIndex++;
+        if (m_currMapIndex > m_maxMapIndex)
         {
-            m_currMapIndex++;
-            ChangeMapImage();
-            SetMapName();
-            SetMapBestTime();
+            m_currMapIndex = 0;
         }
+
+        ChangeMapImage();
+        SetMapName();
+        SetMapBestTime();
     }
     public void OnPressMapPrevButton()
     {
-        if(m_currMapIndex > 0)
+        m_currMapIndex--;
+        if (m_currMapIndex < 0)
         {
-            m_currMapIndex--;
-            ChangeMapImage();
-            SetMapName();
-            SetMapBestTime();
+            m_currMapIndex = m_maxMapIndex;
         }
+
+        ChangeMapImage();
+        SetMapName();
+        SetMapBestTime();
     }
     public void OnPressKartNextButton()
     {
-        if(m_currKartIndex < m_maxIndex)
+        bool isPlayableKart;
+        do
         {
+            isPlayableKart = false;
+
             m_currKartIndex++;
-            LobbyManager.Instance.SetMainLobbyKart(m_currKartIndex);
-            SetKartName();
-        }
+            if (m_currKartIndex > m_maxKartIndex)
+            {
+                m_currKartIndex = 0;
+            }
+
+            var isPlayable = DataManager.Instance.PlayerData.carsList[m_currKartIndex].isPlayable;
+            if (isPlayable)
+            {
+                isPlayableKart = true;
+            }
+
+        } while (!isPlayableKart);
+
+        LobbyManager.Instance.SetMainLobbyKart(m_currKartIndex);
+        SetKartName();
     }
     public void OnPressKartPrevButton()
     {
-        if(m_currKartIndex > 0)
+        bool isPlayableKart;
+        do
         {
+            isPlayableKart = false;
+
             m_currKartIndex--;
-            LobbyManager.Instance.SetMainLobbyKart(m_currKartIndex);
-            SetKartName();
-        }
+            if (m_currKartIndex < 0)
+            {
+                m_currKartIndex = m_maxKartIndex;
+            }
+
+            var isPlayable = DataManager.Instance.PlayerData.carsList[m_currKartIndex].isPlayable;
+            if (isPlayable)
+            {
+                isPlayableKart = true;
+            }
+
+        } while (!isPlayableKart);
+
+        LobbyManager.Instance.SetMainLobbyKart(m_currKartIndex);
+        SetKartName();
     }
     public void OnPressStart()
     {
@@ -122,8 +156,9 @@ public class MapSelectPanelController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_maxIndex = LobbyManager.Instance.Karts.Length - 1;
+        m_maxKartIndex = LobbyManager.Instance.Karts.Length - 1;
         m_mapSprites = Resources.LoadAll<Sprite>("MapImages");
+        m_maxMapIndex = m_mapSprites.Length - 1;
         m_currKartIndex = DataManager.Instance.PlayerData.currKart;
         m_currMapIndex = DataManager.Instance.PlayerData.currMap;
         ChangeMapImage();

@@ -177,7 +177,7 @@ MonoBehaviour:
     defultBoosterChargingValue: 0.0008
     driftBoosterChargingValue: 0.32
     boosterTime: 0.38
-    price: 0
+    price: 1500
     numberOfWheels: 4
   - kartPaintMat: {fileID: 2100000, guid: 6fe679ee68c274d43a68470cd4fbc6a5, type: 2}
     kartColor: {r: 0.5256063, g: 0.034754362, b: 0.6698113, a: 1}
@@ -190,7 +190,7 @@ MonoBehaviour:
     defultBoosterChargingValue: 0.00048
     driftBoosterChargingValue: 0.15
     boosterTime: 0.27
-    price: 0
+    price: 500
     numberOfWheels: 4
 --- !u!4 &64335152
 Transform:
@@ -532,7 +532,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 479958665}
-  m_LocalRotation: {x: 0.016203867, y: 0.9104398, z: -0.03582752, w: 0.41176853}
+  m_LocalRotation: {x: 0.016203867, y: 0.9104398, z: -0.035827518, w: 0.41176853}
   m_LocalPosition: {x: -46.27767, y: -4.404, z: 244.87978}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1758,7 +1758,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1967068146}
-  m_LocalRotation: {x: 0.016203867, y: 0.9104398, z: -0.03582752, w: 0.41176853}
+  m_LocalRotation: {x: 0.016203867, y: 0.9104398, z: -0.035827518, w: 0.41176853}
   m_LocalPosition: {x: -46.27767, y: -4.404, z: 244.87978}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2015,6 +2015,7 @@ MonoBehaviour:
     carsList: []
     mapList: []
     userName: Lucy
+    golds: 0
     currKart: 0
     currMap: 0
 --- !u!4 &2087185318
@@ -2278,7 +2279,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1442388831784557658, guid: 8833f6201d70aba45a1ceb5abb60de9f, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1442388831784557658, guid: 8833f6201d70aba45a1ceb5abb60de9f, type: 3}
       propertyPath: m_SizeDelta.y
@@ -2326,7 +2327,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1442388831784557658, guid: 8833f6201d70aba45a1ceb5abb60de9f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1442388831784557658, guid: 8833f6201d70aba45a1ceb5abb60de9f, type: 3}
       propertyPath: m_AnchoredPosition.y

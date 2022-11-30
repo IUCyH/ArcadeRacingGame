@@ -53,10 +53,6 @@ public class KartViewStageController : MonoBehaviour, IPointerDownHandler, IPoin
         m_kartParentObj.transform.rotation = Quaternion.Euler(rotation);
     }
 
-    void OnDisable()
-    {
-        m_isMouseDown = false;
-    }
     void Awake()
     {
         m_camera = Camera.main;

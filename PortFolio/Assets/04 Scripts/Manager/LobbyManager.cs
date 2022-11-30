@@ -1,9 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+
 
 public class LobbyManager : Singleton<LobbyManager>
 {
+    [SerializeField]
+    StringBuilder m_sb = new StringBuilder();
+    [SerializeField]
+    Text m_goldText;
     [SerializeField]
     GameObject m_kartParentObj;
     [SerializeField]
@@ -16,11 +24,11 @@ public class LobbyManager : Singleton<LobbyManager>
     GameObject m_cameraArm;
     [SerializeField]
     Rigidbody m_cameraRb;
+    EventSystem m_eventSys;
     Vector3 m_originCamPos;
     Quaternion m_originCamRot;
 
     int m_currKartIndex;
-    int m_prevKartIndex;
     [SerializeField]
     float m_speed = 30f;
     float m_yAngle;
@@ -56,6 +64,18 @@ public class LobbyManager : Singleton<LobbyManager>
         m_karts[m_currKartIndex].SetActive(false);
         m_karts[index].SetActive(true);
         m_currKartIndex = index;
+    }
+    public void UpdateMainLobbyGoldAmount()
+    {
+        m_sb.Append(DataManager.Instance.GetPlayerGold());
+        m_goldText.text = m_sb.ToString();
+        m_sb.Clear();
+    }
+    public void UpdatePlayerGoldAmount(Text goldText)
+    {
+        m_sb.Append(DataManager.Instance.GetPlayerGold());
+        goldText.text = m_sb.ToString();
+        m_sb.Clear();
     }
     void RotateCamera()
     {
@@ -120,13 +140,15 @@ public class LobbyManager : Singleton<LobbyManager>
         SetKartModelCamActive(false);
         m_originCamPos = m_cameraArm.transform.position;
         m_originCamRot = m_cameraArm.transform.rotation;
+        m_eventSys = EventSystem.current;
         SetMainLobbyKart();
-        m_prevKartIndex = m_currKartIndex;
+        UpdateMainLobbyGoldAmount();
     }
     // Update is called once per frame
     void Update()
     {
-        if (!LobbyUIManager.Instance.IsMenuOpen)
+        
+        if (!LobbyUIManager.Instance.IsMenuOpen && m_eventSys.currentSelectedGameObject == null)
         {
             if (InputManager.Instance.MouseDown)
             {

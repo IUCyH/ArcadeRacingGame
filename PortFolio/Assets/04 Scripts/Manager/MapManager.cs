@@ -32,7 +32,7 @@ public class MapManager : Singleton<MapManager>
     }
     protected override void OnAwake()
     {
-        byte index = DataManager.Instance.PlayerData.currMap;
+        int index = DataManager.Instance.PlayerData.currMap;
         string mapName = DataManager.Instance.PlayerData.mapList[index].data.name;
         string path = string.Format("Prefab/Maps/{0}", mapName);
         m_mapPrefab = Resources.Load<GameObject>(path);

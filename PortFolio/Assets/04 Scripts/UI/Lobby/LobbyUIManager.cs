@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
 
 public enum Menu
 {
@@ -111,13 +110,19 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
     }
     public void OnPressExitButton()
     {
+        if (PopupManager.Instance.IsPopupOpen) return;
+
         m_lobbyMenus[m_menuIndex].Hide();
         IsMenuOpen = false;
+
         LobbyManager.Instance.SetMainLobbyKart();
         LobbyManager.Instance.ResetCamPos();
         LobbyManager.Instance.ResetCamRotation();
+        LobbyManager.Instance.UpdateMainLobbyGoldAmount();
+
         SetGameObjectActive(m_lobbyMenu, false);
         SetGameObjectActive(m_mainLobby, true);
+
         DataManager.Instance.Save();
     }
     void SetGameObjectActive(GameObject obj, bool value)

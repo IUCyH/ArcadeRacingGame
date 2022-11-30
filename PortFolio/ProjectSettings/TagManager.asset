@@ -15,6 +15,7 @@ TagManager:
   - Map
   - Wheel
   - Kart
+  - GoldImage
   layers:
   - Default
   - TransparentFX

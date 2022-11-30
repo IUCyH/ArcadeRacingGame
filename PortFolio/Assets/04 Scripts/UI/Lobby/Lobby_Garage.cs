@@ -53,15 +53,9 @@ public class Lobby_Garage : MonoBehaviour, ILobbyMenu
     public void OnPressDriveBtn()
     {
         m_kartIndex = m_kartSelectPanel.CurrKartIndex;
-        
-        bool isPlayable = DataManager.Instance.PlayerData.carsList[m_kartIndex].isPlayable;
-        if(!isPlayable)
-        {
-            return;
-        }
 
         SetDriveBtnTextToUse();
-        DataManager.Instance.PlayerData.currKart = (byte)m_kartIndex;
+        DataManager.Instance.PlayerData.currKart = m_kartIndex;
         DataManager.Instance.ChangeUsingKart(m_kartIndex);
         LobbyManager.Instance.SetMainLobbyKart();
     }
@@ -91,6 +85,9 @@ public class Lobby_Garage : MonoBehaviour, ILobbyMenu
 
         SetKartViewStageActive(false);
         m_kartViewStage.SetKartViewCameraActive(false);
+
+        SetCannotUseTextActive(false);
+        SetSelectBtnActive(true);
 
         gameObject.SetActive(false);
     }
