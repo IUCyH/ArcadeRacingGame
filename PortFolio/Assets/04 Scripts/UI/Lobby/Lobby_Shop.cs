@@ -110,8 +110,6 @@ public class Lobby_Shop : MonoBehaviour, ILobbyMenu
     }    
     public void SelectKart()
     {
-        if (PopupManager.Instance.IsPopupOpen) return;
-
         DataManager.Instance.PlayerData.currKart = m_currSelectedKart;
         DataManager.Instance.ChangeUsingKart(m_currSelectedKart);
     }
