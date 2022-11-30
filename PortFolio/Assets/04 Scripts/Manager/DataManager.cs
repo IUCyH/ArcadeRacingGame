@@ -6,6 +6,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
 {
     [SerializeField]
     PlayerData m_playerData;
+    string m_inputFieldName;
     int m_usingKart;
     public PlayerData PlayerData { get { return m_playerData; } }
 
@@ -69,15 +70,22 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     {
         PopupManager.Instance.CreatePopupInputField("알림", "회원정보가 없습니다. 닉네임을 입력해주세요.", () =>
         {
-            FuncDel okFuncDel = () =>
+            m_inputFieldName = PopupManager.Instance.GetInputFieldText;
+            if (string.IsNullOrEmpty(m_inputFieldName))
             {
-                var name = PopupManager.Instance.GetInputFieldText;
-                CreateNewData(name);
-                PopupManager.Instance.ClosePopupOkCancel();
-                PopupManager.Instance.ClosePopupInputField();
-                TitleManager.Instance.GoNextScene();
-            };
-            PopupManager.Instance.CreatePopupOkCancel("알림", "이 닉네임으로 하시겠습니까?", okFuncDel, null, "예", "아니요");
+                PopupManager.Instance.CreatePopupOK("알림", "닉네임을 입력해주세요.");
+            }
+            else
+            {
+                FuncDel okFuncDel = () =>
+                {
+                    CreateNewData(m_inputFieldName);
+                    PopupManager.Instance.ClosePopupOkCancel();
+                    PopupManager.Instance.ClosePopupInputField();
+                    TitleManager.Instance.GoNextScene();
+                };
+                PopupManager.Instance.CreatePopupOkCancel("알림", "이 닉네임으로 하시겠습니까?", okFuncDel, null, "예", "아니요");
+            }
         });
     }
     void CreateNewData(string name)

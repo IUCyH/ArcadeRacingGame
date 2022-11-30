@@ -59,7 +59,7 @@ public class Lobby_Shop : MonoBehaviour, ILobbyMenu
         int price = DataManager.Instance.PlayerData.carsList[index].data.price;
         uint playerGold = DataManager.Instance.PlayerData.golds;
 
-        if(isPlayable)
+        if(isPlayable || PopupManager.Instance.IsPopupOpen)
         {
             return;
         }
@@ -88,6 +88,8 @@ public class Lobby_Shop : MonoBehaviour, ILobbyMenu
     }
     public void OnPressBuyButton()
     {
+        if (PopupManager.Instance.IsPopupOpen) return;
+
         var playerGold = DataManager.Instance.PlayerData.golds;
 
         FuncDel okFunc = () =>
@@ -100,12 +102,16 @@ public class Lobby_Shop : MonoBehaviour, ILobbyMenu
             DataManager.Instance.DecreaseGold(playerGold);
             DataManager.Instance.UpdateKartToPlayable(m_currSelectedKart);
             LobbyManager.Instance.UpdatePlayerGoldAmount(m_goldText);
+
             PopupManager.Instance.ClosePopupOkCancel();
+            PopupManager.Instance.CreatePopupOK("구매알림", "구매 완료");
         };
         PopupManager.Instance.CreatePopupOkCancel("구매알림", "이 카트를 구매하시겠습니까?", okFunc, null, "예", "아니요");
     }    
     public void SelectKart()
     {
+        if (PopupManager.Instance.IsPopupOpen) return;
+
         DataManager.Instance.PlayerData.currKart = m_currSelectedKart;
         DataManager.Instance.ChangeUsingKart(m_currSelectedKart);
     }
