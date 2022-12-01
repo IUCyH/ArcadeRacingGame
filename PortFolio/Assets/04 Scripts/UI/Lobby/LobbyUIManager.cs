@@ -28,6 +28,7 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
         Max
     }
 
+    UnityEventBase m_onclickEvent;
     [SerializeField]
     Button m_exitButton;
     [SerializeField]
@@ -78,6 +79,27 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
         m_time = 0f;
         m_setStatBars = true;
     }
+    public void OnPressExitButton()
+    {
+        if (PopupManager.Instance.IsPopupOpen) return;
+
+        m_lobbyMenus[m_menuIndex].Hide();
+        IsMenuOpen = false;
+
+        LobbyManager.Instance.SetMainLobbyKart();
+        LobbyManager.Instance.ResetCamPos();
+        LobbyManager.Instance.ResetCamRotation();
+        LobbyManager.Instance.UpdateMainLobbyGoldAmount();
+
+        SetGameObjectActive(m_lobbyMenu, false);
+        SetGameObjectActive(m_mainLobby, true);
+
+        DataManager.Instance.Save();
+    }
+    public void CloseMenu()
+    {
+        m_exitButton.onClick.Invoke();
+    }
     void SetStatBarsFillAmount()
     {
         if (!m_setStatBars) return;
@@ -101,29 +123,14 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
     }
     void OnPressButton(Button button)
     {
+        if (PopupManager.Instance.IsPopupOpen || GameSettingManager.Instance.IsSettingPanelOpen) return;
+
         var name = button.gameObject.name.Split('_');
         m_menuIndex = int.Parse(name[0]);
         m_lobbyMenus[m_menuIndex].Show();
         IsMenuOpen = true;
         SetGameObjectActive(m_mainLobby, false);
         SetGameObjectActive(m_lobbyMenu, true);
-    }
-    public void OnPressExitButton()
-    {
-        if (PopupManager.Instance.IsPopupOpen) return;
-
-        m_lobbyMenus[m_menuIndex].Hide();
-        IsMenuOpen = false;
-
-        LobbyManager.Instance.SetMainLobbyKart();
-        LobbyManager.Instance.ResetCamPos();
-        LobbyManager.Instance.ResetCamRotation();
-        LobbyManager.Instance.UpdateMainLobbyGoldAmount();
-
-        SetGameObjectActive(m_lobbyMenu, false);
-        SetGameObjectActive(m_mainLobby, true);
-
-        DataManager.Instance.Save();
     }
     void SetGameObjectActive(GameObject obj, bool value)
     {

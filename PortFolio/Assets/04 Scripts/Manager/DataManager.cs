@@ -47,7 +47,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     }
     public void Load()
     {
-        PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
         var jsonData = PlayerPrefs.GetString("PLAYER_DATA", string.Empty);
         if (string.IsNullOrEmpty(jsonData))
         {
@@ -68,6 +68,10 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     }
     void MakeUserDataCreatePopup()
     {
+        if(PopupManager.Instance.IsPopupOpen)
+        {
+            return;
+        }
         PopupManager.Instance.CreatePopupInputField("알림", "회원정보가 없습니다. 닉네임을 입력해주세요.", () =>
         {
             m_inputFieldName = PopupManager.Instance.GetInputFieldText;
@@ -80,8 +84,8 @@ public class DataManager : Singleton_DontDestroy<DataManager>
                 FuncDel okFuncDel = () =>
                 {
                     CreateNewData(m_inputFieldName);
-                    PopupManager.Instance.ClosePopupOkCancel();
-                    PopupManager.Instance.ClosePopupInputField();
+                    PopupManager.Instance.ClosePopup();
+                    PopupManager.Instance.ClosePopup();
                     TitleManager.Instance.GoNextScene();
                 };
                 PopupManager.Instance.CreatePopupOkCancel("알림", "이 닉네임으로 하시겠습니까?", okFuncDel, null, "예", "아니요");

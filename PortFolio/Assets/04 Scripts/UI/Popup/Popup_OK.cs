@@ -28,7 +28,7 @@ public class Popup_OK : MonoBehaviour
         }
         else
         {
-            PopupManager.Instance.ClosePopupOk();
+            PopupManager.Instance.ClosePopup();
         }
     }
 }

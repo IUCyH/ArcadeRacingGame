@@ -16,99 +16,72 @@ public class PopupManager : Singleton_DontDestroy<PopupManager>
     }
     [SerializeField]
     GameObject[] m_popupPrefabs;
-    Stack<GameObject> m_popupOkStack = new Stack<GameObject>();
-    Stack<GameObject> m_popupOkCancelStack = new Stack<GameObject>();
-    Stack<GameObject> m_popupInputFieldStack = new Stack<GameObject>();
+    Stack<GameObject> m_popupStack = new Stack<GameObject>();
     [SerializeField]
-    List<GameObjectPool<GameObject>> m_popupPoolList;
+    Dictionary<string, GameObjectPool<GameObject>> m_popupPoolDic;
     [SerializeField]
     Canvas m_popupCanvas;
     [SerializeField]
     InputField m_currInputField;
+    [SerializeField]
+    List<string> m_popupNames;
 
     public string GetInputFieldText { get { return m_currInputField.text; } }
-    public bool IsPopupOpen { get; set; }
+    public bool IsPopupOpen { get { return m_popupStack.Count > 0; } }
 
     public void CreatePopupInputField(string titleText, string contentsText, FuncDel funcDel = null, string okText = "확인")
     {
-        var obj = m_popupPoolList[(int)PopupName.InputField].Get();
+        if (GameSettingManager.Instance.IsSettingPanelOpen) return;
+
+        var obj = m_popupPoolDic[m_popupNames[(int)PopupName.InputField]].Get();
         m_currInputField = obj.GetComponentInChildren<InputField>();
+        m_currInputField.text = string.Empty;
         var popupInputField = obj.GetComponent<Popup_InputField>();
         popupInputField.SetPopup(titleText, contentsText, funcDel, okText);
         obj.SetActive(true);
-        m_popupInputFieldStack.Push(obj);
-
-        IsPopupOpen = true;
+        m_popupStack.Push(obj);
     }
     public void CreatePopupOK(string titleText, string contentsText, FuncDel funcDel = null, string okText = "확인")
     {
-        var obj = m_popupPoolList[(int)PopupName.Ok].Get();
+        if (GameSettingManager.Instance.IsSettingPanelOpen) return;
+
+        var obj = m_popupPoolDic[m_popupNames[(int)PopupName.Ok]].Get();
         var popupOk = obj.GetComponent<Popup_OK>();
         popupOk.SetPopup(titleText, contentsText, funcDel, okText);
         obj.SetActive(true);
-        m_popupOkStack.Push(obj);
-
-        IsPopupOpen = true;
+        m_popupStack.Push(obj);
     }
     public void CreatePopupOkCancel(string titleText, string contentsText, FuncDel okFuncDel = null, FuncDel cancelFuncDel = null, string okText = "확인", string cancelText = "취소")
     {
-        var obj = m_popupPoolList[(int)PopupName.OkCancel].Get();
+        if (GameSettingManager.Instance.IsSettingPanelOpen) return;
+
+        var obj = m_popupPoolDic[m_popupNames[(int)PopupName.OkCancel]].Get();
         var popupOkCancel = obj.GetComponent<Popup_OkCancel>();
         popupOkCancel.SetPopup(titleText, contentsText, okFuncDel, cancelFuncDel, okText, cancelText);
         obj.SetActive(true);
-        m_popupOkCancelStack.Push(obj);
-
-        IsPopupOpen = true;
+        m_popupStack.Push(obj);
     }
-    public void ClosePopupOk()
+    public void ClosePopup()
     {
-        if (m_popupOkStack.Count > 0)
+        if (m_popupStack.Count > 0)
         {
-            var obj = m_popupOkStack.Pop();
-            m_popupPoolList[(int)PopupName.Ok].Set(obj);
+            var obj = m_popupStack.Pop();
+            m_popupPoolDic[obj.name].Set(obj);
             obj.SetActive(false);
-        }
-        if (m_popupOkStack.Count <= 0)
-        {
-            IsPopupOpen = false;
-        }
-    }
-    public void ClosePopupOkCancel()
-    {
-        if (m_popupOkCancelStack.Count > 0)
-        {
-            var obj = m_popupOkCancelStack.Pop();
-            m_popupPoolList[(int)PopupName.OkCancel].Set(obj);
-            obj.SetActive(false);
-        }
-        if (m_popupOkCancelStack.Count <= 0)
-        {
-            IsPopupOpen = false;
-        }
-    }
-    public void ClosePopupInputField()
-    {
-        if (m_popupInputFieldStack.Count > 0)
-        {
-            var obj = m_popupInputFieldStack.Pop();
-            m_popupPoolList[(int)PopupName.InputField].Set(obj);
-            obj.SetActive(false);
-        }
-        if (m_popupInputFieldStack.Count <= 0)
-        {
-            IsPopupOpen = false;
         }
     }
     // Start is called before the first frame update
     void Start()
     {
         m_popupPrefabs = Resources.LoadAll<GameObject>("Prefab/Popup");
-        m_popupPoolList = new List<GameObjectPool<GameObject>>();
+        m_popupPoolDic = new Dictionary<string, GameObjectPool<GameObject>>();
         var length = m_popupPrefabs.Length;
         for (int i = 0; i < length; i++)
         {
             var popupObj = m_popupPrefabs[i];
-            m_popupPoolList.Add(new GameObjectPool<GameObject>(5, () =>
+            var name = string.Format("{0}(Clone)", popupObj.name);
+            m_popupNames.Add(name);
+            m_popupPoolDic.Add(name, new GameObjectPool<GameObject>(5, () =>
             {
                 var obj = Instantiate(popupObj);
                 obj.transform.SetParent(m_popupCanvas.transform);

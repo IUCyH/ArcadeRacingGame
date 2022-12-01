@@ -9,8 +9,6 @@ public class KartViewStageController : MonoBehaviour, IPointerDownHandler, IPoin
     [SerializeField]
     Camera m_camera;
 
-
-
     [SerializeField]
     GameObject m_kartParentObj;
     [SerializeField]

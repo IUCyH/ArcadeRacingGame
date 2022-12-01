@@ -103,7 +103,7 @@ public class Lobby_Shop : MonoBehaviour, ILobbyMenu
             DataManager.Instance.UpdateKartToPlayable(m_currSelectedKart);
             LobbyManager.Instance.UpdatePlayerGoldAmount(m_goldText);
 
-            PopupManager.Instance.ClosePopupOkCancel();
+            PopupManager.Instance.ClosePopup();
             PopupManager.Instance.CreatePopupOK("구매알림", "구매 완료");
         };
         PopupManager.Instance.CreatePopupOkCancel("구매알림", "이 카트를 구매하시겠습니까?", okFunc, null, "예", "아니요");

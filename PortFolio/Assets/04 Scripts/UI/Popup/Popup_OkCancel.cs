@@ -32,7 +32,7 @@ public class Popup_OkCancel : MonoBehaviour
             m_okFuncDel();
         }
         else
-            PopupManager.Instance.ClosePopupOkCancel();
+            PopupManager.Instance.ClosePopup();
     }
     public void OnPressCancle()
     {
@@ -41,6 +41,6 @@ public class Popup_OkCancel : MonoBehaviour
             m_cancelFuncDel();
         }
         else
-            PopupManager.Instance.ClosePopupOkCancel();
+            PopupManager.Instance.ClosePopup();
     }
 }

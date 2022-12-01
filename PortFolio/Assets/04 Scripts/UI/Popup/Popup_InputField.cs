@@ -29,6 +29,6 @@ public class Popup_InputField : MonoBehaviour
             m_funcDel();
         }
         else
-            PopupManager.Instance.ClosePopupInputField();
+            PopupManager.Instance.ClosePopup();
     }
 }

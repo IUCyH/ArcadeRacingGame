@@ -135,6 +135,21 @@ public class LobbyManager : Singleton<LobbyManager>
         GetKartPrefabs();
         InstantiateKarts();
     }
+    void ToDoWhenEscKeyIsPressed()
+    {
+        if (PopupManager.Instance.IsPopupOpen)
+        {
+            PopupManager.Instance.ClosePopup();
+        }
+        else if(LobbyUIManager.Instance.IsMenuOpen)
+        {
+            LobbyUIManager.Instance.CloseMenu();
+        }
+        else
+        {
+            GameSettingManager.Instance.SetGameSettingPanelActive();
+        }
+    }
     protected override void OnStart()
     {
         SetKartModelCamActive(false);
@@ -147,6 +162,11 @@ public class LobbyManager : Singleton<LobbyManager>
     // Update is called once per frame
     void Update()
     {
+
+        if(InputManager.Instance.EscKeyDown)
+        {
+            ToDoWhenEscKeyIsPressed();
+        }
         
         if (!LobbyUIManager.Instance.IsMenuOpen && m_eventSys.currentSelectedGameObject == null)
         {
