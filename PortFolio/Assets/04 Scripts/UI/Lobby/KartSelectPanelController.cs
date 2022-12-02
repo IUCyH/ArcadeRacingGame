@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class KartSelectPanelController : MonoBehaviour
+public class KartSelectPanelController : MonoBehaviour, ILobbySubMenu
 {
     [SerializeField]
     Lobby_Garage m_garageMenu;
@@ -13,7 +13,12 @@ public class KartSelectPanelController : MonoBehaviour
     Text[] m_kartNames;
 
     public int CurrKartIndex { get; set; }
-    public void OnPressExit()
+
+    public void Show()
+    {
+        gameObject.SetActive(true);
+    }
+    public void Hide()
     {
         gameObject.SetActive(false);
     }

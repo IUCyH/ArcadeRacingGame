@@ -129,11 +129,6 @@ public class LobbyManager : Singleton<LobbyManager>
             obj.SetActive(false);
             m_karts[i] = obj;
         }
-    }    
-    protected override void OnAwake()
-    {
-        GetKartPrefabs();
-        InstantiateKarts();
     }
     void ToDoWhenEscKeyIsPressed()
     {
@@ -141,7 +136,7 @@ public class LobbyManager : Singleton<LobbyManager>
         {
             PopupManager.Instance.ClosePopup();
         }
-        else if(LobbyUIManager.Instance.IsMenuOpen)
+        else if (LobbyUIManager.Instance.IsMenuOpen)
         {
             LobbyUIManager.Instance.CloseMenu();
         }
@@ -150,6 +145,12 @@ public class LobbyManager : Singleton<LobbyManager>
             GameSettingManager.Instance.SetGameSettingPanelActive();
         }
     }
+    protected override void OnAwake()
+    {
+        GetKartPrefabs();
+        InstantiateKarts();
+    }
+    
     protected override void OnStart()
     {
         SetKartModelCamActive(false);
@@ -168,7 +169,7 @@ public class LobbyManager : Singleton<LobbyManager>
             ToDoWhenEscKeyIsPressed();
         }
         
-        if (!LobbyUIManager.Instance.IsMenuOpen && m_eventSys.currentSelectedGameObject == null)
+        if (!m_eventSys.IsPointerOverGameObject())
         {
             if (InputManager.Instance.MouseDown)
             {

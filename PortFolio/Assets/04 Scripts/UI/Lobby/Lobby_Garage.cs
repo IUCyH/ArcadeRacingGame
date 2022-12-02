@@ -61,7 +61,8 @@ public class Lobby_Garage : MonoBehaviour, ILobbyMenu
     }
     public void OnPressKartInvenBtn()
     {
-        m_kartSelectPanel.gameObject.SetActive(true);
+        LobbyUIManager.Instance.PushSubMenuStack(m_kartSelectPanel);
+        m_kartSelectPanel.Show();
     }
     public void Show()
     {

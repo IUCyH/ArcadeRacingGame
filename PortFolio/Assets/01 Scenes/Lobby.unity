@@ -231,13 +231,13 @@ RectTransform:
   - {fileID: 1617395755}
   - {fileID: 1431920994}
   - {fileID: 146396211}
-  m_Father: {fileID: 1990426965}
-  m_RootOrder: 2
+  m_Father: {fileID: 1342457604}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 1822, y: 980}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &23910667
 MonoBehaviour:
@@ -2858,14 +2858,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 436591771}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1534659823}
   - {fileID: 683946608}
-  m_Father: {fileID: 1990426965}
-  m_RootOrder: 3
+  m_Father: {fileID: 1342457604}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5270,7 +5270,7 @@ RectTransform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 1342457604}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -10283,6 +10283,8 @@ RectTransform:
   - {fileID: 551115570}
   - {fileID: 532882408}
   - {fileID: 1092592866}
+  - {fileID: 23910666}
+  - {fileID: 436591772}
   - {fileID: 700173678}
   m_Father: {fileID: 1990426965}
   m_RootOrder: 1
@@ -10991,7 +10993,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1431920994
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15142,7 +15144,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 130f530a56c3e37458a2ba8ea11d4777, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_camera: {fileID: 0}
   m_kartParentObj: {fileID: 556035990}
   m_kartViewCam: {fileID: 519193796}
   m_speed: 150
@@ -17115,8 +17116,6 @@ RectTransform:
   m_Children:
   - {fileID: 1837788142}
   - {fileID: 1342457604}
-  - {fileID: 23910666}
-  - {fileID: 436591772}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

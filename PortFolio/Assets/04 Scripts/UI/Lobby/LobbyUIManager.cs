@@ -28,7 +28,6 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
         Max
     }
 
-    UnityEventBase m_onclickEvent;
     [SerializeField]
     Button m_exitButton;
     [SerializeField]
@@ -41,6 +40,8 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
     Image[] m_Garage_statBars;
     [SerializeField]
     ILobbyMenu[] m_lobbyMenus;
+    [SerializeField]
+    Stack<ILobbySubMenu> m_subMenuStack;
     [SerializeField]
     float m_time;
     [SerializeField]
@@ -66,6 +67,10 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
     {
         m_exitButton.onClick.SetPersistentListenerState(index, UnityEventCallState.Off);
     }
+    public void PushSubMenuStack(ILobbySubMenu subMenu)
+    {
+        m_subMenuStack.Push(subMenu);
+    }
     public void SetStatBarsFillAmount(int kartIndex)
     {
         m_kartIndex = kartIndex;
@@ -83,22 +88,32 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
     {
         if (PopupManager.Instance.IsPopupOpen) return;
 
-        m_lobbyMenus[m_menuIndex].Hide();
-        IsMenuOpen = false;
-
-        LobbyManager.Instance.SetMainLobbyKart();
-        LobbyManager.Instance.ResetCamPos();
-        LobbyManager.Instance.ResetCamRotation();
-        LobbyManager.Instance.UpdateMainLobbyGoldAmount();
-
-        SetGameObjectActive(m_lobbyMenu, false);
-        SetGameObjectActive(m_mainLobby, true);
-
-        DataManager.Instance.Save();
+        if (m_subMenuStack.Count > 0)
+        {
+            var submenu = m_subMenuStack.Pop();
+            submenu.Hide();
+        }
+        else
+        {
+            m_lobbyMenus[m_menuIndex].Hide();
+            InitMainLobby();
+            DataManager.Instance.Save();
+        }
     }
     public void CloseMenu()
     {
         m_exitButton.onClick.Invoke();
+    }
+    public void InitMainLobby()
+    {
+        LobbyManager.Instance.SetMainLobbyKart();
+        LobbyManager.Instance.ResetCamPos();
+        LobbyManager.Instance.ResetCamRotation();
+        LobbyManager.Instance.UpdateMainLobbyGoldAmount();
+        m_subMenuStack.Clear();
+
+        SetGameObjectActive(m_lobbyMenu, false);
+        SetGameObjectActive(m_mainLobby, true);
     }
     void SetStatBarsFillAmount()
     {
@@ -150,6 +165,7 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
             m_lobbyMenus[i].Hide();
         }
         SetGameObjectActive(m_lobbyMenu, false);
+        m_subMenuStack = new Stack<ILobbySubMenu>();
     }
     void Update()
     {

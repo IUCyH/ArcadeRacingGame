@@ -4,10 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class KartViewStageController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class KartViewStageController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, ILobbySubMenu
 {
-    [SerializeField]
-    Camera m_camera;
 
     [SerializeField]
     GameObject m_kartParentObj;
@@ -19,6 +17,17 @@ public class KartViewStageController : MonoBehaviour, IPointerDownHandler, IPoin
     [SerializeField]
     bool m_isMouseDown;
 
+    public void Show()
+    {
+        SetKartViewCameraActive(true);
+        gameObject.SetActive(true);
+    }
+    public void Hide()
+    {
+        ResetKartRotation();
+        SetKartViewCameraActive(false);
+        gameObject.SetActive(false);
+    }
     public void SetKartViewCameraActive(bool value)
     {
         m_kartViewCam.gameObject.SetActive(value);
@@ -53,7 +62,6 @@ public class KartViewStageController : MonoBehaviour, IPointerDownHandler, IPoin
 
     void Awake()
     {
-        m_camera = Camera.main;
         SetKartViewCameraActive(false);
         gameObject.SetActive(false);
     }

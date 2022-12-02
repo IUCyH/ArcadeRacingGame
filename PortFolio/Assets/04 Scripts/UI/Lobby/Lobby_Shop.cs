@@ -42,8 +42,8 @@ public class Lobby_Shop : MonoBehaviour, ILobbyMenu
     {
         if (PopupManager.Instance.IsPopupOpen) return;
 
-        LobbyUIManager.Instance.SetExitButtonOnClickEventActiveTrue((int)ExitBtnOnClickEvent.MenuObjActiveFalse);
-        LobbyUIManager.Instance.SetExitButtonOnClickEventActiveFalse((int)ExitBtnOnClickEvent.KartViewObjActiveFalse);
+        //LobbyUIManager.Instance.SetExitButtonOnClickEventActiveTrue((int)ExitBtnOnClickEvent.MenuObjActiveFalse);
+        //LobbyUIManager.Instance.SetExitButtonOnClickEventActiveFalse((int)ExitBtnOnClickEvent.KartViewObjActiveFalse);
         
         m_kartViewStage.ResetKartRotation();
 

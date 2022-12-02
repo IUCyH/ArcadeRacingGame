@@ -11,6 +11,8 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
     [SerializeField]
     float m_animPlaySpeed;
     bool m_isReverseAnimPlaying;
+    string m_speedParameterName = "speed";
+    string m_settingPopupAnimName = "SettingPopupBounsAnim";
 
     public bool IsSettingPanelOpen { get { return m_gameSettingPanel.activeSelf; } }
 
@@ -18,14 +20,14 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
     {
         if (m_gameSettingPanel.activeSelf)
         {
-            m_animator.SetFloat("speed", -m_animPlaySpeed);
-            m_animator.Play("SettingPopupBounsAnim", 0, 1f);
+            m_animator.SetFloat(m_speedParameterName, -m_animPlaySpeed);
+            m_animator.Play(m_settingPopupAnimName, 0, 1f);
             m_isReverseAnimPlaying = true;
         }
         else
         {
-            m_animator.SetFloat("speed", m_animPlaySpeed);
-            m_animator.Play("SettingPopupBounsAnim", 0, 0f);
+            m_animator.SetFloat(m_speedParameterName, m_animPlaySpeed);
+            m_animator.Play(m_settingPopupAnimName, 0, 0f);
             m_gameSettingPanel.SetActive(true);
         }
     }
@@ -62,7 +64,7 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
     }
     void Update()
     {
-        if(m_isReverseAnimPlaying && CheckAnimationStateName("SettingPopupBounsAnim"))
+        if(m_isReverseAnimPlaying && CheckAnimationStateName(m_settingPopupAnimName))
         {
             if(IsReverseAnimationDone())
             {
