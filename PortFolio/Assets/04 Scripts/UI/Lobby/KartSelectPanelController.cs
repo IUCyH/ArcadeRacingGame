@@ -34,6 +34,10 @@ public class KartSelectPanelController : MonoBehaviour, ILobbySubMenu
         m_garageMenu.ResetKartRotation();
         m_garageMenu.SetDriveBtnText(index);
     }
+    public void UpdateCurrKart()
+    {
+        CurrKartIndex = DataManager.Instance.PlayerData.currKart;
+    }
     // Start is called before the first frame update
     void Start()
     {

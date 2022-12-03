@@ -6,7 +6,10 @@ using UnityEngine.EventSystems;
 
 public class KartViewStageController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, ILobbySubMenu
 {
-
+    [SerializeField]
+    Lobby_Shop m_shopMenu;
+    [SerializeField]
+    Button m_exitButton;
     [SerializeField]
     GameObject m_kartParentObj;
     [SerializeField]
@@ -17,6 +20,10 @@ public class KartViewStageController : MonoBehaviour, IPointerDownHandler, IPoin
     [SerializeField]
     bool m_isMouseDown;
 
+    public void SetExitButtonActive(bool value)
+    {
+        m_exitButton.gameObject.SetActive(value);
+    }
     public void Show()
     {
         SetKartViewCameraActive(true);
@@ -26,6 +33,7 @@ public class KartViewStageController : MonoBehaviour, IPointerDownHandler, IPoin
     {
         ResetKartRotation();
         SetKartViewCameraActive(false);
+        m_shopMenu.InitShop();
         gameObject.SetActive(false);
     }
     public void SetKartViewCameraActive(bool value)
@@ -46,12 +54,10 @@ public class KartViewStageController : MonoBehaviour, IPointerDownHandler, IPoin
     public void OnPointerDown(PointerEventData eventData)
     {
         m_isMouseDown = true;
-        Debug.Log("Clicked");
     }
     public void OnPointerUp(PointerEventData eventData)
     {
         m_isMouseDown = false;
-        Debug.Log("Click Up");
     }
     void RotateKart()
     {

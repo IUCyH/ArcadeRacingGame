@@ -833,6 +833,17 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &748570676 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8150264993019377330, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
+  m_PrefabInstance: {fileID: 8150264992779390951}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &807118599
 GameObject:
   m_ObjectHideFlags: 0
@@ -1086,6 +1097,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8150264993849480050, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
   m_PrefabInstance: {fileID: 8150264992779390951}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1079630998 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8150264993849480062, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
+  m_PrefabInstance: {fileID: 8150264992779390951}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079630996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f003487b8420c54ba827207d931bbf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &1079631000 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 8150264993849480063, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
@@ -1483,6 +1505,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1442388831784557658, guid: 8833f6201d70aba45a1ceb5abb60de9f, type: 3}
   m_PrefabInstance: {fileID: 1442388832473058629}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1499077267 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8150264993286007395, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
+  m_PrefabInstance: {fileID: 8150264992779390951}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1515070646
 GameObject:
   m_ObjectHideFlags: 0
@@ -1607,6 +1640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c99ff23ff76492469746667a8e53ce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_settingPanel: {fileID: 1079630998}
   m_loadingPanel: {fileID: 1494110494}
   m_loadingValueText: {fileID: 1482063891}
   m_loadingText: {fileID: 136698760}
@@ -4149,6 +4183,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2108260913}
     m_Modifications:
+    - target: {fileID: 8150264992285127662, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150264992285127662, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150264992285127662, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1079630998}
+    - target: {fileID: 8150264992285127662, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150264992285127662, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnExit
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150264992285127662, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameSettingPanelController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150264992285127662, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8150264992459301795, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4165,6 +4227,34 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8150264993019377330, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150264993019377330, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150264993019377330, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1079630998}
+    - target: {fileID: 8150264993019377330, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150264993019377330, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPressBackButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150264993019377330, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameSettingPanelController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150264993019377330, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8150264993019377331, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4195,6 +4285,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8150264993216932374, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150264993286007395, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
+      propertyPath: m_Text
+      value: "\uAC8C\uC784 \uC885\uB8CC"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150264993286007395, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
+      propertyPath: m_FontData.m_BestFit
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150264993286007395, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
+      propertyPath: m_FontData.m_VerticalOverflow
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150264993286007395, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
+      propertyPath: m_FontData.m_HorizontalOverflow
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8150264993561494968, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
@@ -4313,6 +4419,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Panel_GameSetting
       objectReference: {fileID: 0}
+    - target: {fileID: 8150264993849480062, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
+      propertyPath: m_backButton
+      value: 
+      objectReference: {fileID: 748570676}
+    - target: {fileID: 8150264993849480062, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
+      propertyPath: m_backBtnText
+      value: 
+      objectReference: {fileID: 1499077267}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa5f3feac0fe4ea4a8ac3198267e45c4, type: 3}
 --- !u!4 &8403086363005467817

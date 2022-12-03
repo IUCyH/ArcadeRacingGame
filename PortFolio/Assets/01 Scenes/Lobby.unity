@@ -251,10 +251,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8819d85570ae29e4a8c3efe9ddd40f2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_kartModelCam: {fileID: 919112684}
   m_mapImage: {fileID: 1474142678}
   m_mapNameText: {fileID: 680187300}
   m_kartNameText: {fileID: 577998416}
   m_mapBestRecordText: {fileID: 629790757}
+  m_exitButton: {fileID: 1431920995}
   m_mapSprites: []
 --- !u!222 &23910668
 CanvasRenderer:
@@ -2862,6 +2864,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1400478669}
   - {fileID: 1534659823}
   - {fileID: 683946608}
   m_Father: {fileID: 1342457604}
@@ -3810,7 +3813,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_buttons: []
-  m_mapSelectPanel: {fileID: 23910665}
+  m_mapSelectPanel: {fileID: 23910667}
 --- !u!1001 &552221032
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5138,7 +5141,7 @@ RectTransform:
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 436591772}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -5189,9 +5192,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 436591775}
-        m_TargetAssemblyTypeName: KartSelectPanelController, Assembly-CSharp
-        m_MethodName: OnPressExit
+      - m_Target: {fileID: 643453198}
+        m_TargetAssemblyTypeName: LobbyUIManager, Assembly-CSharp
+        m_MethodName: OnPressSubMenuExitButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5324,18 +5327,6 @@ MonoBehaviour:
       - m_Target: {fileID: 643453198}
         m_TargetAssemblyTypeName: LobbyUIManager, Assembly-CSharp
         m_MethodName: OnPressExitButton
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1092592867}
-        m_TargetAssemblyTypeName: Lobby_Shop, Assembly-CSharp
-        m_MethodName: OnPressKartViewStageExitButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5850,7 +5841,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_goldText: {fileID: 1227170082}
   m_kartParentObj: {fileID: 556035990}
-  m_kartModelCam: {fileID: 919112684}
   m_kartPrefabs: []
   m_karts: []
   m_cameraArm: {fileID: 1050510962}
@@ -10901,6 +10891,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1393479633}
   m_CullTransparentMesh: 1
+--- !u!1 &1400478668
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1400478669}
+  - component: {fileID: 1400478671}
+  - component: {fileID: 1400478670}
+  m_Layer: 5
+  m_Name: Image_blockTouching
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1400478669
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400478668}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_Children: []
+  m_Father: {fileID: 436591772}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1400478670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400478668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1400478671
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400478668}
+  m_CullTransparentMesh: 1
 --- !u!1001 &1412056626
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10993,7 +11058,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1431920994
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11057,9 +11122,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 23910667}
-        m_TargetAssemblyTypeName: MapSelectPanelController, Assembly-CSharp
-        m_MethodName: OnPressExit
+      - m_Target: {fileID: 643453198}
+        m_TargetAssemblyTypeName: LobbyUIManager, Assembly-CSharp
+        m_MethodName: OnPressSubMenuExitButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12170,7 +12235,7 @@ RectTransform:
   m_Children:
   - {fileID: 814730285}
   m_Father: {fileID: 436591772}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -14298,7 +14363,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1681367422
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14364,7 +14429,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 643453198}
         m_TargetAssemblyTypeName: LobbyUIManager, Assembly-CSharp
-        m_MethodName: OnPressExitButton
+        m_MethodName: OnPressSubMenuExitButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -15144,6 +15209,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 130f530a56c3e37458a2ba8ea11d4777, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_shopMenu: {fileID: 1092592867}
+  m_exitButton: {fileID: 1681367423}
   m_kartParentObj: {fileID: 556035990}
   m_kartViewCam: {fileID: 519193796}
   m_speed: 150
@@ -16726,7 +16793,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1092592867}
         m_TargetAssemblyTypeName: Lobby_Shop, Assembly-CSharp
-        m_MethodName: SelectKart
+        m_MethodName: OnSelectKart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17558,7 +17625,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.26666668, g: 0.5254902, b: 0.9254902, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

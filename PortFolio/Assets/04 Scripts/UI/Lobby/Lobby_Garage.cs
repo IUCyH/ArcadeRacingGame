@@ -44,7 +44,7 @@ public class Lobby_Garage : MonoBehaviour, ILobbyMenu
         }
         m_driveText.text = m_sb.ToString();
     }
-    void SetDriveBtnTextToUse()
+    void SetDriveBtnTextToUsing()
     {
         m_sb.Clear();
         m_sb.Append("»ç¿ëÁß");
@@ -54,7 +54,7 @@ public class Lobby_Garage : MonoBehaviour, ILobbyMenu
     {
         m_kartIndex = m_kartSelectPanel.CurrKartIndex;
 
-        SetDriveBtnTextToUse();
+        SetDriveBtnTextToUsing();
         DataManager.Instance.PlayerData.currKart = m_kartIndex;
         DataManager.Instance.ChangeUsingKart(m_kartIndex);
         LobbyManager.Instance.SetMainLobbyKart();
@@ -66,13 +66,15 @@ public class Lobby_Garage : MonoBehaviour, ILobbyMenu
     }
     public void Show()
     {
-        SetDriveBtnTextToUse();
+        SetCannotUseTextActive(false);
+        SetSelectBtnActive(true);
+        SetDriveBtnTextToUsing();
+        m_kartSelectPanel.UpdateCurrKart();
 
-        m_kartSelectPanel.CurrKartIndex = DataManager.Instance.PlayerData.currKart;
         m_kartIndex = DataManager.Instance.PlayerData.currKart;
 
-        m_kartViewStage.SetKartViewCameraActive(true);
-        SetKartViewStageActive(true);
+        m_kartViewStage.Show();
+        m_kartViewStage.SetExitButtonActive(false);
 
         gameObject.SetActive(true);
         LobbyUIManager.Instance.SetStatBarsFillAmount(m_kartIndex);
@@ -81,14 +83,8 @@ public class Lobby_Garage : MonoBehaviour, ILobbyMenu
     {
         ResetKartRotation();
 
-        m_kartSelectPanel.CurrKartIndex = DataManager.Instance.PlayerData.currKart;
-        m_kartSelectPanel.gameObject.SetActive(false);
-
         SetKartViewStageActive(false);
         m_kartViewStage.SetKartViewCameraActive(false);
-
-        SetCannotUseTextActive(false);
-        SetSelectBtnActive(true);
 
         gameObject.SetActive(false);
     }
@@ -112,15 +108,11 @@ public class Lobby_Garage : MonoBehaviour, ILobbyMenu
     {
         SetCannotUseTextActive(false);
         m_kartIndex = DataManager.Instance.PlayerData.currKart;
-        m_kartSelectPanel.gameObject.SetActive(false);
-        //Hide();
+        m_kartSelectPanel.Hide();
     }
     // Update is called once per frame
     void Update()
     {
-        if (!m_kartSelectPanel.gameObject.activeSelf)
-        {
-            m_kartViewStage.RotateKartIfMouseDown();
-        }
+        m_kartViewStage.RotateKartIfMouseDown();
     }
 }

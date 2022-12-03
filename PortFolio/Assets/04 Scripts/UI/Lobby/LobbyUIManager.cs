@@ -59,13 +59,9 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
 
     public bool IsMenuOpen { get; set; }
 
-    public void SetExitButtonOnClickEventActiveTrue(int index)
+    public void SetExitButtonActive(bool value)
     {
-        m_exitButton.onClick.SetPersistentListenerState(index, UnityEventCallState.RuntimeOnly);
-    }
-    public void SetExitButtonOnClickEventActiveFalse(int index)
-    {
-        m_exitButton.onClick.SetPersistentListenerState(index, UnityEventCallState.Off);
+        m_exitButton.gameObject.SetActive(value);
     }
     public void PushSubMenuStack(ILobbySubMenu subMenu)
     {
@@ -84,32 +80,36 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
         m_time = 0f;
         m_setStatBars = true;
     }
-    public void OnPressExitButton()
+    public void OnPressSubMenuExitButton()
     {
         if (PopupManager.Instance.IsPopupOpen) return;
 
-        if (m_subMenuStack.Count > 0)
-        {
-            var submenu = m_subMenuStack.Pop();
-            submenu.Hide();
-        }
-        else
-        {
-            m_lobbyMenus[m_menuIndex].Hide();
-            InitMainLobby();
-            DataManager.Instance.Save();
-        }
+        var subMenu = m_subMenuStack.Pop();
+        subMenu.Hide();
+    }
+    public void OnPressExitButton()
+    {
+        if (PopupManager.Instance.IsPopupOpen || m_subMenuStack.Count > 0) return;
+
+        m_lobbyMenus[m_menuIndex].Hide();
+        IsMenuOpen = false;
+        InitMainLobby();
+        DataManager.Instance.Save();
     }
     public void CloseMenu()
     {
-        m_exitButton.onClick.Invoke();
+        if (m_subMenuStack.Count > 0)
+        {
+            OnPressSubMenuExitButton();
+        }
+        else
+        {
+            OnPressExitButton();
+        }
     }
     public void InitMainLobby()
     {
-        LobbyManager.Instance.SetMainLobbyKart();
-        LobbyManager.Instance.ResetCamPos();
-        LobbyManager.Instance.ResetCamRotation();
-        LobbyManager.Instance.UpdateMainLobbyGoldAmount();
+        LobbyManager.Instance.InitMainLobby();
         m_subMenuStack.Clear();
 
         SetGameObjectActive(m_lobbyMenu, false);
@@ -153,8 +153,6 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
     }
     protected override void OnStart()
     {
-        SetExitButtonOnClickEventActiveTrue((int)ExitBtnOnClickEvent.MenuObjActiveFalse);
-        SetExitButtonOnClickEventActiveFalse((int)ExitBtnOnClickEvent.KartViewObjActiveFalse);
         m_lobbyButtons = m_mainLobby.GetComponentsInChildren<Button>();
         m_lobbyMenus = m_lobbyMenu.GetComponentsInChildren<ILobbyMenu>(true);
         var length = m_lobbyButtons.Length;

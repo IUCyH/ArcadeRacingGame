@@ -4,9 +4,11 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MapSelectPanelController : MonoBehaviour
+public class MapSelectPanelController : MonoBehaviour, ILobbySubMenu
 {
     StringBuilder m_sb = new StringBuilder();
+    [SerializeField]
+    Camera m_kartModelCam;
     [SerializeField]
     Image m_mapImage;
     [SerializeField]
@@ -16,12 +18,47 @@ public class MapSelectPanelController : MonoBehaviour
     [SerializeField]
     Text m_mapBestRecordText;
     [SerializeField]
+    Button m_exitButton;
+    [SerializeField]
     Sprite[] m_mapSprites;
     int m_maxKartIndex;
     int m_maxMapIndex;
     int m_currKartIndex;
     int m_currMapIndex;
 
+    public void Show()
+    {
+        SetKartModelCamActive(true);
+        UpdateKartIndex();
+        UpdateMapIndex();
+        ChangeMapImage();
+
+        SetKartName();
+        SetMapName();
+        SetMapBestTime();
+
+        LobbyUIManager.Instance.SetExitButtonActive(false);
+        SetExitButtonActive(true);
+
+        gameObject.SetActive(true);
+    }
+    public void Hide()
+    {
+        SetKartModelCamActive(false);
+
+        DataManager.Instance.ChangeUsingKart(m_currKartIndex);
+        UpdatePlayerDataKartIndex();
+        UpdatePlayerDataMapIndex();
+
+        LobbyUIManager.Instance.SetExitButtonActive(true);
+        SetExitButtonActive(false);
+
+        gameObject.SetActive(false);
+    }
+    public void SetKartModelCamActive(bool value)
+    {
+        m_kartModelCam.gameObject.SetActive(value);
+    }
     public void OnPressMapNextButton()
     {
         m_currMapIndex++;
@@ -97,22 +134,24 @@ public class MapSelectPanelController : MonoBehaviour
     public void OnPressStart()
     {
         DataManager.Instance.ChangeUsingKart(m_currKartIndex);
+
         UpdatePlayerDataKartIndex();
-        UpdateMapIndex();
+        UpdatePlayerDataMapIndex();
+
         DataManager.Instance.Save();
         LoadSceneManager.Instance.LoadSceneAsync(SceneState.Game);
     }
-    public void OnPressExit()
+    void SetExitButtonActive(bool value)
     {
-        LobbyManager.Instance.SetKartModelCamActive(false);
-        DataManager.Instance.ChangeUsingKart(m_currKartIndex);
-        UpdatePlayerDataKartIndex();
-        UpdateMapIndex();
-        gameObject.SetActive(false);
+        m_exitButton.gameObject.SetActive(value);
     }
     void UpdatePlayerDataKartIndex()
     {
         DataManager.Instance.PlayerData.currKart = m_currKartIndex;
+    }
+    void UpdatePlayerDataMapIndex()
+    {
+        DataManager.Instance.PlayerData.currMap = m_currMapIndex;
     }
     void ChangeMapImage()
     {
@@ -140,31 +179,23 @@ public class MapSelectPanelController : MonoBehaviour
     {
         m_kartNameText.text = DataManager.Instance.PlayerData.carsList[m_currKartIndex].data.name;
     }
-    void UpdateMapIndex()
-    {
-        DataManager.Instance.PlayerData.currMap = m_currMapIndex;
-    }
     void UpdateKartIndex()
     {
         m_currKartIndex = DataManager.Instance.PlayerData.currKart;
     }
-    void OnEnable()
+    void UpdateMapIndex()
     {
-        UpdateKartIndex();
-        SetKartName();
+        m_currMapIndex = DataManager.Instance.PlayerData.currMap;
     }
     // Start is called before the first frame update
     void Start()
     {
-        m_maxKartIndex = LobbyManager.Instance.Karts.Length - 1;
+        m_maxKartIndex = LobbyManager.Instance.Karts.Count - 1;
         m_mapSprites = Resources.LoadAll<Sprite>("MapImages");
         m_maxMapIndex = m_mapSprites.Length - 1;
-        m_currKartIndex = DataManager.Instance.PlayerData.currKart;
-        m_currMapIndex = DataManager.Instance.PlayerData.currMap;
-        ChangeMapImage();
-        SetKartName();
-        SetMapName();
-        SetMapBestTime();
+        UpdateKartIndex();
+        UpdateMapIndex();
+
         gameObject.SetActive(false);
     }
 }

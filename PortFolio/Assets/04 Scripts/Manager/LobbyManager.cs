@@ -15,11 +15,9 @@ public class LobbyManager : Singleton<LobbyManager>
     [SerializeField]
     GameObject m_kartParentObj;
     [SerializeField]
-    Camera m_kartModelCam;
-    [SerializeField]
     GameObject[] m_kartPrefabs;
     [SerializeField]
-    GameObject[] m_karts;
+    List<GameObject> m_karts;
     [SerializeField]
     GameObject m_cameraArm;
     [SerializeField]
@@ -38,11 +36,15 @@ public class LobbyManager : Singleton<LobbyManager>
     [SerializeField]
     bool m_isMouseDown;
     
-    public GameObject[] Karts { get { return m_karts; } }
+    public List<GameObject> Karts { get { return m_karts; } }
 
-    public void SetKartModelCamActive(bool value)
+    public void InitMainLobby()
     {
-        m_kartModelCam.gameObject.SetActive(value);
+        SetMainLobbyKart();
+        ResetCamPos();
+        ResetCamRotation();
+        UpdateMainLobbyGoldAmount();
+        m_isMouseDown = false;
     }
     public void ResetCamPos()
     {
@@ -102,6 +104,7 @@ public class LobbyManager : Singleton<LobbyManager>
     {
         var length = DataManager.Instance.PlayerData.carsList.Count;
         m_kartPrefabs = new GameObject[length];
+
         for (int i = 0; i < length; i++)
         {
             string name = DataManager.Instance.PlayerData.carsList[i].data.name;
@@ -112,22 +115,24 @@ public class LobbyManager : Singleton<LobbyManager>
     void InstantiateKarts()
     {
         int length = DataManager.Instance.PlayerData.carsList.Count;
-        m_karts = new GameObject[length];
+
         for (int i = 0; i < length; i++)
         {
             GameObject kart = m_kartPrefabs[i];
             GameObject obj = Instantiate(kart);
+
             obj.transform.SetParent(m_kartParentObj.transform);
             obj.transform.localPosition = Vector3.zero;
             obj.transform.localScale = Vector3.one;
             obj.transform.localRotation = Quaternion.identity;
+
             var children = obj.GetComponentsInChildren<Transform>();
             foreach(Transform child in children)
             {
                 child.gameObject.layer = 7;
             }
             obj.SetActive(false);
-            m_karts[i] = obj;
+            m_karts.Add(obj);
         }
     }
     void ToDoWhenEscKeyIsPressed()
@@ -147,13 +152,13 @@ public class LobbyManager : Singleton<LobbyManager>
     }
     protected override void OnAwake()
     {
+        m_karts = new List<GameObject>();
         GetKartPrefabs();
         InstantiateKarts();
     }
     
     protected override void OnStart()
     {
-        SetKartModelCamActive(false);
         m_originCamPos = m_cameraArm.transform.position;
         m_originCamRot = m_cameraArm.transform.rotation;
         m_eventSys = EventSystem.current;
@@ -163,7 +168,6 @@ public class LobbyManager : Singleton<LobbyManager>
     // Update is called once per frame
     void Update()
     {
-
         if(InputManager.Instance.EscKeyDown)
         {
             ToDoWhenEscKeyIsPressed();

@@ -33,25 +33,16 @@ public class Lobby_Shop : MonoBehaviour, ILobbyMenu
     [SerializeField]
     GameObject m_items;
     string m_textBuy = "구매하기";
-    string m_textSelect = "즉시 사용";
+    string m_textSelected = "즉시 사용";
     string m_textFinishBuy = "구매완료";
     [SerializeField]
     int m_currSelectedKart;
-
-    public void OnPressKartViewStageExitButton()
+    
+    public void InitShop()
     {
-        if (PopupManager.Instance.IsPopupOpen) return;
-
-        //LobbyUIManager.Instance.SetExitButtonOnClickEventActiveTrue((int)ExitBtnOnClickEvent.MenuObjActiveFalse);
-        //LobbyUIManager.Instance.SetExitButtonOnClickEventActiveFalse((int)ExitBtnOnClickEvent.KartViewObjActiveFalse);
-        
-        m_kartViewStage.ResetKartRotation();
-
-        m_kartViewStage.SetKartViewCameraActive(false);
         SetItemsObjActive(true);
-        SetKartViewStageActive(false);
-
         SetPriceTexts();
+        LobbyUIManager.Instance.SetExitButtonActive(true);
     }
     public void OnPressSelectButton(int index)
     {
@@ -73,16 +64,16 @@ public class Lobby_Shop : MonoBehaviour, ILobbyMenu
         BuyButtonOnClickEventActiveToTrue((int)BuyBtnOnClickEvent.Buy);
         BuyButtonOnClickEventActiveToFalse((int)BuyBtnOnClickEvent.Select);
 
-        LobbyUIManager.Instance.SetExitButtonOnClickEventActiveTrue((int)ExitBtnOnClickEvent.KartViewObjActiveFalse);
-        LobbyUIManager.Instance.SetExitButtonOnClickEventActiveFalse((int)ExitBtnOnClickEvent.MenuObjActiveFalse);
-        
+        LobbyUIManager.Instance.SetExitButtonActive(false);
+        LobbyUIManager.Instance.PushSubMenuStack(m_kartViewStage);
+        m_kartViewStage.SetExitButtonActive(true);
+        m_kartViewStage.Show();
+
         LobbyUIManager.Instance.SetStatBarsFillAmount(index);
 
         LobbyManager.Instance.SetMainLobbyKart(index);
 
-        m_kartViewStage.SetKartViewCameraActive(true);
         SetItemsObjActive(false);
-        SetKartViewStageActive(true);
 
         m_currSelectedKart = index;
     }
@@ -94,7 +85,7 @@ public class Lobby_Shop : MonoBehaviour, ILobbyMenu
 
         FuncDel okFunc = () =>
         {
-            m_buyText.text = m_textSelect;
+            m_buyText.text = m_textSelected;
 
             BuyButtonOnClickEventActiveToTrue((int)BuyBtnOnClickEvent.Select);
             BuyButtonOnClickEventActiveToFalse((int)BuyBtnOnClickEvent.Buy);
@@ -108,7 +99,7 @@ public class Lobby_Shop : MonoBehaviour, ILobbyMenu
         };
         PopupManager.Instance.CreatePopupOkCancel("구매알림", "이 카트를 구매하시겠습니까?", okFunc, null, "예", "아니요");
     }    
-    public void SelectKart()
+    public void OnSelectKart()
     {
         DataManager.Instance.PlayerData.currKart = m_currSelectedKart;
         DataManager.Instance.ChangeUsingKart(m_currSelectedKart);
@@ -130,10 +121,6 @@ public class Lobby_Shop : MonoBehaviour, ILobbyMenu
     void BuyButtonOnClickEventActiveToFalse(int index)
     {
         m_buyButton.onClick.SetPersistentListenerState(index, UnityEngine.Events.UnityEventCallState.Off);
-    }
-    void SetKartViewStageActive(bool value)
-    {
-        m_kartViewStage.gameObject.SetActive(value);
     }
     void SetItemsObjActive(bool value)
     {

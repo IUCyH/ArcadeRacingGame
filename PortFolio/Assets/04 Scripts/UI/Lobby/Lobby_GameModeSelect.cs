@@ -8,12 +8,12 @@ public class Lobby_GameModeSelect : MonoBehaviour, ILobbyMenu
     [SerializeField]
     Button[] m_buttons;
     [SerializeField]
-    GameObject m_mapSelectPanel;
+    MapSelectPanelController m_mapSelectPanel;
 
     void OnPressTimeAttackButton(bool isShadow)
     {
-        LobbyManager.Instance.SetKartModelCamActive(true);
-        m_mapSelectPanel.SetActive(true);
+        LobbyUIManager.Instance.PushSubMenuStack(m_mapSelectPanel);
+        m_mapSelectPanel.Show();
     }
     public void Show()
     {
@@ -28,6 +28,5 @@ public class Lobby_GameModeSelect : MonoBehaviour, ILobbyMenu
         m_buttons = GetComponentsInChildren<Button>();
         m_buttons[0].onClick.AddListener(() => OnPressTimeAttackButton(false));
         m_buttons[1].onClick.AddListener(() => OnPressTimeAttackButton(true));
-        //Hide();
     }
 }
