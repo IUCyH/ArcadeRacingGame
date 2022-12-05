@@ -10,6 +10,14 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     int m_usingKart;
     public PlayerData PlayerData { get { return m_playerData; } }
 
+    public void UpdatePlayerCurrentMap(int index)
+    {
+        m_playerData.currMap = index;
+    }
+    public void UpdatePlayerCurrentKart(int index)
+    {
+        m_playerData.currKart = index;
+    }
     public void IncreaseGold(uint gold)
     {
         m_playerData.golds += gold;

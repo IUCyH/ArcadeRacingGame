@@ -7,45 +7,63 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
     [SerializeField]
     GameObject m_gameSettingPanel;
     [SerializeField]
-    Animator m_animator;
-    [SerializeField]
     float m_animPlaySpeed;
-    bool m_isReverseAnimPlaying;
-    string m_speedParameterName = "speed";
-    string m_settingPopupAnimName = "SettingPopupBounsAnim";
+    [SerializeField]
+    float m_time;
+    [SerializeField]
+    float m_scaleFrom = 0f;
+    [SerializeField]
+    float m_scaleTo = 1f;
+    bool m_playSettingPanelAnim;
+    bool m_playSettingPanelReverseAnim;
 
     public bool IsSettingPanelOpen { get { return m_gameSettingPanel.activeSelf; } }
 
     public void SetGameSettingPanelActive()
     {
-        if (m_gameSettingPanel.activeSelf)
+        m_time = 0f;
+        m_playSettingPanelReverseAnim = false;
+        m_playSettingPanelAnim = false;
+
+        if (IsSettingPanelOpen)
         {
-            m_animator.SetFloat(m_speedParameterName, -m_animPlaySpeed);
-            m_animator.Play(m_settingPopupAnimName, 0, 1f);
-            m_isReverseAnimPlaying = true;
+            m_playSettingPanelReverseAnim = true;
         }
         else
         {
-            m_animator.SetFloat(m_speedParameterName, m_animPlaySpeed);
-            m_animator.Play(m_settingPopupAnimName, 0, 0f);
             m_gameSettingPanel.SetActive(true);
+            m_playSettingPanelAnim = true;
         }
     }
-    bool CheckAnimationStateName(string name)
+    void PlayGameSettingPanelAnimation()
     {
-        if (m_animator.GetCurrentAnimatorStateInfo(0).IsName(name))
+        float scale = GetScaleValue(m_scaleFrom, m_scaleTo);
+        m_gameSettingPanel.transform.localScale = new Vector3(scale, scale, scale);
+
+        m_time += Time.deltaTime / m_animPlaySpeed;
+        if(m_time > 1f)
         {
-            return true;
+            m_time = 0f;
+            m_playSettingPanelAnim = false;
         }
-        return false;
     }
-    bool IsReverseAnimationDone()
+    void PlayGameSettingPanelAnimation_Reverse()
     {
-        if (m_animator.GetCurrentAnimatorStateInfo(0).normalizedTime <= 0f)
+        float scale = GetScaleValue(m_scaleTo, m_scaleFrom);
+        m_gameSettingPanel.transform.localScale = new Vector3(scale, scale, scale);
+
+        m_time += Time.deltaTime / m_animPlaySpeed;
+        if (m_time > 1f)
         {
-            return true;
+            m_time = 0f;
+            m_gameSettingPanel.SetActive(false);
+            m_playSettingPanelReverseAnim = false;
         }
-        return false;
+    }
+    float GetScaleValue(float from, float to)
+    {
+        float value = from * (1f - m_time) + to * m_time;
+        return value;
     }
     void OnApplicationQuit()
     {
@@ -64,13 +82,13 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
     }
     void Update()
     {
-        if(m_isReverseAnimPlaying && CheckAnimationStateName(m_settingPopupAnimName))
+        if(m_playSettingPanelAnim)
         {
-            if(IsReverseAnimationDone())
-            {
-                m_isReverseAnimPlaying = false;
-                m_gameSettingPanel.SetActive(false);
-            }
+            PlayGameSettingPanelAnimation();
+        }
+        else if(m_playSettingPanelReverseAnim)
+        {
+            PlayGameSettingPanelAnimation_Reverse();
         }
     }
 }

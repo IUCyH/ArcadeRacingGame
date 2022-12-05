@@ -47,8 +47,8 @@ public class MapSelectPanelController : MonoBehaviour, ILobbySubMenu
         SetKartModelCamActive(false);
 
         DataManager.Instance.ChangeUsingKart(m_currKartIndex);
-        UpdatePlayerDataKartIndex();
-        UpdatePlayerDataMapIndex();
+        DataManager.Instance.UpdatePlayerCurrentKart(m_currKartIndex);
+        DataManager.Instance.UpdatePlayerCurrentMap(m_currMapIndex);
 
         LobbyUIManager.Instance.SetExitButtonActive(true);
         SetExitButtonActive(false);
@@ -135,8 +135,8 @@ public class MapSelectPanelController : MonoBehaviour, ILobbySubMenu
     {
         DataManager.Instance.ChangeUsingKart(m_currKartIndex);
 
-        UpdatePlayerDataKartIndex();
-        UpdatePlayerDataMapIndex();
+        DataManager.Instance.UpdatePlayerCurrentKart(m_currKartIndex);
+        DataManager.Instance.UpdatePlayerCurrentMap(m_currMapIndex);
 
         DataManager.Instance.Save();
         LoadSceneManager.Instance.LoadSceneAsync(SceneState.Game);
@@ -144,14 +144,6 @@ public class MapSelectPanelController : MonoBehaviour, ILobbySubMenu
     void SetExitButtonActive(bool value)
     {
         m_exitButton.gameObject.SetActive(value);
-    }
-    void UpdatePlayerDataKartIndex()
-    {
-        DataManager.Instance.PlayerData.currKart = m_currKartIndex;
-    }
-    void UpdatePlayerDataMapIndex()
-    {
-        DataManager.Instance.PlayerData.currMap = m_currMapIndex;
     }
     void ChangeMapImage()
     {

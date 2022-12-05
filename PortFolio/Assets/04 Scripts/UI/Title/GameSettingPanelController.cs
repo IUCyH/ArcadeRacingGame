@@ -12,7 +12,6 @@ public class GameSettingPanelController : MonoBehaviour
 
     public void OnPressBackButton()
     {
-        DataManager.Instance.Save();
         switch (LoadSceneManager.Instance.CurrScene)
         {
             case SceneState.Title:
@@ -23,6 +22,7 @@ public class GameSettingPanelController : MonoBehaviour
 #endif
                 break;
             case SceneState.Lobby:
+                DataManager.Instance.Save();
                 LoadSceneManager.Instance.LoadSceneAsync(SceneState.Title);
                 break;
             case SceneState.Game:

@@ -81,7 +81,7 @@ public class Lobby_Shop : MonoBehaviour, ILobbyMenu
     {
         if (PopupManager.Instance.IsPopupOpen) return;
 
-        var playerGold = DataManager.Instance.PlayerData.golds;
+        var kartPrice = DataManager.Instance.PlayerData.carsList[m_currSelectedKart].data.price;
 
         FuncDel okFunc = () =>
         {
@@ -90,7 +90,7 @@ public class Lobby_Shop : MonoBehaviour, ILobbyMenu
             BuyButtonOnClickEventActiveToTrue((int)BuyBtnOnClickEvent.Select);
             BuyButtonOnClickEventActiveToFalse((int)BuyBtnOnClickEvent.Buy);
 
-            DataManager.Instance.DecreaseGold(playerGold);
+            DataManager.Instance.DecreaseGold((uint)kartPrice);
             DataManager.Instance.UpdateKartToPlayable(m_currSelectedKart);
             LobbyManager.Instance.UpdatePlayerGoldAmount(m_goldText);
 
@@ -101,7 +101,7 @@ public class Lobby_Shop : MonoBehaviour, ILobbyMenu
     }    
     public void OnSelectKart()
     {
-        DataManager.Instance.PlayerData.currKart = m_currSelectedKart;
+        DataManager.Instance.UpdatePlayerCurrentKart(m_currSelectedKart);
         DataManager.Instance.ChangeUsingKart(m_currSelectedKart);
     }
     public void Show()

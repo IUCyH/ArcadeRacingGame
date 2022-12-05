@@ -117,8 +117,6 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
     }
     void SetStatBarsFillAmount()
     {
-        if (!m_setStatBars) return;
-
         m_Garage_statBars[(int)KartStat.Speed].fillAmount = GetFillAmountValue(0f, m_speedFillAmount);
         m_Garage_statBars[(int)KartStat.TurnPower].fillAmount = GetFillAmountValue(0f, m_turnPowerFillAmount);
         m_Garage_statBars[(int)KartStat.BoosterTime].fillAmount = GetFillAmountValue(0f, m_boosterTimeFillAmount);
@@ -167,6 +165,9 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
     }
     void Update()
     {
-        SetStatBarsFillAmount();
+        if (m_setStatBars)
+        {
+            SetStatBarsFillAmount();
+        }
     }
 }
