@@ -5,10 +5,11 @@ using UnityEngine;
 public class DataManager : Singleton_DontDestroy<DataManager>
 {
     [SerializeField]
-    PlayerData m_playerData;
+    PlayerData m_playerData = null;
     string m_inputFieldName;
     int m_usingKart;
     public PlayerData PlayerData { get { return m_playerData; } }
+    public bool IsDataReady { get; set; }
 
     public void UpdatePlayerCurrentMap(int index)
     {
@@ -55,31 +56,25 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     }
     public void Load()
     {
-        //PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteAll();
         var jsonData = PlayerPrefs.GetString("PLAYER_DATA", string.Empty);
         if (string.IsNullOrEmpty(jsonData))
         {
-            MakeUserDataCreatePopup();
+            IsDataReady = false;
             return;
         }
         m_playerData = JsonUtility.FromJson<PlayerData>(jsonData);
         m_usingKart = m_playerData.currKart;
-        TitleManager.Instance.GoNextScene();
         Save();
     }
     public void Save()
     {
         var playerJsonData = JsonUtility.ToJson(m_playerData);
-        //Debug.Log(jsonData);
         PlayerPrefs.SetString("PLAYER_DATA", playerJsonData);
         PlayerPrefs.Save();
     }
-    void MakeUserDataCreatePopup()
+    public void MakeUserDataCreatePopup()
     {
-        if(PopupManager.Instance.IsPopupOpen)
-        {
-            return;
-        }
         PopupManager.Instance.CreatePopupInputField("알림", "회원정보가 없습니다. 닉네임을 입력해주세요.", () =>
         {
             m_inputFieldName = PopupManager.Instance.GetInputFieldText;
@@ -130,6 +125,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
         m_playerData.carsList[0].isPlayable = true;
         m_playerData.carsList[0].isUsing = true;
         m_usingKart = 0;
+        IsDataReady = true;
         InputManager.Instance.InitToDefaultKey();
         Save();
     }
@@ -140,5 +136,10 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     void InitMapInfo(MapInfo mapInfo, int index)
     {
         mapInfo.data = MapDataTable.Instance.m_mapDataTable[index];
+    }
+    protected override void OnAwake()
+    {
+        IsDataReady = true;
+        Load();
     }
 }

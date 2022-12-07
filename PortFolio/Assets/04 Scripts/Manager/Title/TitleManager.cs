@@ -6,9 +6,19 @@ public class TitleManager : Singleton<TitleManager>
 {
     public void OnStartButtonPress()
     {
-        if (GameSettingManager.Instance.IsSettingPanelOpen) return;
+        if (GameSettingManager.Instance.IsSettingPanelOpen || PopupManager.Instance.IsPopupOpen)
+        {
+            return;
+        }
 
-        DataManager.Instance.Load();
+        if (!DataManager.Instance.IsDataReady)
+        {
+            DataManager.Instance.MakeUserDataCreatePopup();
+        }
+        else
+        {
+            GoNextScene();
+        }
     }
     public void GoNextScene()
     {

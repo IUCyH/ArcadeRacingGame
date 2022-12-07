@@ -74,6 +74,7 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
                 break;
         }
         m_gameSettingsPanel.SetActive(false);
+        m_settingPanelStack.Clear();
     }
     public void SetBackBtnText(SceneState sceneState)
     {
@@ -81,7 +82,7 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
     }
     public void OnExitSettingPanel()
     {
-        SetSettingPanelsActive();
+        CloseSettingPanel();
     }
     public void SetSettingPanelsActive()
     {

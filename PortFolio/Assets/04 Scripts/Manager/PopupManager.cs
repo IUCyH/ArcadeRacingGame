@@ -71,7 +71,7 @@ public class PopupManager : Singleton_DontDestroy<PopupManager>
         }
     }
     // Start is called before the first frame update
-    void Start()
+    protected override void OnAwake()
     {
         m_popupPrefabs = Resources.LoadAll<GameObject>("Prefab/Popup");
         m_popupPoolDic = new Dictionary<string, GameObjectPool<GameObject>>();

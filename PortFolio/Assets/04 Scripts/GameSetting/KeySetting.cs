@@ -16,20 +16,19 @@ public class KeySetting : MonoBehaviour
     Text[] m_keyTexts;
     Key m_currChangingKey;
     KeyCode m_selectedKey;
-    bool m_isAnyKeyDown;
     bool m_checkKeyDown;
 
     public void OnPressKeyButton(Key key)
     {
         m_currChangingKey = key;
         m_checkKeyDown = true;
-        if(m_isAnyKeyDown)
-        {
-            m_sb.Clear();
-            m_sb.Append(m_selectedKey);
+    }
+    void SetKeyButtonText()
+    {
+        m_sb.Clear();
+        m_sb.Append(m_selectedKey);
 
-            m_keyTexts[(int)key].text = m_sb.ToString();
-        }
+        m_keyTexts[(int)m_currChangingKey].text = m_sb.ToString();
     }
     void Start()
     {
@@ -54,8 +53,8 @@ public class KeySetting : MonoBehaviour
                     if (!InputManager.Instance.IsKeyOverlap(m_currChangingKey, key))
                     {
                         m_selectedKey = key;
-                        m_isAnyKeyDown = true;
                         m_checkKeyDown = false;
+                        SetKeyButtonText();
                         break;
                     }
                 }

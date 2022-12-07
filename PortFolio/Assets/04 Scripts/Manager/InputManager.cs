@@ -11,11 +11,13 @@ public enum Key
     HandBreak,
     Booster,
     Reset,
+    Esc,
     Max
 }
 
 public class InputManager : Singleton_DontDestroy<InputManager>
 {
+    Dictionary<Key, KeyCode> m_keyDictionary = new Dictionary<Key, KeyCode>();
     List<KeyCode> m_defaultKeys = new List<KeyCode>();
 
     public float Horizontal { get; set; }
@@ -38,7 +40,7 @@ public class InputManager : Singleton_DontDestroy<InputManager>
             {
                 continue;
             }
-            if(keyValuePair.Value == key)
+            if(keyValuePair.Value == key || key == KeyCode.Mouse0)
             {
                 return true;
             }
@@ -64,6 +66,7 @@ public class InputManager : Singleton_DontDestroy<InputManager>
         m_defaultKeys.Add(KeyCode.LeftShift);
         m_defaultKeys.Add(KeyCode.LeftControl);
         m_defaultKeys.Add(KeyCode.R);
+        m_defaultKeys.Add(KeyCode.Escape);
     }
     // Update is called once per frame
     void Update()
