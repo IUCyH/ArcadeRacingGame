@@ -23,7 +23,7 @@ public class TitleManager : Singleton<TitleManager>
         }
         else
         {
-            GameSettingManager.Instance.SetGameSettingPanelActive();
+            GameSettingManager.Instance.SetSettingPanelsActive();
         }
     }
     void Update()

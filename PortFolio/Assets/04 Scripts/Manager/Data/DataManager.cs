@@ -130,6 +130,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
         m_playerData.carsList[0].isPlayable = true;
         m_playerData.carsList[0].isUsing = true;
         m_usingKart = 0;
+        InputManager.Instance.InitToDefaultKey();
         Save();
     }
     void InitCarInfo(CarInfo carInfo, int index)

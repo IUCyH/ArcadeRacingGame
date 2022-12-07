@@ -18,8 +18,6 @@ public class LoadSceneManager : Singleton_DontDestroy<LoadSceneManager>
 {    
     StringBuilder m_sb = new StringBuilder();
     AsyncOperation m_loadingInfo;
-    [SerializeField]
-    GameSettingPanelController m_settingPanel;
     SceneState m_loadState;
 
     [Header("Loading Window's UIs")]
@@ -59,7 +57,7 @@ public class LoadSceneManager : Singleton_DontDestroy<LoadSceneManager>
         HideLoadingPanel();
         SetLoadState(SceneState.None);
         CurrScene = SceneState.Title;
-        m_settingPanel.SetBackBtnText(SceneState.Title);
+        GameSettingManager.Instance.SetBackBtnText(SceneState.Title);
     }
     void Update()
     {
@@ -77,7 +75,7 @@ public class LoadSceneManager : Singleton_DontDestroy<LoadSceneManager>
                 m_sb.Append("100%");
                 m_loadingValueText.text = m_sb.ToString();
                 m_loadingProgressBar.fillAmount = 1f;
-                m_settingPanel.SetBackBtnText(m_loadState);
+                GameSettingManager.Instance.SetBackBtnText(m_loadState);
                 SetLoadState(SceneState.None);
                 HideLoadingPanel();
             }

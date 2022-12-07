@@ -147,7 +147,7 @@ public class LobbyManager : Singleton<LobbyManager>
         }
         else
         {
-            GameSettingManager.Instance.SetGameSettingPanelActive();
+            GameSettingManager.Instance.SetSettingPanelsActive();
         }
     }
     protected override void OnAwake()

@@ -2,8 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Key
+{
+    Forward,
+    Backward,
+    Right,
+    Left,
+    HandBreak,
+    Booster,
+    Reset,
+    Max
+}
+
 public class InputManager : Singleton_DontDestroy<InputManager>
 {
+    List<KeyCode> m_defaultKeys = new List<KeyCode>();
+
     public float Horizontal { get; set; }
     public float Vertical { get; set; }
     public float MouseX { get; set; }
@@ -16,6 +30,41 @@ public class InputManager : Singleton_DontDestroy<InputManager>
     public bool MouseUp { get; set; }
     public bool EscKeyDown { get; set; }
 
+    public bool IsKeyOverlap(Key currChangingKey, KeyCode key)
+    {
+        foreach(KeyValuePair<Key, KeyCode> keyValuePair in DataManager.Instance.PlayerData.keyDictionary)
+        {
+            if(keyValuePair.Key == currChangingKey)
+            {
+                continue;
+            }
+            if(keyValuePair.Value == key)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    public void InitToDefaultKey()
+    {
+        InitDefaultKeyList();
+        var length = m_defaultKeys.Count;
+
+        for (int i = 0; i < length; i++)
+        {
+            DataManager.Instance.PlayerData.keyDictionary.Add((Key)i, m_defaultKeys[i]);
+        }
+    }
+    void InitDefaultKeyList()
+    {
+        m_defaultKeys.Add(KeyCode.UpArrow);
+        m_defaultKeys.Add(KeyCode.DownArrow);
+        m_defaultKeys.Add(KeyCode.RightArrow);
+        m_defaultKeys.Add(KeyCode.LeftArrow);
+        m_defaultKeys.Add(KeyCode.LeftShift);
+        m_defaultKeys.Add(KeyCode.LeftControl);
+        m_defaultKeys.Add(KeyCode.R);
+    }
     // Update is called once per frame
     void Update()
     {

@@ -45,6 +45,7 @@ public class PlayerData
 {
     public List<CarInfo> carsList = new List<CarInfo>();
     public List<MapInfo> mapList = new List<MapInfo>();
+    public Dictionary<Key, KeyCode> keyDictionary = new Dictionary<Key, KeyCode>();
     public readonly static uint BasicGold = 500;
     public string userName;
     public uint golds;
