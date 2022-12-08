@@ -138,7 +138,7 @@ public class MapSelectPanelController : MonoBehaviour, ILobbySubMenu
         DataManager.Instance.UpdatePlayerCurrentKart(m_currKartIndex);
         DataManager.Instance.UpdatePlayerCurrentMap(m_currMapIndex);
 
-        DataManager.Instance.Save();
+        DataManager.Instance.SaveAll();
         LoadSceneManager.Instance.LoadSceneAsync(SceneState.Game);
     }
     void SetExitButtonActive(bool value)

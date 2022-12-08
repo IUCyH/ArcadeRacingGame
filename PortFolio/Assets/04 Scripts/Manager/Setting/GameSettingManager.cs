@@ -64,7 +64,7 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
 #endif
                 break;
             case SceneState.Lobby:
-                DataManager.Instance.Save();
+                DataManager.Instance.SaveAll();
                 LoadSceneManager.Instance.LoadSceneAsync(SceneState.Title);
                 break;
             case SceneState.Game:

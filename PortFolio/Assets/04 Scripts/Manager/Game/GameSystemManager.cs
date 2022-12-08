@@ -171,7 +171,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
         m_isStart = false;
         m_player.Break(1000f);
         InGameUiManager.Instance.SetFinishUI(completeText, mapTime, m_timer); //변동 가능한 정보들만 매개변수로 넘겨줌, 변동 가능성이 없는 정보들은 UI Manager에서 처리
-        DataManager.Instance.Save();
+        DataManager.Instance.SaveAll();
     }
     public void ResetPlayerPosition()
     {

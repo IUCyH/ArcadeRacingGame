@@ -15,26 +15,18 @@ public enum Key
     Max
 }
 
-public class InputManager : Singleton_DontDestroy<InputManager>
+public static class InputManager
 {
-    Dictionary<Key, KeyCode> m_keyDictionary = new Dictionary<Key, KeyCode>();
-    List<KeyCode> m_defaultKeys = new List<KeyCode>();
+    static List<KeyCode> m_defaultKeys = new List<KeyCode>();
 
-    public float Horizontal { get; set; }
-    public float Vertical { get; set; }
-    public float MouseX { get; set; }
-    public float MouseY { get; set; }
-    public bool HandBreakKeyDown { get; set; }
-    public bool HandBreakKeyUp { get; set; }
-    public bool ResetKeyDown { get; set; }
-    public bool BoosterKeyDown { get; set; }
-    public bool MouseDown { get; set; }
-    public bool MouseUp { get; set; }
-    public bool EscKeyDown { get; set; }
+    public static float MouseX { get { return Input.GetAxis("Mouse X"); } }
+    public static float MouseY { get { return Input.GetAxis("Mouse Y"); } }
+    public static bool MouseDown { get { return Input.GetMouseButtonDown(0); } }
+    public static bool MouseUp { get { return Input.GetMouseButtonUp(0); } }
 
-    public bool IsKeyOverlap(Key currChangingKey, KeyCode key)
+    public static bool IsKeyOverlap(Key currChangingKey, KeyCode key)
     {
-        foreach(KeyValuePair<Key, KeyCode> keyValuePair in DataManager.Instance.PlayerData.keyDictionary)
+        foreach(KeyValuePair<Key, KeyCode> keyValuePair in DataManager.Instance.SettingData.keySettings.keyDictionary)
         {
             if(keyValuePair.Key == currChangingKey)
             {
@@ -47,17 +39,60 @@ public class InputManager : Singleton_DontDestroy<InputManager>
         }
         return false;
     }
-    public void InitToDefaultKey()
+    public static void InitToDefaultKey()
     {
         InitDefaultKeyList();
         var length = m_defaultKeys.Count;
 
         for (int i = 0; i < length; i++)
         {
-            DataManager.Instance.PlayerData.keyDictionary.Add((Key)i, m_defaultKeys[i]);
+            DataManager.Instance.SettingData.keySettings.keyDictionary.Add((Key)i, m_defaultKeys[i]);
         }
     }
-    void InitDefaultKeyList()
+    public static bool GetKeyDown(Key key)
+    {
+        var keycode = DataManager.Instance.SettingData.keySettings.keyDictionary[key];
+        
+        return Input.GetKeyDown(keycode);
+    }
+    public static bool GetKeyUp(Key key)
+    {
+        var keycode = DataManager.Instance.SettingData.keySettings.keyDictionary[key];
+        
+        return Input.GetKeyUp(keycode);
+    }
+    public static int Vertical()
+    {
+        var forwardKeycode = DataManager.Instance.SettingData.keySettings.keyDictionary[Key.Forward];
+        var backwardKeycode = DataManager.Instance.SettingData.keySettings.keyDictionary[Key.Backward];
+        if (Input.GetKeyDown(forwardKeycode))
+        {
+            return 1;
+        }
+        else if(Input.GetKeyDown(backwardKeycode))
+        {
+            return -1;
+        }
+
+        return 0;
+    }
+    public static int Horizontal()
+    {
+        var leftKeycode = DataManager.Instance.SettingData.keySettings.keyDictionary[Key.Left];
+        var rightKeycode = DataManager.Instance.SettingData.keySettings.keyDictionary[Key.Right];
+        if(Input.GetKeyDown(rightKeycode))
+        {
+            return 1;
+        }
+        else if(Input.GetKeyDown(leftKeycode))
+        {
+            return -1;
+        }
+
+        return 0;
+    }
+
+    static void InitDefaultKeyList()
     {
         m_defaultKeys.Add(KeyCode.UpArrow);
         m_defaultKeys.Add(KeyCode.DownArrow);
@@ -67,20 +102,5 @@ public class InputManager : Singleton_DontDestroy<InputManager>
         m_defaultKeys.Add(KeyCode.LeftControl);
         m_defaultKeys.Add(KeyCode.R);
         m_defaultKeys.Add(KeyCode.Escape);
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        Horizontal = Input.GetAxis("Horizontal");
-        Vertical = Input.GetAxis("Vertical");
-        HandBreakKeyDown = Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift);
-        HandBreakKeyUp = Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift);
-        ResetKeyDown = Input.GetKeyDown(KeyCode.R);
-        BoosterKeyDown = Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl);
-        MouseX = Input.GetAxis("Mouse X");
-        MouseY = Input.GetAxis("Mouse Y");
-        MouseDown = Input.GetMouseButtonDown(0);
-        MouseUp = Input.GetMouseButtonUp(0);
-        EscKeyDown = Input.GetKeyDown(KeyCode.Escape);
     }
 }

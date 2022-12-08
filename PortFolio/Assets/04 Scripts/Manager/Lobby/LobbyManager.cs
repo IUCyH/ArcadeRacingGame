@@ -81,7 +81,7 @@ public class LobbyManager : Singleton<LobbyManager>
     }
     void RotateCamera()
     {
-        var mouseDelta = new Vector2(InputManager.Instance.MouseX, InputManager.Instance.MouseY);
+        var mouseDelta = new Vector2(InputManager.MouseX, InputManager.MouseY);
         var camAngle = m_cameraArm.transform.eulerAngles;
         m_xAngle = camAngle.x - mouseDelta.y;
         m_yAngle = camAngle.y + mouseDelta.x;
@@ -168,20 +168,20 @@ public class LobbyManager : Singleton<LobbyManager>
     // Update is called once per frame
     void Update()
     {
-        if(InputManager.Instance.EscKeyDown)
+        if(InputManager.GetKeyDown(Key.Esc))
         {
             ToDoWhenEscKeyIsPressed();
         }
         
         if (!m_eventSys.IsPointerOverGameObject())
         {
-            if (InputManager.Instance.MouseDown)
+            if (InputManager.MouseDown)
             {
                 m_isMouseDown = true;
             }
-            if (InputManager.Instance.MouseUp)
+            if (InputManager.MouseUp)
             {
-                m_cameraRb.AddTorque(m_speed * InputManager.Instance.MouseX * m_yAngle * Time.deltaTime * Vector3.up);
+                m_cameraRb.AddTorque(m_speed * InputManager.MouseX * m_yAngle * Time.deltaTime * Vector3.up);
                 m_isMouseDown = false;
             }
             if (m_isMouseDown)

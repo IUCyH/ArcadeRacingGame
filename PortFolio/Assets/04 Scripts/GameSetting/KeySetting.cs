@@ -50,7 +50,7 @@ public class KeySetting : MonoBehaviour
             {
                 if (Input.GetKeyDown(key))
                 {
-                    if (!InputManager.Instance.IsKeyOverlap(m_currChangingKey, key))
+                    if (!InputManager.IsKeyOverlap(m_currChangingKey, key))
                     {
                         m_selectedKey = key;
                         m_checkKeyDown = false;

@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class DataManager : Singleton_DontDestroy<DataManager>
 {
+
     [SerializeField]
-    PlayerData m_playerData = null;
+    PlayerData m_playerData;
+    [SerializeField]
+    SettingData m_settingData;
+    string m_playerJsonDataName = "PLAYER_DATA";
+    string m_settingJsonDataName = "SETTING_DATA";
     string m_inputFieldName;
     int m_usingKart;
     public PlayerData PlayerData { get { return m_playerData; } }
-    public bool IsDataReady { get; set; }
+    public SettingData SettingData { get { return m_settingData; } }
 
     public void UpdatePlayerCurrentMap(int index)
     {
@@ -54,23 +59,48 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     {
         return m_playerData.mapList[mapIndex].data.name;
     }
-    public void Load()
+    public void LoadSettingData()
     {
-        PlayerPrefs.DeleteAll();
-        var jsonData = PlayerPrefs.GetString("PLAYER_DATA", string.Empty);
+        var jsonData = PlayerPrefs.GetString(m_settingJsonDataName, string.Empty);
+        if(string.IsNullOrEmpty(jsonData))
+        {
+            CreateNewSettingData();
+            return;
+        }
+        m_settingData = JsonUtility.FromJson<SettingData>(jsonData);
+        SaveSettingData();
+    }
+    public void LoadPlayerData()
+    {
+        var jsonData = PlayerPrefs.GetString(m_playerJsonDataName, string.Empty);
         if (string.IsNullOrEmpty(jsonData))
         {
-            IsDataReady = false;
+            MakeUserDataCreatePopup();
             return;
         }
         m_playerData = JsonUtility.FromJson<PlayerData>(jsonData);
         m_usingKart = m_playerData.currKart;
-        Save();
+        TitleManager.Instance.GoNextScene();
+        SaveAll();
     }
-    public void Save()
+    public void SaveSettingData()
+    {
+        var settingJsonData = JsonUtility.ToJson(m_settingData);
+        PlayerPrefs.SetString(m_settingJsonDataName, settingJsonData);
+        PlayerPrefs.Save();
+    }
+    public void SavePlayerData()
     {
         var playerJsonData = JsonUtility.ToJson(m_playerData);
-        PlayerPrefs.SetString("PLAYER_DATA", playerJsonData);
+        PlayerPrefs.SetString(m_playerJsonDataName, playerJsonData);
+        PlayerPrefs.Save();
+    }
+    public void SaveAll()
+    {
+        var playerJsonData = JsonUtility.ToJson(m_playerData);
+        var settingJsonData = JsonUtility.ToJson(m_settingData);
+        PlayerPrefs.SetString(m_playerJsonDataName, playerJsonData);
+        PlayerPrefs.SetString(m_settingJsonDataName, settingJsonData);
         PlayerPrefs.Save();
     }
     public void MakeUserDataCreatePopup()
@@ -95,6 +125,12 @@ public class DataManager : Singleton_DontDestroy<DataManager>
             }
         });
     }
+    void CreateNewSettingData()
+    {
+        m_settingData = new SettingData();
+        InputManager.InitToDefaultKey();
+        SaveSettingData();
+    }
     void CreateNewData(string name)
     {
         m_playerData = new PlayerData()
@@ -104,6 +140,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
             currKart = 0,
             currMap = 0
         };
+
         var dataLength = CarDataTable.Instance.m_carDatas.Length;
         for (int i = 0; i < dataLength; i++)
         {
@@ -113,6 +150,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
             carInfo.isPlayable = false;
             m_playerData.carsList.Add(carInfo);
         }
+
         var mapDatalength = MapDataTable.Instance.m_mapDataTable.Length;
         for (int i = 0; i < mapDatalength; i++)
         {
@@ -122,12 +160,12 @@ public class DataManager : Singleton_DontDestroy<DataManager>
             mapInfo.recentPlaydate = 0;
             m_playerData.mapList.Add(mapInfo);
         }
+
         m_playerData.carsList[0].isPlayable = true;
         m_playerData.carsList[0].isUsing = true;
         m_usingKart = 0;
-        IsDataReady = true;
-        InputManager.Instance.InitToDefaultKey();
-        Save();
+
+        SaveAll();
     }
     void InitCarInfo(CarInfo carInfo, int index)
     {
@@ -139,7 +177,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     }
     protected override void OnAwake()
     {
-        IsDataReady = true;
-        Load();
+        PlayerPrefs.DeleteAll();
+        LoadSettingData();
     }
 }

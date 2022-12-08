@@ -94,7 +94,7 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
         m_lobbyMenus[m_menuIndex].Hide();
         IsMenuOpen = false;
         InitMainLobby();
-        DataManager.Instance.Save();
+        DataManager.Instance.SavePlayerData();
     }
     public void CloseMenu()
     {

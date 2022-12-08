@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour
         WaitForFixedUpdate waitForFixedUpdate = new WaitForFixedUpdate();
         while(true)
         {
-            if(InputManager.Instance.Vertical > 0)
+            if(InputManager.Vertical() > 0)
             {
                 yield return waitForFixedUpdate;
                 m_playerRb.AddForce(transform.forward * m_startBoostSpeed, ForceMode.VelocityChange);
@@ -219,13 +219,14 @@ public class PlayerController : MonoBehaviour
     {
         if (!m_isBooster)
         {
-            if(InputManager.Instance.BoosterKeyDown && m_boosterCnt >= 0)
+            if(InputManager.GetKeyDown(Key.Booster) && m_boosterCnt >= 0)
             {
                 OnBooster();
             }
             m_boosterBar.fillAmount += m_defultChargingValue;
         }
-        if (m_isDrift && InputManager.Instance.Horizontal != 0)
+
+        if (m_isDrift && InputManager.Horizontal() != 0)
         {
             m_boosterBar.fillAmount += m_boostChargingValue;
         }
@@ -246,8 +247,8 @@ public class PlayerController : MonoBehaviour
     //이동 함수
     void Move()
     {
-        var dirZ = InputManager.Instance.Vertical;
-        var dirX = InputManager.Instance.Horizontal;
+        var dirZ = InputManager.Vertical();
+        var dirX = InputManager.Horizontal();
         var currTurnPower = Mathf.Abs(m_turnPower - m_playerRb.velocity.magnitude);
         foreach (WheelController w in m_wheelColliderCtr)
         {
@@ -257,6 +258,7 @@ public class PlayerController : MonoBehaviour
         {
             if (m_currSpeed < m_maxSpeed)
                 m_currSpeed += m_speedUpVal;
+
             if (m_currSpeed > m_maxSpeed)
                 m_currSpeed -= m_speedDownVal;
             SetBackLightColor(Color.white);
@@ -265,6 +267,7 @@ public class PlayerController : MonoBehaviour
         {
             if (m_currSpeed < m_maxReSpeed)
                 m_currSpeed += m_speedUpVal;
+
             if (m_currSpeed > m_maxReSpeed)
                 m_currSpeed -= m_speedDownVal;
             SetBackLightColor(Color.red);
@@ -382,17 +385,17 @@ public class PlayerController : MonoBehaviour
                 }
                 break;
         }
-        if (InputManager.Instance.HandBreakKeyDown)
+        if (InputManager.GetKeyDown(Key.HandBreak))
         {
             m_isDrift = true;
             m_startDriftPosSum += transform.position;
         }
-        if(InputManager.Instance.HandBreakKeyUp)
+        if(InputManager.GetKeyUp(Key.HandBreak))
         {
             m_isDrift = false;
             m_endDriftPosSum += transform.position;
         }
-        if(InputManager.Instance.ResetKeyDown)
+        if(InputManager.GetKeyDown(Key.Reset))
         {
             GameSystemManager.Instance.ResetPlayerPosition();
         }

@@ -10,15 +10,7 @@ public class TitleManager : Singleton<TitleManager>
         {
             return;
         }
-
-        if (!DataManager.Instance.IsDataReady)
-        {
-            DataManager.Instance.MakeUserDataCreatePopup();
-        }
-        else
-        {
-            GoNextScene();
-        }
+        DataManager.Instance.LoadPlayerData();
     }
     public void GoNextScene()
     {
@@ -38,7 +30,7 @@ public class TitleManager : Singleton<TitleManager>
     }
     void Update()
     {
-        if(InputManager.Instance.EscKeyDown)
+        if(InputManager.GetKeyDown(Key.Esc))
         {
             ToDoWhenEscKeyIsPressed();
         }

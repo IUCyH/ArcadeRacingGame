@@ -61,7 +61,7 @@ public class KartViewStageController : MonoBehaviour, IPointerDownHandler, IPoin
     }
     void RotateKart()
     {
-        float yAngle = m_kartParentObj.transform.eulerAngles.y - InputManager.Instance.MouseX * Time.deltaTime * m_speed;
+        float yAngle = m_kartParentObj.transform.eulerAngles.y - InputManager.MouseX * Time.deltaTime * m_speed;
         Vector3 rotation = new Vector3(0f, yAngle, 0f);
         m_kartParentObj.transform.rotation = Quaternion.Euler(rotation);
     }
