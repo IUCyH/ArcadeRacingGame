@@ -18,21 +18,26 @@ public enum Key
 public static class InputManager
 {
     static List<KeyCode> m_defaultKeys = new List<KeyCode>();
+    static List<KeyCode> m_unavailableKeys = new List<KeyCode>()
+    {
+        KeyCode.Mouse0,
+        KeyCode.Mouse1,
+        KeyCode.Return,
+        KeyCode.Delete,
+        KeyCode.Home,
+        KeyCode.End,
+    };
 
     public static float MouseX { get { return Input.GetAxis("Mouse X"); } }
     public static float MouseY { get { return Input.GetAxis("Mouse Y"); } }
     public static bool MouseDown { get { return Input.GetMouseButtonDown(0); } }
     public static bool MouseUp { get { return Input.GetMouseButtonUp(0); } }
 
-    public static bool IsKeyOverlap(Key currChangingKey, KeyCode key)
+    public static bool IsKeyOverlap(KeyCode key)
     {
-        foreach(KeyValuePair<Key, KeyCode> keyValuePair in DataManager.Instance.SettingData.keySettings.keyDictionary)
+        foreach(KeyValuePair<Key, KeyCode> keyValuePair in DataManager.Instance.KeyDictionary)
         {
-            if(keyValuePair.Key == currChangingKey)
-            {
-                continue;
-            }
-            if(keyValuePair.Value == key || key == KeyCode.Mouse0)
+            if(keyValuePair.Value == key || m_unavailableKeys.Contains(key))
             {
                 return true;
             }
@@ -46,30 +51,30 @@ public static class InputManager
 
         for (int i = 0; i < length; i++)
         {
-            DataManager.Instance.SettingData.keySettings.keyDictionary.Add((Key)i, m_defaultKeys[i]);
+            DataManager.Instance.KeyDictionary.Add((Key)i, m_defaultKeys[i]);
         }
     }
     public static bool GetKeyDown(Key key)
     {
-        var keycode = DataManager.Instance.SettingData.keySettings.keyDictionary[key];
+        var keycode = DataManager.Instance.KeyDictionary[key];
         
         return Input.GetKeyDown(keycode);
     }
     public static bool GetKeyUp(Key key)
     {
-        var keycode = DataManager.Instance.SettingData.keySettings.keyDictionary[key];
+        var keycode = DataManager.Instance.KeyDictionary[key];
         
         return Input.GetKeyUp(keycode);
     }
     public static int Vertical()
     {
-        var forwardKeycode = DataManager.Instance.SettingData.keySettings.keyDictionary[Key.Forward];
-        var backwardKeycode = DataManager.Instance.SettingData.keySettings.keyDictionary[Key.Backward];
-        if (Input.GetKeyDown(forwardKeycode))
+        var forwardKeycode = DataManager.Instance.KeyDictionary[Key.Forward];
+        var backwardKeycode = DataManager.Instance.KeyDictionary[Key.Backward];
+        if (Input.GetKey(forwardKeycode))
         {
             return 1;
         }
-        else if(Input.GetKeyDown(backwardKeycode))
+        else if(Input.GetKey(backwardKeycode))
         {
             return -1;
         }
@@ -78,13 +83,13 @@ public static class InputManager
     }
     public static int Horizontal()
     {
-        var leftKeycode = DataManager.Instance.SettingData.keySettings.keyDictionary[Key.Left];
-        var rightKeycode = DataManager.Instance.SettingData.keySettings.keyDictionary[Key.Right];
-        if(Input.GetKeyDown(rightKeycode))
+        var leftKeycode = DataManager.Instance.KeyDictionary[Key.Left];
+        var rightKeycode = DataManager.Instance.KeyDictionary[Key.Right];
+        if(Input.GetKey(rightKeycode))
         {
             return 1;
         }
-        else if(Input.GetKeyDown(leftKeycode))
+        else if(Input.GetKey(leftKeycode))
         {
             return -1;
         }

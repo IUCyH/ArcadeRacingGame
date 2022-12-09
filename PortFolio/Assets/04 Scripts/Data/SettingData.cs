@@ -4,16 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class DictionaryKeyAndKeycode : SerializeDictionary<Key, KeyCode> { }
+public class DictionaryOfKeyAndKeycode : SerializableDictionary<Key, KeyCode> { }
 
 [Serializable]
 public class KeyData
 {
-    public DictionaryKeyAndKeycode keyDictionary = new DictionaryKeyAndKeycode();
+    public DictionaryOfKeyAndKeycode keyDictionary = new DictionaryOfKeyAndKeycode();
 }
 
 [Serializable]
 public class SettingData
 {
-    public KeyData keySettings;
+    public KeyData keySettings = new KeyData();
 }

@@ -190,10 +190,10 @@ public class GameSystemManager : Singleton<GameSystemManager>
                 var dot = Vector3.Dot(m_player.transform.forward, dir.normalized);
                 if (dot > 0) continue;
                 resetPointRotation = ResetPointManager.Instance.ResetPoints[i].localRotation;
-                Debug.Log("Forward : " + resetPointRotation);
-                Debug.Log("resetPoint position : " + pos.normalized);
-                Debug.Log("Player Forward : " + m_player.transform.forward);
-                Debug.Log("index : " + i + " : " + dot);
+                //Debug.Log("Forward : " + resetPointRotation);
+                //Debug.Log("resetPoint position : " + pos.normalized);
+                //Debug.Log("Player Forward : " + m_player.transform.forward);
+                //Debug.Log("index : " + i + " : " + dot);
                 dist = dir.sqrMagnitude;
                 if (dist < nearestDist)
                 {
@@ -201,7 +201,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
                     nearestDist = dist;
                 }
             }
-            Debug.Log(nearesetPos);
+            //Debug.Log(nearesetPos);
             m_player.transform.SetPositionAndRotation(nearesetPos, resetPointRotation);
             m_player.SetState(PlayerController.State.Reset);
             m_isReset = true;

@@ -15,7 +15,12 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     int m_usingKart;
     public PlayerData PlayerData { get { return m_playerData; } }
     public SettingData SettingData { get { return m_settingData; } }
+    public DictionaryOfKeyAndKeycode KeyDictionary { get { return m_settingData.keySettings.keyDictionary; } }
 
+    public void UpdateKey(Key key, KeyCode keyCode)
+    {
+        KeyDictionary[key] = keyCode;
+    }
     public void UpdatePlayerCurrentMap(int index)
     {
         m_playerData.currMap = index;

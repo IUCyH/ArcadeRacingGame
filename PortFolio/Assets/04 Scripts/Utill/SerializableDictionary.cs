@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class SerializeDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
+public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
 {
     [SerializeField]
     List<TKey> keys = new List<TKey>();
@@ -23,6 +23,11 @@ public class SerializeDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISeri
     }
     public void OnAfterDeserialize()
     {
+        if(keys.Count != values.Count)
+        {
+            throw new System.Exception("Make sure that both key and value types are serializable.");
+        }
+
         this.Clear();
 
         int length = keys.Count;
