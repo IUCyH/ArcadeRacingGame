@@ -182,7 +182,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     }
     protected override void OnAwake()
     {
-        PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
         LoadSettingData();
     }
 }

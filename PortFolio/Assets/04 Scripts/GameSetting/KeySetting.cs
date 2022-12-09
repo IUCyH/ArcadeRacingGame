@@ -19,7 +19,7 @@ public class KeySetting : MonoBehaviour
 
     ColorBlock m_colorBlock;
     Color m_normalColor = Color.white;
-    Color m_selectedColor = Color.gray;
+    Color m_selectedColor = new Color(0.3f, 0.3f, 0.3f, 1f);
 
     Key m_currChangingKey;
     KeyCode m_selectedKey;
@@ -31,12 +31,12 @@ public class KeySetting : MonoBehaviour
         m_keyDownCheck = true;
         SetButtonSelectedColorToGray();
     }
-    void SetKeyButtonText()
+    void SetKeyButtonText(Key changingKey, KeyCode key)
     {
         m_sb.Clear();
-        m_sb.Append(m_selectedKey);
+        m_sb.Append(key);
 
-        m_keyTexts[(int)m_currChangingKey].text = m_sb.ToString();
+        m_keyTexts[(int)changingKey].text = m_sb.ToString();
     }
     void SetButtonSelectedColorToWhite()
     {
@@ -55,11 +55,18 @@ public class KeySetting : MonoBehaviour
         m_keyButtons = m_keys.GetComponentsInChildren<Button>();
         m_keyTexts = m_keys.GetComponentsInChildren<Text>();
 
-        var length = m_keyButtons.Length;
-        for(int i = 0; i < length; i++)
+        var buttons = m_keyButtons.Length;
+        var texts = m_keyTexts.Length;
+        for(int i = 0; i < buttons; i++)
         {
             var key = (Key)i;
             m_keyButtons[i].onClick.AddListener(() => OnPressKeyButton(key));
+        }
+        for(int i = 0; i < texts; i++)
+        {
+            var key = (Key)i;
+            var keyCode = DataManager.Instance.KeyDictionary[key];
+            SetKeyButtonText(key, keyCode);
         }
     }
     void Update()
@@ -75,7 +82,7 @@ public class KeySetting : MonoBehaviour
                         m_selectedKey = key;
                         m_keyDownCheck = false;
 
-                        SetKeyButtonText();
+                        SetKeyButtonText(m_currChangingKey, m_selectedKey);
                         SetButtonSelectedColorToWhite();
 
                         DataManager.Instance.UpdateKey(m_currChangingKey, m_selectedKey);
