@@ -38,7 +38,6 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
     GameObject m_mainLobby;
     [SerializeField]
     Image[] m_Garage_statBars;
-    [SerializeField]
     ILobbyMenu[] m_lobbyMenus;
     [SerializeField]
     Stack<ILobbySubMenu> m_subMenuStack;

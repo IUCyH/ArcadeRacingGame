@@ -4,7 +4,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class KeySetting : MonoBehaviour
+public class KeySetting : MonoBehaviour, ISetting
 {
     [SerializeField]
     StringBuilder m_sb = new StringBuilder();
@@ -25,6 +25,33 @@ public class KeySetting : MonoBehaviour
     KeyCode m_selectedKey;
     bool m_keyDownCheck;
 
+    public void Open()
+    {
+        GameSettingManager.Instance.OpenSettingPanel(gameObject);
+    }
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
+    public void Init()
+    {
+        m_keyButtons = m_keys.GetComponentsInChildren<Button>();
+        m_keyTexts = m_keys.GetComponentsInChildren<Text>();
+
+        var buttons = m_keyButtons.Length;
+        var texts = m_keyTexts.Length;
+        for (int i = 0; i < buttons; i++)
+        {
+            var key = (Key)i;
+            m_keyButtons[i].onClick.AddListener(() => OnPressKeyButton(key));
+        }
+        for (int i = 0; i < texts; i++)
+        {
+            var key = (Key)i;
+            var keyCode = DataManager.Instance.KeyDictionary[key];
+            SetKeyButtonText(key, keyCode);
+        }
+    }
     public void OnPressKeyButton(Key key)
     {
         m_currChangingKey = key;
@@ -49,25 +76,6 @@ public class KeySetting : MonoBehaviour
         m_colorBlock = m_keyButtons[(int)m_currChangingKey].colors;
         m_colorBlock.selectedColor = m_selectedColor;
         m_keyButtons[(int)m_currChangingKey].colors = m_colorBlock;
-    }
-    void Start()
-    {
-        m_keyButtons = m_keys.GetComponentsInChildren<Button>();
-        m_keyTexts = m_keys.GetComponentsInChildren<Text>();
-
-        var buttons = m_keyButtons.Length;
-        var texts = m_keyTexts.Length;
-        for(int i = 0; i < buttons; i++)
-        {
-            var key = (Key)i;
-            m_keyButtons[i].onClick.AddListener(() => OnPressKeyButton(key));
-        }
-        for(int i = 0; i < texts; i++)
-        {
-            var key = (Key)i;
-            var keyCode = DataManager.Instance.KeyDictionary[key];
-            SetKeyButtonText(key, keyCode);
-        }
     }
     void Update()
     {

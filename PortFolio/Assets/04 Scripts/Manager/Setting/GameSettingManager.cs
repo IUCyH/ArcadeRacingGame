@@ -1,28 +1,30 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum Setting
+{
+    KeySetting,
+    GraphicSetting,
+    SoundSetting,
+    Max
+}
+
 public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
 {
-    enum Setting
-    {
-        KeySetting,
-        GraphicSetting,
-        SoundSetting,
-        Max
-    }
-
+    ISetting[] m_settingPanels;
+    [SerializeField]
+    Button[] m_settingButtons;
     [SerializeField]
     Text m_backBtnText;
     [SerializeField]
+    List<string> m_backTexts;
+    [SerializeField]
     GameObject m_gameSettingsPanel;
     GameObject m_currOpenSettingPanel;
-    [SerializeField]
-    List<string> m_backTexts;
 
-    [SerializeField]
-    List<GameObject> m_settingPanels;
     [SerializeField]
     Stack<GameObject> m_settingPanelStack = new Stack<GameObject>();
 
@@ -34,14 +36,15 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
     float m_scaleFrom = 0f;
     [SerializeField]
     float m_scaleTo = 1f;
+
     bool m_playSettingPanelAnim;
     bool m_playSettingPanelReverseAnim;
     bool m_isPlayingAnim;
-    float time;
+    
 
     public bool IsSettingPanelOpen { get { return m_settingPanelStack.Count > 0; } }
 
-    public void OnPressKeySettingButton()
+    public void OnPressSettingButton(Setting settingPanel)
     {
         if(m_isPlayingAnim)
         {
@@ -50,7 +53,7 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
         m_isPlayingAnim = true;
         InitAnimation();
 
-        OpenSettingPanel(m_settingPanels[(int)Setting.KeySetting]);
+        m_settingPanels[(int)settingPanel].Open();
     }
     public void OnPressBackButton()
     {
@@ -103,6 +106,14 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
             OpenSettingPanel(m_gameSettingsPanel);
         }
     }
+    public void OpenSettingPanel(GameObject settingPanel)
+    {
+        m_currOpenSettingPanel = settingPanel;
+        m_settingPanelStack.Push(settingPanel);
+
+        settingPanel.SetActive(true);
+        m_playSettingPanelAnim = true;
+    }
     void InitAnimation()
     {
         m_time = 0f;
@@ -113,14 +124,6 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
     {
         m_currOpenSettingPanel = m_settingPanelStack.Pop();
         m_playSettingPanelReverseAnim = true;
-    }
-    void OpenSettingPanel(GameObject settingPanel)
-    {
-        m_currOpenSettingPanel = settingPanel;
-        m_settingPanelStack.Push(settingPanel);
-
-        settingPanel.SetActive(true);
-        m_playSettingPanelAnim = true;
     }
     void InitBackTextsList()
     {
@@ -134,8 +137,6 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
         settingPanel.transform.localScale = new Vector3(scale, scale, scale);
 
         m_time += Time.deltaTime / m_animPlaySpeed;
-        time += Time.deltaTime;
-        Debug.Log(time);
         if(m_time > 1f)
         {
             m_time = 0f;
@@ -163,12 +164,12 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
         float value = from * (1f - m_time) + to * m_time;
         return value;
     }
-    void InitSettingPanels()
+    void HideSettingPanels()
     {
-        var length = m_settingPanels.Count;
+        var length = m_settingPanels.Length;
         for(int i = 0; i < length; i++)
         {
-            m_settingPanels[i].SetActive(false);
+            m_settingPanels[i].Hide();
         }
     }
     void OnApplicationQuit()
@@ -186,9 +187,28 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
 #endif
         m_backTexts = new List<string>();
         InitBackTextsList();
-        InitSettingPanels();
+    }
+    protected override void OnStart()
+    {
+        m_settingPanels = GetComponentsInChildren<ISetting>(true);
+        m_settingButtons = m_gameSettingsPanel.GetComponentsInChildren<Button>();
+
+        var settingPanels = m_settingPanels.Length;
+        for(int i = 0; i < settingPanels; i++)
+        {
+            m_settingPanels[i].Init();
+        }
+
+        var buttons = m_settingButtons.Length - 2; //back 버튼과 exit 버튼을 제외시키기 위해
+        for(int i = 0; i < buttons; i++)
+        {
+            var setting = (Setting)i;
+            m_settingButtons[i].onClick.AddListener(() => OnPressSettingButton(setting));
+        }
+        HideSettingPanels();
         m_gameSettingsPanel.SetActive(false);
     }
+
     void Update()
     {
         if(m_playSettingPanelAnim)

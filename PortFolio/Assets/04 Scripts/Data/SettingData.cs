@@ -11,9 +11,22 @@ public class KeyData
 {
     public DictionaryOfKeyAndKeycode keyDictionary = new DictionaryOfKeyAndKeycode();
 }
+[Serializable]
+public class GraphicData
+{
+    public (int height, int width) screenResolution;
+    public int screenMode;
+    public int frameRate;
+    public int textureQuality;
+    public int shadowQuality;
+    public int antiAliasing;
+    public int vSync;
+    public int anisotropicFiltering;
+}
 
 [Serializable]
 public class SettingData
 {
     public KeyData keySettings = new KeyData();
+    public GraphicData graphicSettings = new GraphicData();
 }
