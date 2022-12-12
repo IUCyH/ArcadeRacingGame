@@ -6,7 +6,7 @@ public class TitleManager : Singleton<TitleManager>
 {
     public void OnStartButtonPress()
     {
-        if (GameSettingManager.Instance.IsSettingPanelOpen || PopupManager.Instance.IsPopupOpen)
+        if (GameSettingManager.Instance.IsGameSettingsPanelOpen || PopupManager.Instance.IsPopupOpen)
         {
             return;
         }

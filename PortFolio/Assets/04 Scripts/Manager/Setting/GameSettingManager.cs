@@ -16,7 +16,7 @@ public enum Setting
 public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
 {
     ISetting[] m_settingPanels;
-    Setting m_currOpenSetting;
+    Setting m_currOpenSettingPanel;
     [SerializeField]
     Button[] m_settingButtons;
     [SerializeField]
@@ -25,10 +25,7 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
     List<string> m_backTexts;
     [SerializeField]
     GameObject m_gameSettingsPanel;
-    GameObject m_currOpenSettingPanel;
-
-    //[SerializeField]
-    //Stack<GameObject> m_settingPanelStack = new Stack<GameObject>();
+    GameObject m_settingPanel;
 
     [SerializeField]
     float m_animPlaySpeed;
@@ -44,19 +41,12 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
     bool m_isPlayingAnim;
     
 
-    public bool IsSettingPanelOpen { get { return m_gameSettingsPanel.activeSelf; } }
+    public bool IsGameSettingsPanelOpen { get { return m_gameSettingsPanel.activeSelf; } }
 
     public void OnPressSettingButton(Setting settingPanel)
     {
-        if(m_isPlayingAnim)
-        {
-            return;
-        }
-        m_isPlayingAnim = true;
-        InitAnimation();
-
-        m_settingPanels[(int)settingPanel].Open();
-        m_currOpenSetting = settingPanel;
+        m_currOpenSettingPanel = settingPanel;
+        m_settingPanels[(int)m_currOpenSettingPanel].Open();
     }
     public void OnPressBackButton()
     {
@@ -78,7 +68,6 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
                 break;
         }
         m_gameSettingsPanel.SetActive(false);
-        //m_settingPanelStack.Clear();
     }
     public void SetBackBtnText(SceneState sceneState)
     {
@@ -86,46 +75,63 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
     }
     public void OnExitSettingPanel()
     {
-        CloseSettingPanel();
+        if(m_currOpenSettingPanel != Setting.None)
+        {
+            ExitSettingPanel();
+        }
+    }
+    public void OnExitGameSettingsPanel()
+    {
+        if (m_currOpenSettingPanel == Setting.None)
+        {
+            CloseSettingPanel(m_gameSettingsPanel);
+        }
     }
     public void SetSettingPanelsActive()
     {
-        if(m_isPlayingAnim)
+        if(m_currOpenSettingPanel != Setting.None)
         {
-            return;
+            ExitSettingPanel();
         }
-
-        InitAnimation();
-        m_isPlayingAnim = true;
-
-        if(!IsSettingPanelOpen)
+        else if(IsGameSettingsPanelOpen)
         {
-            OpenSettingPanel(m_gameSettingsPanel);
+            CloseSettingPanel(m_gameSettingsPanel);
         }
         else
         {
-            CloseSettingPanel();
-        }
+            OpenSettingPanel(m_gameSettingsPanel);
+        }    
     }
     public void OpenSettingPanel(GameObject settingPanel)
     {
-        m_currOpenSettingPanel = settingPanel;
-        //m_settingPanelStack.Push(settingPanel);
+        if (m_isPlayingAnim)
+        {
+            return;
+        }
+        InitAnimation();
+
+        m_settingPanel = settingPanel;
 
         settingPanel.SetActive(true);
         m_playSettingPanelAnim = true;
+        m_isPlayingAnim = true;
     }
-    public void CloseSettingPanel()
+    public void CloseSettingPanel(GameObject settingPanel)
     {
-        if (m_currOpenSetting == Setting.None)
+        if (m_isPlayingAnim)
         {
-            m_currOpenSettingPanel = m_gameSettingsPanel;
+            return;
         }
-        else
-        {
-            m_settingPanels[(int)m_currOpenSetting].OnExit();
-        }
+        InitAnimation();
+        m_currOpenSettingPanel = Setting.None;
+
+        m_settingPanel = settingPanel;
         m_playSettingPanelReverseAnim = true;
+        m_isPlayingAnim = true;
+    }
+    void ExitSettingPanel()
+    {
+        m_settingPanels[(int)m_currOpenSettingPanel].Exit();
     }
     void InitAnimation()
     {
@@ -198,6 +204,7 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
     }
     protected override void OnStart()
     {
+        m_currOpenSettingPanel = Setting.None;
         m_settingPanels = GetComponentsInChildren<ISetting>(true);
         m_settingButtons = m_gameSettingsPanel.GetComponentsInChildren<Button>();
 
@@ -221,11 +228,11 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
     {
         if(m_playSettingPanelAnim)
         {
-            PlayGameSettingPanelAnimation(m_currOpenSettingPanel);
+            PlayGameSettingPanelAnimation(m_settingPanel);
         }
         else if(m_playSettingPanelReverseAnim)
         {
-            PlayGameSettingPanelAnimation_Reverse(m_currOpenSettingPanel);
+            PlayGameSettingPanelAnimation_Reverse(m_settingPanel);
         }
     }
 }

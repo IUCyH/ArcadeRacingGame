@@ -25,9 +25,9 @@ public class KeySetting : MonoBehaviour, ISetting
     KeyCode m_selectedKey;
     bool m_keyDownCheck;
 
-    public void OnExit()
+    public void Exit()
     {
-
+        GameSettingManager.Instance.CloseSettingPanel(gameObject);
     }
     public void Open()
     {

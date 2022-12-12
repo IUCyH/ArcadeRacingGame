@@ -6,6 +6,6 @@ interface ISetting
 {
     public void Init();
     public void Open();
-    public void OnExit();
+    public void Exit();
     public void Hide();
 }

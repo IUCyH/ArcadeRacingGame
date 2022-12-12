@@ -26,19 +26,15 @@ public class GraphicSetting : MonoBehaviour, ISetting
 
     public bool IsGraphicSettingsChanged { get; set; }
 
-    public void OnExit()
-    {
-
-    }
-    public void OnPressExitButton()
+    public void Exit()
     {
         if(IsGraphicSettingsChanged)
         {
-            PopupManager.Instance.CreatePopupOkCancel("알림", "그래픽 설정이 변경되었습니다. 저장하시겠습니까?", null, null, "예", "아니요");
+            PopupManager.Instance.CreatePopupOkCancel("알림", "그래픽 설정이 변경되었습니다. 적용하시겠습니까?", null, null, "예", "아니요");
         }
         else
         {
-            GameSettingManager.Instance.CloseSettingPanel();
+            GameSettingManager.Instance.CloseSettingPanel(gameObject);
         }
     }
     public void Open()

@@ -173,7 +173,7 @@ public class LobbyManager : Singleton<LobbyManager>
             ToDoWhenEscKeyIsPressed();
         }
         
-        if (!m_eventSys.IsPointerOverGameObject())
+        if (!m_eventSys.IsPointerOverGameObject() && !GameSettingManager.Instance.IsGameSettingsPanelOpen)
         {
             if (InputManager.MouseDown)
             {

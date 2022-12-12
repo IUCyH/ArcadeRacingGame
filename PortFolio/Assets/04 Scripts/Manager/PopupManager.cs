@@ -31,7 +31,7 @@ public class PopupManager : Singleton_DontDestroy<PopupManager>
 
     public void CreatePopupInputField(string titleText, string contentsText, FuncDel funcDel = null, string okText = "확인")
     {
-        if (GameSettingManager.Instance.IsSettingPanelOpen) return;
+        if (GameSettingManager.Instance.IsGameSettingsPanelOpen) return;
 
         var obj = m_popupPoolDic[m_popupNames[(int)PopupName.InputField]].Get();
         m_currInputField = obj.GetComponentInChildren<InputField>();
@@ -43,7 +43,7 @@ public class PopupManager : Singleton_DontDestroy<PopupManager>
     }
     public void CreatePopupOK(string titleText, string contentsText, FuncDel funcDel = null, string okText = "확인")
     {
-        if (GameSettingManager.Instance.IsSettingPanelOpen) return;
+        if (GameSettingManager.Instance.IsGameSettingsPanelOpen) return;
 
         var obj = m_popupPoolDic[m_popupNames[(int)PopupName.Ok]].Get();
         var popupOk = obj.GetComponent<Popup_OK>();
@@ -53,7 +53,7 @@ public class PopupManager : Singleton_DontDestroy<PopupManager>
     }
     public void CreatePopupOkCancel(string titleText, string contentsText, FuncDel okFuncDel = null, FuncDel cancelFuncDel = null, string okText = "확인", string cancelText = "취소")
     {
-        if (GameSettingManager.Instance.IsSettingPanelOpen) return;
+        if (GameSettingManager.Instance.IsGameSettingsPanelOpen) return;
 
         var obj = m_popupPoolDic[m_popupNames[(int)PopupName.OkCancel]].Get();
         var popupOkCancel = obj.GetComponent<Popup_OkCancel>();
