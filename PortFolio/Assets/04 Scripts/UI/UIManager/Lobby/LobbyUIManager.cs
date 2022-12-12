@@ -152,6 +152,7 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
     {
         m_lobbyButtons = m_mainLobby.GetComponentsInChildren<Button>();
         m_lobbyMenus = m_lobbyMenu.GetComponentsInChildren<ILobbyMenu>(true);
+
         var length = m_lobbyButtons.Length;
         for (int i = 0; i < length; i++)
         {

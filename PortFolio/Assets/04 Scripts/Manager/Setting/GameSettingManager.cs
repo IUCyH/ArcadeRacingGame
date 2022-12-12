@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public enum Setting
 {
+    None = -1,
     KeySetting,
     GraphicSetting,
     SoundSetting,
@@ -15,6 +16,7 @@ public enum Setting
 public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
 {
     ISetting[] m_settingPanels;
+    Setting m_currOpenSetting;
     [SerializeField]
     Button[] m_settingButtons;
     [SerializeField]
@@ -25,8 +27,8 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
     GameObject m_gameSettingsPanel;
     GameObject m_currOpenSettingPanel;
 
-    [SerializeField]
-    Stack<GameObject> m_settingPanelStack = new Stack<GameObject>();
+    //[SerializeField]
+    //Stack<GameObject> m_settingPanelStack = new Stack<GameObject>();
 
     [SerializeField]
     float m_animPlaySpeed;
@@ -42,7 +44,7 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
     bool m_isPlayingAnim;
     
 
-    public bool IsSettingPanelOpen { get { return m_settingPanelStack.Count > 0; } }
+    public bool IsSettingPanelOpen { get { return m_gameSettingsPanel.activeSelf; } }
 
     public void OnPressSettingButton(Setting settingPanel)
     {
@@ -54,6 +56,7 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
         InitAnimation();
 
         m_settingPanels[(int)settingPanel].Open();
+        m_currOpenSetting = settingPanel;
     }
     public void OnPressBackButton()
     {
@@ -73,11 +76,9 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
             case SceneState.Game:
                 LoadSceneManager.Instance.LoadSceneAsync(SceneState.Lobby);
                 break;
-            case SceneState.Max:
-                break;
         }
         m_gameSettingsPanel.SetActive(false);
-        m_settingPanelStack.Clear();
+        //m_settingPanelStack.Clear();
     }
     public void SetBackBtnText(SceneState sceneState)
     {
@@ -97,33 +98,40 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
         InitAnimation();
         m_isPlayingAnim = true;
 
-        if (IsSettingPanelOpen)
+        if(!IsSettingPanelOpen)
         {
-            CloseSettingPanel();
+            OpenSettingPanel(m_gameSettingsPanel);
         }
         else
         {
-            OpenSettingPanel(m_gameSettingsPanel);
+            CloseSettingPanel();
         }
     }
     public void OpenSettingPanel(GameObject settingPanel)
     {
         m_currOpenSettingPanel = settingPanel;
-        m_settingPanelStack.Push(settingPanel);
+        //m_settingPanelStack.Push(settingPanel);
 
         settingPanel.SetActive(true);
         m_playSettingPanelAnim = true;
+    }
+    public void CloseSettingPanel()
+    {
+        if (m_currOpenSetting == Setting.None)
+        {
+            m_currOpenSettingPanel = m_gameSettingsPanel;
+        }
+        else
+        {
+            m_settingPanels[(int)m_currOpenSetting].OnExit();
+        }
+        m_playSettingPanelReverseAnim = true;
     }
     void InitAnimation()
     {
         m_time = 0f;
         m_playSettingPanelReverseAnim = false;
         m_playSettingPanelAnim = false;
-    }
-    void CloseSettingPanel()
-    {
-        m_currOpenSettingPanel = m_settingPanelStack.Pop();
-        m_playSettingPanelReverseAnim = true;
     }
     void InitBackTextsList()
     {
@@ -140,9 +148,9 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
         if(m_time > 1f)
         {
             m_time = 0f;
-            m_isPlayingAnim = false;
             settingPanel.transform.localScale = Vector3.one;
             m_playSettingPanelAnim = false;
+            m_isPlayingAnim = false;
         }
     }
     void PlayGameSettingPanelAnimation_Reverse(GameObject settingPanel)
@@ -154,9 +162,9 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
         if (m_time > 1f)
         {
             m_time = 0f;
-            m_isPlayingAnim = false;
             settingPanel.SetActive(false);
             m_playSettingPanelReverseAnim = false;
+            m_isPlayingAnim = false;
         }
     }
     float GetScaleValue(float from, float to)
