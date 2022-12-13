@@ -54,9 +54,18 @@ public class GraphicSetting : MonoBehaviour, ISetting
     }
     public void OnPressScreenResolutionDropDown(int index)
     {
+        var screenResolutionData = DataManager.Instance.SettingData.graphicSettings.screenResolution;
         var resolutionIndex = m_maxResolutionIndex + index;
         m_screenResolution.width = m_resolutions[resolutionIndex].width;
         m_screenResolution.height = m_resolutions[resolutionIndex].height;
+        if(screenResolutionData != m_screenResolution)
+        {
+            IsGraphicSettingsChanged = true;
+        }
+    } 
+    public void ApplySettings()
+    {
+
     }
     void InitResolutionDropdownOptions()
     {

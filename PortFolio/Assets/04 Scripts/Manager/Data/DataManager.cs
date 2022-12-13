@@ -9,14 +9,20 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     PlayerData m_playerData;
     [SerializeField]
     SettingData m_settingData;
+
     string m_playerJsonDataName = "PLAYER_DATA";
     string m_settingJsonDataName = "SETTING_DATA";
     string m_inputFieldName;
     int m_usingKart;
+
     public PlayerData PlayerData { get { return m_playerData; } }
     public SettingData SettingData { get { return m_settingData; } }
     public DictionaryOfKeyAndKeycode KeyDictionary { get { return m_settingData.keySettings.keyDictionary; } }
 
+    public void UpdateGraphicSettings()
+    {
+
+    }
     public void UpdateKey(Key key, KeyCode keyCode)
     {
         KeyDictionary[key] = keyCode;
