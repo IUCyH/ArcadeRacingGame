@@ -19,9 +19,11 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     public SettingData SettingData { get { return m_settingData; } }
     public DictionaryOfKeyAndKeycode KeyDictionary { get { return m_settingData.keySettings.keyDictionary; } }
 
-    public void UpdateGraphicSettings()
+    public void UpdateScreenResolution(int width, int height)
     {
-
+        Screen.SetResolution(width, height, (FullScreenMode)m_settingData.graphicSettings.screenMode);
+        m_settingData.graphicSettings.screenResolution.width = width;
+        m_settingData.graphicSettings.screenResolution.height = height;
     }
     public void UpdateKey(Key key, KeyCode keyCode)
     {
@@ -188,7 +190,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     }
     protected override void OnAwake()
     {
-        //PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteAll();
         LoadSettingData();
     }
 }

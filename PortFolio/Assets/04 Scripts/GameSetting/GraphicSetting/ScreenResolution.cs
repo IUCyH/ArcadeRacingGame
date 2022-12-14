@@ -1,78 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Text;
 
-public class GraphicSetting : MonoBehaviour, ISetting
+public class ScreenResolution : MonoBehaviour, IGraphicSetting
 {
     StringBuilder m_sb = new StringBuilder();
     [SerializeField]
+    GraphicSetting m_graphicSetting;
+    [SerializeField]
     Dropdown m_resolutionDropdown;
-    Resolution m_currDeviceResolution;
-
     [SerializeField]
     List<(int width, int height)> m_resolutions = new List<(int height, int width)>();
+
     int m_maxResolutionIndex;
-
     (int width, int height) m_screenResolution;
-    int m_screenMode;
-    int m_frameRate;
-    int m_textureQuality;
-    int m_shadowQuality;
-    int m_antiAliasing;
-    int m_vSync;
-    int m_anisotropicFiltering;
 
-    public bool IsGraphicSettingsChanged { get; set; }
+    public bool SettingChanged { get; set; }
 
-    public void Exit()
+    public void ApplyChangedSetting()
     {
-        if(IsGraphicSettingsChanged)
-        {
-            PopupManager.Instance.CreatePopupOkCancel("알림", "그래픽 설정이 변경되었습니다. 적용하시겠습니까?", null, null, "예", "아니요");
-        }
-        else
-        {
-            GameSettingManager.Instance.CloseSettingPanel(gameObject);
-        }
+        DataManager.Instance.UpdateScreenResolution(m_screenResolution.width, m_screenResolution.height);
+        SettingChanged = false;
     }
-    public void Open()
+
+    public void OnPressScreenResolutionDropDown()
     {
-        GameSettingManager.Instance.OpenSettingPanel(gameObject);
-    }
-    public void Hide()
-    {
-        gameObject.SetActive(false);
-    }
-    public void Init()
-    {
-        m_currDeviceResolution = Screen.currentResolution;
-        InitResolutionsList();
-        m_maxResolutionIndex = m_resolutions.IndexOf((m_currDeviceResolution.width, m_currDeviceResolution.height));
-        InitResolutionDropdownOptions();
-    }
-    public void OnPressScreenResolutionDropDown(int index)
-    {
+        int index = m_resolutionDropdown.value;
         var screenResolutionData = DataManager.Instance.SettingData.graphicSettings.screenResolution;
         var resolutionIndex = m_maxResolutionIndex + index;
+
         m_screenResolution.width = m_resolutions[resolutionIndex].width;
         m_screenResolution.height = m_resolutions[resolutionIndex].height;
-        if(screenResolutionData != m_screenResolution)
-        {
-            IsGraphicSettingsChanged = true;
-        }
-    } 
-    public void ApplySettings()
-    {
 
+        if (screenResolutionData != m_screenResolution)
+        {
+            SettingChanged = true;
+        }
     }
-    void InitResolutionDropdownOptions()
+
+    public void Init()
     {
+        InitResolutionsList();
+        SettingChanged = false;
+
         var length = m_resolutions.Count;
         m_resolutionDropdown.options.Clear();
 
-        for(int i = m_maxResolutionIndex; i < length; i++)
+        for (int i = m_maxResolutionIndex; i < length; i++)
         {
             Dropdown.OptionData optionData = new Dropdown.OptionData();
             m_sb.Clear();
@@ -91,5 +67,7 @@ public class GraphicSetting : MonoBehaviour, ISetting
         m_resolutions.Add((1366, 768));
         m_resolutions.Add((1280, 720));
         m_resolutions.Add((960, 540));
+
+        m_maxResolutionIndex = m_resolutions.IndexOf((m_graphicSetting.DeviceResolution.width, m_graphicSetting.DeviceResolution.height));
     }
 }

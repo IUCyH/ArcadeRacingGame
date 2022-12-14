@@ -135,7 +135,7 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
     }
     void OnPressButton(Button button)
     {
-        if (PopupManager.Instance.IsPopupOpen || GameSettingManager.Instance.IsGameSettingsPanelOpen) return;
+       // if (PopupManager.Instance.IsPopupOpen || GameSettingManager.Instance.IsGameSettingsPanelOpen) return;
 
         var name = button.gameObject.name.Split('_');
         m_menuIndex = int.Parse(name[0]);

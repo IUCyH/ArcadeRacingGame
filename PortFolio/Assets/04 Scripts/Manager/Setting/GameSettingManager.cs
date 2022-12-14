@@ -22,6 +22,8 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
     [SerializeField]
     Text m_backBtnText;
     [SerializeField]
+    Canvas m_settingCanvas;
+    [SerializeField]
     List<string> m_backTexts;
     [SerializeField]
     GameObject m_gameSettingsPanel;
@@ -43,7 +45,7 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
 
     public bool IsGameSettingsPanelOpen { get { return m_gameSettingsPanel.activeSelf; } }
 
-    public void OnPressSettingButton(Setting settingPanel)
+    void OnPressSettingButton(Setting settingPanel)
     {
         m_currOpenSettingPanel = settingPanel;
         m_settingPanels[(int)m_currOpenSettingPanel].Open();
@@ -109,6 +111,7 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
             return;
         }
         InitAnimation();
+        SetCanvasEnabled(true);
 
         m_settingPanel = settingPanel;
 
@@ -171,6 +174,9 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
             settingPanel.SetActive(false);
             m_playSettingPanelReverseAnim = false;
             m_isPlayingAnim = false;
+
+            if(!IsGameSettingsPanelOpen)
+                SetCanvasEnabled(false);
         }
     }
     float GetScaleValue(float from, float to)
@@ -185,6 +191,14 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
         {
             m_settingPanels[i].Hide();
         }
+    }
+    void SetCanvasEnabled(bool value)
+    {
+        if(m_settingCanvas.enabled == value)
+        {
+            return;
+        }
+        m_settingCanvas.enabled = value;
     }
     void OnApplicationQuit()
     {
@@ -204,6 +218,7 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
     }
     protected override void OnStart()
     {
+        SetCanvasEnabled(false);
         m_currOpenSettingPanel = Setting.None;
         m_settingPanels = GetComponentsInChildren<ISetting>(true);
         m_settingButtons = m_gameSettingsPanel.GetComponentsInChildren<Button>();
