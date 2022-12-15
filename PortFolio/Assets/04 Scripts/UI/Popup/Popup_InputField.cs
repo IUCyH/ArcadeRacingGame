@@ -13,9 +13,9 @@ public class Popup_InputField : MonoBehaviour
     Text m_contentsText;
     [SerializeField]
     Text m_okText;
-    FuncDel m_funcDel;
+    PopupFuncDel m_funcDel;
 
-    public void SetPopup(string titleText, string contentsText, FuncDel funcDel = null, string okText = "확인")
+    public void SetPopup(string titleText, string contentsText, PopupFuncDel funcDel = null, string okText = "확인")
     {
         m_titleText.text = titleText;
         m_contentsText.text = contentsText;

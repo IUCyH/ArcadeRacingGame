@@ -7,4 +7,5 @@ interface IGraphicSetting
     public bool SettingChanged { get; set; }
     public void ApplyChangedSetting();
     public void Init();
+    public void SetGraphicSettingToCurrSettingData();
 }

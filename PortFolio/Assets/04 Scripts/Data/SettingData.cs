@@ -14,7 +14,8 @@ public class KeyData
 [Serializable]
 public class GraphicData
 {
-    public (int width, int height) screenResolution;
+    public int screenResolutionWidth;
+    public int screenResolutionHeight;
     public int screenMode;
     public int frameRate;
     public int textureQuality;

@@ -22,21 +22,35 @@ public class ScreenResolution : MonoBehaviour, IGraphicSetting
     public void ApplyChangedSetting()
     {
         DataManager.Instance.UpdateScreenResolution(m_screenResolution.width, m_screenResolution.height);
-        SettingChanged = false;
+    }
+
+    public void SetGraphicSettingToCurrSettingData()
+    {
+        var widthData = DataManager.Instance.SettingData.graphicSettings.screenResolutionWidth;
+        var heightData = DataManager.Instance.SettingData.graphicSettings.screenResolutionHeight;
+        Debug.Log("Width : " + widthData + "Height : " + heightData);
+        int index = m_resolutions.IndexOf((widthData, heightData));
+        m_resolutionDropdown.value = index - m_maxResolutionIndex;
     }
 
     public void OnPressScreenResolutionDropDown()
     {
         int index = m_resolutionDropdown.value;
-        var screenResolutionData = DataManager.Instance.SettingData.graphicSettings.screenResolution;
-        var resolutionIndex = m_maxResolutionIndex + index;
+
+        int widthData = DataManager.Instance.SettingData.graphicSettings.screenResolutionWidth;
+        int heightData = DataManager.Instance.SettingData.graphicSettings.screenResolutionHeight;
+        int resolutionIndex = m_maxResolutionIndex + index;
 
         m_screenResolution.width = m_resolutions[resolutionIndex].width;
         m_screenResolution.height = m_resolutions[resolutionIndex].height;
 
-        if (screenResolutionData != m_screenResolution)
+        if (widthData != m_screenResolution.width && heightData != m_screenResolution.height)
         {
             SettingChanged = true;
+        }
+        else
+        {
+            SettingChanged = false;
         }
     }
 

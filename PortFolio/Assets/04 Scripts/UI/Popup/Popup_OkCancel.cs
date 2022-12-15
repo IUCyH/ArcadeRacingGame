@@ -13,10 +13,10 @@ public class Popup_OkCancel : MonoBehaviour
     Text m_okText;
     [SerializeField]
     Text m_cancelText;
-    FuncDel m_okFuncDel;
-    FuncDel m_cancelFuncDel;
+    PopupFuncDel m_okFuncDel;
+    PopupFuncDel m_cancelFuncDel;
 
-    public void SetPopup(string titleText, string contentsText, FuncDel okFuncDel = null, FuncDel cancleFuncDel = null, string okText = "확인", string cancleText = "취소")
+    public void SetPopup(string titleText, string contentsText, PopupFuncDel okFuncDel = null, PopupFuncDel cancleFuncDel = null, string okText = "확인", string cancleText = "취소")
     {
         m_titleText.text = titleText;
         m_contentsText.text = contentsText;

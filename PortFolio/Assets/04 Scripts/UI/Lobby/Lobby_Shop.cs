@@ -83,7 +83,7 @@ public class Lobby_Shop : MonoBehaviour, ILobbyMenu
 
         var kartPrice = DataManager.Instance.PlayerData.carsList[m_currSelectedKart].data.price;
 
-        FuncDel okFunc = () =>
+        PopupFuncDel okFunc = () =>
         {
             m_buyText.text = m_textSelected;
 

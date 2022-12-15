@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public delegate void FuncDel();
+
+public delegate void PopupFuncDel();
 public class PopupManager : Singleton_DontDestroy<PopupManager>
 {
     enum PopupName
@@ -29,7 +30,7 @@ public class PopupManager : Singleton_DontDestroy<PopupManager>
     public string GetInputFieldText { get { return m_currInputField.text; } }
     public bool IsPopupOpen { get { return m_popupStack.Count > 0; } }
 
-    public void CreatePopupInputField(string titleText, string contentsText, FuncDel funcDel = null, string okText = "확인")
+    public void CreatePopupInputField(string titleText, string contentsText, PopupFuncDel funcDel = null, string okText = "확인")
     {
         SetCanvasEnabled(true);
         var obj = m_popupPoolDic[m_popupNames[(int)PopupName.InputField]].Get();
@@ -43,7 +44,7 @@ public class PopupManager : Singleton_DontDestroy<PopupManager>
         obj.SetActive(true);
         m_popupStack.Push(obj);
     }
-    public void CreatePopupOK(string titleText, string contentsText, FuncDel funcDel = null, string okText = "확인")
+    public void CreatePopupOK(string titleText, string contentsText, PopupFuncDel funcDel = null, string okText = "확인")
     {
         SetCanvasEnabled(true);
         var obj = m_popupPoolDic[m_popupNames[(int)PopupName.Ok]].Get();
@@ -54,7 +55,7 @@ public class PopupManager : Singleton_DontDestroy<PopupManager>
         obj.SetActive(true);
         m_popupStack.Push(obj);
     }
-    public void CreatePopupOkCancel(string titleText, string contentsText, FuncDel okFuncDel = null, FuncDel cancelFuncDel = null, string okText = "확인", string cancelText = "취소")
+    public void CreatePopupOkCancel(string titleText, string contentsText, PopupFuncDel okFuncDel = null, PopupFuncDel cancelFuncDel = null, string okText = "확인", string cancelText = "취소")
     {
         SetCanvasEnabled(true);
         var obj = m_popupPoolDic[m_popupNames[(int)PopupName.OkCancel]].Get();
@@ -70,7 +71,7 @@ public class PopupManager : Singleton_DontDestroy<PopupManager>
         if (m_popupStack.Count > 0)
         {
             var obj = m_popupStack.Pop();
-            m_popupPoolDic[obj.name].Set(obj); //obj.name 캐싱할 예정
+            m_popupPoolDic[obj.name].Set(obj);
             obj.SetActive(false);
         }
         if(m_popupStack.Count <= 0)

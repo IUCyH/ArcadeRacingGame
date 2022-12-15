@@ -22,8 +22,8 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     public void UpdateScreenResolution(int width, int height)
     {
         Screen.SetResolution(width, height, (FullScreenMode)m_settingData.graphicSettings.screenMode);
-        m_settingData.graphicSettings.screenResolution.width = width;
-        m_settingData.graphicSettings.screenResolution.height = height;
+        m_settingData.graphicSettings.screenResolutionWidth = width;
+        m_settingData.graphicSettings.screenResolutionHeight = height;
     }
     public void UpdateKey(Key key, KeyCode keyCode)
     {
@@ -127,7 +127,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
             }
             else
             {
-                FuncDel okFuncDel = () =>
+                PopupFuncDel okFuncDel = () =>
                 {
                     CreateNewData(m_inputFieldName);
                     PopupManager.Instance.ClosePopup();
@@ -141,6 +141,9 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     void CreateNewSettingData()
     {
         m_settingData = new SettingData();
+        m_settingData.graphicSettings.screenResolutionWidth = Screen.currentResolution.width;
+        m_settingData.graphicSettings.screenResolutionHeight = Screen.currentResolution.height;
+        
         InputManager.InitToDefaultKey();
         SaveSettingData();
     }
@@ -190,7 +193,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     }
     protected override void OnAwake()
     {
-        PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
         LoadSettingData();
     }
 }
