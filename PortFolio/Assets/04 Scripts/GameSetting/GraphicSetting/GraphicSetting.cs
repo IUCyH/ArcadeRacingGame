@@ -8,20 +8,28 @@ public class GraphicSetting : MonoBehaviour, ISetting
     Resolution m_currDeviceResolution;
 
     [SerializeField]
-    Text m_screenModeText;
-
-    List<string> m_screenModes = new List<string>(3);
-    
-    int m_maxScreenModeIndex;
-
-    [SerializeField]
     IGraphicSetting[] m_graphicSettings;
 
     PopupFuncDel m_exitOkFunc;
     PopupFuncDel m_exitCancelFunc;
 
+    const string SettingsAppliedSuccessfully = "그래픽 설정이 적용되었습니다.";
+
     public Resolution DeviceResolution { get { return m_currDeviceResolution; } }
 
+    public void OnPressApplyButton()
+    {
+        if(CheckGameSettingsChanged() == false)
+        {
+            return;
+        }
+
+        UpdateGraphicSettings();
+        if(!CheckGameSettingsChanged())
+        {
+            PopupManager.Instance.CreatePopupOK("알림", SettingsAppliedSuccessfully);
+        }
+    }
     public void Exit()
     {
         if(CheckGameSettingsChanged() == true)
@@ -50,7 +58,7 @@ public class GraphicSetting : MonoBehaviour, ISetting
             if(!CheckGameSettingsChanged())
             {
                 PopupManager.Instance.ClosePopup();
-                PopupManager.Instance.CreatePopupOK("알림", "그래픽 설정이 적용되었습니다.", () => 
+                PopupManager.Instance.CreatePopupOK("알림", SettingsAppliedSuccessfully, () => 
                 {
                     PopupManager.Instance.ClosePopup();
                     GameSettingManager.Instance.CloseSettingPanel(gameObject);
@@ -79,6 +87,12 @@ public class GraphicSetting : MonoBehaviour, ISetting
         {
             m_graphicSettings[i].Init();
         }
+
+        int width = DataManager.Instance.SettingData.graphicSettings.screenResolutionWidth;
+        int height = DataManager.Instance.SettingData.graphicSettings.screenResolutionHeight;
+        int screenMode = DataManager.Instance.SettingData.graphicSettings.screenMode;
+
+        Screen.SetResolution(width, height, (FullScreenMode)screenMode);
     }
     void SetGraphicSettings()
     {
@@ -88,14 +102,6 @@ public class GraphicSetting : MonoBehaviour, ISetting
         {
             m_graphicSettings[i].SetGraphicSettingToCurrSettingData();
         }
-    }
-    void InitScreenModesList()
-    {
-        m_screenModes.Add("전체화면");
-        m_screenModes.Add("테두리 없는 창모드");
-        m_screenModes.Add("창모드");
-
-        m_maxScreenModeIndex = m_screenModes.Count;
     }
     void UpdateGraphicSettings()
     {

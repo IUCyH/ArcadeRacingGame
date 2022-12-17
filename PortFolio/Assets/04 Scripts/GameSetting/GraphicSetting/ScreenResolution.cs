@@ -30,6 +30,7 @@ public class ScreenResolution : MonoBehaviour, IGraphicSetting
         var heightData = DataManager.Instance.SettingData.graphicSettings.screenResolutionHeight;
         Debug.Log("Width : " + widthData + "Height : " + heightData);
         int index = m_resolutions.IndexOf((widthData, heightData));
+
         m_resolutionDropdown.value = index - m_maxResolutionIndex;
     }
 
@@ -57,8 +58,11 @@ public class ScreenResolution : MonoBehaviour, IGraphicSetting
     public void Init()
     {
         InitResolutionsList();
+        InitDropdown();
         SettingChanged = false;
-
+    }
+    void InitDropdown()
+    {
         var length = m_resolutions.Count;
         m_resolutionDropdown.options.Clear();
 

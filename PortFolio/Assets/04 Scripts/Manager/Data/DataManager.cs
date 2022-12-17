@@ -21,9 +21,14 @@ public class DataManager : Singleton_DontDestroy<DataManager>
 
     public void UpdateScreenResolution(int width, int height)
     {
-        Screen.SetResolution(width, height, (FullScreenMode)m_settingData.graphicSettings.screenMode);
+        Screen.SetResolution(width, height, true);
         m_settingData.graphicSettings.screenResolutionWidth = width;
         m_settingData.graphicSettings.screenResolutionHeight = height;
+    }
+    public void UpdateScreenMode(FullScreenMode screenMode)
+    {
+        Screen.fullScreenMode = screenMode;
+        m_settingData.graphicSettings.screenMode = (int)screenMode;
     }
     public void UpdateKey(Key key, KeyCode keyCode)
     {
