@@ -14,7 +14,6 @@ public class ScreenResolution : MonoBehaviour, IGraphicSetting
     [SerializeField]
     List<(int width, int height)> m_resolutions = new List<(int height, int width)>();
 
-    int m_maxResolutionIndex;
     (int width, int height) m_screenResolution;
 
     public bool SettingChanged { get; set; }
@@ -31,7 +30,7 @@ public class ScreenResolution : MonoBehaviour, IGraphicSetting
         Debug.Log("Width : " + widthData + "Height : " + heightData);
         int index = m_resolutions.IndexOf((widthData, heightData));
 
-        m_resolutionDropdown.value = index - m_maxResolutionIndex;
+        m_resolutionDropdown.value = index;
     }
 
     public void OnPressScreenResolutionDropDown()
@@ -40,10 +39,9 @@ public class ScreenResolution : MonoBehaviour, IGraphicSetting
 
         int widthData = DataManager.Instance.SettingData.graphicSettings.screenResolutionWidth;
         int heightData = DataManager.Instance.SettingData.graphicSettings.screenResolutionHeight;
-        int resolutionIndex = m_maxResolutionIndex + index;
 
-        m_screenResolution.width = m_resolutions[resolutionIndex].width;
-        m_screenResolution.height = m_resolutions[resolutionIndex].height;
+        m_screenResolution.width = m_resolutions[index].width;
+        m_screenResolution.height = m_resolutions[index].height;
 
         if (widthData != m_screenResolution.width && heightData != m_screenResolution.height)
         {
@@ -63,29 +61,28 @@ public class ScreenResolution : MonoBehaviour, IGraphicSetting
     }
     void InitDropdown()
     {
-        var length = m_resolutions.Count;
         m_resolutionDropdown.options.Clear();
 
-        for (int i = m_maxResolutionIndex; i < length; i++)
+        foreach((int width, int height) resolution in m_resolutions)
         {
             Dropdown.OptionData optionData = new Dropdown.OptionData();
             m_sb.Clear();
-            m_sb.AppendFormat("{0} x {1}", m_resolutions[i].width, m_resolutions[i].height);
+            m_sb.AppendFormat("{0} x {1}", resolution.width, resolution.height);
             optionData.text = m_sb.ToString();
             m_resolutionDropdown.options.Add(optionData);
         }
+        m_resolutionDropdown.RefreshShownValue();
     }
     void InitResolutionsList()
     {
-        m_resolutions.Add((7680, 4320));
-        m_resolutions.Add((3840, 2160));
-        m_resolutions.Add((2560, 1440));
-        m_resolutions.Add((1920, 1080));
-        m_resolutions.Add((1600, 900));
-        m_resolutions.Add((1366, 768));
-        m_resolutions.Add((1280, 720));
-        m_resolutions.Add((960, 540));
-
-        m_maxResolutionIndex = m_resolutions.IndexOf((m_graphicSetting.DeviceResolution.width, m_graphicSetting.DeviceResolution.height));
+        int length = Screen.resolutions.Length - 1;
+        for (int i = length; i >= 0; i--)
+        {
+            if(m_resolutions.Contains((Screen.resolutions[i].width, Screen.resolutions[i].height)))
+            {
+                continue;
+            }
+            m_resolutions.Add((Screen.resolutions[i].width, Screen.resolutions[i].height));
+        }
     }
 }

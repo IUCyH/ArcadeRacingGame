@@ -5,7 +5,18 @@ using UnityEngine.UI;
 
 public class GraphicSetting : MonoBehaviour, ISetting
 {
-    Resolution m_currDeviceResolution;
+    enum Settings
+    {
+        Resolution,
+        ScreenMode,
+        FrameRate,
+        Texture,
+        Shadow,
+        Antialiasing,
+        Vsync,
+        AnisotropicFiltering,
+        Max
+    }
 
     [SerializeField]
     IGraphicSetting[] m_graphicSettings;
@@ -14,8 +25,6 @@ public class GraphicSetting : MonoBehaviour, ISetting
     PopupFuncDel m_exitCancelFunc;
 
     const string SettingsAppliedSuccessfully = "그래픽 설정이 적용되었습니다.";
-
-    public Resolution DeviceResolution { get { return m_currDeviceResolution; } }
 
     public void OnPressApplyButton()
     {
@@ -80,9 +89,8 @@ public class GraphicSetting : MonoBehaviour, ISetting
         };
 
         m_graphicSettings = GetComponentsInChildren<IGraphicSetting>(true);
-        m_currDeviceResolution = Screen.currentResolution;
+        
         var length = m_graphicSettings.Length;
-
         for(int i = 0; i < length; i++)
         {
             m_graphicSettings[i].Init();
@@ -91,8 +99,9 @@ public class GraphicSetting : MonoBehaviour, ISetting
         int width = DataManager.Instance.SettingData.graphicSettings.screenResolutionWidth;
         int height = DataManager.Instance.SettingData.graphicSettings.screenResolutionHeight;
         int screenMode = DataManager.Instance.SettingData.graphicSettings.screenMode;
+        int frameRate = DataManager.Instance.SettingData.graphicSettings.frameRate;
 
-        Screen.SetResolution(width, height, (FullScreenMode)screenMode);
+        Screen.SetResolution(width, height, (FullScreenMode)screenMode, frameRate);
     }
     void SetGraphicSettings()
     {
@@ -106,13 +115,28 @@ public class GraphicSetting : MonoBehaviour, ISetting
     void UpdateGraphicSettings()
     {
         int length = m_graphicSettings.Length;
+        bool isChangedResolutionOrScreenModeOrFrameRate = false;
         for (int i = 0; i < length; i++)
         {
             if (m_graphicSettings[i].SettingChanged)
             {
+                if (i == (int)Settings.Resolution || i == (int)Settings.ScreenMode || i == (int)Settings.FrameRate)
+                {
+                    isChangedResolutionOrScreenModeOrFrameRate = true;
+                }
                 m_graphicSettings[i].ApplyChangedSetting();
                 m_graphicSettings[i].SettingChanged = false;
             }
+        }
+
+        if(isChangedResolutionOrScreenModeOrFrameRate)
+        {
+            var width = DataManager.Instance.SettingData.graphicSettings.screenResolutionWidth;
+            var height = DataManager.Instance.SettingData.graphicSettings.screenResolutionHeight;
+            var screenMode = (FullScreenMode)DataManager.Instance.SettingData.graphicSettings.screenMode;
+            var frameRate = DataManager.Instance.SettingData.graphicSettings.frameRate;
+
+            Screen.SetResolution(width, height, screenMode, frameRate);
         }
         DataManager.Instance.SaveSettingData();
     }

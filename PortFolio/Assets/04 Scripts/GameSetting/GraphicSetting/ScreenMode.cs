@@ -7,11 +7,11 @@ public class ScreenMode : MonoBehaviour, IGraphicSetting
 {
     [SerializeField]
     Text m_screenModeText;
-    List<string> m_screenModes = new List<string>(3);
+    List<string> m_screenModeNames = new List<string>(3);
     FullScreenMode m_screenMode;
 
-    int m_maxScreenModeIndex;
-    int m_screenModeIndex;    
+    int m_maxScreenModeNameIndex;
+    int m_screenModeNameIndex;    
 
     public bool SettingChanged { get; set; }
 
@@ -22,9 +22,10 @@ public class ScreenMode : MonoBehaviour, IGraphicSetting
     public void Init()
     {
         int screenMode = GetScreenModeIndexFromData();
-        InitScreenModesList();
+
+        InitScreenModeNamesList();
         SetScreenModeText(screenMode);
-        m_screenModeIndex = screenMode;
+        m_screenModeNameIndex = screenMode;
 
         SettingChanged = false;
     }
@@ -33,32 +34,33 @@ public class ScreenMode : MonoBehaviour, IGraphicSetting
         var screenMode = GetScreenModeIndexFromData();
 
         SetScreenModeText(screenMode);
+        m_screenModeNameIndex = screenMode;
     }
     public void OnPressPrevButton()
     {
-        m_screenModeIndex--;
-        m_screenModeIndex = Mathf.Clamp(m_screenModeIndex, 0, m_maxScreenModeIndex);
+        m_screenModeNameIndex--;
+        m_screenModeNameIndex = Mathf.Clamp(m_screenModeNameIndex, 0, m_maxScreenModeNameIndex);
 
         SetSettingChanged();
-        SetScreenModeText(m_screenModeIndex);
+        SetScreenModeText(m_screenModeNameIndex);
         SetScreenMode();
     }
     public void OnPressNextButton()
     {
-        m_screenModeIndex++;
-        m_screenModeIndex = Mathf.Clamp(m_screenModeIndex, 0, m_maxScreenModeIndex);
+        m_screenModeNameIndex++;
+        m_screenModeNameIndex = Mathf.Clamp(m_screenModeNameIndex, 0, m_maxScreenModeNameIndex);
 
         SetSettingChanged();
-        SetScreenModeText(m_screenModeIndex);
+        SetScreenModeText(m_screenModeNameIndex);
         SetScreenMode();
     }
-    void InitScreenModesList()
+    void InitScreenModeNamesList()
     {
-        m_screenModes.Add("전체화면");
-        m_screenModes.Add("전체 창모드");
-        m_screenModes.Add("창모드");
+        m_screenModeNames.Add("전체화면");
+        m_screenModeNames.Add("전체 창모드");
+        m_screenModeNames.Add("창모드");
 
-        m_maxScreenModeIndex = m_screenModes.Count - 1;
+        m_maxScreenModeNameIndex = m_screenModeNames.Count - 1;
     }
     void SetSettingChanged()
     {
@@ -74,8 +76,8 @@ public class ScreenMode : MonoBehaviour, IGraphicSetting
     bool CheckSettingChanged()
     {
         var screenModeData = DataManager.Instance.SettingData.graphicSettings.screenMode;
-        int index = m_screenModeIndex;
-        CalibrateScreenModeIndex(index);
+        int index = m_screenModeNameIndex;
+        index = CalibrateScreenModeIndex(index);
 
         if (index == screenModeData)
         {
@@ -85,25 +87,26 @@ public class ScreenMode : MonoBehaviour, IGraphicSetting
     }
     void SetScreenMode()
     {
-        int index = m_screenModeIndex;
-        CalibrateScreenModeIndex(index);
+        int index = m_screenModeNameIndex;
+        index = CalibrateScreenModeIndex(index);
 
         m_screenMode = (FullScreenMode)index;
     }
-    void CalibrateScreenModeIndex(int index)
+    int CalibrateScreenModeIndex(int index)
     {
         if (index == 2)
         {
             index = 3;
         }
+        return index;
     }
-    void SetScreenModeText(int screenMode)
+    void SetScreenModeText(int index)
     {
-        if(screenMode > m_maxScreenModeIndex)
+        if(index > m_maxScreenModeNameIndex)
         {
             throw new System.Exception("The screen mode index is larger than the maximum index in the screen mode text list.");
         }
-        m_screenModeText.text = m_screenModes[screenMode];
+        m_screenModeText.text = m_screenModeNames[index];
     }
     int GetScreenModeIndexFromData()
     {
