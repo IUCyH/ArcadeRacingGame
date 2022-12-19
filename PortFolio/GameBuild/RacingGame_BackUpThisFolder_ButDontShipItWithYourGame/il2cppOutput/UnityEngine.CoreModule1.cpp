@@ -9729,6 +9729,42 @@ public:
 };
 
 
+// UnityEngine.ShadowQuality
+struct ShadowQuality_t59363B62C64B0A35627A91CDED8483E65B172347 
+{
+public:
+	// System.Int32 UnityEngine.ShadowQuality::value__
+	int32_t ___value___2;
+
+public:
+	inline static int32_t get_offset_of_value___2() { return static_cast<int32_t>(offsetof(ShadowQuality_t59363B62C64B0A35627A91CDED8483E65B172347, ___value___2)); }
+	inline int32_t get_value___2() const { return ___value___2; }
+	inline int32_t* get_address_of_value___2() { return &___value___2; }
+	inline void set_value___2(int32_t value)
+	{
+		___value___2 = value;
+	}
+};
+
+
+// UnityEngine.ShadowResolution
+struct ShadowResolution_t22E7EC3C2CCCE4622C63A6C6073014BF2B06E3F1 
+{
+public:
+	// System.Int32 UnityEngine.ShadowResolution::value__
+	int32_t ___value___2;
+
+public:
+	inline static int32_t get_offset_of_value___2() { return static_cast<int32_t>(offsetof(ShadowResolution_t22E7EC3C2CCCE4622C63A6C6073014BF2B06E3F1, ___value___2)); }
+	inline int32_t get_value___2() const { return ___value___2; }
+	inline int32_t* get_address_of_value___2() { return &___value___2; }
+	inline void set_value___2(int32_t value)
+	{
+		___value___2 = value;
+	}
+};
+
+
 // UnityEngine.Rendering.ShadowSamplingMode
 struct ShadowSamplingMode_t864AB52A05C1F54A738E06F76F47CDF4C26CF7F9 
 {
@@ -18505,15 +18541,6 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* PlayerPrefs_GetString_m5709C9DC233D
 	String_t* icallRetVal = _il2cpp_icall_func(___key0, ___defaultValue1);
 	return icallRetVal;
 }
-// System.Void UnityEngine.PlayerPrefs::DeleteAll()
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void PlayerPrefs_DeleteAll_mAE4594C2D974BE67EC390E0FDECEDC59F17A12E0 (const RuntimeMethod* method)
-{
-	typedef void (*PlayerPrefs_DeleteAll_mAE4594C2D974BE67EC390E0FDECEDC59F17A12E0_ftn) ();
-	static PlayerPrefs_DeleteAll_mAE4594C2D974BE67EC390E0FDECEDC59F17A12E0_ftn _il2cpp_icall_func;
-	if (!_il2cpp_icall_func)
-	_il2cpp_icall_func = (PlayerPrefs_DeleteAll_mAE4594C2D974BE67EC390E0FDECEDC59F17A12E0_ftn)il2cpp_codegen_resolve_icall ("UnityEngine.PlayerPrefs::DeleteAll()");
-	_il2cpp_icall_func();
-}
 // System.Void UnityEngine.PlayerPrefs::Save()
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void PlayerPrefs_Save_m2C1E628FA335095CD88D0DA1CB50ACC924667EEC (const RuntimeMethod* method)
 {
@@ -18975,6 +19002,42 @@ IL2CPP_EXTERN_C  String_t* PropertyName_ToString_m8DA8C292200497F4EFEB024B7A4468
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
+// System.Void UnityEngine.QualitySettings::set_shadows(UnityEngine.ShadowQuality)
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void QualitySettings_set_shadows_m72DC6B8561D582B999148A548EA4ECFC7F97AD78 (int32_t ___value0, const RuntimeMethod* method)
+{
+	typedef void (*QualitySettings_set_shadows_m72DC6B8561D582B999148A548EA4ECFC7F97AD78_ftn) (int32_t);
+	static QualitySettings_set_shadows_m72DC6B8561D582B999148A548EA4ECFC7F97AD78_ftn _il2cpp_icall_func;
+	if (!_il2cpp_icall_func)
+	_il2cpp_icall_func = (QualitySettings_set_shadows_m72DC6B8561D582B999148A548EA4ECFC7F97AD78_ftn)il2cpp_codegen_resolve_icall ("UnityEngine.QualitySettings::set_shadows(UnityEngine.ShadowQuality)");
+	_il2cpp_icall_func(___value0);
+}
+// System.Void UnityEngine.QualitySettings::set_shadowCascades(System.Int32)
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void QualitySettings_set_shadowCascades_mD2D5F781F750F33F011C921FC90792EF53D29782 (int32_t ___value0, const RuntimeMethod* method)
+{
+	typedef void (*QualitySettings_set_shadowCascades_mD2D5F781F750F33F011C921FC90792EF53D29782_ftn) (int32_t);
+	static QualitySettings_set_shadowCascades_mD2D5F781F750F33F011C921FC90792EF53D29782_ftn _il2cpp_icall_func;
+	if (!_il2cpp_icall_func)
+	_il2cpp_icall_func = (QualitySettings_set_shadowCascades_mD2D5F781F750F33F011C921FC90792EF53D29782_ftn)il2cpp_codegen_resolve_icall ("UnityEngine.QualitySettings::set_shadowCascades(System.Int32)");
+	_il2cpp_icall_func(___value0);
+}
+// System.Void UnityEngine.QualitySettings::set_shadowResolution(UnityEngine.ShadowResolution)
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void QualitySettings_set_shadowResolution_m466012C1FE6B3813D8E65790FB491DD26BBF4B29 (int32_t ___value0, const RuntimeMethod* method)
+{
+	typedef void (*QualitySettings_set_shadowResolution_m466012C1FE6B3813D8E65790FB491DD26BBF4B29_ftn) (int32_t);
+	static QualitySettings_set_shadowResolution_m466012C1FE6B3813D8E65790FB491DD26BBF4B29_ftn _il2cpp_icall_func;
+	if (!_il2cpp_icall_func)
+	_il2cpp_icall_func = (QualitySettings_set_shadowResolution_m466012C1FE6B3813D8E65790FB491DD26BBF4B29_ftn)il2cpp_codegen_resolve_icall ("UnityEngine.QualitySettings::set_shadowResolution(UnityEngine.ShadowResolution)");
+	_il2cpp_icall_func(___value0);
+}
+// System.Void UnityEngine.QualitySettings::set_masterTextureLimit(System.Int32)
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void QualitySettings_set_masterTextureLimit_m7F6ABE5ACE8B0BC028F755B997387EA6FE0DE218 (int32_t ___value0, const RuntimeMethod* method)
+{
+	typedef void (*QualitySettings_set_masterTextureLimit_m7F6ABE5ACE8B0BC028F755B997387EA6FE0DE218_ftn) (int32_t);
+	static QualitySettings_set_masterTextureLimit_m7F6ABE5ACE8B0BC028F755B997387EA6FE0DE218_ftn _il2cpp_icall_func;
+	if (!_il2cpp_icall_func)
+	_il2cpp_icall_func = (QualitySettings_set_masterTextureLimit_m7F6ABE5ACE8B0BC028F755B997387EA6FE0DE218_ftn)il2cpp_codegen_resolve_icall ("UnityEngine.QualitySettings::set_masterTextureLimit(System.Int32)");
+	_il2cpp_icall_func(___value0);
+}
 // UnityEngine.ColorSpace UnityEngine.QualitySettings::get_activeColorSpace()
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t QualitySettings_get_activeColorSpace_m65BE7300D1A12D2981B492329B32673199CCE7F4 (const RuntimeMethod* method)
 {
@@ -28132,6 +28195,22 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void ShaderTagId__cctor_mDC50E07281EFBA6C8517
 		return;
 	}
 }
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Winvalid-offsetof"
+#pragma clang diagnostic ignored "-Wunused-variable"
+#endif
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Winvalid-offsetof"
+#pragma clang diagnostic ignored "-Wunused-variable"
+#endif
 #ifdef __clang__
 #pragma clang diagnostic pop
 #endif

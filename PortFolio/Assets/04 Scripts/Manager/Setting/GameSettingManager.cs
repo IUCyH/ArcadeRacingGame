@@ -42,8 +42,12 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
     bool m_playSettingPanelReverseAnim;
     bool m_isPlayingAnim;
 
-    public bool IsGameSettingsPanelOpen { get { return m_optionsPanel.activeSelf; } }
+    public bool IsGameOptionsPanelOpen { get { return m_optionsPanel.activeSelf; } }
 
+    public void OnPressOptionsPanelOpenBtn()
+    {
+        OpenSettingPanel(m_optionsPanel);
+    }
     void OnPressSettingButton(Setting settingPanel)
     {
         m_currOpenSettingPanel = settingPanel;
@@ -94,7 +98,7 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
         {
             ExitSettingPanel();
         }
-        else if(IsGameSettingsPanelOpen)
+        else if(IsGameOptionsPanelOpen)
         {
             CloseSettingPanel(m_optionsPanel);
         }
@@ -174,7 +178,7 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
             m_playSettingPanelReverseAnim = false;
             m_isPlayingAnim = false;
 
-            if(!IsGameSettingsPanelOpen)
+            if(!IsGameOptionsPanelOpen)
                 SetCanvasEnabled(false);
         }
     }

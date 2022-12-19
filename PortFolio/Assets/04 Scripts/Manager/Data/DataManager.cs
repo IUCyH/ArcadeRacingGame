@@ -32,6 +32,14 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     {
         m_settingData.graphicSettings.frameRate = frameRate;
     }
+    public void UpdateTextureQuality(int textureQuality)
+    {
+        m_settingData.graphicSettings.textureQuality = textureQuality;
+    }
+    public void UpdateShadowQuality(int shadowQuality)
+    {
+        m_settingData.graphicSettings.shadowQuality = shadowQuality;
+    }
     public void UpdateKey(Key key, KeyCode keyCode)
     {
         KeyDictionary[key] = keyCode;
@@ -202,7 +210,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     }
     protected override void OnAwake()
     {
-        PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
         LoadSettingData();
     }
 }

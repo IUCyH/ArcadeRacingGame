@@ -84,6 +84,8 @@
 		<type fullname="ResetPointManager" preserve="nothing"/>
 		<type fullname="ScreenMode" preserve="nothing"/>
 		<type fullname="ScreenResolution" preserve="nothing"/>
+		<type fullname="ShadowQuality" preserve="nothing"/>
+		<type fullname="TextureQuality" preserve="nothing"/>
 		<type fullname="TitleManager" preserve="nothing"/>
 		<type fullname="WheelController" preserve="nothing"/>
 	</assembly>

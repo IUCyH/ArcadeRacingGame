@@ -14,8 +14,8 @@ public class FrameRate : MonoBehaviour, IGraphicSetting
 
     int m_frameRate;
 
-    int m_maxFrameRateNameIndex;
-    int m_frameRateNameIndex;
+    int m_maxFrameRateNamesIndex;
+    int m_frameRateNamesIndex;
 
     public bool SettingChanged { get; set; }
 
@@ -35,14 +35,14 @@ public class FrameRate : MonoBehaviour, IGraphicSetting
             m_frameRates.Add(frameRate);
             m_frameRateNames.Add(m_sb.ToString());
 
-            m_maxFrameRateNameIndex = m_frameRateNames.Count - 1;
+            m_maxFrameRateNamesIndex = m_frameRateNames.Count - 1;
         }
         int index = m_frameRates.IndexOf(frameRate);
 
         SetFrameRateText(index);
 
         m_frameRate = frameRate;
-        m_frameRateNameIndex = index;
+        m_frameRateNamesIndex = index;
 
         SettingChanged = false;
     }
@@ -54,25 +54,25 @@ public class FrameRate : MonoBehaviour, IGraphicSetting
         SetFrameRateText(index);
 
         m_frameRate = frameRate;
-        m_frameRateNameIndex = index;
+        m_frameRateNamesIndex = index;
     }
     public void OnPressPrevButton()
     {
-        m_frameRateNameIndex--;
-        m_frameRateNameIndex = Mathf.Clamp(m_frameRateNameIndex, 0, m_maxFrameRateNameIndex);
+        m_frameRateNamesIndex--;
+        m_frameRateNamesIndex = Mathf.Clamp(m_frameRateNamesIndex, 0, m_maxFrameRateNamesIndex);
 
         SetFrameRate();
         SetSettingChanged();
-        SetFrameRateText(m_frameRateNameIndex);
+        SetFrameRateText(m_frameRateNamesIndex);
     }
     public void OnPressNextButton()
     {
-        m_frameRateNameIndex++;
-        m_frameRateNameIndex = Mathf.Clamp(m_frameRateNameIndex, 0, m_maxFrameRateNameIndex);
+        m_frameRateNamesIndex++;
+        m_frameRateNamesIndex = Mathf.Clamp(m_frameRateNamesIndex, 0, m_maxFrameRateNamesIndex);
 
         SetFrameRate();
         SetSettingChanged();
-        SetFrameRateText(m_frameRateNameIndex);
+        SetFrameRateText(m_frameRateNamesIndex);
     }
     int GetFrameRateFromData()
     {
@@ -101,7 +101,7 @@ public class FrameRate : MonoBehaviour, IGraphicSetting
     }
     void SetFrameRate()
     {
-        m_frameRate = m_frameRates[m_frameRateNameIndex];
+        m_frameRate = m_frameRates[m_frameRateNamesIndex];
     }
     void InitFrameRateNamesAndFrameRates()
     {
@@ -120,13 +120,13 @@ public class FrameRate : MonoBehaviour, IGraphicSetting
             m_frameRateNames.Add(m_sb.ToString());
             m_frameRates.Add(refreshRate);
         }
-        m_maxFrameRateNameIndex = m_frameRateNames.Count - 1;
+        m_maxFrameRateNamesIndex = m_frameRateNames.Count - 1;
     }
     void SetFrameRateText(int index)
     {
-        if (index > m_maxFrameRateNameIndex)
+        if (index > m_maxFrameRateNamesIndex)
         {
-            throw new System.Exception("The frame rate mode index is larger than the maximum index in the frame rate text list.");
+            throw new System.Exception("The frame rate index is larger than the maximum index in the frame rate names list.");
         }
         m_frameRateText.text = m_frameRateNames[index];
     }
