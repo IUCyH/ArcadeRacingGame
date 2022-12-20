@@ -334,6 +334,7 @@ GameObject:
   - component: {fileID: 45973590}
   - component: {fileID: 45973592}
   - component: {fileID: 45973591}
+  - component: {fileID: 45973593}
   m_Layer: 0
   m_Name: Antialiasing
   m_TagString: Untagged
@@ -403,6 +404,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 45973589}
   m_CullTransparentMesh: 1
+--- !u!114 &45973593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 45973589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64bb2dd32795de3418957ea4175cada7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_antialiasingText: {fileID: 389520704}
 --- !u!1 &54211477
 GameObject:
   m_ObjectHideFlags: 0
@@ -2576,7 +2590,7 @@ GameObject:
   - component: {fileID: 641423282}
   - component: {fileID: 641423281}
   m_Layer: 0
-  m_Name: Button_RightArrow
+  m_Name: Button_PrevArrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2644,7 +2658,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 641423282}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 45973593}
+        m_TargetAssemblyTypeName: Antialiasing, Assembly-CSharp
+        m_MethodName: OnPressPrevButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &641423282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6038,7 +6064,7 @@ GameObject:
   - component: {fileID: 1117020117}
   - component: {fileID: 1117020116}
   m_Layer: 0
-  m_Name: Button_LeftArrow
+  m_Name: Button_NextArrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6106,7 +6132,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1117020117}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 45973593}
+        m_TargetAssemblyTypeName: Antialiasing, Assembly-CSharp
+        m_MethodName: OnPressNextButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1117020117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9231,9 +9269,9 @@ MonoBehaviour:
   m_Vertical: 1
   m_MovementType: 1
   m_Elasticity: 0.1
-  m_Inertia: 1
+  m_Inertia: 0
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 30
   m_Viewport: {fileID: 1281552279}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 494117000}

@@ -61,14 +61,14 @@ public class TextureQuality : MonoBehaviour, IGraphicSetting
     }
     void SetTextureQuality()
     {
-        QualitySettings.masterTextureLimit = m_textureQuality;
+        QualitySettings.masterTextureLimit = m_maxTextureQualityNamesIndex - m_textureQuality;
     }
     void InitTextureQualityNamesList()
     {
-        m_textureQualityNames.Add("매우 높음");
-        m_textureQualityNames.Add("높음");
-        m_textureQualityNames.Add("낮음");
         m_textureQualityNames.Add("매우 낮음");
+        m_textureQualityNames.Add("낮음");
+        m_textureQualityNames.Add("높음");
+        m_textureQualityNames.Add("매우 높음");
 
         m_maxTextureQualityNamesIndex = m_textureQualityNames.Count - 1;
     }

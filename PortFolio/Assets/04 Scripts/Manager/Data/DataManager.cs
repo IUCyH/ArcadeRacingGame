@@ -40,6 +40,10 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     {
         m_settingData.graphicSettings.shadowQuality = shadowQuality;
     }
+    public void UpdateAntialiasing(int antialiasing)
+    {
+        m_settingData.graphicSettings.antiAliasing = antialiasing;
+    }
     public void UpdateKey(Key key, KeyCode keyCode)
     {
         KeyDictionary[key] = keyCode;
@@ -144,7 +148,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
             {
                 PopupFuncDel okFuncDel = () =>
                 {
-                    CreateNewData(m_inputFieldName);
+                    CreateNewPlayerData(m_inputFieldName);
                     PopupManager.Instance.ClosePopup();
                     PopupManager.Instance.ClosePopup();
                     TitleManager.Instance.GoNextScene();
@@ -164,7 +168,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
         InputManager.InitToDefaultKey();
         SaveSettingData();
     }
-    void CreateNewData(string name)
+    void CreateNewPlayerData(string name)
     {
         m_playerData = new PlayerData()
         {

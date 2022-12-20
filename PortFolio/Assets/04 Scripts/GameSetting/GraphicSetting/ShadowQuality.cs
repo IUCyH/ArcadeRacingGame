@@ -7,11 +7,11 @@ public class ShadowQuality : MonoBehaviour, IGraphicSetting
 {
     enum Shadow
     {
-        VeryHigh,
-        High,
-        low,
-        VeryLow,
         Disable,
+        VeryLow,
+        low,
+        High,
+        VeryHigh,
         Max
     }
 
@@ -71,44 +71,39 @@ public class ShadowQuality : MonoBehaviour, IGraphicSetting
     }
     void SetShadowQuality()
     {
+        if(m_shadowQuality == (int)Shadow.Disable)
+        {
+            QualitySettings.shadows = UnityEngine.ShadowQuality.Disable;
+            return;
+        }
+
         switch (m_shadowQuality)
         {
             case (int)Shadow.VeryHigh:
-                QualitySettings.shadows = UnityEngine.ShadowQuality.All;
-                QualitySettings.shadowResolution = ShadowResolution.VeryHigh;
-                QualitySettings.shadowCascades = 4;
-                break;
-
             case (int)Shadow.High:
                 QualitySettings.shadows = UnityEngine.ShadowQuality.All;
-                QualitySettings.shadowResolution = ShadowResolution.High;
                 QualitySettings.shadowCascades = 4;
                 break;
 
             case (int)Shadow.low:
-                QualitySettings.shadows = UnityEngine.ShadowQuality.HardOnly;
-                QualitySettings.shadowResolution = ShadowResolution.Medium;
+                QualitySettings.shadows = UnityEngine.ShadowQuality.All;
                 QualitySettings.shadowCascades = 2;
                 break;
 
             case (int)Shadow.VeryLow:
                 QualitySettings.shadows = UnityEngine.ShadowQuality.HardOnly;
-                QualitySettings.shadowResolution = ShadowResolution.Low;
-                QualitySettings.shadowCascades = 0;
-                break;
-
-            case (int)Shadow.Disable:
-                QualitySettings.shadows = UnityEngine.ShadowQuality.Disable;
+                QualitySettings.shadowCascades = 2;
                 break;
         }
+        QualitySettings.shadowResolution = (ShadowResolution)m_shadowQuality - 1;
     }
     void InitShadowQualityNamesList()
     {
-        m_shadowQualityNames.Add("¸Å¿ì ³ôÀ½");
-        m_shadowQualityNames.Add("³ôÀ½");
-        m_shadowQualityNames.Add("³·À½");
-        m_shadowQualityNames.Add("¸Å¿ì ³·À½");
         m_shadowQualityNames.Add("²ô±â");
+        m_shadowQualityNames.Add("¸Å¿ì ³·À½");
+        m_shadowQualityNames.Add("³·À½");
+        m_shadowQualityNames.Add("³ôÀ½");
+        m_shadowQualityNames.Add("¸Å¿ì ³ôÀ½");
 
         m_maxShadowQualityNamesIndex = m_shadowQualityNames.Count - 1;
     }
