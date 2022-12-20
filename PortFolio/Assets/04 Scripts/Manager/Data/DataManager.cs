@@ -44,6 +44,14 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     {
         m_settingData.graphicSettings.antiAliasing = antialiasing;
     }
+    public void UpdateVSync(int value)
+    {
+        m_settingData.graphicSettings.vSync = value;
+    }
+    public void UpdateAnisotropicFiltering(int value)
+    {
+        m_settingData.graphicSettings.anisotropicFiltering = value;
+    }
     public void UpdateKey(Key key, KeyCode keyCode)
     {
         KeyDictionary[key] = keyCode;

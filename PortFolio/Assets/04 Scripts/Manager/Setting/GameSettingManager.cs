@@ -44,7 +44,7 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
 
     public bool IsGameOptionsPanelOpen { get { return m_optionsPanel.activeSelf; } }
 
-    public void OnPressOptionsPanelOpenBtn()
+    public void OpenOptionsPanel()
     {
         OpenSettingPanel(m_optionsPanel);
     }
@@ -72,6 +72,7 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
                 LoadSceneManager.Instance.LoadSceneAsync(SceneState.Lobby);
                 break;
         }
+        SetCanvasEnabled(false);
         m_optionsPanel.SetActive(false);
     }
     public void SetBackBtnText(SceneState sceneState)

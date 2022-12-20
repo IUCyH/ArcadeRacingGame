@@ -8,6 +8,10 @@ public class TitleManager : Singleton<TitleManager>
     {
         DataManager.Instance.LoadPlayerData();
     }
+    public void OnPressOptionsPanelOpenBtn()
+    {
+        GameSettingManager.Instance.OpenOptionsPanel();
+    }
     public void GoNextScene()
     {
         LoadSceneManager.Instance.LoadSceneAsync(SceneState.Lobby);

@@ -55,6 +55,8 @@
 		<type fullname="UnityEngine.LightProbes" preserve="nothing"/>
 	</assembly>
 	<assembly fullname="Assembly-CSharp">
+		<type fullname="AnisotropicFiltering" preserve="nothing"/>
+		<type fullname="Antialiasing" preserve="nothing"/>
 		<type fullname="CarDataTable" preserve="nothing"/>
 		<type fullname="CheckPointManager" preserve="nothing"/>
 		<type fullname="CheckpointController" preserve="nothing"/>
@@ -87,6 +89,7 @@
 		<type fullname="ShadowQuality" preserve="nothing"/>
 		<type fullname="TextureQuality" preserve="nothing"/>
 		<type fullname="TitleManager" preserve="nothing"/>
+		<type fullname="VSync" preserve="nothing"/>
 		<type fullname="WheelController" preserve="nothing"/>
 	</assembly>
 	<assembly fullname="Cinemachine">
