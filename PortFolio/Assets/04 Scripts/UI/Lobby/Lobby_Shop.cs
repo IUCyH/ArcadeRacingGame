@@ -66,6 +66,7 @@ public class Lobby_Shop : MonoBehaviour, ILobbyMenu
 
         LobbyUIManager.Instance.SetExitButtonActive(false);
         LobbyUIManager.Instance.PushSubMenuStack(m_kartViewStage);
+        SoundManager.Instance.PlaySFX(SFXClip.Open);
         m_kartViewStage.SetExitButtonActive(true);
         m_kartViewStage.Show();
 
@@ -79,7 +80,7 @@ public class Lobby_Shop : MonoBehaviour, ILobbyMenu
     }
     public void OnPressBuyButton()
     {
-        if (PopupManager.Instance.IsPopupOpen) return;
+        SoundManager.Instance.PlaySFX(SFXClip.ButtonClick);
 
         var kartPrice = DataManager.Instance.PlayerData.carsList[m_currSelectedKart].data.price;
 
@@ -101,6 +102,7 @@ public class Lobby_Shop : MonoBehaviour, ILobbyMenu
     }    
     public void OnSelectKart()
     {
+        SoundManager.Instance.PlaySFX(SFXClip.ButtonClick);
         DataManager.Instance.UpdatePlayerCurrentKart(m_currSelectedKart);
         DataManager.Instance.ChangeUsingKart(m_currSelectedKart);
     }

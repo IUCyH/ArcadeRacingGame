@@ -6,6 +6,7 @@ public class TitleManager : Singleton<TitleManager>
 {
     public void OnStartButtonPress()
     {
+        SoundManager.Instance.PlaySFX(SFXClip.ButtonClick);
         DataManager.Instance.LoadPlayerData();
     }
     public void OnPressOptionsPanelOpenBtn()
@@ -27,6 +28,10 @@ public class TitleManager : Singleton<TitleManager>
         {
             GameSettingManager.Instance.SetSettingPanelsActive();
         }
+    }
+    void Start()
+    {
+        SoundManager.Instance.PlayBGM(BGMClip.TitleBGM);
     }
     void Update()
     {

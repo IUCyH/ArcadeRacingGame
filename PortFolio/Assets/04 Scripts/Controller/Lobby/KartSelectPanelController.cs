@@ -16,6 +16,7 @@ public class KartSelectPanelController : MonoBehaviour, ILobbySubMenu
 
     public void Show()
     {
+        SoundManager.Instance.PlaySFX(SFXClip.Open);
         gameObject.SetActive(true);
     }
     public void Hide()
@@ -24,13 +25,16 @@ public class KartSelectPanelController : MonoBehaviour, ILobbySubMenu
     }
     public void OnPressKartButton(int index)
     {
-        if(CurrKartIndex == index)
+        SoundManager.Instance.PlaySFX(SFXClip.ButtonClick);
+        if (CurrKartIndex == index)
         {
             return;
         }
+
         CurrKartIndex = index;
         LobbyManager.Instance.SetMainLobbyKart(CurrKartIndex);
         LobbyUIManager.Instance.SetStatBarsFillAmount(index);
+
         m_garageMenu.ResetKartRotation();
         m_garageMenu.SetDriveBtnText(index);
     }

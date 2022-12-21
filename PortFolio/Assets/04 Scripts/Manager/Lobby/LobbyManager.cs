@@ -159,6 +159,7 @@ public class LobbyManager : Singleton<LobbyManager>
     
     protected override void OnStart()
     {
+        SoundManager.Instance.PlayBGM(BGMClip.LobbyBGM);
         m_originCamPos = m_cameraArm.transform.position;
         m_originCamRot = m_cameraArm.transform.rotation;
         m_eventSys = EventSystem.current;

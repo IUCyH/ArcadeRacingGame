@@ -58,6 +58,7 @@ public class FrameRate : MonoBehaviour, IGraphicSetting
     }
     public void OnPressPrevButton()
     {
+        SoundManager.Instance.PlaySFX(SFXClip.MouseClick);
         m_frameRateNamesIndex--;
         m_frameRateNamesIndex = Mathf.Clamp(m_frameRateNamesIndex, 0, m_maxFrameRateNamesIndex);
 
@@ -67,6 +68,7 @@ public class FrameRate : MonoBehaviour, IGraphicSetting
     }
     public void OnPressNextButton()
     {
+        SoundManager.Instance.PlaySFX(SFXClip.MouseClick);
         m_frameRateNamesIndex++;
         m_frameRateNamesIndex = Mathf.Clamp(m_frameRateNamesIndex, 0, m_maxFrameRateNamesIndex);
 

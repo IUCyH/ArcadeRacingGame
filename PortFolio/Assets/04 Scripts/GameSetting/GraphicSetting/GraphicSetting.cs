@@ -20,6 +20,8 @@ public class GraphicSetting : MonoBehaviour, ISetting
 
     [SerializeField]
     IGraphicSetting[] m_graphicSettings;
+    [SerializeField]
+    Scrollbar m_scrollbar;
 
     PopupFuncDel m_exitOkFunc;
     PopupFuncDel m_exitCancelFunc;
@@ -28,7 +30,8 @@ public class GraphicSetting : MonoBehaviour, ISetting
 
     public void OnPressApplyButton()
     {
-        if(CheckGameSettingsChanged() == false)
+        SoundManager.Instance.PlaySFX(SFXClip.ButtonClick);
+        if (CheckGameSettingsChanged() == false)
         {
             return;
         }
@@ -41,12 +44,13 @@ public class GraphicSetting : MonoBehaviour, ISetting
     }
     public void Exit()
     {
-        if(CheckGameSettingsChanged() == true)
+        if (CheckGameSettingsChanged() == true)
         {
             PopupManager.Instance.CreatePopupOkCancel("알림", "그래픽 설정이 변경되었습니다. 적용하시겠습니까?", m_exitOkFunc, m_exitCancelFunc, "예", "아니요");
         }
         else
         {
+            InitScrollBarValue();
             GameSettingManager.Instance.CloseSettingPanel(gameObject);
         }
     }
@@ -61,6 +65,7 @@ public class GraphicSetting : MonoBehaviour, ISetting
     }
     public void Init()
     {
+        InitScrollBarValue();
         m_exitOkFunc = () => 
         {
             UpdateGraphicSettings();
@@ -69,6 +74,7 @@ public class GraphicSetting : MonoBehaviour, ISetting
                 PopupManager.Instance.ClosePopup();
                 PopupManager.Instance.CreatePopupOK("알림", SettingsAppliedSuccessfully, () => 
                 {
+                    InitScrollBarValue();
                     PopupManager.Instance.ClosePopup();
                     GameSettingManager.Instance.CloseSettingPanel(gameObject);
                 });
@@ -84,6 +90,7 @@ public class GraphicSetting : MonoBehaviour, ISetting
                     m_graphicSettings[i].SettingChanged = false;
                 }
             }
+            InitScrollBarValue();
             PopupManager.Instance.ClosePopup();
             GameSettingManager.Instance.CloseSettingPanel(gameObject);
         };
@@ -102,6 +109,10 @@ public class GraphicSetting : MonoBehaviour, ISetting
         int frameRate = DataManager.Instance.SettingData.graphicSettings.frameRate;
 
         Screen.SetResolution(width, height, (FullScreenMode)screenMode, frameRate);
+    }
+    void InitScrollBarValue()
+    {
+        m_scrollbar.value = 1f;
     }
     void SetGraphicSettings()
     {

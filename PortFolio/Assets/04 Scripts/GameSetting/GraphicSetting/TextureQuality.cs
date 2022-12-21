@@ -41,6 +41,7 @@ public class TextureQuality : MonoBehaviour, IGraphicSetting
     }
     public void OnPressPrevButton()
     {
+        SoundManager.Instance.PlaySFX(SFXClip.MouseClick);
         m_textureQuality--;
         m_textureQuality = Mathf.Clamp(m_textureQuality, 0, m_maxTextureQualityNamesIndex);
 
@@ -49,6 +50,7 @@ public class TextureQuality : MonoBehaviour, IGraphicSetting
     }
     public void OnPressNextButton()
     {
+        SoundManager.Instance.PlaySFX(SFXClip.MouseClick);
         m_textureQuality++;
         m_textureQuality = Mathf.Clamp(m_textureQuality, 0, m_maxTextureQualityNamesIndex);
 

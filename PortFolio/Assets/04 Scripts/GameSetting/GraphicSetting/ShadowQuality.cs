@@ -51,6 +51,7 @@ public class ShadowQuality : MonoBehaviour, IGraphicSetting
     }
     public void OnPressPrevButton()
     {
+        SoundManager.Instance.PlaySFX(SFXClip.MouseClick);
         m_shadowQuality--;
         m_shadowQuality = Mathf.Clamp(m_shadowQuality, 0, m_maxShadowQualityNamesIndex);
 
@@ -59,6 +60,7 @@ public class ShadowQuality : MonoBehaviour, IGraphicSetting
     }
     public void OnPressNextButton()
     {
+        SoundManager.Instance.PlaySFX(SFXClip.MouseClick);
         m_shadowQuality++;
         m_shadowQuality = Mathf.Clamp(m_shadowQuality, 0, m_maxShadowQualityNamesIndex);
 

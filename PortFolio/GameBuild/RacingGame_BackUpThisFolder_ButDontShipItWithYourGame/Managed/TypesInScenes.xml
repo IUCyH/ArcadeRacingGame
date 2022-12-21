@@ -49,6 +49,7 @@
 		<type fullname="UnityEngine.CanvasRenderer" preserve="nothing"/>
 		<type fullname="UnityEngine.Cubemap" preserve="nothing"/>
 		<type fullname="UnityEngine.RenderSettings" preserve="nothing"/>
+		<type fullname="UnityEngine.AudioClip" preserve="nothing"/>
 		<type fullname="UnityEngine.RenderTexture" preserve="nothing"/>
 		<type fullname="UnityEngine.U2D.SpriteAtlas" preserve="nothing"/>
 		<type fullname="UnityEngine.LightingSettings" preserve="nothing"/>
@@ -87,6 +88,7 @@
 		<type fullname="ScreenMode" preserve="nothing"/>
 		<type fullname="ScreenResolution" preserve="nothing"/>
 		<type fullname="ShadowQuality" preserve="nothing"/>
+		<type fullname="SoundManager" preserve="nothing"/>
 		<type fullname="TextureQuality" preserve="nothing"/>
 		<type fullname="TitleManager" preserve="nothing"/>
 		<type fullname="VSync" preserve="nothing"/>

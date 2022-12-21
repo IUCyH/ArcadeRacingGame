@@ -9,6 +9,7 @@ public class MapSelectPanelController : MonoBehaviour, ILobbySubMenu
     StringBuilder m_sb = new StringBuilder();
     [SerializeField]
     Camera m_kartModelCam;
+
     [SerializeField]
     Image m_mapImage;
     [SerializeField]
@@ -21,6 +22,7 @@ public class MapSelectPanelController : MonoBehaviour, ILobbySubMenu
     Button m_exitButton;
     [SerializeField]
     Sprite[] m_mapSprites;
+
     int m_maxKartIndex;
     int m_maxMapIndex;
     int m_currKartIndex;
@@ -28,6 +30,7 @@ public class MapSelectPanelController : MonoBehaviour, ILobbySubMenu
 
     public void Show()
     {
+        SoundManager.Instance.PlaySFX(SFXClip.Open);
         SetKartModelCamActive(true);
         UpdateKartIndex();
         UpdateMapIndex();
@@ -61,6 +64,7 @@ public class MapSelectPanelController : MonoBehaviour, ILobbySubMenu
     }
     public void OnPressMapNextButton()
     {
+        SoundManager.Instance.PlaySFX(SFXClip.ButtonClick);
         m_currMapIndex++;
         if (m_currMapIndex > m_maxMapIndex)
         {
@@ -73,6 +77,7 @@ public class MapSelectPanelController : MonoBehaviour, ILobbySubMenu
     }
     public void OnPressMapPrevButton()
     {
+        SoundManager.Instance.PlaySFX(SFXClip.ButtonClick);
         m_currMapIndex--;
         if (m_currMapIndex < 0)
         {
@@ -85,6 +90,7 @@ public class MapSelectPanelController : MonoBehaviour, ILobbySubMenu
     }
     public void OnPressKartNextButton()
     {
+        SoundManager.Instance.PlaySFX(SFXClip.ButtonClick);
         bool isPlayableKart;
         do
         {
@@ -109,6 +115,7 @@ public class MapSelectPanelController : MonoBehaviour, ILobbySubMenu
     }
     public void OnPressKartPrevButton()
     {
+        SoundManager.Instance.PlaySFX(SFXClip.ButtonClick);
         bool isPlayableKart;
         do
         {
@@ -133,6 +140,7 @@ public class MapSelectPanelController : MonoBehaviour, ILobbySubMenu
     }
     public void OnPressStart()
     {
+        SoundManager.Instance.PlaySFX(SFXClip.ButtonClick);
         DataManager.Instance.ChangeUsingKart(m_currKartIndex);
 
         DataManager.Instance.UpdatePlayerCurrentKart(m_currKartIndex);

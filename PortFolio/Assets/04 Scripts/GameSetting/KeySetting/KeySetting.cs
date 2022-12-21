@@ -58,6 +58,7 @@ public class KeySetting : MonoBehaviour, ISetting
     }
     public void OnPressKeyButton(Key key)
     {
+        SoundManager.Instance.PlaySFX(SFXClip.ButtonClick);
         m_currChangingKey = key;
         m_keyDownCheck = true;
         SetButtonSelectedColorToGray();

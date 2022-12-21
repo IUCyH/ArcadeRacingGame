@@ -24,6 +24,7 @@ public class Popup_OK : MonoBehaviour
     {
         if (m_funcDel != null)
         {
+            SoundManager.Instance.PlaySFX(SFXClip.ButtonClick);
             m_funcDel();
         }
         else

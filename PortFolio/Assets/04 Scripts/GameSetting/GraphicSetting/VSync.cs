@@ -9,11 +9,15 @@ public class VSync : MonoBehaviour, IGraphicSetting
     Toggle m_vSyncToggle;
 
     int m_vSync;
+    bool m_dontPlaySFX;
 
     public bool SettingChanged { get; set; }
 
     public void OnToggleValueChanged()
     {
+        if (m_dontPlaySFX) return;
+
+        SoundManager.Instance.PlaySFX(SFXClip.Select);
         bool value = m_vSyncToggle.isOn;
 
         if(value == true)
@@ -37,6 +41,7 @@ public class VSync : MonoBehaviour, IGraphicSetting
         SetVSyncToggle(value == 0 ? false : true);
         
         m_vSync = value;
+        m_vSyncToggle.onValueChanged.AddListener(delegate { OnToggleValueChanged(); });
 
         SettingChanged = false;
 
@@ -44,8 +49,10 @@ public class VSync : MonoBehaviour, IGraphicSetting
     }
     public void SetGraphicSettingToCurrSettingData()
     {
+        m_dontPlaySFX = true;
         int value = GetVSyncValueFromData();
         SetVSyncToggle(value == 0 ? false : true);
+        m_dontPlaySFX = false;
 
         m_vSync = value;
     }

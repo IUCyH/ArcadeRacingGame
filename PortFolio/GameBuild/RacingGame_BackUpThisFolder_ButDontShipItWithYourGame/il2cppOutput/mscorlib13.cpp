@@ -3650,24 +3650,6 @@ public:
 };
 
 
-// System.Threading.SpinWait
-struct SpinWait_tEBEEDAE5AEEBBDDEA635932A22308A8398C9AED9 
-{
-public:
-	// System.Int32 System.Threading.SpinWait::m_count
-	int32_t ___m_count_0;
-
-public:
-	inline static int32_t get_offset_of_m_count_0() { return static_cast<int32_t>(offsetof(SpinWait_tEBEEDAE5AEEBBDDEA635932A22308A8398C9AED9, ___m_count_0)); }
-	inline int32_t get_m_count_0() const { return ___m_count_0; }
-	inline int32_t* get_address_of_m_count_0() { return &___m_count_0; }
-	inline void set_m_count_0(int32_t value)
-	{
-		___m_count_0 = value;
-	}
-};
-
-
 // System.Runtime.CompilerServices.StateMachineAttribute
 struct StateMachineAttribute_tA6E77C77F821508E405473BA1C4C08A69FDA0AC3  : public Attribute_t037CA9D9F3B742C063DB364D2EEBBF9FC5772C71
 {
@@ -7689,18 +7671,6 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Action_2__ctor_mE1761BE81335B68DA4E0F742
 // System.Tuple`2<T1,T2> System.Tuple::Create<System.Object,System.Object>(T1,T2)
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR Tuple_2_t6E1BB48DA437DE519C0560A93AF96D1E1F3E3EA1 * Tuple_Create_TisRuntimeObject_TisRuntimeObject_mF386334EA2E5B5781A35A5D57F090EF2A1C6BAD0_gshared (RuntimeObject * ___item10, RuntimeObject * ___item21, const RuntimeMethod* method);
 
-// System.Boolean System.Threading.PlatformHelper::get_IsSingleProcessor()
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool PlatformHelper_get_IsSingleProcessor_m75D2E056F1C01D84884F4DD2DBE547B43AA88421 (const RuntimeMethod* method);
-// System.Boolean System.Threading.SpinWait::get_NextSpinWillYield()
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool SpinWait_get_NextSpinWillYield_m5FD0542F0BE9CBF660060F53E371A5E3A67C9152 (SpinWait_tEBEEDAE5AEEBBDDEA635932A22308A8398C9AED9 * __this, const RuntimeMethod* method);
-// System.Void System.Threading.Thread::Sleep(System.Int32)
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Thread_Sleep_m8E61FC80BD38981CB18CA549909710790283DDCC (int32_t ___millisecondsTimeout0, const RuntimeMethod* method);
-// System.Boolean System.Threading.Thread::Yield()
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool Thread_Yield_m1D2B2F49268A9A048C73EA539C1D1D59DDFA68C1 (const RuntimeMethod* method);
-// System.Void System.Threading.Thread::SpinWait(System.Int32)
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Thread_SpinWait_m6276C02E66DD83A83D5F39E2B20411B8CBA33673 (int32_t ___iterations0, const RuntimeMethod* method);
-// System.Void System.Threading.SpinWait::SpinOnce()
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void SpinWait_SpinOnce_m79A8F770ED24E400B6AEFA421A33084CA54E59DB (SpinWait_tEBEEDAE5AEEBBDDEA635932A22308A8398C9AED9 * __this, const RuntimeMethod* method);
 // System.Void System.Object::.ctor()
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Object__ctor_m88880E0413421D13FD95325EDCE231707CE1F405 (RuntimeObject * __this, const RuntimeMethod* method);
 // System.String System.Environment::GetResourceString(System.String)
@@ -8401,154 +8371,6 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void StringBuilder_ThreadSafeCopy_m07B375F2EB
 #pragma clang diagnostic ignored "-Winvalid-offsetof"
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
-// System.Boolean System.Threading.SpinWait::get_NextSpinWillYield()
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR bool SpinWait_get_NextSpinWillYield_m5FD0542F0BE9CBF660060F53E371A5E3A67C9152 (SpinWait_tEBEEDAE5AEEBBDDEA635932A22308A8398C9AED9 * __this, const RuntimeMethod* method)
-{
-	{
-		int32_t L_0 = __this->get_m_count_0();
-		if ((((int32_t)L_0) > ((int32_t)((int32_t)10))))
-		{
-			goto IL_0010;
-		}
-	}
-	{
-		bool L_1;
-		L_1 = PlatformHelper_get_IsSingleProcessor_m75D2E056F1C01D84884F4DD2DBE547B43AA88421(/*hidden argument*/NULL);
-		return L_1;
-	}
-
-IL_0010:
-	{
-		return (bool)1;
-	}
-}
-IL2CPP_EXTERN_C  bool SpinWait_get_NextSpinWillYield_m5FD0542F0BE9CBF660060F53E371A5E3A67C9152_AdjustorThunk (RuntimeObject * __this, const RuntimeMethod* method)
-{
-	int32_t _offset = 1;
-	SpinWait_tEBEEDAE5AEEBBDDEA635932A22308A8398C9AED9 * _thisAdjusted = reinterpret_cast<SpinWait_tEBEEDAE5AEEBBDDEA635932A22308A8398C9AED9 *>(__this + _offset);
-	bool _returnValue;
-	_returnValue = SpinWait_get_NextSpinWillYield_m5FD0542F0BE9CBF660060F53E371A5E3A67C9152(_thisAdjusted, method);
-	return _returnValue;
-}
-// System.Void System.Threading.SpinWait::SpinOnce()
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void SpinWait_SpinOnce_m79A8F770ED24E400B6AEFA421A33084CA54E59DB (SpinWait_tEBEEDAE5AEEBBDDEA635932A22308A8398C9AED9 * __this, const RuntimeMethod* method)
-{
-	int32_t V_0 = 0;
-	int32_t G_B4_0 = 0;
-	SpinWait_tEBEEDAE5AEEBBDDEA635932A22308A8398C9AED9 * G_B12_0 = NULL;
-	SpinWait_tEBEEDAE5AEEBBDDEA635932A22308A8398C9AED9 * G_B11_0 = NULL;
-	int32_t G_B13_0 = 0;
-	SpinWait_tEBEEDAE5AEEBBDDEA635932A22308A8398C9AED9 * G_B13_1 = NULL;
-	{
-		bool L_0;
-		L_0 = SpinWait_get_NextSpinWillYield_m5FD0542F0BE9CBF660060F53E371A5E3A67C9152((SpinWait_tEBEEDAE5AEEBBDDEA635932A22308A8398C9AED9 *)__this, /*hidden argument*/NULL);
-		if (!L_0)
-		{
-			goto IL_004a;
-		}
-	}
-	{
-		int32_t L_1 = __this->get_m_count_0();
-		if ((((int32_t)L_1) >= ((int32_t)((int32_t)10))))
-		{
-			goto IL_001a;
-		}
-	}
-	{
-		int32_t L_2 = __this->get_m_count_0();
-		G_B4_0 = L_2;
-		goto IL_0023;
-	}
-
-IL_001a:
-	{
-		int32_t L_3 = __this->get_m_count_0();
-		G_B4_0 = ((int32_t)il2cpp_codegen_subtract((int32_t)L_3, (int32_t)((int32_t)10)));
-	}
-
-IL_0023:
-	{
-		V_0 = G_B4_0;
-		int32_t L_4 = V_0;
-		if ((!(((uint32_t)((int32_t)((int32_t)L_4%(int32_t)((int32_t)20)))) == ((uint32_t)((int32_t)19)))))
-		{
-			goto IL_0034;
-		}
-	}
-	{
-		Thread_Sleep_m8E61FC80BD38981CB18CA549909710790283DDCC(1, /*hidden argument*/NULL);
-		goto IL_005a;
-	}
-
-IL_0034:
-	{
-		int32_t L_5 = V_0;
-		if ((!(((uint32_t)((int32_t)((int32_t)L_5%(int32_t)5))) == ((uint32_t)4))))
-		{
-			goto IL_0042;
-		}
-	}
-	{
-		Thread_Sleep_m8E61FC80BD38981CB18CA549909710790283DDCC(0, /*hidden argument*/NULL);
-		goto IL_005a;
-	}
-
-IL_0042:
-	{
-		bool L_6;
-		L_6 = Thread_Yield_m1D2B2F49268A9A048C73EA539C1D1D59DDFA68C1(/*hidden argument*/NULL);
-		goto IL_005a;
-	}
-
-IL_004a:
-	{
-		int32_t L_7 = __this->get_m_count_0();
-		Thread_SpinWait_m6276C02E66DD83A83D5F39E2B20411B8CBA33673(((int32_t)((int32_t)4<<(int32_t)((int32_t)((int32_t)L_7&(int32_t)((int32_t)31))))), /*hidden argument*/NULL);
-	}
-
-IL_005a:
-	{
-		int32_t L_8 = __this->get_m_count_0();
-		G_B11_0 = __this;
-		if ((((int32_t)L_8) == ((int32_t)((int32_t)2147483647LL))))
-		{
-			G_B12_0 = __this;
-			goto IL_0072;
-		}
-	}
-	{
-		int32_t L_9 = __this->get_m_count_0();
-		G_B13_0 = ((int32_t)il2cpp_codegen_add((int32_t)L_9, (int32_t)1));
-		G_B13_1 = G_B11_0;
-		goto IL_0074;
-	}
-
-IL_0072:
-	{
-		G_B13_0 = ((int32_t)10);
-		G_B13_1 = G_B12_0;
-	}
-
-IL_0074:
-	{
-		G_B13_1->set_m_count_0(G_B13_0);
-		return;
-	}
-}
-IL2CPP_EXTERN_C  void SpinWait_SpinOnce_m79A8F770ED24E400B6AEFA421A33084CA54E59DB_AdjustorThunk (RuntimeObject * __this, const RuntimeMethod* method)
-{
-	int32_t _offset = 1;
-	SpinWait_tEBEEDAE5AEEBBDDEA635932A22308A8398C9AED9 * _thisAdjusted = reinterpret_cast<SpinWait_tEBEEDAE5AEEBBDDEA635932A22308A8398C9AED9 *>(__this + _offset);
-	SpinWait_SpinOnce_m79A8F770ED24E400B6AEFA421A33084CA54E59DB(_thisAdjusted, method);
-}
-#ifdef __clang__
-#pragma clang diagnostic pop
-#endif
-#ifdef __clang__
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Winvalid-offsetof"
-#pragma clang diagnostic ignored "-Wunused-variable"
-#endif
 // System.Void System.Collections.Stack::.ctor()
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void Stack__ctor_m7B7EA279423863156F25A04362D9FE6C89FAFE70 (Stack_tF6DD42A42C129B014D4223010F1E0FFBECBDC3B8 * __this, const RuntimeMethod* method)
 {
@@ -8955,56 +8777,6 @@ IL_003b:
 		int32_t L_13 = __this->get__version_2();
 		__this->set__version_2(((int32_t)il2cpp_codegen_add((int32_t)L_13, (int32_t)1)));
 		return;
-	}
-}
-// System.Object[] System.Collections.Stack::ToArray()
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR ObjectU5BU5D_tC1F4EE0DB0B7300255F5FD4AF64FE4C585CF5ADE* Stack_ToArray_m4E64B84D02771F53DDE3E3FFF27D4B4859500ED3 (Stack_tF6DD42A42C129B014D4223010F1E0FFBECBDC3B8 * __this, const RuntimeMethod* method)
-{
-	static bool s_Il2CppMethodInitialized;
-	if (!s_Il2CppMethodInitialized)
-	{
-		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&ObjectU5BU5D_tC1F4EE0DB0B7300255F5FD4AF64FE4C585CF5ADE_il2cpp_TypeInfo_var);
-		s_Il2CppMethodInitialized = true;
-	}
-	ObjectU5BU5D_tC1F4EE0DB0B7300255F5FD4AF64FE4C585CF5ADE* V_0 = NULL;
-	int32_t V_1 = 0;
-	{
-		int32_t L_0 = __this->get__size_1();
-		ObjectU5BU5D_tC1F4EE0DB0B7300255F5FD4AF64FE4C585CF5ADE* L_1 = (ObjectU5BU5D_tC1F4EE0DB0B7300255F5FD4AF64FE4C585CF5ADE*)(ObjectU5BU5D_tC1F4EE0DB0B7300255F5FD4AF64FE4C585CF5ADE*)SZArrayNew(ObjectU5BU5D_tC1F4EE0DB0B7300255F5FD4AF64FE4C585CF5ADE_il2cpp_TypeInfo_var, (uint32_t)L_0);
-		V_0 = L_1;
-		V_1 = 0;
-		goto IL_0028;
-	}
-
-IL_0010:
-	{
-		ObjectU5BU5D_tC1F4EE0DB0B7300255F5FD4AF64FE4C585CF5ADE* L_2 = V_0;
-		int32_t L_3 = V_1;
-		ObjectU5BU5D_tC1F4EE0DB0B7300255F5FD4AF64FE4C585CF5ADE* L_4 = __this->get__array_0();
-		int32_t L_5 = __this->get__size_1();
-		int32_t L_6 = V_1;
-		NullCheck(L_4);
-		int32_t L_7 = ((int32_t)il2cpp_codegen_subtract((int32_t)((int32_t)il2cpp_codegen_subtract((int32_t)L_5, (int32_t)L_6)), (int32_t)1));
-		RuntimeObject * L_8 = (L_4)->GetAt(static_cast<il2cpp_array_size_t>(L_7));
-		NullCheck(L_2);
-		ArrayElementTypeCheck (L_2, L_8);
-		(L_2)->SetAt(static_cast<il2cpp_array_size_t>(L_3), (RuntimeObject *)L_8);
-		int32_t L_9 = V_1;
-		V_1 = ((int32_t)il2cpp_codegen_add((int32_t)L_9, (int32_t)1));
-	}
-
-IL_0028:
-	{
-		int32_t L_10 = V_1;
-		int32_t L_11 = __this->get__size_1();
-		if ((((int32_t)L_10) < ((int32_t)L_11)))
-		{
-			goto IL_0010;
-		}
-	}
-	{
-		ObjectU5BU5D_tC1F4EE0DB0B7300255F5FD4AF64FE4C585CF5ADE* L_12 = V_0;
-		return L_12;
 	}
 }
 #ifdef __clang__
@@ -24178,36 +23950,6 @@ IL_000e:
 		V_3 = (Il2CppChar*)((uintptr_t)0);
 		V_1 = (Il2CppChar*)((uintptr_t)0);
 		return L_6;
-	}
-}
-// System.String System.String::Concat(System.Object)
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR String_t* String_Concat_mD3809D54FDAC43AA11084A9FE53165D57A6153FF (RuntimeObject * ___arg00, const RuntimeMethod* method)
-{
-	static bool s_Il2CppMethodInitialized;
-	if (!s_Il2CppMethodInitialized)
-	{
-		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&String_t_il2cpp_TypeInfo_var);
-		s_Il2CppMethodInitialized = true;
-	}
-	{
-		RuntimeObject * L_0 = ___arg00;
-		if (L_0)
-		{
-			goto IL_0009;
-		}
-	}
-	{
-		String_t* L_1 = ((String_t_StaticFields*)il2cpp_codegen_static_fields_for(String_t_il2cpp_TypeInfo_var))->get_Empty_5();
-		return L_1;
-	}
-
-IL_0009:
-	{
-		RuntimeObject * L_2 = ___arg00;
-		NullCheck(L_2);
-		String_t* L_3;
-		L_3 = VirtFuncInvoker0< String_t* >::Invoke(3 /* System.String System.Object::ToString() */, L_2);
-		return L_3;
 	}
 }
 // System.String System.String::Concat(System.Object,System.Object)

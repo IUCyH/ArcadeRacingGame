@@ -122,6 +122,7 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
         settingPanel.SetActive(true);
         m_playSettingPanelAnim = true;
         m_isPlayingAnim = true;
+        SoundManager.Instance.PlaySFX(SFXClip.ButtonClick);
     }
     public void CloseSettingPanel(GameObject settingPanel)
     {
@@ -135,6 +136,7 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
         m_settingPanel = settingPanel;
         m_playSettingPanelReverseAnim = true;
         m_isPlayingAnim = true;
+        SoundManager.Instance.PlaySFX(SFXClip.Close);
     }
     void ExitSettingPanel()
     {

@@ -410,7 +410,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6566332279528926322}
         m_TargetAssemblyTypeName: Popup_OkCancel, Assembly-CSharp
-        m_MethodName: OnPressCancle
+        m_MethodName: OnPressCancel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

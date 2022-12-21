@@ -9,11 +9,15 @@ public class AnisotropicFiltering : MonoBehaviour, IGraphicSetting
     Toggle m_AFToggle;
 
     int m_AF;
+    bool m_dontPlaySFX;
 
     public bool SettingChanged { get; set; }
 
     public void OnToggleValueChanged()
     {
+        if (m_dontPlaySFX) return;
+
+        SoundManager.Instance.PlaySFX(SFXClip.Select);
         bool value = m_AFToggle.isOn;
 
         if(value == true)
@@ -37,6 +41,7 @@ public class AnisotropicFiltering : MonoBehaviour, IGraphicSetting
         SetAnisotropicFilteringToggle(value == 0 ? false : true);
 
         m_AF = value;
+        m_AFToggle.onValueChanged.AddListener(delegate { OnToggleValueChanged(); });
 
         SettingChanged = false;
 
@@ -44,8 +49,10 @@ public class AnisotropicFiltering : MonoBehaviour, IGraphicSetting
     }
     public void SetGraphicSettingToCurrSettingData()
     {
+        m_dontPlaySFX = true;
         int value = GetAnisotropicFilteringFromData();
         SetAnisotropicFilteringToggle(value == 0 ? false : true);
+        m_dontPlaySFX = false;
 
         m_AF = value;
     }

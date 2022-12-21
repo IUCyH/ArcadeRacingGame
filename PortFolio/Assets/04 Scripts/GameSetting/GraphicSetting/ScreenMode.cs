@@ -38,6 +38,7 @@ public class ScreenMode : MonoBehaviour, IGraphicSetting
     }
     public void OnPressPrevButton()
     {
+        SoundManager.Instance.PlaySFX(SFXClip.MouseClick);
         m_screenModeNamesIndex--;
         m_screenModeNamesIndex = Mathf.Clamp(m_screenModeNamesIndex, 0, m_maxScreenModeNamesIndex);
 
@@ -47,6 +48,7 @@ public class ScreenMode : MonoBehaviour, IGraphicSetting
     }
     public void OnPressNextButton()
     {
+        SoundManager.Instance.PlaySFX(SFXClip.MouseClick);
         m_screenModeNamesIndex++;
         m_screenModeNamesIndex = Mathf.Clamp(m_screenModeNamesIndex, 0, m_maxScreenModeNamesIndex);
 

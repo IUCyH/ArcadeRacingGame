@@ -58,6 +58,7 @@ public class Lobby_Garage : MonoBehaviour, ILobbyMenu
         DataManager.Instance.UpdatePlayerCurrentKart(m_kartIndex);
         DataManager.Instance.ChangeUsingKart(m_kartIndex);
         LobbyManager.Instance.SetMainLobbyKart();
+        SoundManager.Instance.PlaySFX(SFXClip.ButtonClick);
     }
     public void OnPressKartInvenBtn()
     {

@@ -587,6 +587,15 @@
             ]
         },
         {
+            "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "AudioClip",
+            "fullManagedTypeName": "UnityEngine.AudioClip",
+            "moduleName": "Audio",
+            "usedInScenes": [
+                "Assets/01 Scenes/Title.unity"
+            ]
+        },
+        {
             "managedAssemblyName": "",
             "nativeClass": "NavMeshSettings",
             "fullManagedTypeName": "",
@@ -595,6 +604,15 @@
                 "Assets/01 Scenes/Title.unity",
                 "Assets/01 Scenes/Lobby.unity",
                 "Assets/01 Scenes/Game.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "",
+            "nativeClass": "SampleClip",
+            "fullManagedTypeName": "",
+            "moduleName": "Audio",
+            "usedInScenes": [
+                "Assets/01 Scenes/Title.unity"
             ]
         },
         {
@@ -872,6 +890,13 @@
             "managedAssemblyName": "Assembly-CSharp.dll",
             "nativeClass": "",
             "fullManagedTypeName": "ShadowQuality",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "SoundManager",
             "moduleName": "",
             "usedInScenes": []
         },

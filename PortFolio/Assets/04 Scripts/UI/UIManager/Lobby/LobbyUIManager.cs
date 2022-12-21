@@ -81,14 +81,16 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
     }
     public void OnPressSubMenuExitButton()
     {
-        if (PopupManager.Instance.IsPopupOpen) return;
+        //if (PopupManager.Instance.IsPopupOpen) return;
 
+        SoundManager.Instance.PlaySFX(SFXClip.Close);
         var subMenu = m_subMenuStack.Pop();
         subMenu.Hide();
     }
     public void OnPressExitButton()
     {
-        if (PopupManager.Instance.IsPopupOpen || m_subMenuStack.Count > 0) return;
+        SoundManager.Instance.PlaySFX(SFXClip.Close);
+        if (m_subMenuStack.Count > 0) return;
 
         m_lobbyMenus[m_menuIndex].Hide();
         IsMenuOpen = false;
@@ -141,6 +143,7 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
         IsMenuOpen = true;
         SetGameObjectActive(m_mainLobby, false);
         SetGameObjectActive(m_lobbyMenu, true);
+        SoundManager.Instance.PlaySFX(SFXClip.Open);
     }
     void SetGameObjectActive(GameObject obj, bool value)
     {

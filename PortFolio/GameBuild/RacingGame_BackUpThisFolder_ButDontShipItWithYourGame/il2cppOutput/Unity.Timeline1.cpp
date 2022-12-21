@@ -27,7 +27,6 @@ struct TimelineClipU5BU5D_t66DC8D6328CC48BA45A4072E4A25E7540B531ABD;
 // UnityEngine.Timeline.TrackAsset[]
 struct TrackAssetU5BU5D_t624FA4D69A21181D1A43D031EF0EA6A4E73EF27B;
 
-IL2CPP_EXTERN_C Il2CppSequencePoint g_sequencePointsUnity_Timeline[];
 IL2CPP_EXTERN_C RuntimeClass* List_1_t5898C268E88FBE862539899D9DA3F3289AE269D1_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* List_1_t8510F75FE95B25D670E78B2D50D473129A882F3C_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C RuntimeClass* List_1_tA5F79D75B0DDD71AFB7825B7C5CA477A2D2513D4_il2cpp_TypeInfo_var;
@@ -39,7 +38,6 @@ IL2CPP_EXTERN_C const RuntimeMethod* List_1__ctor_m7E0FA19A1D7E35F84DC927F9630F0
 IL2CPP_EXTERN_C const RuntimeMethod* List_1__ctor_mAA77092CBECA1DCA604D577ED1219ADA1C3CC142_RuntimeMethod_var;
 IL2CPP_EXTERN_C const RuntimeMethod* TransientBuildData_Clear_m5188D938B3688BC2FA68BDDBF7A6D493DDA9299B_RuntimeMethod_var;
 IL2CPP_EXTERN_C const RuntimeMethod* TransientBuildData_Create_mCB3367A8802126084116044EC0812DD9FDF8FB66_RuntimeMethod_var;
-IL2CPP_EXTERN_C const RuntimeType* TransientBuildData_t9712699B02114AB8ED38C4D17EA5989208B2FF2F_0_0_0_var;
 
 
 IL2CPP_EXTERN_C_BEGIN
@@ -454,40 +452,29 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR TransientBuildData_t9712699B02114AB8ED38C4D17
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&List_1_t8510F75FE95B25D670E78B2D50D473129A882F3C_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&List_1_tA5F79D75B0DDD71AFB7825B7C5CA477A2D2513D4_il2cpp_TypeInfo_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&TransientBuildData_Create_mCB3367A8802126084116044EC0812DD9FDF8FB66_RuntimeMethod_var);
-		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&TransientBuildData_t9712699B02114AB8ED38C4D17EA5989208B2FF2F_0_0_0_var);
 		s_Il2CppMethodInitialized = true;
 	}
+	ProfilerMethodSentry _profilerMethodSentry(TransientBuildData_Create_mCB3367A8802126084116044EC0812DD9FDF8FB66_RuntimeMethod_var);
 	TransientBuildData_t9712699B02114AB8ED38C4D17EA5989208B2FF2F  V_0;
 	memset((&V_0), 0, sizeof(V_0));
 	TransientBuildData_t9712699B02114AB8ED38C4D17EA5989208B2FF2F  V_1;
 	memset((&V_1), 0, sizeof(V_1));
-	DECLARE_METHOD_EXEC_CTX(methodExecutionContext, TransientBuildData_Create_mCB3367A8802126084116044EC0812DD9FDF8FB66_RuntimeMethod_var, NULL, NULL, NULL);
-	CHECK_METHOD_ENTRY_SEQ_POINT(methodExecutionContext, (g_sequencePointsUnity_Timeline + 4346));
-	CHECK_METHOD_EXIT_SEQ_POINT(methodExitChecker, methodExecutionContext, (g_sequencePointsUnity_Timeline + 4347));
 	{
-		CHECK_SEQ_POINT(methodExecutionContext, (g_sequencePointsUnity_Timeline + 4348));
 		// return new TransientBuildData()
 		// {
 		//     trackList = new List<TrackAsset>(20),
 		//     clipList = new List<TimelineClip>(500),
 		//     markerList = new List<IMarker>(100),
 		// };
-		CHECK_SEQ_POINT(methodExecutionContext, (g_sequencePointsUnity_Timeline + 4349));
 		il2cpp_codegen_initobj((&V_0), sizeof(TransientBuildData_t9712699B02114AB8ED38C4D17EA5989208B2FF2F ));
-		STORE_SEQ_POINT(methodExecutionContext, (g_sequencePointsUnity_Timeline + 4351));
 		List_1_tA5F79D75B0DDD71AFB7825B7C5CA477A2D2513D4 * L_0 = (List_1_tA5F79D75B0DDD71AFB7825B7C5CA477A2D2513D4 *)il2cpp_codegen_object_new(List_1_tA5F79D75B0DDD71AFB7825B7C5CA477A2D2513D4_il2cpp_TypeInfo_var);
 		List_1__ctor_m41318575D6E5460AA9AA681443C6E4B12685017E(L_0, ((int32_t)20), /*hidden argument*/List_1__ctor_m41318575D6E5460AA9AA681443C6E4B12685017E_RuntimeMethod_var);
-		CHECK_SEQ_POINT(methodExecutionContext, (g_sequencePointsUnity_Timeline + 4351));
 		(&V_0)->set_trackList_0(L_0);
-		STORE_SEQ_POINT(methodExecutionContext, (g_sequencePointsUnity_Timeline + 4352));
 		List_1_t8510F75FE95B25D670E78B2D50D473129A882F3C * L_1 = (List_1_t8510F75FE95B25D670E78B2D50D473129A882F3C *)il2cpp_codegen_object_new(List_1_t8510F75FE95B25D670E78B2D50D473129A882F3C_il2cpp_TypeInfo_var);
 		List_1__ctor_m7E0FA19A1D7E35F84DC927F9630F0212C0C8383A(L_1, ((int32_t)500), /*hidden argument*/List_1__ctor_m7E0FA19A1D7E35F84DC927F9630F0212C0C8383A_RuntimeMethod_var);
-		CHECK_SEQ_POINT(methodExecutionContext, (g_sequencePointsUnity_Timeline + 4352));
 		(&V_0)->set_clipList_1(L_1);
-		STORE_SEQ_POINT(methodExecutionContext, (g_sequencePointsUnity_Timeline + 4353));
 		List_1_t5898C268E88FBE862539899D9DA3F3289AE269D1 * L_2 = (List_1_t5898C268E88FBE862539899D9DA3F3289AE269D1 *)il2cpp_codegen_object_new(List_1_t5898C268E88FBE862539899D9DA3F3289AE269D1_il2cpp_TypeInfo_var);
 		List_1__ctor_mAA77092CBECA1DCA604D577ED1219ADA1C3CC142(L_2, ((int32_t)100), /*hidden argument*/List_1__ctor_mAA77092CBECA1DCA604D577ED1219ADA1C3CC142_RuntimeMethod_var);
-		CHECK_SEQ_POINT(methodExecutionContext, (g_sequencePointsUnity_Timeline + 4353));
 		(&V_0)->set_markerList_2(L_2);
 		TransientBuildData_t9712699B02114AB8ED38C4D17EA5989208B2FF2F  L_3 = V_0;
 		V_1 = L_3;
@@ -497,7 +484,6 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR TransientBuildData_t9712699B02114AB8ED38C4D17
 IL_003a:
 	{
 		// }
-		CHECK_SEQ_POINT(methodExecutionContext, (g_sequencePointsUnity_Timeline + 4350));
 		TransientBuildData_t9712699B02114AB8ED38C4D17EA5989208B2FF2F  L_4 = V_1;
 		return L_4;
 	}
@@ -512,38 +498,23 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void TransientBuildData_Clear_m5188D938B3688B
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&List_1_Clear_m888F98AE0555A9FCC822CDC31FBFD0022AF237F2_RuntimeMethod_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&List_1_Clear_mADC94667531FD8C958ED7B94E621EEDB61EA0C93_RuntimeMethod_var);
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&TransientBuildData_Clear_m5188D938B3688BC2FA68BDDBF7A6D493DDA9299B_RuntimeMethod_var);
-		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&TransientBuildData_t9712699B02114AB8ED38C4D17EA5989208B2FF2F_0_0_0_var);
 		s_Il2CppMethodInitialized = true;
 	}
-	DECLARE_METHOD_THIS(methodExecutionContextThis, (&__this));
-	DECLARE_METHOD_EXEC_CTX(methodExecutionContext, TransientBuildData_Clear_m5188D938B3688BC2FA68BDDBF7A6D493DDA9299B_RuntimeMethod_var, methodExecutionContextThis, NULL, NULL);
-	CHECK_METHOD_ENTRY_SEQ_POINT(methodExecutionContext, (g_sequencePointsUnity_Timeline + 4354));
-	CHECK_METHOD_EXIT_SEQ_POINT(methodExitChecker, methodExecutionContext, (g_sequencePointsUnity_Timeline + 4355));
+	ProfilerMethodSentry _profilerMethodSentry(TransientBuildData_Clear_m5188D938B3688BC2FA68BDDBF7A6D493DDA9299B_RuntimeMethod_var);
 	{
-		CHECK_SEQ_POINT(methodExecutionContext, (g_sequencePointsUnity_Timeline + 4356));
 		// trackList.Clear();
-		CHECK_SEQ_POINT(methodExecutionContext, (g_sequencePointsUnity_Timeline + 4357));
 		List_1_tA5F79D75B0DDD71AFB7825B7C5CA477A2D2513D4 * L_0 = __this->get_trackList_0();
-		STORE_SEQ_POINT(methodExecutionContext, (g_sequencePointsUnity_Timeline + 4361));
 		NullCheck(L_0);
 		List_1_Clear_m1861B4ACCC5DDEE221297B5B2DCD05C43F560D99(L_0, /*hidden argument*/List_1_Clear_m1861B4ACCC5DDEE221297B5B2DCD05C43F560D99_RuntimeMethod_var);
-		CHECK_SEQ_POINT(methodExecutionContext, (g_sequencePointsUnity_Timeline + 4361));
 		// clipList.Clear();
-		CHECK_SEQ_POINT(methodExecutionContext, (g_sequencePointsUnity_Timeline + 4358));
 		List_1_t8510F75FE95B25D670E78B2D50D473129A882F3C * L_1 = __this->get_clipList_1();
-		STORE_SEQ_POINT(methodExecutionContext, (g_sequencePointsUnity_Timeline + 4362));
 		NullCheck(L_1);
 		List_1_Clear_m888F98AE0555A9FCC822CDC31FBFD0022AF237F2(L_1, /*hidden argument*/List_1_Clear_m888F98AE0555A9FCC822CDC31FBFD0022AF237F2_RuntimeMethod_var);
-		CHECK_SEQ_POINT(methodExecutionContext, (g_sequencePointsUnity_Timeline + 4362));
 		// markerList.Clear();
-		CHECK_SEQ_POINT(methodExecutionContext, (g_sequencePointsUnity_Timeline + 4359));
 		List_1_t5898C268E88FBE862539899D9DA3F3289AE269D1 * L_2 = __this->get_markerList_2();
-		STORE_SEQ_POINT(methodExecutionContext, (g_sequencePointsUnity_Timeline + 4363));
 		NullCheck(L_2);
 		List_1_Clear_mADC94667531FD8C958ED7B94E621EEDB61EA0C93(L_2, /*hidden argument*/List_1_Clear_mADC94667531FD8C958ED7B94E621EEDB61EA0C93_RuntimeMethod_var);
-		CHECK_SEQ_POINT(methodExecutionContext, (g_sequencePointsUnity_Timeline + 4363));
 		// }
-		CHECK_SEQ_POINT(methodExecutionContext, (g_sequencePointsUnity_Timeline + 4360));
 		return;
 	}
 }

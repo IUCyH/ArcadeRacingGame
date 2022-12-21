@@ -42,6 +42,7 @@ public class Antialiasing : MonoBehaviour, IGraphicSetting
     }
     public void OnPressPrevButton()
     {
+        SoundManager.Instance.PlaySFX(SFXClip.MouseClick);
         m_antialiasing--;
         m_antialiasing = Mathf.Clamp(m_antialiasing, 0, m_maxAntialiasingNamesIndex);
 
@@ -50,6 +51,7 @@ public class Antialiasing : MonoBehaviour, IGraphicSetting
     }
     public void OnPressNextButton()
     {
+        SoundManager.Instance.PlaySFX(SFXClip.MouseClick);
         m_antialiasing++;
         m_antialiasing = Mathf.Clamp(m_antialiasing, 0, m_maxAntialiasingNamesIndex);
 

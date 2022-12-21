@@ -32,6 +32,7 @@ public class PopupManager : Singleton_DontDestroy<PopupManager>
 
     public void CreatePopupInputField(string titleText, string contentsText, PopupFuncDel funcDel = null, string okText = "확인")
     {
+        SoundManager.Instance.PlaySFX(SFXClip.Open);
         SetCanvasEnabled(true);
         var obj = m_popupPoolDic[m_popupNames[(int)PopupName.InputField]].Get();
 
@@ -46,6 +47,7 @@ public class PopupManager : Singleton_DontDestroy<PopupManager>
     }
     public void CreatePopupOK(string titleText, string contentsText, PopupFuncDel funcDel = null, string okText = "확인")
     {
+        SoundManager.Instance.PlaySFX(SFXClip.Open);
         SetCanvasEnabled(true);
         var obj = m_popupPoolDic[m_popupNames[(int)PopupName.Ok]].Get();
         var popupOk = obj.GetComponent<Popup_OK>();
@@ -57,6 +59,7 @@ public class PopupManager : Singleton_DontDestroy<PopupManager>
     }
     public void CreatePopupOkCancel(string titleText, string contentsText, PopupFuncDel okFuncDel = null, PopupFuncDel cancelFuncDel = null, string okText = "확인", string cancelText = "취소")
     {
+        SoundManager.Instance.PlaySFX(SFXClip.Open);
         SetCanvasEnabled(true);
         var obj = m_popupPoolDic[m_popupNames[(int)PopupName.OkCancel]].Get();
         var popupOkCancel = obj.GetComponent<Popup_OkCancel>();
@@ -70,6 +73,7 @@ public class PopupManager : Singleton_DontDestroy<PopupManager>
     {
         if (m_popupStack.Count > 0)
         {
+            SoundManager.Instance.PlaySFX(SFXClip.Close);
             var obj = m_popupStack.Pop();
             m_popupPoolDic[obj.name].Set(obj);
             obj.SetActive(false);

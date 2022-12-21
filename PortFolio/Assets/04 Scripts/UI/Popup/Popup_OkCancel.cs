@@ -29,15 +29,17 @@ public class Popup_OkCancel : MonoBehaviour
     {
         if (m_okFuncDel != null)
         {
+            SoundManager.Instance.PlaySFX(SFXClip.ButtonClick);
             m_okFuncDel();
         }
         else
             PopupManager.Instance.ClosePopup();
     }
-    public void OnPressCancle()
+    public void OnPressCancel()
     {
-        if(m_cancelFuncDel != null)
+        if (m_cancelFuncDel != null)
         {
+            SoundManager.Instance.PlaySFX(SFXClip.ButtonClick);
             m_cancelFuncDel();
         }
         else
