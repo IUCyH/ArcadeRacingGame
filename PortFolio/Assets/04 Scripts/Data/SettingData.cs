@@ -24,6 +24,11 @@ public class GraphicData
     public int vSync;
     public int anisotropicFiltering;
 }
+[Serializable]
+public class SoundData
+{
+
+}
 
 [Serializable]
 public class SettingData
