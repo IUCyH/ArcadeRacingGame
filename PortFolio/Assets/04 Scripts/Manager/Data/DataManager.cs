@@ -19,6 +19,26 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     public SettingData SettingData { get { return m_settingData; } }
     public DictionaryOfKeyAndKeycode KeyDictionary { get { return m_settingData.keySettings.keyDictionary; } }
 
+    public void UpdateSfxMute(bool isMute)
+    {
+        m_settingData.soundSettings.muteSFX = isMute;
+    }
+    public void UpdateBgmMute(bool isMute)
+    {
+        m_settingData.soundSettings.muteBGM = isMute;
+    }
+    public void UpdateSfxVolume(float volume)
+    {
+        m_settingData.soundSettings.sfxVolume = volume;
+    }
+    public void UpdateBgmVolume(float volume)
+    {
+        m_settingData.soundSettings.bgmVolume = volume;
+    }
+    public void UpdateTotalVolume(float volume)
+    {
+        m_settingData.soundSettings.totalVolume = volume;
+    }
     public void UpdateScreenResolution(int width, int height)
     {
         m_settingData.graphicSettings.screenResolutionWidth = width;
@@ -222,7 +242,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     }
     protected override void OnAwake()
     {
-        PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
         LoadSettingData();
     }
 }

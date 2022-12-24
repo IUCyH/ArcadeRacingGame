@@ -75,13 +75,25 @@ public class SoundManager : Singleton_DontDestroy<SoundManager>
         m_audios[(int)AudioType.SFX].PlayOneShot(sfxClip);
         StartCoroutine(Coroutine_CheckSFX(sfxClip, clip));
     }
-    public void SetMuteBGM(bool isMute)
+    public void MuteBGM(bool isMute)
     {
         m_audios[(int)AudioType.BGM].mute = isMute;
     }
-    public void SetMuteSFX(bool isMute)
+    public void MuteSFX(bool isMute)
     {
         m_audios[(int)AudioType.SFX].mute = isMute;
+    }
+    public void SetTotalVolume(float volume)
+    {
+        AudioListener.volume = volume;
+    }
+    public void SetBgmVolume(float volume)
+    {
+        m_audios[(int)AudioType.BGM].volume = volume;
+    }
+    public void SetSfxVolume(float volume)
+    {
+        m_audios[(int)AudioType.SFX].volume = volume;
     }
     void InitAudioSources()
     {

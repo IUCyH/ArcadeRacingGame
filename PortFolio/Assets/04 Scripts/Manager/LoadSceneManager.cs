@@ -39,7 +39,7 @@ public class LoadSceneManager : Singleton_DontDestroy<LoadSceneManager>
     public void LoadSceneAsync(SceneState sceneState)
     {
         if (m_loadSceneState != SceneState.None) return;
-        SoundManager.Instance.SetMuteBGM(true);
+        //SoundManager.Instance.MuteBGM(true);
         CurrScene = sceneState;
         SetLoadState(sceneState);
         ShowLoadingPanel();
@@ -78,7 +78,7 @@ public class LoadSceneManager : Singleton_DontDestroy<LoadSceneManager>
                 m_loadingProgressBar.fillAmount = 1f;
 
                 GameSettingManager.Instance.SetBackBtnText(m_loadSceneState);
-                SoundManager.Instance.SetMuteBGM(false);
+                //SoundManager.Instance.MuteBGM(false);
                 SetLoadState(SceneState.None);
                 HideLoadingPanel();
             }

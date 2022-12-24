@@ -15,7 +15,6 @@ public class ScreenResolution : MonoBehaviour, IGraphicSetting
     List<(int width, int height)> m_resolutions = new List<(int height, int width)>();
 
     (int width, int height) m_screenResolution;
-    bool m_dontPlaySFX;
 
     public bool SettingChanged { get; set; }
 
@@ -31,15 +30,12 @@ public class ScreenResolution : MonoBehaviour, IGraphicSetting
 
         int index = m_resolutions.IndexOf((widthData, heightData));
 
-        m_dontPlaySFX = true;
         m_resolutionDropdown.value = index;
-        m_dontPlaySFX = false;
     }
 
     public void OnPressScreenResolutionDropDown()
     {
-        if (m_dontPlaySFX) return;
-
+        //Debug.Log("Dropdown Clicked");
         SoundManager.Instance.PlaySFX(SFXClip.ButtonClick);
 
         int index = m_resolutionDropdown.value;

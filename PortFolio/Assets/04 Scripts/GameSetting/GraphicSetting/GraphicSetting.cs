@@ -66,6 +66,7 @@ public class GraphicSetting : MonoBehaviour, ISetting
     public void Init()
     {
         InitScrollBarValue();
+
         m_exitOkFunc = () => 
         {
             UpdateGraphicSettings();

@@ -27,7 +27,11 @@ public class GraphicData
 [Serializable]
 public class SoundData
 {
-
+    public float totalVolume;
+    public float bgmVolume;
+    public float sfxVolume;
+    public bool muteBGM;
+    public bool muteSFX;
 }
 
 [Serializable]
@@ -35,4 +39,5 @@ public class SettingData
 {
     public KeyData keySettings = new KeyData();
     public GraphicData graphicSettings = new GraphicData();
+    public SoundData soundSettings = new SoundData();
 }

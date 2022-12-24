@@ -27,6 +27,7 @@ public class KeySetting : MonoBehaviour, ISetting
 
     public void Exit()
     {
+        DataManager.Instance.SaveSettingData();
         GameSettingManager.Instance.CloseSettingPanel(gameObject);
     }
     public void Open()
@@ -99,7 +100,6 @@ public class KeySetting : MonoBehaviour, ISetting
                         SetButtonSelectedColorToWhite();
 
                         DataManager.Instance.UpdateKey(m_currChangingKey, m_selectedKey);
-                        DataManager.Instance.SaveSettingData();
                         break;
                     }
                 }
