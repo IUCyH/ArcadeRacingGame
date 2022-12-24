@@ -154,7 +154,7 @@ public class LobbyUIManager : Singleton<LobbyUIManager>
         m_lobbyButtons = m_mainLobby.GetComponentsInChildren<Button>();
         m_lobbyMenus = m_lobbyMenu.GetComponentsInChildren<ILobbyMenu>(true);
 
-        var length = m_lobbyButtons.Length;
+        var length = m_lobbyButtons.Length - 1; //마지막 버튼은 설정 버튼이므로 제외
         for (int i = 0; i < length; i++)
         {
             var button = m_lobbyButtons[i];

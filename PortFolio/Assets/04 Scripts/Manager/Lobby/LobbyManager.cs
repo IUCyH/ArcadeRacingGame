@@ -38,6 +38,10 @@ public class LobbyManager : Singleton<LobbyManager>
     
     public List<GameObject> Karts { get { return m_karts; } }
 
+    public void OnPressOptionsPanelOpenBtn()
+    {
+        GameSettingManager.Instance.OpenOptionsPanel();
+    }
     public void InitMainLobby()
     {
         SetMainLobbyKart();

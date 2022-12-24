@@ -58,6 +58,8 @@
 	<assembly fullname="Assembly-CSharp">
 		<type fullname="AnisotropicFiltering" preserve="nothing"/>
 		<type fullname="Antialiasing" preserve="nothing"/>
+		<type fullname="BgmMute" preserve="nothing"/>
+		<type fullname="BgmVolume" preserve="nothing"/>
 		<type fullname="CarDataTable" preserve="nothing"/>
 		<type fullname="CheckPointManager" preserve="nothing"/>
 		<type fullname="CheckpointController" preserve="nothing"/>
@@ -87,10 +89,14 @@
 		<type fullname="ResetPointManager" preserve="nothing"/>
 		<type fullname="ScreenMode" preserve="nothing"/>
 		<type fullname="ScreenResolution" preserve="nothing"/>
+		<type fullname="SfxMute" preserve="nothing"/>
+		<type fullname="SfxVolume" preserve="nothing"/>
 		<type fullname="ShadowQuality" preserve="nothing"/>
 		<type fullname="SoundManager" preserve="nothing"/>
+		<type fullname="SoundSetting" preserve="nothing"/>
 		<type fullname="TextureQuality" preserve="nothing"/>
 		<type fullname="TitleManager" preserve="nothing"/>
+		<type fullname="TotalVolume" preserve="nothing"/>
 		<type fullname="VSync" preserve="nothing"/>
 		<type fullname="WheelController" preserve="nothing"/>
 	</assembly>
@@ -106,6 +112,7 @@
 	</assembly>
 	<assembly fullname="UnityEngine.UI">
 		<type fullname="UnityEngine.EventSystems.EventSystem" preserve="nothing"/>
+		<type fullname="UnityEngine.EventSystems.EventTrigger" preserve="nothing"/>
 		<type fullname="UnityEngine.EventSystems.StandaloneInputModule" preserve="nothing"/>
 		<type fullname="UnityEngine.UI.Button" preserve="nothing"/>
 		<type fullname="UnityEngine.UI.CanvasScaler" preserve="nothing"/>
@@ -120,6 +127,7 @@
 		<type fullname="UnityEngine.UI.ScrollRect" preserve="nothing"/>
 		<type fullname="UnityEngine.UI.Scrollbar" preserve="nothing"/>
 		<type fullname="UnityEngine.UI.Shadow" preserve="nothing"/>
+		<type fullname="UnityEngine.UI.Slider" preserve="nothing"/>
 		<type fullname="UnityEngine.UI.Text" preserve="nothing"/>
 		<type fullname="UnityEngine.UI.Toggle" preserve="nothing"/>
 		<type fullname="UnityEngine.UI.VerticalLayoutGroup" preserve="nothing"/>
