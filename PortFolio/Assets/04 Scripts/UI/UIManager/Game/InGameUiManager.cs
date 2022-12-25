@@ -74,38 +74,18 @@ public class InGameUiManager : Singleton<InGameUiManager>
     [SerializeField]
     float m_alphaTo = 0f;
 
-    public IEnumerator Coroutine_TextAlphaFadeout(Text text, AnimationCurve curve, float from, float to, float duration, float[] rgbColors, FuncDel funcDel = null)
+    public IEnumerator Coroutine_TextAlphaFadeout(Text text, float duration, FuncDel funcDel = null)
     {
-        float time = 0f;
+        text.CrossFadeAlpha(0f, duration, false);
+
         while (true)
         {
-            var alphaValue = curve.Evaluate(time);
-            var alpha = from * (1f - alphaValue) + to * alphaValue;
-            text.color = new Color(rgbColors[0], rgbColors[1], rgbColors[2], alpha);
-            time += Time.deltaTime / duration;
-            if (time > 1f)
+            if (text.canvasRenderer.GetAlpha() == 0f)
             {
-                if (funcDel != null)
+                if(funcDel != null)
+                {
                     funcDel();
-                yield break;
-            }
-            yield return null;
-        }
-    }
-    public IEnumerator Coroutine_OutlineTextAlphaFadeout(Text text, Outline outline, AnimationCurve curve, float from, float to, float duration, float[] rgbColors, FuncDel funcDel = null)
-    {
-        float time = 0f;
-        while (true)
-        {
-            var alphaValue = curve.Evaluate(time);
-            var alpha = from * (1f - alphaValue) + to * alphaValue;
-            text.color = new Color(rgbColors[0], rgbColors[1], rgbColors[2], alpha);
-            outline.effectColor = new Color(outline.effectColor.r, outline.effectColor.g, outline.effectColor.b, alpha);
-            time += Time.deltaTime / duration;
-            if (time > 1f)
-            {
-                if (funcDel != null)
-                    funcDel();
+                }
                 yield break;
             }
             yield return null;
@@ -119,6 +99,7 @@ public class InGameUiManager : Singleton<InGameUiManager>
         {
             var scaleValue = curve.Evaluate(time);
             var scale = from * (1f - scaleValue) + to * scaleValue;
+
             text.transform.localScale = new Vector3(scale, scale, scale);
             time += Time.deltaTime;
             if(time > 1f)
@@ -151,22 +132,22 @@ public class InGameUiManager : Singleton<InGameUiManager>
     {
         UpdateLapTimeText(mapLapTime, currLapTime);
         m_staticSb.Clear();
-        Utill.ConvetTime(bestTime, out int minute, out int second, out int millisecond);
+        Utill.ConvertTime(bestTime, out int minute, out int second, out int millisecond);
+        
         m_staticSb.AppendFormat("<b>BEST</b>  /  {0:00}:{1:00}:{2:00}", minute, second, millisecond);
         m_bestTimeText.text = m_staticSb.ToString();
         if(isLastLap)
         {
             m_lastLapText.enabled = true;
-            float[] colors = new float[3] { 255f, 183f, 0f };
-            m_lastLapTextOutLine.
-            StartCoroutine(Coroutine_OutlineTextAlphaFadeout(m_lastLapText, m_lastLapTextOutLine, m_alphaCurve, m_alphaFrom, m_alphaTo, m_lastLapEnableTime, colors, () => m_lastLapText.gameObject.SetActive(false)));
+            StartCoroutine(Coroutine_TextAlphaFadeout(m_lastLapText, m_lastLapEnableTime, () => m_lastLapText.gameObject.SetActive(false)));
         }
     }
     public void UpdateDynamicCanvas()
     {
         m_dynamicSb.Clear();
         float time = GameSystemManager.Instance.CurrentTime;
-        Utill.ConvetTime(time, out int minute, out int second, out int millisecond);
+        Utill.ConvertTime(time, out int minute, out int second, out int millisecond);
+
         m_dynamicSb.AppendFormat("<b>TIME</b>  /  {0:00}:{1:00}:{2:00}", minute, second, millisecond);
         m_timerText.text = m_dynamicSb.ToString();
         m_dynamicSb.Clear();
@@ -183,9 +164,11 @@ public class InGameUiManager : Singleton<InGameUiManager>
 
         m_completeText.text = completeText;
         m_mapNameText.text = mapName;
-        Utill.ConvetTime(currTime, out minute, out second, out millisecond);
+
+        Utill.ConvertTime(currTime, out minute, out second, out millisecond);
         m_currTimeText.text = string.Format("{0:00}:{1:00}:{2:00}", minute, second, millisecond);
-        Utill.ConvetTime(mapBestTime, out minute, out second, out millisecond);
+        
+        Utill.ConvertTime(mapBestTime, out minute, out second, out millisecond);
         m_playerBestTimeText.text = string.Format("주간 최고 기록  <color=yellow><b>{0:00}:{1:00}:{2:00}</b></color>", minute, second, millisecond);
         m_driftDistText.text = string.Format("드리프트 <color=yellow><b>{0}</b></color> m", Mathf.Round(m_player.TotalDriftDist) * 10);
         m_boosterCntText.text = string.Format("부스터 <color=yellow><b>{0}</b></color> 회", m_player.BoosterCnt);

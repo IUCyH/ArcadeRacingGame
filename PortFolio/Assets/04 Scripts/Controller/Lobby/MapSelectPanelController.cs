@@ -167,7 +167,7 @@ public class MapSelectPanelController : MonoBehaviour, ILobbySubMenu
             m_mapBestRecordText.text = m_sb.ToString();
             return;
         }    
-        Utill.ConvetTime(time, out int minute, out int second, out int millisecond);
+        Utill.ConvertTime(time, out int minute, out int second, out int millisecond);
         m_sb.AppendFormat("최고기록 : {0:00}:{1:00}:{2:00}", minute, second, millisecond);
         m_mapBestRecordText.text = m_sb.ToString();
     }

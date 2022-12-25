@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class GameSystemManager : Singleton<GameSystemManager>
 {
-    public enum ReverseCheckPos //역주행 인식의 기준이 되는 좌표
+    public enum ReverseDirection //역주행 인식의 기준이 되는 좌표
     {
         None,
         X,
@@ -17,11 +17,11 @@ public class GameSystemManager : Singleton<GameSystemManager>
         Max
     }
     StringBuilder m_sb = new StringBuilder();
-    Dictionary<string, ReverseCheckPos> m_reverseCheckPosDic = new Dictionary<string, ReverseCheckPos>();
+    Dictionary<string, ReverseDirection> m_reverseDirDic = new Dictionary<string, ReverseDirection>();
     [SerializeField]
     float m_twoCpsDist;
     [SerializeField]
-    ReverseCheckPos m_reverseCheckPos;
+    ReverseDirection m_currReverseDir;
     [SerializeField]
     int m_finishLapCnt = 0;
     [SerializeField]
@@ -59,8 +59,6 @@ public class GameSystemManager : Singleton<GameSystemManager>
     [SerializeField]
     AnimationCurve m_scaleCurve = AnimationCurve.Linear(0f, 0f, 1f, 1f);
     [SerializeField]
-    AnimationCurve m_alphaCurve = AnimationCurve.Linear(0f, 0f, 1f, 1f);
-    [SerializeField]
     Canvas m_countCanvas;
     [Tooltip("UGUI Text for displaying count value")]
     [SerializeField]
@@ -70,7 +68,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
     Image m_warningImage;
     [Tooltip("float type variable for count text's fade out duration")]
     [SerializeField]
-    float m_duration = 0.5f;
+    float m_cntTextAlphaFadeOutduration = 0.5f;
     [Tooltip("float type variable for calculate the time")]
     [SerializeField]
     float m_timer;
@@ -90,11 +88,13 @@ public class GameSystemManager : Singleton<GameSystemManager>
     public float AverageSpeed { get { return (m_twoCpsDist / m_timer) * 3.6f; } }
     public float CurrentTime { get { return m_timer; } }
     public float ResetCoolDown { get { return m_resetCooldown; } }
+
     IEnumerator Coroutine_CountDown()
     {
         float time = 0f;
         int cnt = 3;
         InGameUiManager.Instance.StartCoroutine(InGameUiManager.Instance.Coroutine_TextScaleFadeIn(m_countText, m_scaleCurve, m_minScale, m_maxScale, 4));
+        
         while (true)
         {
             m_sb.Clear();
@@ -109,12 +109,12 @@ public class GameSystemManager : Singleton<GameSystemManager>
             }
             if (cnt < 1)
             {
-                float[] colors = new float[3] { 1f, 1f, 1f };
                 m_countText.text = "시작";
+
                 InGameUiManager.Instance.SetActiveAllCanvas(true);
-                m_player.StartCoroutine(m_player.Coroutine_StartBoost());
-                InGameUiManager.Instance.StartCoroutine(InGameUiManager.Instance.Coroutine_TextAlphaFadeout(m_countText, m_alphaCurve, m_alphaFrom, m_alphaTo, m_duration, colors, () => m_countCanvas.enabled = false));
-                m_player.IsStart = true;
+                InGameUiManager.Instance.StartCoroutine(InGameUiManager.Instance.Coroutine_TextAlphaFadeout(m_countText, m_cntTextAlphaFadeOutduration, () => m_countCanvas.enabled = false));
+                
+                m_player.OnGameStart();
                 m_isStart = true;
                 m_isCanReset = true;
                 yield break;
@@ -122,18 +122,18 @@ public class GameSystemManager : Singleton<GameSystemManager>
             yield return null;
         }
     }
-    public void SetReverse(bool value)
+    void OnReverse(bool isReverse)
     {
-        m_warningImage.enabled = value;
-        m_isReverse = value;
+        m_warningImage.enabled = isReverse;
+        m_isReverse = isReverse;
     }
-    public void SetReverseCheckPos(ReverseCheckPos pos)
+    void SetReverseDirection(ReverseDirection pos)
     {
-        m_reverseCheckPos = pos;
+        m_currReverseDir = pos;
     }
-    public void OnThroughCheckPoint(int checkNum, CheckpointController cpObj)
+    public void OnThroughCheckPoint(int checkNum, string checkPointTag)
     {
-        SetReverseCheckPos(m_reverseCheckPosDic[cpObj.tag]);
+        SetReverseDirection(m_reverseDirDic[checkPointTag]);
         if (checkNum == m_nextCheckPoint)
         {
             m_nextCheckPoint++;
@@ -148,9 +148,14 @@ public class GameSystemManager : Singleton<GameSystemManager>
     {
         if (m_finishLapCnt > 0)
         {
+            bool isLastLap;
+
             m_lapTime++;
+            if (m_lapTime == m_mapLapTime) isLastLap = true;
+            else isLastLap = false;
+
             CalculateBestTime();
-            InGameUiManager.Instance.UpdateStaticCanvas(m_mapLapTime, m_lapTime, m_bestTime, m_lapTime == m_mapLapTime);
+            InGameUiManager.Instance.UpdateStaticCanvas(m_mapLapTime, m_lapTime, m_bestTime, isLastLap);
             if (IsEnd)
             {
                 OnFinish();
@@ -161,6 +166,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
     {
         string completeText = "완주 기록";
         float mapTime = DataManager.Instance.GetMapBestTime(m_currMapIndex);
+
         if(mapTime > m_timer)
         {
             mapTime = m_timer;
@@ -218,36 +224,36 @@ public class GameSystemManager : Singleton<GameSystemManager>
     }
     void CheckReverse()
     {
-        if (m_reverseCheckPos == ReverseCheckPos.Z || m_reverseCheckPos == ReverseCheckPos.NegativeZ)
+        if (m_currReverseDir == ReverseDirection.Z || m_currReverseDir == ReverseDirection.NegativeZ)
         {
             m_currPos = m_player.transform.position.z;
         }
-        if(m_reverseCheckPos == ReverseCheckPos.X || m_reverseCheckPos == ReverseCheckPos.NegativeX)
+        if(m_currReverseDir == ReverseDirection.X || m_currReverseDir == ReverseDirection.NegativeX)
         {
             m_currPos = m_player.transform.position.x;
         }
-        switch (m_reverseCheckPos)
+        switch (m_currReverseDir)
         {
-            case ReverseCheckPos.Z:
-            case ReverseCheckPos.NegativeX:
+            case ReverseDirection.Z:
+            case ReverseDirection.NegativeX:
                 if (m_currPos < m_prevPos)
                 {
-                    SetReverse(true);
+                    OnReverse(true);
                 }
                 else 
-                { 
-                    SetReverse(false);
+                {
+                    OnReverse(false);
                 }
                 break;
-            case ReverseCheckPos.X:
-            case ReverseCheckPos.NegativeZ:
+            case ReverseDirection.X:
+            case ReverseDirection.NegativeZ:
                 if (m_currPos > m_prevPos)
                 {
-                    SetReverse(true);
+                    OnReverse(true);
                 }
                 else
                 {
-                    SetReverse(false);
+                    OnReverse(false);
                 }
                 break;
         }
@@ -266,10 +272,12 @@ public class GameSystemManager : Singleton<GameSystemManager>
         LoadData();
         InGameUiManager.Instance.SetActiveAllCanvas(false);
         m_warningImage.enabled = false;
-        m_reverseCheckPosDic.Add("Reverse_X", ReverseCheckPos.X);
-        m_reverseCheckPosDic.Add("Reverse_Z", ReverseCheckPos.Z);
-        m_reverseCheckPosDic.Add("Reverse_NegativeX", ReverseCheckPos.NegativeX);
-        m_reverseCheckPosDic.Add("Reverse_NegativeZ", ReverseCheckPos.NegativeZ);
+
+        m_reverseDirDic.Add("Reverse_X", ReverseDirection.X);
+        m_reverseDirDic.Add("Reverse_Z", ReverseDirection.Z);
+        m_reverseDirDic.Add("Reverse_NegativeX", ReverseDirection.NegativeX);
+        m_reverseDirDic.Add("Reverse_NegativeZ", ReverseDirection.NegativeZ);
+
         StartCoroutine(Coroutine_CountDown());
     }
     protected override void OnStart()
@@ -279,7 +287,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
         m_twoCpsDist = (checkPoints[m_checkPointsLength - 1].transform.position - checkPoints[0].transform.position).sqrMagnitude;
         m_mapLapTime = MapManager.Instance.LapTime;
         m_nextCheckPoint = 0;
-        SetReverseCheckPos(ReverseCheckPos.Z);
+        SetReverseDirection(ReverseDirection.Z);
         InGameUiManager.Instance.UpdateLapTimeText(m_mapLapTime, m_lapTime);
         InGameUiManager.Instance.SetUserProfile();
     }

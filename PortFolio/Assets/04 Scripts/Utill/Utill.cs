@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Utill
 {
-    public static void ConvetTime(float time, out int minute, out int second, out int millisecond)
+    public static void ConvertTime(float time, out int minute, out int second, out int millisecond)
     {
         minute = Mathf.FloorToInt(time / 60f);
         second = (int)time % 60;

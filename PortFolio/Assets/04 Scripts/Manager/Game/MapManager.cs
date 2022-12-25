@@ -13,6 +13,7 @@ public class MapManager : Singleton<MapManager>
     Vector3 m_mapPosition;
 
     public int LapTime { get { return m_lapTime; } }
+
     void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;

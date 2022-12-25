@@ -132,6 +132,7 @@ public class PlayerController : MonoBehaviour
     public float TotalDriftDist { get { return (m_startDriftPosSum - m_endDriftPosSum).sqrMagnitude; } }
     public float CurrentSpeed { get { return m_speed; } }
     public string UserName { get { return m_playerName; } }
+
     public IEnumerator Coroutine_StartBoost()
     {
         float time = 0f;
@@ -149,6 +150,11 @@ public class PlayerController : MonoBehaviour
                 yield break;
             yield return null;
         }
+    }
+    public void OnGameStart()
+    {
+        StartCoroutine(Coroutine_StartBoost());
+        m_isStart = true;
     }
     public void InitPlayer(PlayerData playerData)
     {
