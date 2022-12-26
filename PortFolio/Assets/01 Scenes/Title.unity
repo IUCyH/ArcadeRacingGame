@@ -496,7 +496,7 @@ MonoBehaviour:
     maxSpeed: 0.45
     maxBoosterSpeed: 0.65
     maxTurnPower: 0.25
-    startSpeed: 5
+    startSpeed: 10
     defultBoosterChargingValue: 0.0006
     driftBoosterChargingValue: 0.2
     boosterTime: 0.3
@@ -509,7 +509,7 @@ MonoBehaviour:
     maxSpeed: 0.48
     maxBoosterSpeed: 0.68
     maxTurnPower: 0.23
-    startSpeed: 7
+    startSpeed: 12
     defultBoosterChargingValue: 0.0008
     driftBoosterChargingValue: 0.32
     boosterTime: 0.38
@@ -522,7 +522,7 @@ MonoBehaviour:
     maxSpeed: 0.35
     maxBoosterSpeed: 0.5
     maxTurnPower: 0.35
-    startSpeed: 8
+    startSpeed: 13
     defultBoosterChargingValue: 0.00048
     driftBoosterChargingValue: 0.15
     boosterTime: 0.27
@@ -2492,7 +2492,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 479958665}
-  m_LocalRotation: {x: 0.016203862, y: 0.9104398, z: -0.035827514, w: 0.41176853}
+  m_LocalRotation: {x: 0.016203867, y: 0.9104398, z: -0.035827518, w: 0.41176853}
   m_LocalPosition: {x: -46.27767, y: -4.404, z: 244.87978}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -13649,7 +13649,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1967068146}
-  m_LocalRotation: {x: 0.016203862, y: 0.9104398, z: -0.035827514, w: 0.41176853}
+  m_LocalRotation: {x: 0.016203867, y: 0.9104398, z: -0.035827518, w: 0.41176853}
   m_LocalPosition: {x: -46.27767, y: -4.404, z: 244.87978}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

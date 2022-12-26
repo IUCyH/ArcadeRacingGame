@@ -145,9 +145,12 @@ public class PlayerController : MonoBehaviour
                 m_playerRb.AddForce(transform.forward * m_startBoostSpeed, ForceMode.VelocityChange);
                 yield break;
             }
+
             time += Time.deltaTime;
             if (time > m_startBoostTime)
+            {
                 yield break;
+            }
             yield return null;
         }
     }
@@ -409,7 +412,7 @@ public class PlayerController : MonoBehaviour
     }
     void FixedUpdate()
     {
-        m_playerRb.AddForce(Vector3.down * m_forceValue * m_playerRb.velocity.magnitude);
+        m_playerRb.AddForce(m_forceValue * m_playerRb.velocity.magnitude * Vector3.down);
         if (m_isStart)
         {
             Move();

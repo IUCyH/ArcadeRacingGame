@@ -2399,7 +2399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_twoCpsDist: 0
-  m_reverseCheckPos: 0
+  m_currReverseDir: 0
   m_finishLapCnt: 0
   m_checkPointsLength: 0
   m_lapTime: 1
@@ -2439,34 +2439,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_alphaCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   m_countCanvas: {fileID: 2012878876}
   m_countText: {fileID: 840429487}
   m_warningImage: {fileID: 1517593235}
-  m_duration: 0.4
+  m_cntTextAlphaFadeOutduration: 0.5
   m_timer: 0
   m_prevTime: 0
   m_bestTime: 9999
