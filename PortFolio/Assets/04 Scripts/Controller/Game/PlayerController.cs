@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Player")]
     [SerializeField]
-    Rigidbody m_playerRb; //ÇÃ·¹ÀÌ¾î ¸®Áöµå¹Ùµð
+    Rigidbody m_playerRb; //í”Œë ˆì´ì–´ ë¦¬ì§€ë“œë°”ë””
     [SerializeField]
     string m_playerName;
 
@@ -35,23 +35,23 @@ public class PlayerController : MonoBehaviour
 
     [Header("Wheel Mesh")]
     [SerializeField]
-    GameObject[] m_wheels = new GameObject[4]; //¹ÙÄû¸Å½¬ ¹è¿­
+    GameObject[] m_wheels = new GameObject[4]; //ë°”í€´ë§¤ì‰¬ ë°°ì—´
 
     [Header("Wheel Collider")]
     [SerializeField]
     WheelCollider[] m_wheelCollider = new WheelCollider[4];
     [SerializeField]
-    WheelController[] m_wheelColliderCtr = new WheelController[4]; //ÈÙ ÄÝ¶óÀÌ´õ ¹è¿­
+    WheelController[] m_wheelColliderCtr = new WheelController[4]; //íœ  ì½œë¼ì´ë” ë°°ì—´
     [SerializeField]
-    WheelFrictionCurve m_fowardFricBackWheel; //µÞ¹ÙÄûÁß ¿ÞÂÊ ¹ÙÄûÀÇ forward frictionÀÇ °ªÀ» ¹Ù²Ù±â À§ÇÑ º¯¼ö
+    WheelFrictionCurve m_fowardFricBackWheel; //ë’·ë°”í€´ì¤‘ ì™¼ìª½ ë°”í€´ì˜ forward frictionì˜ ê°’ì„ ë°”ê¾¸ê¸° ìœ„í•œ ë³€ìˆ˜
     [SerializeField]
-    WheelFrictionCurve m_sidewayFricBackWheel; //µÞ¹ÙÄûÁß ¿ÞÂÊ ¹ÙÄûÀÇ sideways frictionÀÇ °ªÀ» ¹Ù²Ù±â À§ÇÑ º¯¼ö
+    WheelFrictionCurve m_sidewayFricBackWheel; //ë’·ë°”í€´ì¤‘ ì™¼ìª½ ë°”í€´ì˜ sideways frictionì˜ ê°’ì„ ë°”ê¾¸ê¸° ìœ„í•œ ë³€ìˆ˜
     [SerializeField]
     Vector3 m_startDriftPosSum;
     [SerializeField]
     Vector3 m_endDriftPosSum;
-    Vector3 m_wheelColliderPos; //ÈÙ ÄÝ¶óÀÌ´õÀÇ À§Ä¡¸¦ ¹Þ¾Æ¿Ã º¯¼ö
-    Quaternion m_wheelColliderRotation; //ÈÙ ÄÝ¶óÀÌ´õÀÇ È¸Àü°ªÀ» ¹Þ¾Æ¿Ã º¯¼ö
+    Vector3 m_wheelColliderPos; //íœ  ì½œë¼ì´ë”ì˜ ìœ„ì¹˜ë¥¼ ë°›ì•„ì˜¬ ë³€ìˆ˜
+    Quaternion m_wheelColliderRotation; //íœ  ì½œë¼ì´ë”ì˜ íšŒì „ê°’ì„ ë°›ì•„ì˜¬ ë³€ìˆ˜
 
     [Header("Move Values")]
     [SerializeField]
@@ -69,34 +69,32 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float m_startBoostSpeed = 5f;
     [SerializeField]
-    float m_forceValue; //Â÷·®À» ¾Æ·¡·Î ´©¸£´Â Èû
+    float m_forceValue; //ì°¨ëŸ‰ì„ ì•„ëž˜ë¡œ ëˆ„ë¥´ëŠ” íž˜
     [SerializeField]
     float m_maxSpeed;
     [SerializeField]
-    float m_normalMaxSpeed = 150f; //ÀÚµ¿Â÷ÀÇ ÀüÁø ÃÖ´ë¼Óµµ
+    float m_normalMaxSpeed = 150f; //ìžë™ì°¨ì˜ ì „ì§„ ìµœëŒ€ì†ë„
     [SerializeField]
-    float m_maxReSpeed = 15f; //ÀÚµ¿Â÷ÀÇ ÈÄÁø ÃÖ°í¼Óµµ
+    float m_maxReSpeed = 15f; //ìžë™ì°¨ì˜ í›„ì§„ ìµœê³ ì†ë„
     [SerializeField]
     float m_boosterMaxSpeed;
     [SerializeField]
-    float m_currSpeed = 0f; //ÀÚµ¿Â÷ÀÇ ÇöÀç ¼Óµµ
+    float m_currSpeed = 0f; //ìžë™ì°¨ì˜ í˜„ìž¬ ì†ë„
     [SerializeField]
-    float m_turnPower = 3f; //ÀÚµ¿Â÷ÀÇ È¸Àü¼Óµµ
+    float m_turnPower = 3f; //ìžë™ì°¨ì˜ íšŒì „ì†ë„
     [SerializeField]
-    float m_slipRate = 1.0f; //Æò»ó½Ã ¸¶Âû°è¼ö
+    float m_slipRate = 1.0f; //í‰ìƒì‹œ ë§ˆì°°ê³„ìˆ˜
     [SerializeField]
     float m_slipRateDownForce;
     [SerializeField]
     float m_slipRateUpForce;
     [SerializeField]
-    float m_speedUpVal = 3f;
-    [SerializeField]
-    float m_speedDownVal = 1f;
-    [SerializeField]
     float m_speed;
     [SerializeField]
-    bool m_isDrift; //µå¸®ÇÁÆ®¸¦ ÇÏ°íÀÖ´ÂÁö¸¦ ³ªÅ¸³»´Â boolean º¯¼ö
-    bool m_isStart; //½ÃÀÛÇß´ÂÁö ¾Ë·ÁÁÖ´Â boolean º¯¼ö
+    float m_velocityDownValue;
+    [SerializeField]
+    bool m_isDrift; //ë“œë¦¬í”„íŠ¸ë¥¼ í•˜ê³ ìžˆëŠ”ì§€ë¥¼ ë‚˜íƒ€ë‚´ëŠ” boolean ë³€ìˆ˜
+    bool m_isStart; //ì‹œìž‘í–ˆëŠ”ì§€ ì•Œë ¤ì£¼ëŠ” boolean ë³€ìˆ˜
 
     [Header("UI")]
     [SerializeField]
@@ -142,6 +140,7 @@ public class PlayerController : MonoBehaviour
             if(InputManager.Vertical() > 0)
             {
                 yield return waitForFixedUpdate;
+                m_playerRb.velocity = Vector3.zero;
                 m_playerRb.AddForce(transform.forward * m_startBoostSpeed, ForceMode.VelocityChange);
                 yield break;
             }
@@ -207,7 +206,7 @@ public class PlayerController : MonoBehaviour
             m_wheelCollider[i] = m_wheelColliderCtr[i].gameObject.GetComponent<WheelCollider>();
         }
     }
-    //ÈÙ ¸Å½¬¿Í ÈÙ ÄÝ¶óÀÌ´õ µ¿±âÈ­
+    //íœ  ë§¤ì‰¬ì™€ íœ  ì½œë¼ì´ë” ë™ê¸°í™”
     void InitWheelPos()
     {
         int wLength = m_wheelCollider.Length;
@@ -253,34 +252,36 @@ public class PlayerController : MonoBehaviour
     {
         m_backLightMat.color = color;
     }
-    //ÀÌµ¿ ÇÔ¼ö
+    //ì´ë™ í•¨ìˆ˜
     void Move()
     {
         var dirZ = InputManager.Vertical();
         var dirX = InputManager.Horizontal();
         var currTurnPower = Mathf.Abs(m_turnPower - m_playerRb.velocity.magnitude);
+        
         foreach (WheelController w in m_wheelColliderCtr)
         {
             w.Move(m_currSpeed, dirZ);
         }
+        
         if (dirZ > 0)
         {
-            if (m_currSpeed < m_maxSpeed)
-                m_currSpeed += m_speedUpVal;
-
-            if (m_currSpeed > m_maxSpeed)
-                m_currSpeed -= m_speedDownVal;
+            if(m_state != State.Booster)
+                m_maxSpeed = m_normalMaxSpeed;
             SetBackLightColor(Color.white);
         }
         else if (dirZ < 0)
         {
-            if (m_currSpeed < m_maxReSpeed)
-                m_currSpeed += m_speedUpVal;
-
-            if (m_currSpeed > m_maxReSpeed)
-                m_currSpeed -= m_speedDownVal;
+            if(m_state != State.Booster)
+                m_maxSpeed = m_maxReSpeed;
             SetBackLightColor(Color.red);
         }
+        else
+        {
+            m_playerRb.velocity = Vector3.Lerp(m_playerRb.velocity, Vector3.zero, m_velocityDownValue);
+        }
+        m_currSpeed = m_maxSpeed * m_playerRb.velocity.magnitude;
+        m_currSpeed = Mathf.Clamp(m_currSpeed, 0, m_maxSpeed);
 
         if (Mathf.Abs(dirZ) > 0)
         {
@@ -293,7 +294,7 @@ public class PlayerController : MonoBehaviour
     }
     void CarDriftControl()
     {
-        if (m_isDrift)
+        /*if (m_isDrift)
         {
             m_slipRate -= m_slipRateDownForce;
             if (m_slipRate < 0.1f) m_slipRate = 0.1f;
@@ -302,7 +303,7 @@ public class PlayerController : MonoBehaviour
         {
             m_slipRate += m_slipRateUpForce;
             if (m_slipRate > 1f) m_slipRate = 1f;
-        }
+        }*/
         for (int i = 2; i < 4; i++)
         {
             m_fowardFricBackWheel = m_wheelCollider[i].forwardFriction;
@@ -313,7 +314,7 @@ public class PlayerController : MonoBehaviour
             m_wheelColliderCtr[i].Drift(m_fowardFricBackWheel, m_sidewayFricBackWheel);
         }
     }
-    void WheelStabilizerBar() //µÎ°³ÀÇ ¾Õ¹ÙÄû¿¡ µ¿ÀÏÇÑ ÈûÀ» ÁÖ±â À§ÇÑ ÇÔ¼ö
+    void WheelStabilizerBar() //ë‘ê°œì˜ ë’·ë°”í€´ì— ë™ì¼í•œ íž˜ì„ ì£¼ê¸° ìœ„í•œ í•¨ìˆ˜
     {
         WheelHit hit;
         m_isGroundL = m_wheelCollider[2].GetGroundHit(out hit);
@@ -368,9 +369,6 @@ public class PlayerController : MonoBehaviour
         m_speed = (m_playerRb.velocity.magnitude * 3.6f) * 5.5f;
         switch (m_state)
         {
-            case State.Defult:
-                m_maxSpeed = m_normalMaxSpeed;
-                break;
             case State.Booster:
                 m_maxSpeed = m_boosterMaxSpeed;
                 m_time += Time.deltaTime;
@@ -408,6 +406,23 @@ public class PlayerController : MonoBehaviour
         {
             GameSystemManager.Instance.ResetPlayerPosition();
         }
+
+        if (m_isDrift)
+        {
+            m_slipRate -= m_slipRateDownForce;
+            if (m_slipRate < 0.1f) m_slipRate = 0.1f;
+        }
+        else if(m_slipRate < 1 && !m_isDrift)
+        {
+            if (InputManager.Horizontal() != 0)
+            {
+                m_slipRate += 0.0088f;
+            }
+            else
+                m_slipRate += 0.03f;
+
+            m_slipRate = Mathf.Clamp(m_slipRate, 0.1f, 1f);
+        } //TODO : ë“œë¦¬í”„íŠ¸ ë¡œì§ ì›í˜•ì€ ì™„ì„±, ì¡°ê¸ˆ ë” ë‹¤ë“¬ì–´ì„œ ë¡œì§ ì™„ì„±í• ê²ƒ
         //Debug.Log(transform.forward);
     }
     void FixedUpdate()

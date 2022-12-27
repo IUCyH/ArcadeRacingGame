@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,7 +24,7 @@ public class LoadSceneManager : Singleton_DontDestroy<LoadSceneManager>
     [SerializeField]
     Text m_loadingValueText;
     [SerializeField]
-    Text m_loadingText; //"·ÎµùÁß...."À» Ç¥½ÃÇØÁÖ´Â UI
+    Text m_loadingText; //"ë¡œë”©ì¤‘...."ì„ í‘œì‹œí•´ì£¼ëŠ” UI
     [SerializeField]
     Image m_loadingProgressBar;
 
@@ -66,7 +64,8 @@ public class LoadSceneManager : Singleton_DontDestroy<LoadSceneManager>
         {
             if (!m_loadingInfo.isDone)
             {
-                m_sb.AppendFormat("{0}%", Mathf.CeilToInt(m_loadingInfo.progress * 100));
+                float progress = Mathf.CeilToInt(m_loadingInfo.progress * 100);
+                m_sb.AppendFormat("{0}%", progress);
                 m_loadingValueText.text = m_sb.ToString();
                 m_loadingProgressBar.fillAmount = m_loadingInfo.progress;
             }

@@ -2803,9 +2803,8 @@ MonoBehaviour:
   m_slipRate: 1
   m_slipRateDownForce: 0.08
   m_slipRateUpForce: 0.03
-  m_speedUpVal: 15
-  m_speedDownVal: 10
   m_speed: 0
+  m_velocityDownValue: 0.05
   m_isDrift: 0
   m_boosterBar: {fileID: 870781435}
   m_boosterIcons:
