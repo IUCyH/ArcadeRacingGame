@@ -1,14 +1,14 @@
 
-|csharpsquid:S3776î"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(®±®“üÿÿÿÿ8æˆ€Õ0
+ucsharpsquid:S3776î"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(®±®“üÿÿÿÿ
 Qcsharpsquid:S3903"/Move 'PlayerController' into a named namespace.(â „¦øÿÿÿÿ
 œcsharpsquid:S1186Ô"yAdd a nested comment explaining why this method is empty, throw a 'NotSupportedException' or complete the implementation.(ÚÖåíøÿÿÿÿ
-Fcsharpsquid:S2933""Make 'm_kartPosY' 'readonly'.(‰åˆüşÿÿÿÿ8¤²œÕ0
+?csharpsquid:S2933""Make 'm_kartPosY' 'readonly'.(‰åˆüşÿÿÿÿ
 Mcsharpsquid:S1172Ø"0Remove this unused method parameter 'collision'.(Ò—–&
-…csharpsquid:S14505"aRemove the field 'm_wheelColliderPos' and declare it as a local variable in the relevant methods.(Ë®¡¦8¤²œÕ0
-csharpsquid:S14506"fRemove the field 'm_wheelColliderRotation' and declare it as a local variable in the relevant methods.(Á›ÊØÿÿÿÿÿ8¤²œÕ0
-mcsharpsquid:S2292"DMake this an auto-implemented property and remove its backing field.(€ ÙÒúÿÿÿÿ8¤²œÕ0
-ncsharpsquid:S2589Ÿ"DChange this condition so that it does not always evaluate to 'true'.(şˆéµûÿÿÿÿ8ûç€Õ0
-Hcsharpsquid:S125ª"Remove this commented out code.(ÒÌâ–øÿÿÿÿ8¥®ÚœÕ0
+~csharpsquid:S14505"aRemove the field 'm_wheelColliderPos' and declare it as a local variable in the relevant methods.(Ë®¡¦
+ˆcsharpsquid:S14506"fRemove the field 'm_wheelColliderRotation' and declare it as a local variable in the relevant methods.(Á›ÊØÿÿÿÿÿ
+fcsharpsquid:S2292"DMake this an auto-implemented property and remove its backing field.(€ ÙÒúÿÿÿÿ
+gcsharpsquid:S2589Ÿ"DChange this condition so that it does not always evaluate to 'true'.(şˆéµûÿÿÿÿ
+Acsharpsquid:S125ª"Remove this commented out code.(ÒÌâ–øÿÿÿÿ
 Acsharpsquid:S125ğ"Remove this commented out code.(—‚Âüÿÿÿÿ
-Hcsharpsquid:S125ª"Remove this commented out code.(ÁÇ¤„şÿÿÿÿ8ôÑíœÕ0
-Ycsharpsquid:S1135©"4Complete the task associated to this 'TODO' comment.(²ñ§Ö8ˆÃŒÕ0
+Acsharpsquid:S125ª"Remove this commented out code.(ÁÇ¤„şÿÿÿÿ
+Rcsharpsquid:S1135©"4Complete the task associated to this 'TODO' comment.(²ñ§Ö

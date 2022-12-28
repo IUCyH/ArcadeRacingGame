@@ -70,23 +70,24 @@ static Il2CppTokenAdjustorThunkPair s_adjustorThunks[1] =
 };
 static const int32_t s_InvokerIndices[16] = 
 {
-	1907,
-	1897,
-	1897,
-	1911,
+	1909,
+	1899,
+	1899,
+	1913,
 	1644,
-	1911,
+	1913,
 	1644,
-	1628,
-	1628,
-	1628,
-	871,
-	1365,
-	1563,
-	1563,
-	1563,
-	1563,
+	1627,
+	1627,
+	1627,
+	870,
+	1364,
+	1562,
+	1562,
+	1562,
+	1562,
 };
+extern const Il2CppDebuggerMetadataRegistration g_DebuggerMetadataRegistrationUnityEngine_VehiclesModule;
 extern const CustomAttributesCacheGenerator g_UnityEngine_VehiclesModule_AttributeGenerators[];
 IL2CPP_EXTERN_C const Il2CppCodeGenModule g_UnityEngine_VehiclesModule_CodeGenModule;
 const Il2CppCodeGenModule g_UnityEngine_VehiclesModule_CodeGenModule = 
@@ -103,7 +104,7 @@ const Il2CppCodeGenModule g_UnityEngine_VehiclesModule_CodeGenModule =
 	NULL,
 	0,
 	NULL,
-	NULL,
+	&g_DebuggerMetadataRegistrationUnityEngine_VehiclesModule,
 	g_UnityEngine_VehiclesModule_AttributeGenerators,
 	NULL, // module initializer,
 	NULL,

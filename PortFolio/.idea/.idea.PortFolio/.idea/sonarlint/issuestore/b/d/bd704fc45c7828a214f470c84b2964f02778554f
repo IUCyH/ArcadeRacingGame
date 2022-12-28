@@ -1,21 +1,21 @@
 
-Ccsharpsquid:S3903"&Move 'CarData' into a named namespace.(·ï°‰
-Ccsharpsquid:S3903"&Move 'MapData' into a named namespace.(¢à­¼
 Hcsharpsquid:S3903%"&Move 'MapInfo' into a named namespace.(‘ÆÄùÿÿÿÿ
-Kcsharpsquid:S3903,")Move 'PlayerData' into a named namespace.(«‚Šûÿÿÿÿ
+Ccsharpsquid:S3903"&Move 'MapData' into a named namespace.(¢à­¼
+Ccsharpsquid:S3903"&Move 'CarData' into a named namespace.(·ï°‰
 Hcsharpsquid:S3903"&Move 'CarInfo' into a named namespace.(Èü³—şÿÿÿÿ
+Kcsharpsquid:S3903,")Move 'PlayerData' into a named namespace.(«‚Šûÿÿÿÿ
+acsharpsquid:S1104'"DMake this field 'private' and encapsulate it in a 'public' property.(Ø¯£Ä
 fcsharpsquid:S1104	"DMake this field 'private' and encapsulate it in a 'public' property.(éçëÿÿÿÿÿ
 acsharpsquid:S1104!"DMake this field 'private' and encapsulate it in a 'public' property.(¹£¥í
+fcsharpsquid:S1104("DMake this field 'private' and encapsulate it in a 'public' property.(‰¾Ãâşÿÿÿÿ
 fcsharpsquid:S1104""DMake this field 'private' and encapsulate it in a 'public' property.(ĞŞÅåøÿÿÿÿ
 acsharpsquid:S1104
 "DMake this field 'private' and encapsulate it in a 'public' property.(‘ÀÒƒ
-acsharpsquid:S1104'"DMake this field 'private' and encapsulate it in a 'public' property.(Ø¯£Ä
+fcsharpsquid:S1104)"DMake this field 'private' and encapsulate it in a 'public' property.(îÂÒˆûÿÿÿÿ
 acsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(â€À»
 acsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(¹£¥í
-fcsharpsquid:S1104("DMake this field 'private' and encapsulate it in a 'public' property.(‰¾Ãâşÿÿÿÿ
 acsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(ÁÁìı
 acsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(à¦·
-fcsharpsquid:S1104)"DMake this field 'private' and encapsulate it in a 'public' property.(îÂÒˆûÿÿÿÿ
 acsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(àŸ«Å
 acsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(‡â¬
 fcsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(ÅÜö´úÿÿÿÿ
@@ -23,12 +23,12 @@ acsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'publi
 fcsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(¡Ì‰üÿÿÿÿ
 fcsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(ë­‡ìıÿÿÿÿ
 fcsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(ÿôªßıÿÿÿÿ
+acsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(æÅ‰
+acsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(ùë€²
+fcsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(¤à¼‰şÿÿÿÿ
 acsharpsquid:S1104."DMake this field 'private' and encapsulate it in a 'public' property.(µüüß
 _csharpsquid:S1104/"DMake this field 'private' and encapsulate it in a 'public' property.(˜éu
 acsharpsquid:S11041"DMake this field 'private' and encapsulate it in a 'public' property.(´Œõ¿
 `csharpsquid:S11042"DMake this field 'private' and encapsulate it in a 'public' property.(€€
 fcsharpsquid:S11043"DMake this field 'private' and encapsulate it in a 'public' property.(ş—¿¬ûÿÿÿÿ
 fcsharpsquid:S11044"DMake this field 'private' and encapsulate it in a 'public' property.(‹¼ë§ıÿÿÿÿ
-acsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(æÅ‰
-acsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(ùë€²
-fcsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(¤à¼‰şÿÿÿÿ

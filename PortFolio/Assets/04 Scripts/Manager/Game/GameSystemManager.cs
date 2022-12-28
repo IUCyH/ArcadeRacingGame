@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class GameSystemManager : Singleton<GameSystemManager>
 {
-    public enum ReverseDirection //¿ªÁÖÇà ÀÎ½ÄÀÇ ±âÁØÀÌ µÇ´Â ÁÂÇ¥
+    public enum ReverseDirection //ì—­ì£¼í–‰ ì¸ì‹ì˜ ê¸°ì¤€ì´ ë˜ëŠ” ì¢Œí‘œ
     {
         None,
         X,
@@ -41,7 +41,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
     [SerializeField]
     float m_resetCooldown;
     [SerializeField]
-    float m_resetTimer; //¸®¼Â ¹öÆ°À» ´©¸¥ ÈÄ ´Ù½Ã ´©¸¦ ¼ö ÀÖ´Â ½Ã°£À» Àç´Â º¯¼ö
+    float m_resetTimer; //ë¦¬ì…‹ ë²„íŠ¼ì„ ëˆ„ë¥¸ í›„ ë‹¤ì‹œ ëˆ„ë¥¼ ìˆ˜ ìˆëŠ” ì‹œê°„ì„ ì¬ëŠ” ë³€ìˆ˜
     [SerializeField]
     bool m_isStart;
     [SerializeField]
@@ -109,7 +109,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
             }
             if (cnt < 1)
             {
-                m_countText.text = "½ÃÀÛ";
+                m_countText.text = "ì‹œì‘";
 
                 InGameUiManager.Instance.SetActiveAllCanvas(true);
                 InGameUiManager.Instance.StartCoroutine(InGameUiManager.Instance.Coroutine_TextAlphaFadeout(m_countText, m_cntTextAlphaFadeOutduration, () => m_countCanvas.enabled = false));
@@ -164,19 +164,19 @@ public class GameSystemManager : Singleton<GameSystemManager>
     }
     void OnFinish()
     {
-        string completeText = "¿ÏÁÖ ±â·Ï";
+        string completeText = "ì™„ì£¼ ê¸°ë¡";
         float mapTime = DataManager.Instance.GetMapBestTime(m_currMapIndex);
 
         if(mapTime > m_timer)
         {
             mapTime = m_timer;
-            completeText = "½Å±â·Ï";
+            completeText = "ì‹ ê¸°ë¡";
             DataManager.Instance.UpdateMapBestTime(mapTime, m_currMapIndex);
         }
         m_player.IsStart = false;
         m_isStart = false;
         m_player.Break(1000f);
-        InGameUiManager.Instance.SetFinishUI(completeText, mapTime, m_timer); //º¯µ¿ °¡´ÉÇÑ Á¤º¸µé¸¸ ¸Å°³º¯¼ö·Î ³Ñ°ÜÁÜ, º¯µ¿ °¡´É¼ºÀÌ ¾ø´Â Á¤º¸µéÀº UI Manager¿¡¼­ Ã³¸®
+        InGameUiManager.Instance.SetFinishUI(completeText, mapTime, m_timer); //ë³€ë™ ê°€ëŠ¥í•œ ì •ë³´ë“¤ë§Œ ë§¤ê°œë³€ìˆ˜ë¡œ ë„˜ê²¨ì¤Œ, ë³€ë™ ê°€ëŠ¥ì„±ì´ ì—†ëŠ” ì •ë³´ë“¤ì€ UI Managerì—ì„œ ì²˜ë¦¬
         DataManager.Instance.SaveAll();
     }
     public void ResetPlayerPosition()

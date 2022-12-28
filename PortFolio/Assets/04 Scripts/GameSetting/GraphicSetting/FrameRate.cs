@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -19,16 +20,17 @@ public class FrameRate : MonoBehaviour, IGraphicSetting
 
     public bool SettingChanged { get; set; }
 
-    public void ApplyChangedSetting() 
+    public void ApplyChangedSetting()
     {
         DataManager.Instance.UpdateFrameRate(m_frameRate);
     }
+
     public void Init()
     {
         InitFrameRateNamesAndFrameRates();
 
         int frameRate = GetFrameRateFromData();
-        if(!m_frameRates.Contains(frameRate))
+        if (!m_frameRates.Contains(frameRate))
         {
             m_sb.Clear();
             m_sb.AppendFormat("{0}Hz", frameRate);
@@ -37,6 +39,7 @@ public class FrameRate : MonoBehaviour, IGraphicSetting
 
             m_maxFrameRateNamesIndex = m_frameRateNames.Count - 1;
         }
+
         int index = m_frameRates.IndexOf(frameRate);
 
         SetFrameRateText(index);
@@ -46,6 +49,7 @@ public class FrameRate : MonoBehaviour, IGraphicSetting
 
         SettingChanged = false;
     }
+
     public void SetGraphicSettingToCurrSettingData()
     {
         int frameRate = GetFrameRateFromData();
@@ -56,6 +60,7 @@ public class FrameRate : MonoBehaviour, IGraphicSetting
         m_frameRate = frameRate;
         m_frameRateNamesIndex = index;
     }
+
     public void OnPressPrevButton()
     {
         SoundManager.Instance.PlaySFX(SFXClip.MouseClick);
@@ -66,6 +71,7 @@ public class FrameRate : MonoBehaviour, IGraphicSetting
         SetSettingChanged();
         SetFrameRateText(m_frameRateNamesIndex);
     }
+
     public void OnPressNextButton()
     {
         SoundManager.Instance.PlaySFX(SFXClip.MouseClick);
@@ -76,10 +82,12 @@ public class FrameRate : MonoBehaviour, IGraphicSetting
         SetSettingChanged();
         SetFrameRateText(m_frameRateNamesIndex);
     }
+
     int GetFrameRateFromData()
     {
         return DataManager.Instance.SettingData.graphicSettings.frameRate;
     }
+
     void SetSettingChanged()
     {
         if (CheckSettingChanged() == true)
@@ -91,6 +99,7 @@ public class FrameRate : MonoBehaviour, IGraphicSetting
             SettingChanged = false;
         }
     }
+
     bool CheckSettingChanged()
     {
         var frameRate = DataManager.Instance.SettingData.graphicSettings.frameRate;
@@ -99,31 +108,47 @@ public class FrameRate : MonoBehaviour, IGraphicSetting
         {
             return false;
         }
+
         return true;
     }
+
     void SetFrameRate()
     {
         m_frameRate = m_frameRates[m_frameRateNamesIndex];
     }
+
     void InitFrameRateNamesAndFrameRates()
     {
         int length = Screen.resolutions.Length;
-
         for (int i = 0; i < length; i++)
         {
-            m_sb.Clear();
             int refreshRate = Screen.resolutions[i].refreshRate;
-            m_sb.AppendFormat("{0}Hz", refreshRate);
-            if (m_frameRateNames.Contains(m_sb.ToString()) || refreshRate < 50)
+            
+            if (!m_frameRates.Contains(refreshRate))
             {
-                continue;
+                m_frameRates.Add(refreshRate);
             }
-
-            m_frameRateNames.Add(m_sb.ToString());
-            m_frameRates.Add(refreshRate);
         }
+
+        m_frameRates.Sort();
+        SetFrameRateNames();
         m_maxFrameRateNamesIndex = m_frameRateNames.Count - 1;
     }
+
+    void SetFrameRateNames()
+    {
+        int length = m_frameRates.Count;
+        
+        for (int i = 0; i < length; i++)
+        {
+            int refreshRate = m_frameRates[i];
+            m_sb.Clear();
+            m_sb.AppendFormat("{0}Hz", refreshRate);
+            
+            m_frameRateNames.Add(m_sb.ToString());
+        }
+    }
+
     void SetFrameRateText(int index)
     {
         if (index > m_maxFrameRateNamesIndex)

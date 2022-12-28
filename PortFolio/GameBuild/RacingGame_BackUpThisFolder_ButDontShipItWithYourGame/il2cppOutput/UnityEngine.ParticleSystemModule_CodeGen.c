@@ -94,25 +94,26 @@ static Il2CppTokenAdjustorThunkPair s_adjustorThunks[10] =
 };
 static const int32_t s_InvokerIndices[18] = 
 {
-	208,
-	1668,
-	1594,
-	1594,
-	1054,
-	1563,
-	872,
-	1628,
+	206,
+	1669,
+	1593,
+	1593,
+	1053,
+	1562,
+	871,
+	1627,
 	1640,
 	1640,
-	1628,
-	1628,
-	1573,
-	1594,
-	1628,
+	1627,
+	1627,
+	1572,
+	1593,
+	1627,
 	1640,
 	1640,
-	1204,
+	1203,
 };
+extern const Il2CppDebuggerMetadataRegistration g_DebuggerMetadataRegistrationUnityEngine_ParticleSystemModule;
 extern const CustomAttributesCacheGenerator g_UnityEngine_ParticleSystemModule_AttributeGenerators[];
 IL2CPP_EXTERN_C const Il2CppCodeGenModule g_UnityEngine_ParticleSystemModule_CodeGenModule;
 const Il2CppCodeGenModule g_UnityEngine_ParticleSystemModule_CodeGenModule = 
@@ -129,7 +130,7 @@ const Il2CppCodeGenModule g_UnityEngine_ParticleSystemModule_CodeGenModule =
 	NULL,
 	0,
 	NULL,
-	NULL,
+	&g_DebuggerMetadataRegistrationUnityEngine_ParticleSystemModule,
 	g_UnityEngine_ParticleSystemModule_AttributeGenerators,
 	NULL, // module initializer,
 	NULL,

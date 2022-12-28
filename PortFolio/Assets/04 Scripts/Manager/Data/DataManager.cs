@@ -165,12 +165,12 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     }
     public void MakeUserDataCreatePopup()
     {
-        PopupManager.Instance.CreatePopupInputField("¾Ë¸²", "È¸¿øÁ¤º¸°¡ ¾ø½À´Ï´Ù. ´Ğ³×ÀÓÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.", () =>
+        PopupManager.Instance.CreatePopupInputField("ì•Œë¦¼", "íšŒì›ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤. ë‹‰ë„¤ì„ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.", () =>
         {
             m_inputFieldName = PopupManager.Instance.GetInputFieldText;
             if (string.IsNullOrEmpty(m_inputFieldName))
             {
-                PopupManager.Instance.CreatePopupOK("¾Ë¸²", "´Ğ³×ÀÓÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+                PopupManager.Instance.CreatePopupOK("ì•Œë¦¼", "ë‹‰ë„¤ì„ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.");
             }
             else
             {
@@ -181,7 +181,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
                     PopupManager.Instance.ClosePopup();
                     TitleManager.Instance.GoNextScene();
                 };
-                PopupManager.Instance.CreatePopupOkCancel("¾Ë¸²", "ÀÌ ´Ğ³×ÀÓÀ¸·Î ÇÏ½Ã°Ú½À´Ï±î?", okFuncDel, null, "¿¹", "¾Æ´Ï¿ä");
+                PopupManager.Instance.CreatePopupOkCancel("ì•Œë¦¼", "ì´ ë‹‰ë„¤ì„ìœ¼ë¡œ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?", okFuncDel, null, "ì˜ˆ", "ì•„ë‹ˆìš”");
             }
         });
     }
@@ -242,7 +242,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     }
     protected override void OnAwake()
     {
-        PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
         LoadSettingData();
     }
 }

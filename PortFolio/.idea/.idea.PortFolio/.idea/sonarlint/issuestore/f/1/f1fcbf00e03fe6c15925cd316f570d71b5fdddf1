@@ -1,0 +1,8 @@
+
+Gcsharpsquid:S1125]"*Remove the unnecessary Boolean literal(s).(‡ñò³
+Jcsharpsquid:S3903"(Move 'FrameRate' into a named namespace.(¼ÉéËÿÿÿÿÿ
+4csharpsquid:S2933
+"Make 'm_sb' 'readonly'.(òå‚õ
+@csharpsquid:S2933"#Make 'm_frameRateNames' 'readonly'.(¯°øü
+<csharpsquid:S2933"Make 'm_frameRates' 'readonly'.(ÄÎ¾‘
+^csharpsquid:S112œ"5'System.Exception' should not be thrown by user code.(ôôÆÓÿÿÿÿÿ8ïØñÓÕ0

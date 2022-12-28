@@ -150,9 +150,9 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
     }
     void InitBackTextsList()
     {
-        m_backTexts.Add("°ÔÀÓ Á¾·á");
-        m_backTexts.Add("½ÃÀÛÈ­¸éÀ¸·Î µ¹¾Æ°¡±â");
-        m_backTexts.Add("¸ŞÀÎ¸Ş´º·Î µ¹¾Æ°¡±â");
+        m_backTexts.Add("ê²Œì„ ì¢…ë£Œ");
+        m_backTexts.Add("ì‹œì‘í™”ë©´ìœ¼ë¡œ ëŒì•„ê°€ê¸°");
+        m_backTexts.Add("ë©”ì¸ë©”ë‰´ë¡œ ëŒì•„ê°€ê¸°");
     }
     void PlayGameSettingPanelAnimation(GameObject settingPanel)
     {
@@ -234,7 +234,7 @@ public class GameSettingManager : Singleton_DontDestroy<GameSettingManager>
             m_settingPanels[i].Init();
         }
 
-        var buttons = m_settingButtons.Length - 2; //back ¹öÆ°°ú exit ¹öÆ°À» Á¦¿Ü½ÃÅ°±â À§ÇØ
+        var buttons = m_settingButtons.Length - 2; //back ë²„íŠ¼ê³¼ exit ë²„íŠ¼ì„ ì œì™¸ì‹œí‚¤ê¸° ìœ„í•´
         for(int i = 0; i < buttons; i++)
         {
             var setting = (Setting)i;

@@ -43,6 +43,12 @@ struct Void_t700C6383A2A510C2CF4DD86DABD5CA9FF70ADAC5;
 
 IL2CPP_EXTERN_C RuntimeClass* PlayableAsset_t5AD1606B76C9753A7F4C6B1061193F581023F137_il2cpp_TypeInfo_var;
 IL2CPP_EXTERN_C const RuntimeMethod* Action_1_Invoke_mDC4EA7BB7E1D881A06381E333FC42B50ECE17F2A_RuntimeMethod_var;
+IL2CPP_EXTERN_C const RuntimeMethod* PlayableDirector_GetReferenceValue_m28191B376D1CE789BB05FD5407A317A31E30DB08_RuntimeMethod_var;
+IL2CPP_EXTERN_C const RuntimeMethod* PlayableDirector_SendOnPlayableDirectorPause_m6F06A18921F0F68BAE114F5DAF032CEAA77EDBC7_RuntimeMethod_var;
+IL2CPP_EXTERN_C const RuntimeMethod* PlayableDirector_SendOnPlayableDirectorPlay_mB5DE72647457F7E3757EAD2A39859BD835DE83FE_RuntimeMethod_var;
+IL2CPP_EXTERN_C const RuntimeMethod* PlayableDirector_SendOnPlayableDirectorStop_m60479449EA74C565E5D7B34E15CA60030C216D08_RuntimeMethod_var;
+IL2CPP_EXTERN_C const RuntimeMethod* PlayableDirector_get_extrapolationMode_m12388157053D75727AC7725F43FDAEBDD70EA212_RuntimeMethod_var;
+IL2CPP_EXTERN_C const RuntimeMethod* PlayableDirector_get_playableAsset_mAD7C43BF96CA5F6553D52DA32C2D14C8501CE45A_RuntimeMethod_var;
 struct Delegate_t_marshaled_com;
 struct Delegate_t_marshaled_pinvoke;
 
@@ -642,7 +648,15 @@ inline void Action_1_Invoke_mDC4EA7BB7E1D881A06381E333FC42B50ECE17F2A (Action_1_
 // UnityEngine.Playables.DirectorWrapMode UnityEngine.Playables.PlayableDirector::get_extrapolationMode()
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR int32_t PlayableDirector_get_extrapolationMode_m12388157053D75727AC7725F43FDAEBDD70EA212 (PlayableDirector_t63912C98A4EC9D4701E88B633E27E0D97209BA38 * __this, const RuntimeMethod* method)
 {
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&PlayableDirector_get_extrapolationMode_m12388157053D75727AC7725F43FDAEBDD70EA212_RuntimeMethod_var);
+		s_Il2CppMethodInitialized = true;
+	}
 	int32_t V_0 = 0;
+	DECLARE_METHOD_EXEC_CTX(methodExecutionContext, PlayableDirector_get_extrapolationMode_m12388157053D75727AC7725F43FDAEBDD70EA212_RuntimeMethod_var, NULL, NULL, NULL);
+	CHECK_PAUSE_POINT;
 	{
 		int32_t L_0;
 		L_0 = PlayableDirector_GetWrapMode_mFCC5A829BF7AF2AB38AE1C9B34E1B153201D075B(__this, /*hidden argument*/NULL);
@@ -663,9 +677,12 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR PlayableAsset_t5AD1606B76C9753A7F4C6B1061193F
 	if (!s_Il2CppMethodInitialized)
 	{
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&PlayableAsset_t5AD1606B76C9753A7F4C6B1061193F581023F137_il2cpp_TypeInfo_var);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&PlayableDirector_get_playableAsset_mAD7C43BF96CA5F6553D52DA32C2D14C8501CE45A_RuntimeMethod_var);
 		s_Il2CppMethodInitialized = true;
 	}
 	PlayableAsset_t5AD1606B76C9753A7F4C6B1061193F581023F137 * V_0 = NULL;
+	DECLARE_METHOD_EXEC_CTX(methodExecutionContext, PlayableDirector_get_playableAsset_mAD7C43BF96CA5F6553D52DA32C2D14C8501CE45A_RuntimeMethod_var, NULL, NULL, NULL);
+	CHECK_PAUSE_POINT;
 	{
 		ScriptableObject_t4361E08CEBF052C650D3666C7CEC37EB31DE116A * L_0;
 		L_0 = PlayableDirector_Internal_GetPlayableAsset_m92B5F23CCF576F9501B886D31080C8BBC3AD9BFF(__this, /*hidden argument*/NULL);
@@ -729,6 +746,14 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void PlayableDirector_Stop_m4C9FCBB20CDD4BF75
 // UnityEngine.Object UnityEngine.Playables.PlayableDirector::GetReferenceValue(UnityEngine.PropertyName,System.Boolean&)
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR Object_tF2F3778131EFF286AF62B7B013A170F95A91571A * PlayableDirector_GetReferenceValue_m28191B376D1CE789BB05FD5407A317A31E30DB08 (PlayableDirector_t63912C98A4EC9D4701E88B633E27E0D97209BA38 * __this, PropertyName_t1B3B39F9873F8967D3557FE2CCF4E415F909FEC1  ___id0, bool* ___idValid1, const RuntimeMethod* method)
 {
+	static bool s_Il2CppMethodInitialized;
+	if (!s_Il2CppMethodInitialized)
+	{
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&PlayableDirector_GetReferenceValue_m28191B376D1CE789BB05FD5407A317A31E30DB08_RuntimeMethod_var);
+		s_Il2CppMethodInitialized = true;
+	}
+	DECLARE_METHOD_EXEC_CTX(methodExecutionContext, PlayableDirector_GetReferenceValue_m28191B376D1CE789BB05FD5407A317A31E30DB08_RuntimeMethod_var, NULL, NULL, NULL);
+	CHECK_PAUSE_POINT;
 	{
 		bool* L_0 = ___idValid1;
 		Object_tF2F3778131EFF286AF62B7B013A170F95A91571A * L_1;
@@ -773,9 +798,12 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void PlayableDirector_SendOnPlayableDirectorP
 	if (!s_Il2CppMethodInitialized)
 	{
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Action_1_Invoke_mDC4EA7BB7E1D881A06381E333FC42B50ECE17F2A_RuntimeMethod_var);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&PlayableDirector_SendOnPlayableDirectorPlay_mB5DE72647457F7E3757EAD2A39859BD835DE83FE_RuntimeMethod_var);
 		s_Il2CppMethodInitialized = true;
 	}
 	bool V_0 = false;
+	DECLARE_METHOD_EXEC_CTX(methodExecutionContext, PlayableDirector_SendOnPlayableDirectorPlay_mB5DE72647457F7E3757EAD2A39859BD835DE83FE_RuntimeMethod_var, NULL, NULL, NULL);
+	CHECK_PAUSE_POINT;
 	{
 		Action_1_tEFFD33105460921F68C4261E79791D397C76CB1B * L_0 = __this->get_played_4();
 		V_0 = (bool)((!(((RuntimeObject*)(Action_1_tEFFD33105460921F68C4261E79791D397C76CB1B *)L_0) <= ((RuntimeObject*)(RuntimeObject *)NULL)))? 1 : 0);
@@ -803,9 +831,12 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void PlayableDirector_SendOnPlayableDirectorP
 	if (!s_Il2CppMethodInitialized)
 	{
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Action_1_Invoke_mDC4EA7BB7E1D881A06381E333FC42B50ECE17F2A_RuntimeMethod_var);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&PlayableDirector_SendOnPlayableDirectorPause_m6F06A18921F0F68BAE114F5DAF032CEAA77EDBC7_RuntimeMethod_var);
 		s_Il2CppMethodInitialized = true;
 	}
 	bool V_0 = false;
+	DECLARE_METHOD_EXEC_CTX(methodExecutionContext, PlayableDirector_SendOnPlayableDirectorPause_m6F06A18921F0F68BAE114F5DAF032CEAA77EDBC7_RuntimeMethod_var, NULL, NULL, NULL);
+	CHECK_PAUSE_POINT;
 	{
 		Action_1_tEFFD33105460921F68C4261E79791D397C76CB1B * L_0 = __this->get_paused_5();
 		V_0 = (bool)((!(((RuntimeObject*)(Action_1_tEFFD33105460921F68C4261E79791D397C76CB1B *)L_0) <= ((RuntimeObject*)(RuntimeObject *)NULL)))? 1 : 0);
@@ -833,9 +864,12 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void PlayableDirector_SendOnPlayableDirectorS
 	if (!s_Il2CppMethodInitialized)
 	{
 		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&Action_1_Invoke_mDC4EA7BB7E1D881A06381E333FC42B50ECE17F2A_RuntimeMethod_var);
+		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&PlayableDirector_SendOnPlayableDirectorStop_m60479449EA74C565E5D7B34E15CA60030C216D08_RuntimeMethod_var);
 		s_Il2CppMethodInitialized = true;
 	}
 	bool V_0 = false;
+	DECLARE_METHOD_EXEC_CTX(methodExecutionContext, PlayableDirector_SendOnPlayableDirectorStop_m60479449EA74C565E5D7B34E15CA60030C216D08_RuntimeMethod_var, NULL, NULL, NULL);
+	CHECK_PAUSE_POINT;
 	{
 		Action_1_tEFFD33105460921F68C4261E79791D397C76CB1B * L_0 = __this->get_stopped_6();
 		V_0 = (bool)((!(((RuntimeObject*)(Action_1_tEFFD33105460921F68C4261E79791D397C76CB1B *)L_0) <= ((RuntimeObject*)(RuntimeObject *)NULL)))? 1 : 0);

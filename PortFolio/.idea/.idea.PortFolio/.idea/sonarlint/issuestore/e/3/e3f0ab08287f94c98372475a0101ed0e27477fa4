@@ -1,0 +1,26 @@
+
+Ccsharpsquid:S3903
+"&Move 'KeyData' into a named namespace.(÷ÅÌŒ
+Ucsharpsquid:S3903"8Move 'DictionaryOfKeyAndKeycode' into a named namespace.(ıÍí£
+Lcsharpsquid:S3903"*Move 'GraphicData' into a named namespace.(¥ƒšˆşÿÿÿÿ
+Ecsharpsquid:S3903"(Move 'SoundData' into a named namespace.(Ï«‘¾
+Lcsharpsquid:S3903&"*Move 'SettingData' into a named namespace.(«ò¯¬úÿÿÿÿ
+acsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(Éöù²
+`csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(§àg
+fcsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(Á¡Óôşÿÿÿÿ
+acsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(±ÙÒ
+fcsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(’·Ó‹üÿÿÿÿ
+fcsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(íŒ´ıÿÿÿÿ
+fcsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(Ò†áÄøÿÿÿÿ
+acsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(¥Ìˆ
+`csharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(°×‹
+acsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(§…æã
+acsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.(‹ˆöÏ
+fcsharpsquid:S1104"DMake this field 'private' and encapsulate it in a 'public' property.( Ó‹şÿÿÿÿ
+fcsharpsquid:S1104 "DMake this field 'private' and encapsulate it in a 'public' property.(ˆğ¨Øøÿÿÿÿ
+acsharpsquid:S1104!"DMake this field 'private' and encapsulate it in a 'public' property.(ŒÔ¿§
+fcsharpsquid:S1104""DMake this field 'private' and encapsulate it in a 'public' property.(’°å£şÿÿÿÿ
+acsharpsquid:S1104("DMake this field 'private' and encapsulate it in a 'public' property.(ªÇ½±
+fcsharpsquid:S1104)"DMake this field 'private' and encapsulate it in a 'public' property.(ÄÓö¼şÿÿÿÿ
+acsharpsquid:S1104*"DMake this field 'private' and encapsulate it in a 'public' property.(¼¼ÜÆ
+csharpsquid:S3925"bUpdate this implementation of 'ISerializable' to conform to the recommended serialization pattern.(ıÍí£
