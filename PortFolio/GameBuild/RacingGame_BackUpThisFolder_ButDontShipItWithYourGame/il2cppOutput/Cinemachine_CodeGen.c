@@ -4608,19 +4608,18 @@ static const Il2CppRGCTXDefinition s_rgctxValues[17] =
 	{ (Il2CppRGCTXDataType)2, 64 },
 	{ (Il2CppRGCTXDataType)3, 11705 },
 	{ (Il2CppRGCTXDataType)2, 63 },
-	{ (Il2CppRGCTXDataType)2, 1414 },
+	{ (Il2CppRGCTXDataType)2, 1393 },
 	{ (Il2CppRGCTXDataType)3, 7106 },
 	{ (Il2CppRGCTXDataType)2, 62 },
 	{ (Il2CppRGCTXDataType)3, 7107 },
 	{ (Il2CppRGCTXDataType)3, 5196 },
 	{ (Il2CppRGCTXDataType)3, 5193 },
 	{ (Il2CppRGCTXDataType)3, 5195 },
-	{ (Il2CppRGCTXDataType)2, 2363 },
+	{ (Il2CppRGCTXDataType)2, 2339 },
 	{ (Il2CppRGCTXDataType)3, 5191 },
 	{ (Il2CppRGCTXDataType)3, 5194 },
 	{ (Il2CppRGCTXDataType)3, 5192 },
 };
-extern const Il2CppDebuggerMetadataRegistration g_DebuggerMetadataRegistrationCinemachine;
 extern const CustomAttributesCacheGenerator g_Cinemachine_AttributeGenerators[];
 IL2CPP_EXTERN_C const Il2CppCodeGenModule g_Cinemachine_CodeGenModule;
 const Il2CppCodeGenModule g_Cinemachine_CodeGenModule = 
@@ -4637,7 +4636,7 @@ const Il2CppCodeGenModule g_Cinemachine_CodeGenModule =
 	s_rgctxIndices,
 	17,
 	s_rgctxValues,
-	&g_DebuggerMetadataRegistrationCinemachine,
+	NULL,
 	g_Cinemachine_AttributeGenerators,
 	NULL, // module initializer,
 	NULL,

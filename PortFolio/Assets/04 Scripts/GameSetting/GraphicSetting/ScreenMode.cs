@@ -58,9 +58,9 @@ public class ScreenMode : MonoBehaviour, IGraphicSetting
     }
     void InitScreenModeNamesList()
     {
-        m_screenModeNames.Add("ÀüÃ¼È­¸é");
-        m_screenModeNames.Add("ÀüÃ¼ Ã¢¸ðµå");
-        m_screenModeNames.Add("Ã¢¸ðµå");
+        m_screenModeNames.Add("ì „ì²´í™”ë©´");
+        m_screenModeNames.Add("ì „ì²´ ì°½ëª¨ë“œ");
+        m_screenModeNames.Add("ì°½ëª¨ë“œ");
 
         m_maxScreenModeNamesIndex = m_screenModeNames.Count - 1;
     }
@@ -104,10 +104,6 @@ public class ScreenMode : MonoBehaviour, IGraphicSetting
     }
     void SetScreenModeText(int index)
     {
-        if(index > m_maxScreenModeNamesIndex)
-        {
-            throw new System.Exception("The screen mode index is larger than the maximum index in the screen mode names list.");
-        }
         m_screenModeText.text = m_screenModeNames[index];
     }
     int GetScreenModeIndexFromData()

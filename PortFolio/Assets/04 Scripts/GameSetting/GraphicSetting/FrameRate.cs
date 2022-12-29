@@ -32,12 +32,9 @@ public class FrameRate : MonoBehaviour, IGraphicSetting
         int frameRate = GetFrameRateFromData();
         if (!m_frameRates.Contains(frameRate))
         {
-            m_sb.Clear();
-            m_sb.AppendFormat("{0}Hz", frameRate);
-            m_frameRates.Add(frameRate);
-            m_frameRateNames.Add(m_sb.ToString());
-
-            m_maxFrameRateNamesIndex = m_frameRateNames.Count - 1;
+            frameRate = GetNearestFrameRateInList(frameRate);
+            DataManager.Instance.UpdateFrameRate(frameRate);
+            DataManager.Instance.SaveSettingData();
         }
 
         int index = m_frameRates.IndexOf(frameRate);
@@ -151,10 +148,26 @@ public class FrameRate : MonoBehaviour, IGraphicSetting
 
     void SetFrameRateText(int index)
     {
-        if (index > m_maxFrameRateNamesIndex)
-        {
-            throw new System.Exception("The frame rate index is larger than the maximum index in the frame rate names list.");
-        }
         m_frameRateText.text = m_frameRateNames[index];
+    }
+
+    int GetNearestFrameRateInList(int criterion)
+    {
+        int length = m_frameRates.Count;
+        int nearestNum = 9999;
+        
+        for (int i = 0; i < length; i++)
+        {
+            if (criterion >= m_frameRates[i])
+            {
+                int minusResult = criterion - m_frameRates[i];
+                if (minusResult < nearestNum)
+                {
+                    nearestNum = m_frameRates[i];
+                }
+            }
+        }
+
+        return nearestNum;
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -59,7 +60,7 @@ public class AnisotropicFiltering : MonoBehaviour, IGraphicSetting
     {
         if (m_AF > 2 || m_AF < 0 || m_AF == 1)
         {
-            throw new System.Exception("The value is not 0 or 2. Please set the value to 0 or 2 only.");
+            throw new Exception("The value is not 0 or 2. Please set the value to 0 or 2 only.");
         }
         QualitySettings.anisotropicFiltering = (UnityEngine.AnisotropicFiltering)m_AF;
     }

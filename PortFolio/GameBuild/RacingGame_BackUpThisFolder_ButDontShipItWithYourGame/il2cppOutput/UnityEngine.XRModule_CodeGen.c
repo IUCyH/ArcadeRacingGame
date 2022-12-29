@@ -329,7 +329,6 @@ static const int32_t s_InvokerIndices[57] =
 	1911,
 	1911,
 };
-extern const Il2CppDebuggerMetadataRegistration g_DebuggerMetadataRegistrationUnityEngine_XRModule;
 extern const CustomAttributesCacheGenerator g_UnityEngine_XRModule_AttributeGenerators[];
 IL2CPP_EXTERN_C const Il2CppCodeGenModule g_UnityEngine_XRModule_CodeGenModule;
 const Il2CppCodeGenModule g_UnityEngine_XRModule_CodeGenModule = 
@@ -346,7 +345,7 @@ const Il2CppCodeGenModule g_UnityEngine_XRModule_CodeGenModule =
 	NULL,
 	0,
 	NULL,
-	&g_DebuggerMetadataRegistrationUnityEngine_XRModule,
+	NULL,
 	g_UnityEngine_XRModule_AttributeGenerators,
 	NULL, // module initializer,
 	NULL,

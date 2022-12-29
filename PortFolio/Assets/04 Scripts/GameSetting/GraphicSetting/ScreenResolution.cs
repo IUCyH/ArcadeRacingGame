@@ -81,11 +81,10 @@ public class ScreenResolution : MonoBehaviour, IGraphicSetting
         int length = Screen.resolutions.Length - 1;
         for (int i = length; i >= 0; i--)
         {
-            if(m_resolutions.Contains((Screen.resolutions[i].width, Screen.resolutions[i].height)))
+            if(!m_resolutions.Contains((Screen.resolutions[i].width, Screen.resolutions[i].height)))
             {
-                continue;
+                m_resolutions.Add((Screen.resolutions[i].width, Screen.resolutions[i].height));
             }
-            m_resolutions.Add((Screen.resolutions[i].width, Screen.resolutions[i].height));
         }
     }
 }

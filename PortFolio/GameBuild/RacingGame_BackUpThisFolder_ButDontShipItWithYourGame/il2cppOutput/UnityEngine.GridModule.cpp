@@ -19,7 +19,6 @@ struct String_t;
 // System.Void
 struct Void_t700C6383A2A510C2CF4DD86DABD5CA9FF70ADAC5;
 
-IL2CPP_EXTERN_C const RuntimeMethod* GridLayout_DoNothing_m36201F4787709460C994921B16CAC95CD490E0A1_RuntimeMethod_var;
 
 
 IL2CPP_EXTERN_C_BEGIN
@@ -206,14 +205,6 @@ public:
 // System.Void UnityEngine.GridLayout::DoNothing()
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void GridLayout_DoNothing_m36201F4787709460C994921B16CAC95CD490E0A1 (GridLayout_t7BA9C388D3466CA1F18CAD50848F670F670D5D29 * __this, const RuntimeMethod* method)
 {
-	static bool s_Il2CppMethodInitialized;
-	if (!s_Il2CppMethodInitialized)
-	{
-		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&GridLayout_DoNothing_m36201F4787709460C994921B16CAC95CD490E0A1_RuntimeMethod_var);
-		s_Il2CppMethodInitialized = true;
-	}
-	DECLARE_METHOD_EXEC_CTX(methodExecutionContext, GridLayout_DoNothing_m36201F4787709460C994921B16CAC95CD490E0A1_RuntimeMethod_var, NULL, NULL, NULL);
-	CHECK_PAUSE_POINT;
 	{
 		return;
 	}

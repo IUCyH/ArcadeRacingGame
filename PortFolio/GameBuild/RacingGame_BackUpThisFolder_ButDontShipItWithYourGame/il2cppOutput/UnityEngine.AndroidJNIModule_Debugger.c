@@ -230,13 +230,13 @@ Il2CppSequencePoint g_sequencePointsUnityEngine_AndroidJNIModule[1] = { { 0, 0, 
 #endif
 #if IL2CPP_MONO_DEBUGGER
 static const Il2CppCatchPoint g_catchPoints[] = {
-{ 13990, 5939, 125, 0, -1 },
-{ 13990, 4002, 139, 0, -1 },
-{ 14028, 4002, 156, 0, -1 },
-{ 14038, 4002, 25, 1, 0 },
-{ 14039, 4002, 27, 1, 0 },
-{ 14040, 4002, 26, 0, -1 },
-{ 14047, 5117, 24, 0, -1 },
+{ 13991, 5939, 125, 0, -1 },
+{ 13991, 4002, 139, 0, -1 },
+{ 14029, 4002, 156, 0, -1 },
+{ 14039, 4002, 25, 1, 0 },
+{ 14040, 4002, 27, 1, 0 },
+{ 14041, 4002, 26, 0, -1 },
+{ 14048, 5117, 24, 0, -1 },
 };
 #else
 static const Il2CppCatchPoint g_catchPoints[1] = { { 0, 0, 0, 0, } };

@@ -139,7 +139,6 @@ static const Il2CppRGCTXDefinition s_rgctxValues[6] =
 	{ (Il2CppRGCTXDataType)3, 7151 },
 	{ (Il2CppRGCTXDataType)3, 7150 },
 };
-extern const Il2CppDebuggerMetadataRegistration g_DebuggerMetadataRegistrationUnityEngine_SubsystemsModule;
 extern const CustomAttributesCacheGenerator g_UnityEngine_SubsystemsModule_AttributeGenerators[];
 IL2CPP_EXTERN_C const Il2CppCodeGenModule g_UnityEngine_SubsystemsModule_CodeGenModule;
 const Il2CppCodeGenModule g_UnityEngine_SubsystemsModule_CodeGenModule = 
@@ -156,7 +155,7 @@ const Il2CppCodeGenModule g_UnityEngine_SubsystemsModule_CodeGenModule =
 	s_rgctxIndices,
 	6,
 	s_rgctxValues,
-	&g_DebuggerMetadataRegistrationUnityEngine_SubsystemsModule,
+	NULL,
 	g_UnityEngine_SubsystemsModule_AttributeGenerators,
 	NULL, // module initializer,
 	NULL,

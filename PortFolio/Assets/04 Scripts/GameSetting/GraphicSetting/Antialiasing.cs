@@ -89,7 +89,7 @@ public class Antialiasing : MonoBehaviour, IGraphicSetting
     }
     void InitAntialiasingNamesList()
     {
-        m_antialiasingNames.Add("²ô±â");
+        m_antialiasingNames.Add("ë„ê¸°");
         m_antialiasingNames.Add("2X");
         m_antialiasingNames.Add("4X");
         m_antialiasingNames.Add("8X");
@@ -98,10 +98,6 @@ public class Antialiasing : MonoBehaviour, IGraphicSetting
     }
     void SetAntialiasingText(int index)
     {
-        if (index > m_maxAntialiasingNamesIndex)
-        {
-            throw new System.Exception("The antialiasing index is larger than the maximum index in the antialiasing names list.");
-        }
         m_antialiasingText.text = m_antialiasingNames[index];
     }
 }

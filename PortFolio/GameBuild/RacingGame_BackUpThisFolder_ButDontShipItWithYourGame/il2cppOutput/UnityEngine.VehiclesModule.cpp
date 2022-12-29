@@ -21,11 +21,6 @@ struct Void_t700C6383A2A510C2CF4DD86DABD5CA9FF70ADAC5;
 // UnityEngine.WheelCollider
 struct WheelCollider_t57B08104FE16DFC3BF72826F7A3CCB8477C01779;
 
-IL2CPP_EXTERN_C const RuntimeMethod* WheelCollider_get_forwardFriction_m430D5CCD9D463482275A9058352832DA8153B7DD_RuntimeMethod_var;
-IL2CPP_EXTERN_C const RuntimeMethod* WheelCollider_get_sidewaysFriction_m85AA645570CAC61DF6BC5F9B8F70409A877F7DFE_RuntimeMethod_var;
-IL2CPP_EXTERN_C const RuntimeMethod* WheelCollider_set_forwardFriction_mEC613D233431786260E97DA4B2D14C597A4390A8_RuntimeMethod_var;
-IL2CPP_EXTERN_C const RuntimeMethod* WheelCollider_set_sidewaysFriction_mEE0EFD1DFE53A0FA023F8D1E05840A58D69784C2_RuntimeMethod_var;
-IL2CPP_EXTERN_C const RuntimeMethod* WheelHit_get_point_m950E6B764A768CE147DB57C1CAE81D288391E5E8_RuntimeMethod_var;
 
 
 IL2CPP_EXTERN_C_BEGIN
@@ -685,16 +680,8 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR float WheelCollider_get_suspensionDistance_m7
 // UnityEngine.WheelFrictionCurve UnityEngine.WheelCollider::get_forwardFriction()
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR WheelFrictionCurve_t96AB1E3B37FC1E7369962A2E712ECD9A2AFE723D  WheelCollider_get_forwardFriction_m430D5CCD9D463482275A9058352832DA8153B7DD (WheelCollider_t57B08104FE16DFC3BF72826F7A3CCB8477C01779 * __this, const RuntimeMethod* method)
 {
-	static bool s_Il2CppMethodInitialized;
-	if (!s_Il2CppMethodInitialized)
-	{
-		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&WheelCollider_get_forwardFriction_m430D5CCD9D463482275A9058352832DA8153B7DD_RuntimeMethod_var);
-		s_Il2CppMethodInitialized = true;
-	}
 	WheelFrictionCurve_t96AB1E3B37FC1E7369962A2E712ECD9A2AFE723D  V_0;
 	memset((&V_0), 0, sizeof(V_0));
-	DECLARE_METHOD_EXEC_CTX(methodExecutionContext, WheelCollider_get_forwardFriction_m430D5CCD9D463482275A9058352832DA8153B7DD_RuntimeMethod_var, NULL, NULL, NULL);
-	CHECK_PAUSE_POINT;
 	{
 		WheelCollider_get_forwardFriction_Injected_mBE5A878FC605F7937A8556304BCD1F9E3C55FB60(__this, (WheelFrictionCurve_t96AB1E3B37FC1E7369962A2E712ECD9A2AFE723D *)(&V_0), /*hidden argument*/NULL);
 		WheelFrictionCurve_t96AB1E3B37FC1E7369962A2E712ECD9A2AFE723D  L_0 = V_0;
@@ -704,14 +691,6 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR WheelFrictionCurve_t96AB1E3B37FC1E7369962A2E7
 // System.Void UnityEngine.WheelCollider::set_forwardFriction(UnityEngine.WheelFrictionCurve)
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void WheelCollider_set_forwardFriction_mEC613D233431786260E97DA4B2D14C597A4390A8 (WheelCollider_t57B08104FE16DFC3BF72826F7A3CCB8477C01779 * __this, WheelFrictionCurve_t96AB1E3B37FC1E7369962A2E712ECD9A2AFE723D  ___value0, const RuntimeMethod* method)
 {
-	static bool s_Il2CppMethodInitialized;
-	if (!s_Il2CppMethodInitialized)
-	{
-		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&WheelCollider_set_forwardFriction_mEC613D233431786260E97DA4B2D14C597A4390A8_RuntimeMethod_var);
-		s_Il2CppMethodInitialized = true;
-	}
-	DECLARE_METHOD_EXEC_CTX(methodExecutionContext, WheelCollider_set_forwardFriction_mEC613D233431786260E97DA4B2D14C597A4390A8_RuntimeMethod_var, NULL, NULL, NULL);
-	CHECK_PAUSE_POINT;
 	{
 		WheelCollider_set_forwardFriction_Injected_m058F137F937CC546C776C6779C7A582823AA0680(__this, (WheelFrictionCurve_t96AB1E3B37FC1E7369962A2E712ECD9A2AFE723D *)(&___value0), /*hidden argument*/NULL);
 		return;
@@ -720,16 +699,8 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void WheelCollider_set_forwardFriction_mEC613
 // UnityEngine.WheelFrictionCurve UnityEngine.WheelCollider::get_sidewaysFriction()
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR WheelFrictionCurve_t96AB1E3B37FC1E7369962A2E712ECD9A2AFE723D  WheelCollider_get_sidewaysFriction_m85AA645570CAC61DF6BC5F9B8F70409A877F7DFE (WheelCollider_t57B08104FE16DFC3BF72826F7A3CCB8477C01779 * __this, const RuntimeMethod* method)
 {
-	static bool s_Il2CppMethodInitialized;
-	if (!s_Il2CppMethodInitialized)
-	{
-		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&WheelCollider_get_sidewaysFriction_m85AA645570CAC61DF6BC5F9B8F70409A877F7DFE_RuntimeMethod_var);
-		s_Il2CppMethodInitialized = true;
-	}
 	WheelFrictionCurve_t96AB1E3B37FC1E7369962A2E712ECD9A2AFE723D  V_0;
 	memset((&V_0), 0, sizeof(V_0));
-	DECLARE_METHOD_EXEC_CTX(methodExecutionContext, WheelCollider_get_sidewaysFriction_m85AA645570CAC61DF6BC5F9B8F70409A877F7DFE_RuntimeMethod_var, NULL, NULL, NULL);
-	CHECK_PAUSE_POINT;
 	{
 		WheelCollider_get_sidewaysFriction_Injected_m8EAA3E001BB706E9476147E89575AE4342CD636F(__this, (WheelFrictionCurve_t96AB1E3B37FC1E7369962A2E712ECD9A2AFE723D *)(&V_0), /*hidden argument*/NULL);
 		WheelFrictionCurve_t96AB1E3B37FC1E7369962A2E712ECD9A2AFE723D  L_0 = V_0;
@@ -739,14 +710,6 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR WheelFrictionCurve_t96AB1E3B37FC1E7369962A2E7
 // System.Void UnityEngine.WheelCollider::set_sidewaysFriction(UnityEngine.WheelFrictionCurve)
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void WheelCollider_set_sidewaysFriction_mEE0EFD1DFE53A0FA023F8D1E05840A58D69784C2 (WheelCollider_t57B08104FE16DFC3BF72826F7A3CCB8477C01779 * __this, WheelFrictionCurve_t96AB1E3B37FC1E7369962A2E712ECD9A2AFE723D  ___value0, const RuntimeMethod* method)
 {
-	static bool s_Il2CppMethodInitialized;
-	if (!s_Il2CppMethodInitialized)
-	{
-		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&WheelCollider_set_sidewaysFriction_mEE0EFD1DFE53A0FA023F8D1E05840A58D69784C2_RuntimeMethod_var);
-		s_Il2CppMethodInitialized = true;
-	}
-	DECLARE_METHOD_EXEC_CTX(methodExecutionContext, WheelCollider_set_sidewaysFriction_mEE0EFD1DFE53A0FA023F8D1E05840A58D69784C2_RuntimeMethod_var, NULL, NULL, NULL);
-	CHECK_PAUSE_POINT;
 	{
 		WheelCollider_set_sidewaysFriction_Injected_m57B33FE3F12D497BE7A050EBE8AA1059954626BA(__this, (WheelFrictionCurve_t96AB1E3B37FC1E7369962A2E712ECD9A2AFE723D *)(&___value0), /*hidden argument*/NULL);
 		return;
@@ -875,16 +838,8 @@ IL2CPP_EXTERN_C void WheelHit_t29625F675B7C6CD83AE028E64F770C15811A36BB_marshal_
 // UnityEngine.Vector3 UnityEngine.WheelHit::get_point()
 IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR Vector3_t65B972D6A585A0A5B63153CF1177A90D3C90D65E  WheelHit_get_point_m950E6B764A768CE147DB57C1CAE81D288391E5E8 (WheelHit_t29625F675B7C6CD83AE028E64F770C15811A36BB * __this, const RuntimeMethod* method)
 {
-	static bool s_Il2CppMethodInitialized;
-	if (!s_Il2CppMethodInitialized)
-	{
-		il2cpp_codegen_initialize_runtime_metadata((uintptr_t*)&WheelHit_get_point_m950E6B764A768CE147DB57C1CAE81D288391E5E8_RuntimeMethod_var);
-		s_Il2CppMethodInitialized = true;
-	}
 	Vector3_t65B972D6A585A0A5B63153CF1177A90D3C90D65E  V_0;
 	memset((&V_0), 0, sizeof(V_0));
-	DECLARE_METHOD_EXEC_CTX(methodExecutionContext, WheelHit_get_point_m950E6B764A768CE147DB57C1CAE81D288391E5E8_RuntimeMethod_var, NULL, NULL, NULL);
-	CHECK_PAUSE_POINT;
 	{
 		Vector3_t65B972D6A585A0A5B63153CF1177A90D3C90D65E  L_0 = __this->get_m_Point_0();
 		V_0 = L_0;

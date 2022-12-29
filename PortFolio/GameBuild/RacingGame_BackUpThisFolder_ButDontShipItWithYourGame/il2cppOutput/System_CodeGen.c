@@ -2475,10 +2475,10 @@ static const Il2CppTokenRangePair s_rgctxIndices[9] =
 };
 static const Il2CppRGCTXDefinition s_rgctxValues[50] = 
 {
-	{ (Il2CppRGCTXDataType)2, 958 },
-	{ (Il2CppRGCTXDataType)2, 2367 },
+	{ (Il2CppRGCTXDataType)2, 941 },
+	{ (Il2CppRGCTXDataType)2, 2343 },
 	{ (Il2CppRGCTXDataType)3, 6989 },
-	{ (Il2CppRGCTXDataType)2, 1389 },
+	{ (Il2CppRGCTXDataType)2, 1368 },
 	{ (Il2CppRGCTXDataType)3, 6980 },
 	{ (Il2CppRGCTXDataType)3, 6994 },
 	{ (Il2CppRGCTXDataType)3, 6993 },
@@ -2488,7 +2488,7 @@ static const Il2CppRGCTXDefinition s_rgctxValues[50] =
 	{ (Il2CppRGCTXDataType)3, 6991 },
 	{ (Il2CppRGCTXDataType)3, 6998 },
 	{ (Il2CppRGCTXDataType)3, 4705 },
-	{ (Il2CppRGCTXDataType)2, 829 },
+	{ (Il2CppRGCTXDataType)2, 812 },
 	{ (Il2CppRGCTXDataType)2, 288 },
 	{ (Il2CppRGCTXDataType)3, 4704 },
 	{ (Il2CppRGCTXDataType)2, 789 },
@@ -2496,14 +2496,14 @@ static const Il2CppRGCTXDefinition s_rgctxValues[50] =
 	{ (Il2CppRGCTXDataType)3, 6992 },
 	{ (Il2CppRGCTXDataType)3, 6995 },
 	{ (Il2CppRGCTXDataType)3, 6997 },
-	{ (Il2CppRGCTXDataType)2, 2371 },
+	{ (Il2CppRGCTXDataType)2, 2347 },
 	{ (Il2CppRGCTXDataType)3, 6990 },
-	{ (Il2CppRGCTXDataType)1, 2371 },
-	{ (Il2CppRGCTXDataType)2, 2371 },
+	{ (Il2CppRGCTXDataType)1, 2347 },
+	{ (Il2CppRGCTXDataType)2, 2347 },
 	{ (Il2CppRGCTXDataType)3, 6999 },
 	{ (Il2CppRGCTXDataType)2, 378 },
 	{ (Il2CppRGCTXDataType)3, 11774 },
-	{ (Il2CppRGCTXDataType)2, 2380 },
+	{ (Il2CppRGCTXDataType)2, 2356 },
 	{ (Il2CppRGCTXDataType)3, 13607 },
 	{ (Il2CppRGCTXDataType)3, 9931 },
 	{ (Il2CppRGCTXDataType)3, 9930 },
@@ -2520,13 +2520,12 @@ static const Il2CppRGCTXDefinition s_rgctxValues[50] =
 	{ (Il2CppRGCTXDataType)3, 4047 },
 	{ (Il2CppRGCTXDataType)3, 10211 },
 	{ (Il2CppRGCTXDataType)3, 13051 },
-	{ (Il2CppRGCTXDataType)2, 2386 },
+	{ (Il2CppRGCTXDataType)2, 2362 },
 	{ (Il2CppRGCTXDataType)3, 4056 },
 	{ (Il2CppRGCTXDataType)3, 4057 },
 	{ (Il2CppRGCTXDataType)2, 389 },
 	{ (Il2CppRGCTXDataType)3, 10210 },
 };
-extern const Il2CppDebuggerMetadataRegistration g_DebuggerMetadataRegistrationSystem;
 extern const CustomAttributesCacheGenerator g_System_AttributeGenerators[];
 IL2CPP_EXTERN_C const Il2CppCodeGenModule g_System_CodeGenModule;
 const Il2CppCodeGenModule g_System_CodeGenModule = 
@@ -2543,7 +2542,7 @@ const Il2CppCodeGenModule g_System_CodeGenModule =
 	s_rgctxIndices,
 	50,
 	s_rgctxValues,
-	&g_DebuggerMetadataRegistrationSystem,
+	NULL,
 	g_System_AttributeGenerators,
 	NULL, // module initializer,
 	NULL,

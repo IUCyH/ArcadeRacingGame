@@ -101,11 +101,11 @@ public class ShadowQuality : MonoBehaviour, IGraphicSetting
     }
     void InitShadowQualityNamesList()
     {
-        m_shadowQualityNames.Add("²ô±â");
-        m_shadowQualityNames.Add("¸Å¿ì ³·À½");
-        m_shadowQualityNames.Add("³·À½");
-        m_shadowQualityNames.Add("³ôÀ½");
-        m_shadowQualityNames.Add("¸Å¿ì ³ôÀ½");
+        m_shadowQualityNames.Add("ë„ê¸°");
+        m_shadowQualityNames.Add("ë§¤ìš° ë‚®ìŒ");
+        m_shadowQualityNames.Add("ë‚®ìŒ");
+        m_shadowQualityNames.Add("ë†’ìŒ");
+        m_shadowQualityNames.Add("ë§¤ìš° ë†’ìŒ");
 
         m_maxShadowQualityNamesIndex = m_shadowQualityNames.Count - 1;
     }
@@ -132,10 +132,6 @@ public class ShadowQuality : MonoBehaviour, IGraphicSetting
     }
     void SetShadowQualityText(int index)
     {
-        if (index > m_maxShadowQualityNamesIndex)
-        {
-            throw new System.Exception("The shadow quality index is larger than the maximum index in the shadow quality names list.");
-        }
         m_shadowQualityText.text = m_shadowQualityNames[index];
     }
 }

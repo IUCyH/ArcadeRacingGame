@@ -193,6 +193,11 @@ public class DataManager : Singleton_DontDestroy<DataManager>
         m_settingData.graphicSettings.screenResolutionHeight = Screen.currentResolution.height;
         m_settingData.graphicSettings.frameRate = Screen.currentResolution.refreshRate;
 
+        m_settingData.soundSettings.totalVolume = 0.5f;
+        m_settingData.soundSettings.bgmVolume = 0.5f;
+        m_settingData.soundSettings.sfxVolume = 0.5f;
+        
+
         InputManager.InitToDefaultKey();
         SaveSettingData();
     }
@@ -242,7 +247,7 @@ public class DataManager : Singleton_DontDestroy<DataManager>
     }
     protected override void OnAwake()
     {
-        //PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteAll();
         LoadSettingData();
     }
 }

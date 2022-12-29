@@ -67,10 +67,10 @@ public class TextureQuality : MonoBehaviour, IGraphicSetting
     }
     void InitTextureQualityNamesList()
     {
-        m_textureQualityNames.Add("¸Å¿ì ³·À½");
-        m_textureQualityNames.Add("³·À½");
-        m_textureQualityNames.Add("³ôÀ½");
-        m_textureQualityNames.Add("¸Å¿ì ³ôÀ½");
+        m_textureQualityNames.Add("ë§¤ìš° ë‚®ìŒ");
+        m_textureQualityNames.Add("ë‚®ìŒ");
+        m_textureQualityNames.Add("ë†’ìŒ");
+        m_textureQualityNames.Add("ë§¤ìš° ë†’ìŒ");
 
         m_maxTextureQualityNamesIndex = m_textureQualityNames.Count - 1;
     }
@@ -97,10 +97,6 @@ public class TextureQuality : MonoBehaviour, IGraphicSetting
     }
     void SetTextureQualityText(int index)
     {
-        if (index > m_maxTextureQualityNamesIndex)
-        {
-            throw new System.Exception("The texture quality index is larger than the maximum index in the texture quality names list.");
-        }
         m_textureQualityText.text = m_textureQualityNames[index];
     }
 }

@@ -26,7 +26,7 @@ public class GraphicSetting : MonoBehaviour, ISetting
     PopupFuncDel m_exitOkFunc;
     PopupFuncDel m_exitCancelFunc;
 
-    const string SettingsAppliedSuccessfully = "±×·¡ÇÈ ¼³Á¤ÀÌ Àû¿ëµÇ¾ú½À´Ï´Ù.";
+    const string SettingsAppliedSuccessfully = "ê·¸ëž˜í”½ ì„¤ì •ì´ ì ìš©ë˜ì—ˆìŠµë‹ˆë‹¤.";
 
     public void OnPressApplyButton()
     {
@@ -39,14 +39,14 @@ public class GraphicSetting : MonoBehaviour, ISetting
         UpdateGraphicSettings();
         if(!CheckGameSettingsChanged())
         {
-            PopupManager.Instance.CreatePopupOK("¾Ë¸²", SettingsAppliedSuccessfully);
+            PopupManager.Instance.CreatePopupOK("ì•Œë¦¼", SettingsAppliedSuccessfully);
         }
     }
     public void Exit()
     {
         if (CheckGameSettingsChanged() == true)
         {
-            PopupManager.Instance.CreatePopupOkCancel("¾Ë¸²", "±×·¡ÇÈ ¼³Á¤ÀÌ º¯°æµÇ¾ú½À´Ï´Ù. Àû¿ëÇÏ½Ã°Ú½À´Ï±î?", m_exitOkFunc, m_exitCancelFunc, "¿¹", "¾Æ´Ï¿ä");
+            PopupManager.Instance.CreatePopupOkCancel("ì•Œë¦¼", "ê·¸ëž˜í”½ ì„¤ì •ì´ ë³€ê²½ë˜ì—ˆìŠµë‹ˆë‹¤. ì ìš©í•˜ì‹œê² ìŠµë‹ˆê¹Œ?", m_exitOkFunc, m_exitCancelFunc, "ì˜ˆ", "ì•„ë‹ˆìš”");
         }
         else
         {
@@ -73,7 +73,7 @@ public class GraphicSetting : MonoBehaviour, ISetting
             if(!CheckGameSettingsChanged())
             {
                 PopupManager.Instance.ClosePopup();
-                PopupManager.Instance.CreatePopupOK("¾Ë¸²", SettingsAppliedSuccessfully, () => 
+                PopupManager.Instance.CreatePopupOK("ì•Œë¦¼", SettingsAppliedSuccessfully, () => 
                 {
                     InitScrollBarValue();
                     PopupManager.Instance.ClosePopup();

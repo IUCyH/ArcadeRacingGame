@@ -2272,10 +2272,9 @@ static const Il2CppRGCTXDefinition s_rgctxValues[23] =
 	{ (Il2CppRGCTXDataType)3, 7161 },
 	{ (Il2CppRGCTXDataType)3, 6500 },
 	{ (Il2CppRGCTXDataType)3, 7164 },
-	{ (Il2CppRGCTXDataType)2, 1446 },
+	{ (Il2CppRGCTXDataType)2, 1425 },
 	{ (Il2CppRGCTXDataType)3, 7159 },
 };
-extern const Il2CppDebuggerMetadataRegistration g_DebuggerMetadataRegistrationUnity_Timeline;
 extern const CustomAttributesCacheGenerator g_Unity_Timeline_AttributeGenerators[];
 IL2CPP_EXTERN_C const Il2CppCodeGenModule g_Unity_Timeline_CodeGenModule;
 const Il2CppCodeGenModule g_Unity_Timeline_CodeGenModule = 
@@ -2292,7 +2291,7 @@ const Il2CppCodeGenModule g_Unity_Timeline_CodeGenModule =
 	s_rgctxIndices,
 	23,
 	s_rgctxValues,
-	&g_DebuggerMetadataRegistrationUnity_Timeline,
+	NULL,
 	g_Unity_Timeline_AttributeGenerators,
 	NULL, // module initializer,
 	NULL,
