@@ -1,0 +1,7 @@
+
+Ncsharpsquid:S1125Z"*Remove the unnecessary Boolean literal(s).(‡ñò³8§–ÙîÕ0
+Qcsharpsquid:S3903"(Move 'FrameRate' into a named namespace.(¼ÉéËÿÿÿÿÿ8¨–ÙîÕ0
+;csharpsquid:S2933
+"Make 'm_sb' 'readonly'.(òå‚õ8¨–ÙîÕ0
+Gcsharpsquid:S2933"#Make 'm_frameRateNames' 'readonly'.(¯°øü8¨–ÙîÕ0
+Ccsharpsquid:S2933"Make 'm_frameRates' 'readonly'.(ÄÎ¾‘8¨–ÙîÕ0

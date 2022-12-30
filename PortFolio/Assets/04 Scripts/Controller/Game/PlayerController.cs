@@ -55,6 +55,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Move Values")]
     [SerializeField]
+    float m_playerVelocity;
+    [SerializeField]
     float m_antiRollVal = 5000f;
     [SerializeField]
     float m_travelL = 1f;
@@ -91,7 +93,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float m_speed;
     [SerializeField]
-    float m_velocityDownValue;
+    int m_prevDir;
     [SerializeField]
     bool m_isDrift; //드리프트를 하고있는지를 나타내는 boolean 변수
     bool m_isStart; //시작했는지 알려주는 boolean 변수
@@ -151,6 +153,19 @@ public class PlayerController : MonoBehaviour
                 yield break;
             }
             yield return null;
+        }
+    }
+
+    IEnumerator Coroutine_CalculateSpeed()
+    {
+        WaitForEndOfFrame waitForEndOfFrame = new WaitForEndOfFrame();
+
+        while (true)
+        {
+            var prevPos = transform.position;
+            yield return waitForEndOfFrame;
+            m_playerVelocity = (transform.position - prevPos).magnitude / Time.deltaTime;
+            //Debug.Log($"current speed : {m_playerVelocity}");
         }
     }
     public void OnGameStart()
@@ -258,32 +273,46 @@ public class PlayerController : MonoBehaviour
         var dirZ = InputManager.Vertical();
         var dirX = InputManager.Horizontal();
         var currTurnPower = Mathf.Abs(m_turnPower - m_playerRb.velocity.magnitude);
+
+        //m_currSpeed += 
         
         foreach (WheelController w in m_wheelColliderCtr)
         {
-            w.Move(m_currSpeed, dirZ);
+            w.Move(m_maxSpeed, dirZ);
         }
         
         if (dirZ > 0)
         {
+            if (m_prevDir != dirZ) m_maxSpeed = 0f;
+            
             if(m_state != State.Booster)
-                m_maxSpeed = m_normalMaxSpeed;
+                m_maxSpeed = Mathf.Lerp(m_maxSpeed, m_normalMaxSpeed, 0.009f);
             SetBackLightColor(Color.white);
         }
         else if (dirZ < 0)
         {
+            if (m_prevDir != dirZ) m_maxSpeed = 0f;
+            
             if(m_state != State.Booster)
-                m_maxSpeed = m_maxReSpeed;
+                m_maxSpeed = Mathf.Lerp(m_maxSpeed, m_maxReSpeed, 0.009f);
             SetBackLightColor(Color.red);
         }
         else
         {
+            m_maxSpeed = Mathf.Lerp(m_maxSpeed, m_speed, 0.05f);
+            SetBackLightColor(Color.white);
+        }
+
+        m_prevDir = dirZ;
+        
+        /*else
+        {
             m_playerRb.velocity = Vector3.Lerp(m_playerRb.velocity, Vector3.zero, m_velocityDownValue);
         }
         m_currSpeed = m_maxSpeed * m_playerRb.velocity.magnitude;
-        m_currSpeed = Mathf.Clamp(m_currSpeed, 0, m_maxSpeed);
+        m_currSpeed = Mathf.Clamp(m_currSpeed, 0, m_maxSpeed);*/
 
-        if (Mathf.Abs(dirZ) > 0)
+        if (m_speed > 0f)
         {
             for (int i = 0; i < 2; i++)
             {
@@ -347,6 +376,7 @@ public class PlayerController : MonoBehaviour
     }
     void Awake()
     {
+        StartCoroutine(Coroutine_CalculateSpeed());
         int index = DataManager.Instance.PlayerData.currKart;
         string kartName = DataManager.Instance.PlayerData.carsList[index].data.name;
         string path = string.Format("Prefab/Karts/{0}", kartName);
@@ -366,11 +396,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //Debug.Log("State : " + m_state);
-        m_speed = (m_playerRb.velocity.magnitude * 3.6f) * 5.5f;
+        m_speed = (m_playerVelocity * 3.6f) * 5.5f;
         switch (m_state)
         {
             case State.Booster:
-                m_maxSpeed = m_boosterMaxSpeed;
+                m_maxSpeed = Mathf.Lerp(m_maxSpeed, m_boosterMaxSpeed, 0.009f);
                 m_time += Time.deltaTime;
                 if(m_time > m_boosterTime)
                 {

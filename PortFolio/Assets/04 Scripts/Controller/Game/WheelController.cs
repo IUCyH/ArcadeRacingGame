@@ -11,7 +11,7 @@ public class WheelController : MonoBehaviour
     public WheelFrictionCurve SideWayFriction { get { return m_wheelCollider.sidewaysFriction; } }
     public void Move(float speed, float dir)
     {
-        m_wheelCollider.motorTorque = (speed * 5) / 4 * dir * Time.fixedDeltaTime;
+        m_wheelCollider.motorTorque = speed * dir * Time.fixedDeltaTime;
     }
     public void Turn(float speed, float dir)
     {

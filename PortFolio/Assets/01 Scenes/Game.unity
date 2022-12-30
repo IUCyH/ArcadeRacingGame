@@ -2786,6 +2786,7 @@ MonoBehaviour:
   - {fileID: 0}
   m_startDriftPosSum: {x: 0, y: 0, z: 0}
   m_endDriftPosSum: {x: 0, y: 0, z: 0}
+  m_playerVelocity: 0
   m_antiRollVal: 4500
   m_travelL: 1
   m_travelR: 1
@@ -2827,7 +2828,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1444569346}
   serializedVersion: 2
-  m_Mass: 800
+  m_Mass: 750
   m_Drag: 0.05
   m_AngularDrag: 1.5
   m_UseGravity: 1
