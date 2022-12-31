@@ -2728,6 +2728,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1444569347}
   - component: {fileID: 1444569348}
+  - component: {fileID: 1444569350}
   - component: {fileID: 1444569349}
   m_Layer: 0
   m_Name: Player
@@ -2779,13 +2780,14 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  m_wheelColliderCtr:
+  m_wheelCtrs:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   m_startDriftPosSum: {x: 0, y: 0, z: 0}
   m_endDriftPosSum: {x: 0, y: 0, z: 0}
+  m_playerMoveCtr: {fileID: 1444569350}
   m_playerVelocity: 0
   m_antiRollVal: 4500
   m_travelL: 1
@@ -2805,7 +2807,8 @@ MonoBehaviour:
   m_slipRateDownForce: 0.08
   m_slipRateUpForce: 0.03
   m_speed: 0
-  m_velocityDownValue: 0.05
+  m_dirX: 0
+  m_prevDir: 0
   m_isDrift: 0
   m_boosterBar: {fileID: 870781435}
   m_boosterIcons:
@@ -2836,6 +2839,27 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1444569350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1444569346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc8ba263c85ecad42a59eacc000ad988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_player: {fileID: 1444569348}
+  m_speed: 0
+  m_forwardSpeed: 150
+  m_backwardSpeed: 15
+  m_prevDir: 0
+  m_slipRate: 1
+  m_slipRateDownValue: 0.1
+  m_slipRateUpFastValue: 0.03
+  m_slipRateUpSlowValue: 0.0088
 --- !u!1 &1491899328
 GameObject:
   m_ObjectHideFlags: 0

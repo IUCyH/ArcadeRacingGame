@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     WheelCollider[] m_wheelCollider = new WheelCollider[4];
     [SerializeField]
-    WheelController[] m_wheelColliderCtr = new WheelController[4]; //휠 콜라이더 배열
+    WheelController[] m_wheelCtrs = new WheelController[4]; //휠 콜라이더 배열
     [SerializeField]
     WheelFrictionCurve m_fowardFricBackWheel; //뒷바퀴중 왼쪽 바퀴의 forward friction의 값을 바꾸기 위한 변수
     [SerializeField]
@@ -53,7 +53,9 @@ public class PlayerController : MonoBehaviour
     Vector3 m_wheelColliderPos; //휠 콜라이더의 위치를 받아올 변수
     Quaternion m_wheelColliderRotation; //휠 콜라이더의 회전값을 받아올 변수
 
-    [Header("Move Values")]
+    [Header("Move Values")] 
+    [SerializeField]
+    PlayerMove m_playerMoveCtr;
     [SerializeField]
     float m_playerVelocity;
     [SerializeField]
@@ -92,6 +94,8 @@ public class PlayerController : MonoBehaviour
     float m_slipRateUpForce;
     [SerializeField]
     float m_speed;
+    [SerializeField]
+    int m_dirX;
     [SerializeField]
     int m_prevDir;
     [SerializeField]
@@ -180,7 +184,8 @@ public class PlayerController : MonoBehaviour
         m_kartColor = carInfo.data.kartColor;
         transform.position = carInfo.data.pos;
         m_startBoostSpeed = carInfo.data.startSpeed;
-        m_normalMaxSpeed = carInfo.data.maxSpeed * 10000f;
+        m_playerMoveCtr.SetForwardSpeed(carInfo.data.forwardSpeed * 10000f);
+        m_playerMoveCtr.SetBackwardSpeed(carInfo.data.backwardSpeed * 10000f);
         m_boosterMaxSpeed = carInfo.data.maxBoosterSpeed * 10000f;
         m_turnPower = carInfo.data.maxTurnPower * 100f;
         m_defultChargingValue = carInfo.data.defultBoosterChargingValue;
@@ -201,6 +206,30 @@ public class PlayerController : MonoBehaviour
     {
         m_state = state;
     }
+
+    public void CarMove(float speed, int dir)
+    {
+        foreach (WheelController w in m_wheelCtrs)
+        {
+            w.Move(speed, dir);
+        }
+    }
+
+    public void CarTurn(float turnPower, int dir)
+    {
+        int numberOfFWheels = 2;
+        
+        for (int i = 0; i < numberOfFWheels; i++)
+        {
+            m_wheelCtrs[i].Turn(turnPower, dir);
+        }
+    }
+
+    public float CalculateTurnPower()
+    {
+        return Mathf.Abs(m_turnPower - m_playerVelocity);
+    }
+
     void InstantiateKart()
     {
         var obj = Instantiate(m_kartPrefab);
@@ -211,15 +240,13 @@ public class PlayerController : MonoBehaviour
     {
         var numberOfWheels = DataManager.Instance.PlayerData.carsList[index].data.numberOfWheels;
         var wheelParent = GameObject.FindGameObjectWithTag("Wheel");
+        
         for (int i = 0; i < numberOfWheels; i++)
         {
             m_wheels[i] = wheelParent.transform.GetChild(i + 1).gameObject;
         }
-        m_wheelColliderCtr = GetComponentsInChildren<WheelController>();
-        for (int i = 0; i < m_wheelColliderCtr.Length; i++)
-        {
-            m_wheelCollider[i] = m_wheelColliderCtr[i].gameObject.GetComponent<WheelCollider>();
-        }
+        m_wheelCtrs = GetComponentsInChildren<WheelController>();
+        m_wheelCollider = GetComponentsInChildren<WheelCollider>();
     }
     //휠 매쉬와 휠 콜라이더 동기화
     void InitWheelPos()
@@ -228,7 +255,7 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i < wLength; i++)
         {
             m_wheelCollider[i].GetWorldPose(out m_wheelColliderPos, out m_wheelColliderRotation);
-            m_wheelColliderCtr[i].UpdatePos(m_wheels[i].transform, m_wheelColliderPos, m_wheelColliderRotation);
+            m_wheelCtrs[i].UpdatePos(m_wheels[i].transform, m_wheelColliderPos, m_wheelColliderRotation);
         }
     }
     void OnBooster()
@@ -263,84 +290,27 @@ public class PlayerController : MonoBehaviour
             m_boosterIcons[m_boosterCnt].enabled = true;
         }       
     }
-    void SetBackLightColor(Color color)
+    public void SetBackLightColor(Color color)
     {
         m_backLightMat.color = color;
     }
     //이동 함수
     void Move()
     {
-        var dirZ = InputManager.Vertical();
-        var dirX = InputManager.Horizontal();
-        var currTurnPower = Mathf.Abs(m_turnPower - m_playerRb.velocity.magnitude);
-
-        //m_currSpeed += 
-        
-        foreach (WheelController w in m_wheelColliderCtr)
-        {
-            w.Move(m_maxSpeed, dirZ);
-        }
-        
-        if (dirZ > 0)
-        {
-            if (m_prevDir != dirZ) m_maxSpeed = 0f;
-            
-            if(m_state != State.Booster)
-                m_maxSpeed = Mathf.Lerp(m_maxSpeed, m_normalMaxSpeed, 0.009f);
-            SetBackLightColor(Color.white);
-        }
-        else if (dirZ < 0)
-        {
-            if (m_prevDir != dirZ) m_maxSpeed = 0f;
-            
-            if(m_state != State.Booster)
-                m_maxSpeed = Mathf.Lerp(m_maxSpeed, m_maxReSpeed, 0.009f);
-            SetBackLightColor(Color.red);
-        }
-        else
-        {
-            m_maxSpeed = Mathf.Lerp(m_maxSpeed, m_speed, 0.05f);
-            SetBackLightColor(Color.white);
-        }
-
-        m_prevDir = dirZ;
-        
-        /*else
-        {
-            m_playerRb.velocity = Vector3.Lerp(m_playerRb.velocity, Vector3.zero, m_velocityDownValue);
-        }
-        m_currSpeed = m_maxSpeed * m_playerRb.velocity.magnitude;
-        m_currSpeed = Mathf.Clamp(m_currSpeed, 0, m_maxSpeed);*/
-
-        if (m_speed > 0f)
-        {
-            for (int i = 0; i < 2; i++)
-            {
-                m_wheelColliderCtr[i].Turn(currTurnPower, dirX);
-            }
-        }
-        CarDriftControl();
+        m_playerMoveCtr.Move(m_state);
+        m_playerMoveCtr.Turn();
     }
-    void CarDriftControl()
+    public void CarDriftControl(float slipRate)
     {
-        /*if (m_isDrift)
-        {
-            m_slipRate -= m_slipRateDownForce;
-            if (m_slipRate < 0.1f) m_slipRate = 0.1f;
-        }
-        else
-        {
-            m_slipRate += m_slipRateUpForce;
-            if (m_slipRate > 1f) m_slipRate = 1f;
-        }*/
         for (int i = 2; i < 4; i++)
         {
             m_fowardFricBackWheel = m_wheelCollider[i].forwardFriction;
             m_sidewayFricBackWheel = m_wheelCollider[i].sidewaysFriction;
-            m_fowardFricBackWheel.stiffness = m_slipRate;
-            m_sidewayFricBackWheel.stiffness = m_slipRate;
+            
+            m_fowardFricBackWheel.stiffness = slipRate;
+            m_sidewayFricBackWheel.stiffness = slipRate;
 
-            m_wheelColliderCtr[i].Drift(m_fowardFricBackWheel, m_sidewayFricBackWheel);
+            m_wheelCtrs[i].Drift(m_fowardFricBackWheel, m_sidewayFricBackWheel);
         }
     }
     void WheelStabilizerBar() //두개의 뒷바퀴에 동일한 힘을 주기 위한 함수
@@ -397,6 +367,7 @@ public class PlayerController : MonoBehaviour
     {
         //Debug.Log("State : " + m_state);
         m_speed = (m_playerVelocity * 3.6f) * 5.5f;
+
         switch (m_state)
         {
             case State.Booster:
@@ -424,13 +395,23 @@ public class PlayerController : MonoBehaviour
         }
         if (InputManager.GetKeyDown(Key.HandBreak))
         {
-            m_isDrift = true;
-            m_startDriftPosSum += transform.position;
+            var dir = InputManager.Horizontal();
+            if (dir != 0)
+            {
+                Debug.Log($"Hand Break Key Down , dir -> {dir}");
+                m_isDrift = true;
+                m_startDriftPosSum += transform.position;
+                m_dirX = dir;
+            }
         }
         if(InputManager.GetKeyUp(Key.HandBreak))
         {
-            m_isDrift = false;
-            m_endDriftPosSum += transform.position;
+            if (m_isDrift == true)
+            {
+                Debug.Log("Drift Key Up");
+                m_isDrift = false;
+                m_endDriftPosSum += transform.position;
+            }
         }
         if(InputManager.GetKeyDown(Key.Reset))
         {
@@ -439,20 +420,12 @@ public class PlayerController : MonoBehaviour
 
         if (m_isDrift)
         {
-            m_slipRate -= m_slipRateDownForce;
-            if (m_slipRate < 0.1f) m_slipRate = 0.1f;
+            m_playerMoveCtr.OnDriftKeyDown();
         }
-        else if(m_slipRate < 1 && !m_isDrift)
+        else
         {
-            if (InputManager.Horizontal() != 0)
-            {
-                m_slipRate += 0.0088f;
-            }
-            else
-                m_slipRate += 0.03f;
-
-            m_slipRate = Mathf.Clamp(m_slipRate, 0.1f, 1f);
-        } //TODO : 드리프트 로직 원형은 완성, 조금 더 다듬어서 로직 완성할것
+            m_playerMoveCtr.OnDriftKeyUp(m_dirX);
+        }
         //Debug.Log(transform.forward);
     }
     void FixedUpdate()

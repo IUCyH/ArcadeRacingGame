@@ -493,7 +493,8 @@ MonoBehaviour:
     kartColor: {r: 0, g: 0, b: 0, a: 1}
     pos: {x: -43.6, y: -4.61, z: 246.59}
     name: SportsKart
-    maxSpeed: 0.45
+    forwardSpeed: 0.45
+    backwardSpeed: 0.3
     maxBoosterSpeed: 0.65
     maxTurnPower: 0.25
     startSpeed: 10
@@ -506,7 +507,8 @@ MonoBehaviour:
     kartColor: {r: 0.18356177, g: 0.18356177, b: 0.5188679, a: 1}
     pos: {x: -43.6, y: -4.61, z: 246.59}
     name: SportsKart2
-    maxSpeed: 0.48
+    forwardSpeed: 0.55
+    backwardSpeed: 0.4
     maxBoosterSpeed: 0.68
     maxTurnPower: 0.23
     startSpeed: 12
@@ -519,7 +521,8 @@ MonoBehaviour:
     kartColor: {r: 0.5256063, g: 0.034754362, b: 0.6698113, a: 1}
     pos: {x: -43.6, y: -4.61, z: 246.59}
     name: BoxKart
-    maxSpeed: 0.35
+    forwardSpeed: 0.37
+    backwardSpeed: 0.22
     maxBoosterSpeed: 0.5
     maxTurnPower: 0.35
     startSpeed: 13

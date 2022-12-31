@@ -9,11 +9,11 @@ public class WheelController : MonoBehaviour
 
     public WheelFrictionCurve ForwardFriction { get { return m_wheelCollider.forwardFriction; } }
     public WheelFrictionCurve SideWayFriction { get { return m_wheelCollider.sidewaysFriction; } }
-    public void Move(float speed, float dir)
+    public void Move(float speed, int dir)
     {
         m_wheelCollider.motorTorque = speed * dir * Time.fixedDeltaTime;
     }
-    public void Turn(float speed, float dir)
+    public void Turn(float speed, int dir)
     {
         m_wheelCollider.steerAngle = speed * dir * 10f * Time.fixedDeltaTime;
     }

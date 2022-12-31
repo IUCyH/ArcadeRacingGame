@@ -1,17 +1,0 @@
-
-|csharpsquid:S3776Œ"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(®±®“üÿÿÿÿ8‘¯Æ”Ö0
-Qcsharpsquid:S3903"/Move 'PlayerController' into a named namespace.(â „¦øÿÿÿÿ
-£csharpsquid:S1186ñ"yAdd a nested comment explaining why this method is empty, throw a 'NotSupportedException' or complete the implementation.(ÚÖåíøÿÿÿÿ8’¯Æ”Ö0
-?csharpsquid:S2933""Make 'm_kartPosY' 'readonly'.(‰åˆüşÿÿÿÿ
-Wcsharpsquid:S2190Ÿ"2Add a way to break out of this method's recursion.(á®Ú8™­§”Ö0
-Tcsharpsquid:S1172õ"0Remove this unused method parameter 'collision'.(Ò—–&8’¯Æ”Ö0
-~csharpsquid:S14505"aRemove the field 'm_wheelColliderPos' and declare it as a local variable in the relevant methods.(Ë®¡¦
-ˆcsharpsquid:S14506"fRemove the field 'm_wheelColliderRotation' and declare it as a local variable in the relevant methods.(Á›ÊØÿÿÿÿÿ
-gcsharpsquid:S2292"DMake this an auto-implemented property and remove its backing field.(€ ÙÒúÿÿÿÿ
-ncsharpsquid:S2589½"DChange this condition so that it does not always evaluate to 'true'.(şˆéµûÿÿÿÿ8€£‘Ö0
-Ccsharpsquid:S125¨"Remove this commented out code.(×­…8‹ƒ„•Ö0
-Hcsharpsquid:S125µ"Remove this commented out code.(ÒÌâ–øÿÿÿÿ8’¯Æ”Ö0
-Hcsharpsquid:S125Ç"Remove this commented out code.(ÒÌâ–øÿÿÿÿ8’¯Æ”Ö0
-Hcsharpsquid:S125"Remove this commented out code.(—‚Âüÿÿÿÿ8’¯Æ”Ö0
-Hcsharpsquid:S125È"Remove this commented out code.(ÁÇ¤„şÿÿÿÿ8’¯Æ”Ö0
-Ycsharpsquid:S1135Ç"4Complete the task associated to this 'TODO' comment.(²ñ§Ö8’¯Æ”Ö0

@@ -10,7 +10,8 @@ public class CarData
     public Color kartColor;
     public Vector3 pos;
     public string name;
-    public float maxSpeed;
+    public float forwardSpeed;
+    public float backwardSpeed;
     public float maxBoosterSpeed;
     public float maxTurnPower;
     public float startSpeed;
