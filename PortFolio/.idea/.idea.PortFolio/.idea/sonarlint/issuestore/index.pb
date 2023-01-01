@@ -5,10 +5,6 @@ Y
 -Assets/04 Scripts/Manager/LoadSceneManager.cs,a\f\afe6564f0d973743b112a700666b57332bcda365
 a
 1Assets/04 Scripts/Utill/SerializableDictionary.cs,6\9\69ad7270152cf2ae1227b46576bdfc4443e10085
-c
-3Assets/04 Scripts/Manager/Game/GameSystemManager.cs,c\c\cc6a9f052e3ff4d2c0b94f6d7dd6ef92e76ec6b7
-c
-3Assets/04 Scripts/Manager/Game/ResetPointManager.cs,0\0\0023d0cb0321674a031fca261e6d3b17c0920502
 f
 6Assets/04 Scripts/UI/UIManager/Game/InGameUiManager.cs,0\c\0cc0fe829612de417e2199bba3dbbf592474e7db
 i
@@ -39,6 +35,8 @@ i
 9Assets/04 Scripts/GameSetting/GraphicSetting/FrameRate.cs,f\1\f1fcbf00e03fe6c15925cd316f570d71b5fdddf1
 Y
 )Assets/04 Scripts/Manager/SoundManager.cs,8\6\863d145aa460ad0136a0e02a6f331dccce3cd163
+]
+-Assets/04 Scripts/Manager/Data/DataManager.cs,b\e\bea32bb38276f3349cefafcd63768dc6bb2196dd
 i
 9Assets/04 Scripts/GameSetting/SoundSetting/TotalVolume.cs,f\a\fa1a1b4857c706e621a48856c8c3963b0ebf6247
 g
@@ -47,15 +45,17 @@ g
 7Assets/04 Scripts/GameSetting/SoundSetting/SfxVolume.cs,1\f\1f299ee3b86c2028aeaabffad2ae028900c088b3
 `
 0Assets/04 Scripts/Utill/Singleton_DontDestroy.cs,9\f\9f345e5bfc13c7488810cd1fd718f5a1117f26d0
-j
-:Assets/04 Scripts/GameSetting/SoundSetting/SoundSetting.cs,f\3\f32c3d66e61ce2e237c022e06a65ef250968b24c
 d
 4Assets/04 Scripts/Controller/Game/WheelController.cs,8\1\817a073979ac491c6dd646abed7f2440d5fdba90
+j
+:Assets/04 Scripts/GameSetting/SoundSetting/SoundSetting.cs,f\3\f32c3d66e61ce2e237c022e06a65ef250968b24c
 T
 $Assets/04 Scripts/Data/PlayerData.cs,b\d\bd704fc45c7828a214f470c84b2964f02778554f
-]
--Assets/04 Scripts/Manager/Data/DataManager.cs,b\e\bea32bb38276f3349cefafcd63768dc6bb2196dd
-f
-6Assets/04 Scripts/Controller/Game/Player/PlayerMove.cs,e\7\e73c32cc5bb92a6e79235678c13fc320ab4132a6
+c
+3Assets/04 Scripts/Manager/Game/ResetPointManager.cs,0\0\0023d0cb0321674a031fca261e6d3b17c0920502
+c
+3Assets/04 Scripts/Manager/Game/GameSystemManager.cs,c\c\cc6a9f052e3ff4d2c0b94f6d7dd6ef92e76ec6b7
 l
 <Assets/04 Scripts/Controller/Game/Player/PlayerController.cs,9\6\969d1e7081d39bfe4b9bc87bf659296162720e8f
+f
+6Assets/04 Scripts/Controller/Game/Player/PlayerMove.cs,e\7\e73c32cc5bb92a6e79235678c13fc320ab4132a6

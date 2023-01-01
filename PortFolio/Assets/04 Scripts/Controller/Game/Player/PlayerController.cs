@@ -300,9 +300,11 @@ public class PlayerController : MonoBehaviour
         m_playerMoveCtr.Move(m_state);
         m_playerMoveCtr.Turn();
     }
-    public void CarDriftControl(float slipRate)
+    public void CarDrift(float slipRate)
     {
-        for (int i = 2; i < 4; i++)
+        int numOfFirstRearWheel = 2;
+        int numOfLastRearWheel = 4;
+        for (int i = numOfFirstRearWheel; i < numOfLastRearWheel; i++)
         {
             m_fowardFricBackWheel = m_wheelCollider[i].forwardFriction;
             m_sidewayFricBackWheel = m_wheelCollider[i].sidewaysFriction;

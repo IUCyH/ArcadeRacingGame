@@ -83,7 +83,7 @@ public class PlayerMove : MonoBehaviour
         m_slipRate -= m_slipRateDownValue;
         
         if (m_slipRate < 0.1f) m_slipRate = 0.1f;
-        m_player.CarDriftControl(m_slipRate);
+        m_player.CarDrift(m_slipRate);
     }
 
     public void OnDriftKeyUp(int dir)
@@ -98,6 +98,6 @@ public class PlayerMove : MonoBehaviour
             m_slipRate += m_slipRateUpFastValue;
 
         if (m_slipRate > 1f) m_slipRate = 1f;
-        m_player.CarDriftControl(m_slipRate);
+        m_player.CarDrift(m_slipRate);
     }
 }
