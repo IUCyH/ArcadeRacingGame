@@ -39,6 +39,12 @@ Y
 -Assets/04 Scripts/Manager/Data/DataManager.cs,b\e\bea32bb38276f3349cefafcd63768dc6bb2196dd
 i
 9Assets/04 Scripts/GameSetting/SoundSetting/TotalVolume.cs,f\a\fa1a1b4857c706e621a48856c8c3963b0ebf6247
+f
+6Assets/04 Scripts/Controller/Game/Player/PlayerMove.cs,e\7\e73c32cc5bb92a6e79235678c13fc320ab4132a6
+j
+:Assets/04 Scripts/GameSetting/SoundSetting/SoundSetting.cs,f\3\f32c3d66e61ce2e237c022e06a65ef250968b24c
+c
+3Assets/04 Scripts/Manager/Game/ResetPointManager.cs,0\0\0023d0cb0321674a031fca261e6d3b17c0920502
 g
 7Assets/04 Scripts/GameSetting/SoundSetting/BgmVolume.cs,d\7\d7b90e8cf6e8c9be921906e7e577eadb7f8091c8
 g
@@ -47,15 +53,9 @@ g
 0Assets/04 Scripts/Utill/Singleton_DontDestroy.cs,9\f\9f345e5bfc13c7488810cd1fd718f5a1117f26d0
 d
 4Assets/04 Scripts/Controller/Game/WheelController.cs,8\1\817a073979ac491c6dd646abed7f2440d5fdba90
-j
-:Assets/04 Scripts/GameSetting/SoundSetting/SoundSetting.cs,f\3\f32c3d66e61ce2e237c022e06a65ef250968b24c
+l
+<Assets/04 Scripts/Controller/Game/Player/PlayerController.cs,9\6\969d1e7081d39bfe4b9bc87bf659296162720e8f
 T
 $Assets/04 Scripts/Data/PlayerData.cs,b\d\bd704fc45c7828a214f470c84b2964f02778554f
 c
-3Assets/04 Scripts/Manager/Game/ResetPointManager.cs,0\0\0023d0cb0321674a031fca261e6d3b17c0920502
-c
 3Assets/04 Scripts/Manager/Game/GameSystemManager.cs,c\c\cc6a9f052e3ff4d2c0b94f6d7dd6ef92e76ec6b7
-l
-<Assets/04 Scripts/Controller/Game/Player/PlayerController.cs,9\6\969d1e7081d39bfe4b9bc87bf659296162720e8f
-f
-6Assets/04 Scripts/Controller/Game/Player/PlayerMove.cs,e\7\e73c32cc5bb92a6e79235678c13fc320ab4132a6

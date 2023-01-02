@@ -183,32 +183,62 @@ public class GameSystemManager : Singleton<GameSystemManager>
     {
         if (m_isCanReset)
         {
-            var length = ResetPointManager.Instance.ResetPoints.Length;
-            Vector3 nearestPos = Vector3.zero;
-            Quaternion resetPointRotation = Quaternion.identity;
-            float nearestDist = float.PositiveInfinity;
-            float dist = 0f;
-
-            for(int i = 1; i < length; i++) //배열의 첫번째 오브젝트는 리셋 포인트들의 부모 오브젝트이기 때문에 제외
-            {
-                var pos = ResetPointManager.Instance.ResetPoints[i].position;
-                var dir = pos - m_player.transform.position;
-                var dot = Vector3.Dot(m_player.transform.forward, dir.normalized);
-                if (dot > 0) continue;
-                
-                resetPointRotation = ResetPointManager.Instance.ResetPoints[i].localRotation;
-                dist = dir.sqrMagnitude;
-                if (dist < nearestDist)
-                {
-                    nearestPos = pos;
-                    nearestDist = dist;
-                }
-            }
-            m_player.transform.SetPositionAndRotation(nearestPos, resetPointRotation);
+            var nearestPoint = FindNearestResetPoint();
+            
+            nearestPoint.y = m_player.transform.position.y;
+            SetPlayerPosition(nearestPoint);
+            SetPlayerForward();
             m_player.SetState(PlayerController.State.Reset);
+            
             m_isReset = true;
             m_isCanReset = false;
+            Debug.Log($"player forward : {m_player.transform.forward}");
         }
+    }
+
+    Vector3 FindNearestResetPoint()
+    {
+        int length = ResetPointManager.Instance.ResetPoints.Length;
+        
+        Vector3 nearestPoint = Vector3.zero;
+        float nearestDist = float.PositiveInfinity;
+
+        for(int i = 1; i < length; i++) //배열의 첫번째 오브젝트는 리셋 포인트들의 부모 오브젝트이기 때문에 제외
+        {
+            var pos = ResetPointManager.Instance.ResetPoints[i].position;
+            var dir = pos - m_player.transform.position;
+            var dotResult = Vector3.Dot(m_player.transform.forward, dir.normalized);
+            if (dotResult > 0) continue; //리셋 포인트의 위치가 플레이어의 위치보다 앞에 있다면 제외
+
+            var dist = dir.sqrMagnitude;
+            if (dist < nearestDist)
+            {
+                nearestPoint = pos;
+                nearestDist = dist;
+            }
+        }
+
+        return nearestPoint;
+    }
+
+    void SetPlayerForward()
+    {
+        switch (m_currReverseDir)
+        {
+            case ReverseDirection.Z:
+            case ReverseDirection.X:
+                m_player.transform.forward = Vector3.forward;
+                break;
+            case ReverseDirection.NegativeZ:
+            case ReverseDirection.NegativeX:
+                m_player.transform.forward = Vector3.back;
+                break;
+        }
+    }
+
+    void SetPlayerPosition(Vector3 pos)
+    {
+        m_player.transform.position = pos;
     }
     void CalculateBestTime()
     {
