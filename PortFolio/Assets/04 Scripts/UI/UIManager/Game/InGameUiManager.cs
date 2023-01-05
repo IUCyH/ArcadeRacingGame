@@ -169,11 +169,11 @@ public class InGameUiManager : Singleton<InGameUiManager>
         m_currTimeText.text = string.Format("{0:00}:{1:00}:{2:00}", minute, second, millisecond);
         
         Utill.ConvertTime(mapBestTime, out minute, out second, out millisecond);
-        m_playerBestTimeText.text = string.Format("??? ??? ???  <color=yellow><b>{0:00}:{1:00}:{2:00}</b></color>", minute, second, millisecond);
-        m_driftDistText.text = string.Format("????? <color=yellow><b>{0}</b></color> m", Mathf.Round(m_player.TotalDriftDist) * 10);
-        m_boosterCntText.text = string.Format("?ν??? <color=yellow><b>{0}</b></color> ?", m_player.BoosterCnt);
-        m_crashCntText.text = string.Format("?浹 ??? <color=yellow><b>{0}</b></color> ?", m_player.CrashCnt);
-        m_averageSpeedText.text = string.Format("??? ??? <color=yellow><b>{0}</b></color> km/h", Mathf.Round(averageSpeed));
+        m_playerBestTimeText.text = string.Format("주간 최고 기록  <color=yellow><b>{0:00}:{1:00}:{2:00}</b></color>", minute, second, millisecond);
+        m_driftDistText.text = string.Format("드리프트 <color=yellow><b>{0}</b></color> m", Mathf.Round(m_player.TotalDriftDist) * 10);
+        m_boosterCntText.text = string.Format("부스터 <color=yellow><b>{0}</b></color> 회", m_player.BoosterCnt);
+        m_crashCntText.text = string.Format("충돌 횟수 <color=yellow><b>{0}</b></color> 회", m_player.CrashCnt);
+        m_averageSpeedText.text = string.Format("평균 속도 <color=yellow><b>{0}</b></color> km/h", Mathf.Round(averageSpeed));
     }
     protected override void OnStart()
     {

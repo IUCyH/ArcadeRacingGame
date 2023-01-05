@@ -12,6 +12,7 @@ public enum BGMClip
 {
     TitleBGM,
     LobbyBGM,
+    VillageBGM,
     Max
 }
 public enum SFXClip
@@ -21,6 +22,7 @@ public enum SFXClip
     Select,
     Open,
     Close,
+    CountDown,
     Max
 }
 

@@ -1,8 +1,8 @@
 
 Ecsharpsquid:S3903"(Move 'AudioType' into a named namespace.(ú·ä
 Ccsharpsquid:S3903"&Move 'BGMClip' into a named namespace.(Ò¶Šî
-Hcsharpsquid:S3903"&Move 'SFXClip' into a named namespace.(·•éóşÿÿÿÿ
-Hcsharpsquid:S3903"+Move 'SoundManager' into a named namespace.(¸ÜÆ
+Hcsharpsquid:S3903"&Move 'SFXClip' into a named namespace.(·•éóşÿÿÿÿ
+Hcsharpsquid:S3903"+Move 'SoundManager' into a named namespace.(¸ÜÆ
 |csharpsquid:S2342"_Rename this enumeration to match the regular expression: '^([A-Z]{1,3}[a-z0-9]+)*([A-Z]{2})?$'.(Ò¶Šî
-csharpsquid:S2342"_Rename this enumeration to match the regular expression: '^([A-Z]{1,3}[a-z0-9]+)*([A-Z]{2})?$'.(·•éóşÿÿÿÿ
-Bcsharpsquid:S2933%" Make 'm_sfxPlayCnts' 'readonly'.(Üû€öûÿÿÿÿ
+csharpsquid:S2342"_Rename this enumeration to match the regular expression: '^([A-Z]{1,3}[a-z0-9]+)*([A-Z]{2})?$'.(·•éóşÿÿÿÿ
+Bcsharpsquid:S2933'" Make 'm_sfxPlayCnts' 'readonly'.(Üû€öûÿÿÿÿ

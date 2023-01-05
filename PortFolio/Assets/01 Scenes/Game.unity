@@ -2816,7 +2816,7 @@ MonoBehaviour:
   - {fileID: 1536979728}
   m_boosterUseCnt: 0
   m_defultChargingValue: 0.0006
-  m_boostChargingValue: 0.02
+  m_boostChargingValue: 0.005
   m_time: 0
   m_boosterTime: 2
   m_boosterMaxCnt: 2

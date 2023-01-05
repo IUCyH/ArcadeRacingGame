@@ -94,6 +94,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
         float time = 0f;
         int cnt = 3;
         InGameUiManager.Instance.StartCoroutine(InGameUiManager.Instance.Coroutine_TextScaleFadeIn(m_countText, m_scaleCurve, m_minScale, m_maxScale, 4));
+        SoundManager.Instance.PlaySFX(SFXClip.CountDown);
         
         while (true)
         {
@@ -295,6 +296,9 @@ public class GameSystemManager : Singleton<GameSystemManager>
     protected override void OnAwake()
     {
         m_currMapIndex = DataManager.Instance.PlayerData.currMap;
+        BGMClip bgm = DataManager.Instance.PlayerData.mapList[m_currMapIndex].data.bgm;
+        SoundManager.Instance.PlayBGM(bgm);
+        
         LoadData();
         InGameUiManager.Instance.SetActiveAllCanvas(false);
         m_warningImage.enabled = false;
@@ -303,11 +307,10 @@ public class GameSystemManager : Singleton<GameSystemManager>
         m_reverseDirDic.Add("Reverse_Z", ReverseDirection.Z);
         m_reverseDirDic.Add("Reverse_NegativeX", ReverseDirection.NegativeX);
         m_reverseDirDic.Add("Reverse_NegativeZ", ReverseDirection.NegativeZ);
-
-        StartCoroutine(Coroutine_CountDown());
     }
     protected override void OnStart()
     {
+        StartCoroutine(Coroutine_CountDown());
         var checkPoints = CheckPointManager.Instance.CheckPoints;
         m_checkPointsLength = checkPoints.Length;
         m_twoCpsDist = (checkPoints[m_checkPointsLength - 1].transform.position - checkPoints[0].transform.position).sqrMagnitude;

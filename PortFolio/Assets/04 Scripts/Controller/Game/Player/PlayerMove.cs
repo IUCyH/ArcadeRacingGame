@@ -27,6 +27,8 @@ public class PlayerMove : MonoBehaviour
     [SerializeField]
     float m_slipRateUpSlowValue;
     
+    public bool IsDrift { get; set; }
+    
     public void SetForwardSpeed(float speed)
     {
         m_forwardSpeed = speed;
@@ -80,6 +82,10 @@ public class PlayerMove : MonoBehaviour
 
     public void OnDriftKeyDown()
     {
+        if (!IsDrift)
+        {
+            IsDrift = true;
+        }
         m_slipRate -= m_slipRateDownValue;
         
         if (m_slipRate < 0.1f) m_slipRate = 0.1f;
@@ -88,7 +94,7 @@ public class PlayerMove : MonoBehaviour
 
     public void OnDriftKeyUp(int dir)
     {
-        if (m_slipRate >= 1f) return;
+        if (!IsDrift) return;
         
         if (InputManager.Horizontal() == dir)
         {
@@ -97,7 +103,11 @@ public class PlayerMove : MonoBehaviour
         else
             m_slipRate += m_slipRateUpFastValue;
 
-        if (m_slipRate > 1f) m_slipRate = 1f;
+        if (m_slipRate > 1f)
+        {
+            IsDrift = false;
+            m_slipRate = 1f;
+        }
         m_player.CarDrift(m_slipRate);
     }
 }

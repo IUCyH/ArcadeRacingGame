@@ -1,14 +1,15 @@
 
-Tcsharpsquid:S1125›"*Remove the unnecessary Boolean literal(s).(œ§¡ÿıÿÿÿÿ8Ş˜€ÉÖ0
+Mcsharpsquid:S1940"(Use the opposite operator ('<') instead.(Î—Â8¤ó¾á×0
+Ncsharpsquid:S1125"*Remove the unnecessary Boolean literal(s).(ßèğ^8Æ¦¼á×0
 Qcsharpsquid:S3903"/Move 'PlayerController' into a named namespace.(â „¦øÿÿÿÿ
-œcsharpsquid:S1186Õ"yAdd a nested comment explaining why this method is empty, throw a 'NotSupportedException' or complete the implementation.(ÚÖåíøÿÿÿÿ
+£csharpsquid:S1186×"yAdd a nested comment explaining why this method is empty, throw a 'NotSupportedException' or complete the implementation.(ÚÖåíøÿÿÿÿ8Æ¦¼á×0
 ?csharpsquid:S2933""Make 'm_kartPosY' 'readonly'.(‰åˆüşÿÿÿÿ
-Ycsharpsquid:S1066›"/Merge this if statement with the enclosing one.(œ§¡ÿıÿÿÿÿ8ÔªÿÈÖ0
+Scsharpsquid:S1066"/Merge this if statement with the enclosing one.(ßèğ^8Ç¦¼á×0
 Pcsharpsquid:S2190£"2Add a way to break out of this method's recursion.(á®Ú
-Mcsharpsquid:S1172Ù"0Remove this unused method parameter 'collision'.(Ò—–&
+Tcsharpsquid:S1172Û"0Remove this unused method parameter 'collision'.(Ò—–&8Ç¦¼á×0
 ~csharpsquid:S14505"aRemove the field 'm_wheelColliderPos' and declare it as a local variable in the relevant methods.(Ë®¡¦
 ˆcsharpsquid:S14506"fRemove the field 'm_wheelColliderRotation' and declare it as a local variable in the relevant methods.(Á›ÊØÿÿÿÿÿ
 gcsharpsquid:S2292…"DMake this an auto-implemented property and remove its backing field.(€ ÙÒúÿÿÿÿ
 <csharpsquid:S125¬"Remove this commented out code.(×­…
-Acsharpsquid:S125ò"Remove this commented out code.(—‚Âüÿÿÿÿ
-Hcsharpsquid:S125¯"Remove this commented out code.(ÁÇ¤„şÿÿÿÿ8ÿÙ‚ÈÖ0
+Hcsharpsquid:S125ô"Remove this commented out code.(—‚Âüÿÿÿÿ8Ç¦¼á×0
+Hcsharpsquid:S125±"Remove this commented out code.(ÁÇ¤„şÿÿÿÿ8Ç¦¼á×0

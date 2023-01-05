@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     int m_prevDir;
     [SerializeField]
-    bool m_isDrift; //드리프트를 하고있는지를 나타내는 boolean 변수
+    bool m_isDriftKeyDown;
     bool m_isStart; //시작했는지 알려주는 boolean 변수
 
     [Header("UI")]
@@ -276,12 +276,14 @@ public class PlayerController : MonoBehaviour
             m_boosterBar.fillAmount += m_defultChargingValue;
         }
 
-        if (m_isDrift && InputManager.Horizontal() != 0)
+        if (m_playerMoveCtr.IsDrift)
         {
             m_boosterBar.fillAmount += m_boostChargingValue;
         }
-        else if (!m_isDrift && m_boosterBar.fillAmount >= 1f)
+        else
         {
+            if(!(m_boosterBar.fillAmount >= 1f)) return;
+            
             m_boosterBar.fillAmount = 0f;
             if (m_boosterCnt < m_boosterMaxCnt - 1)
             {
@@ -401,17 +403,17 @@ public class PlayerController : MonoBehaviour
             if (dir != 0)
             {
                 Debug.Log($"Hand Break Key Down , dir -> {dir}");
-                m_isDrift = true;
+                m_isDriftKeyDown = true;
                 m_startDriftPosSum += transform.position;
                 m_dirX = dir;
             }
         }
         if(InputManager.GetKeyUp(Key.HandBreak))
         {
-            if (m_isDrift == true)
+            if (m_isDriftKeyDown == true)
             {
                 Debug.Log("Drift Key Up");
-                m_isDrift = false;
+                m_isDriftKeyDown = false;
                 m_endDriftPosSum += transform.position;
             }
         }
@@ -420,7 +422,7 @@ public class PlayerController : MonoBehaviour
             GameSystemManager.Instance.ResetPlayerPosition();
         }
 
-        if (m_isDrift)
+        if (m_isDriftKeyDown)
         {
             m_playerMoveCtr.OnDriftKeyDown();
         }

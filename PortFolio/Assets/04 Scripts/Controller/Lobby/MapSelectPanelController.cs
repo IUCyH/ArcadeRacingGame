@@ -163,12 +163,12 @@ public class MapSelectPanelController : MonoBehaviour, ILobbySubMenu
         var time = DataManager.Instance.PlayerData.mapList[m_currMapIndex].bestTime;
         if (time == float.PositiveInfinity)
         {
-            m_sb.Append("√÷∞Ì±‚∑œ : --:--:--");
+            m_sb.Append("ÏµúÍ≥†Í∏∞Î°ù : --:--:--");
             m_mapBestRecordText.text = m_sb.ToString();
             return;
         }    
         Utill.ConvertTime(time, out int minute, out int second, out int millisecond);
-        m_sb.AppendFormat("√÷∞Ì±‚∑œ : {0:00}:{1:00}:{2:00}", minute, second, millisecond);
+        m_sb.AppendFormat("ÏµúÍ≥†Í∏∞Î°ù : {0:00}:{1:00}:{2:00}", minute, second, millisecond);
         m_mapBestRecordText.text = m_sb.ToString();
     }
     void SetMapName()

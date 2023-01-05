@@ -1,0 +1,4 @@
+
+csharpsquid:S101"lRename class 'Lobby_GameModeSelect' to match pascal case naming rules, consider using 'LobbyGameModeSelect'.(ø”ÊÚüÿÿÿÿ
+Ucsharpsquid:S3903"3Move 'Lobby_GameModeSelect' into a named namespace.(ø”ÊÚüÿÿÿÿ
+Qcsharpsquid:S1172"/Remove this unused method parameter 'isShadow'.(°ğ–ñûÿÿÿÿ

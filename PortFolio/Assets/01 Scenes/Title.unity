@@ -1594,9 +1594,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_mapDataTable:
-  - name: Village Circuit
+  - bgm: 2
+    name: Village Circuit
     lapTime: 2
-  - name: City
+  - bgm: 1
+    name: City
     lapTime: 1
 --- !u!4 &337313752
 Transform:

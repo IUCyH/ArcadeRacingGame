@@ -31,6 +31,7 @@ public class CarInfo
 [Serializable]
 public class MapData
 {
+    public BGMClip bgm;
     public string name;
     public int lapTime;
 }
