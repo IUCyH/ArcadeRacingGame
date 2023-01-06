@@ -1,0 +1,6 @@
+
+Ecsharpsquid:S3903"#Move 'Menu' into a named namespace.(Íîòˆûÿÿÿÿ
+Ocsharpsquid:S3903"2Move 'ExitBtnOnClickEvent' into a named namespace.(©¥ÛÈ
+Jcsharpsquid:S3903"-Move 'LobbyUIManager' into a named namespace.(–¸æ
+wcsharpsquid:S14508"ZRemove the field 'm_kartIndex' and declare it as a local variable in the relevant methods.(“ÒÌ„
+;csharpsquid:S125T"Remove this commented out code.(¿¸’

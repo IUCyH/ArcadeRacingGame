@@ -19,6 +19,8 @@ public class GameSystemManager : Singleton<GameSystemManager>
     StringBuilder m_sb = new StringBuilder();
     Dictionary<string, ReverseDirection> m_reverseDirDic = new Dictionary<string, ReverseDirection>();
     [SerializeField]
+    CameraMove m_cameraMove;
+    [SerializeField]
     float m_twoCpsDist;
     [SerializeField]
     ReverseDirection m_currReverseDir;
@@ -88,13 +90,19 @@ public class GameSystemManager : Singleton<GameSystemManager>
     public float AverageSpeed { get { return (m_twoCpsDist / m_timer) * 3.6f; } }
     public float CurrentTime { get { return m_timer; } }
     public float ResetCoolDown { get { return m_resetCooldown; } }
-
+    
     IEnumerator Coroutine_CountDown()
     {
+        while (!m_cameraMove.IsMoveDone)
+        {
+            yield return null;
+        }
+        
         float time = 0f;
         int cnt = 3;
         InGameUiManager.Instance.StartCoroutine(InGameUiManager.Instance.Coroutine_TextScaleFadeIn(m_countText, m_scaleCurve, m_minScale, m_maxScale, 4));
         SoundManager.Instance.PlaySFX(SFXClip.CountDown);
+        SetCountDownCanvasEnabled(true);
         
         while (true)
         {
@@ -113,7 +121,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
                 m_countText.text = "시작";
 
                 InGameUiManager.Instance.SetActiveAllCanvas(true);
-                InGameUiManager.Instance.StartCoroutine(InGameUiManager.Instance.Coroutine_TextAlphaFadeout(m_countText, m_cntTextAlphaFadeOutduration, () => m_countCanvas.enabled = false));
+                InGameUiManager.Instance.StartCoroutine(InGameUiManager.Instance.Coroutine_TextAlphaFadeout(m_countText, m_cntTextAlphaFadeOutduration, () => SetCountDownCanvasEnabled(false)));
                 
                 m_player.OnGameStart();
                 m_isStart = true;
@@ -122,6 +130,11 @@ public class GameSystemManager : Singleton<GameSystemManager>
             }
             yield return null;
         }
+    }
+
+    void StartCountDown()
+    {
+        StartCoroutine(Coroutine_CountDown());
     }
     void OnReverse(bool isReverse)
     {
@@ -165,6 +178,7 @@ public class GameSystemManager : Singleton<GameSystemManager>
     }
     void OnFinish()
     {
+        m_cameraMove.StartMoving(true);
         string completeText = "완주 기록";
         float mapTime = DataManager.Instance.GetMapBestTime(m_currMapIndex);
 
@@ -286,6 +300,11 @@ public class GameSystemManager : Singleton<GameSystemManager>
         }
         m_prevPos = m_currPos;
     }
+
+    void SetCountDownCanvasEnabled(bool enabled)
+    {
+        m_countCanvas.enabled = enabled;
+    }
     void LoadData()
     {
         var playerData = DataManager.Instance.PlayerData;
@@ -310,12 +329,16 @@ public class GameSystemManager : Singleton<GameSystemManager>
     }
     protected override void OnStart()
     {
-        StartCoroutine(Coroutine_CountDown());
+        SetCountDownCanvasEnabled(false);
+        m_cameraMove.StartMoving();
+        StartCountDown();
+
         var checkPoints = CheckPointManager.Instance.CheckPoints;
         m_checkPointsLength = checkPoints.Length;
         m_twoCpsDist = (checkPoints[m_checkPointsLength - 1].transform.position - checkPoints[0].transform.position).sqrMagnitude;
         m_mapLapTime = MapManager.Instance.LapTime;
         m_nextCheckPoint = 0;
+        
         SetReverseDirection(ReverseDirection.Z);
         InGameUiManager.Instance.UpdateLapTimeText(m_mapLapTime, m_lapTime);
         InGameUiManager.Instance.SetUserProfile();

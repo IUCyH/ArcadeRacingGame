@@ -2,7 +2,7 @@
 Rcsharpsquid:S3903"0Move 'GameSystemManager' into a named namespace.(¢Á‰úÿÿÿÿ
 4csharpsquid:S2933"Make 'm_sb' 'readonly'.(òå‚õ
 Dcsharpsquid:S2933""Make 'm_reverseDirDic' 'readonly'.(ı€–¹üÿÿÿÿ
-?csharpsquid:S2933O"Make 'm_maxScale' 'readonly'.(¬š•øÿÿÿÿ
-9csharpsquid:S2933P"Make 'm_minScale' 'readonly'.(ƒÁ¡
-;csharpsquid:S2933Q"Make 'm_alphaFrom' 'readonly'.(‹ì«–
->csharpsquid:S2933R"Make 'm_alphaTo' 'readonly'.(ıØ¦Æûÿÿÿÿ
+?csharpsquid:S2933Q"Make 'm_maxScale' 'readonly'.(¬š•øÿÿÿÿ
+9csharpsquid:S2933R"Make 'm_minScale' 'readonly'.(ƒÁ¡
+;csharpsquid:S2933S"Make 'm_alphaFrom' 'readonly'.(‹ì«–
+>csharpsquid:S2933T"Make 'm_alphaTo' 'readonly'.(ıØ¦Æûÿÿÿÿ

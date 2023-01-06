@@ -775,17 +775,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AFToggle: {fileID: 1013859209}
---- !u!114 &136698760 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1442388832609228493, guid: 8833f6201d70aba45a1ceb5abb60de9f, type: 3}
-  m_PrefabInstance: {fileID: 1442388832473058629}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &156438043
 GameObject:
   m_ObjectHideFlags: 0
@@ -1596,7 +1585,7 @@ MonoBehaviour:
   m_mapDataTable:
   - bgm: 2
     name: Village Circuit
-    lapTime: 2
+    lapTime: 1
   - bgm: 1
     name: City
     lapTime: 1
@@ -2497,7 +2486,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 479958665}
-  m_LocalRotation: {x: 0.016203867, y: 0.9104398, z: -0.035827518, w: 0.41176853}
+  m_LocalRotation: {x: 0.016203862, y: 0.9104398, z: -0.035827514, w: 0.41176853}
   m_LocalPosition: {x: -46.27767, y: -4.404, z: 244.87978}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -12600,7 +12589,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_loadingPanel: {fileID: 1494110494}
   m_loadingValueText: {fileID: 1482063891}
-  m_loadingText: {fileID: 136698760}
   m_loadingProgressBar: {fileID: 1116204200}
 --- !u!223 &1796159088
 Canvas:
@@ -13654,7 +13642,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1967068146}
-  m_LocalRotation: {x: 0.016203867, y: 0.9104398, z: -0.035827518, w: 0.41176853}
+  m_LocalRotation: {x: 0.016203862, y: 0.9104398, z: -0.035827514, w: 0.41176853}
   m_LocalPosition: {x: -46.27767, y: -4.404, z: 244.87978}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
